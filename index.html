@@ -1,19 +1,56 @@
-<!doctype html>
-<title>Site Maintenance</title>
-<meta charset="UTF-8">
-<style>
-  body { text-align: center; padding: 150px; }
-  h1 { font-size: 50px; }
-  body { font: 20px Helvetica, sans-serif; color: #333; }
-  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-  a { color: #dc8100; text-decoration: none; }
-  a:hover { color: #333; text-decoration: none; }
-</style>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alejandro Mira</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
 
-<article>
-    <h1>We&rsquo;ll be back soon!</h1>
-    <div>
-        <p>Sorry for the inconvenience but I&rsquo;m performing some maintenance at the moment. If you need to you can always <a href="mailto:almiab1@epsg.upv.com">contact me</a>, otherwise I&rsquo;ll be back online shortly!</p>
-        <p>&mdash; Alejandro Mira</p>
-    </div>
-</article>
+  <body>
+    <nav class="navbar is-dark">
+      <!-- Logo / brand -->
+      <!-- <div class="navbar-brand">
+        <a class="navbar-item">
+          <img
+            src="-"
+            alt="site logo"
+          />
+        </a>
+      </div> -->
+
+      <!-- Nav bar burguer -->
+      <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+      
+      <!-- Nav bar items -->
+      <div class="navbar-menu" id="navMenu">
+        <div class="navbar-end">
+          <a href="#home" class="navbar-item">Home</a>
+          <a href="#aboutMe" class="navbar-item">About me</a>
+          <a href="#skills" class="navbar-item">Skills</a>
+          <a href="#projects" class="navbar-item">Projects</a>
+          <a href="#contact" class="navbar-item">Contact</a>
+        </div>
+      </div>
+
+    </nav>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Hello World</h1>
+        <p class="subtitle">My first website with <strong>Bulma</strong>!</p>
+      </div>
+    </section>
+
+    <!-- -------------------------------------- SCRIPTS ------------------------------------------------ -->
+    <script type="text/javascript" src="src/js/main.js"></script>
+
+  </body>
+</html>
