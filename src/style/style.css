@@ -1,4 +1,6 @@
-/* GENERAL CSS */
+/* ------------------------------------- */
+/*             GENERAL CSS               */
+/* ------------------------------------- */
 html,
 body {
   width: 100%;
@@ -12,7 +14,9 @@ section {
   height: 100vh;
 }
 
-/* Home */
+/* ------------------------------------- */
+/*               Home                    */
+/* ------------------------------------- */
 
 .hero {
   background: url(../media/fondoHero.jpg) no-repeat;
@@ -31,5 +35,9 @@ section {
 
 .title.is-2 {
     font-size: 3rem;
+}
+
+i.fab:hover  {
+  color: #3273DC;
 }
 
