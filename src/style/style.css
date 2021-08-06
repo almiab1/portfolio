@@ -1,0 +1,43 @@
+/* ------------------------------------- */
+/*             GENERAL CSS               */
+/* ------------------------------------- */
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: whitesmoke;
+}
+
+section {
+  height: 100vh;
+}
+
+/* ------------------------------------- */
+/*               Home                    */
+/* ------------------------------------- */
+
+.hero {
+  background: url(../media/fondoHero.jpg) no-repeat;
+  background-size: cover;
+  -khtml-opacity: 0.9;
+  -moz-opacity: 0.9;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=90);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.9);
+  opacity: 0.9;
+}
+
+.title.is-1 {
+    font-size: 5rem;
+}
+
+.title.is-2 {
+    font-size: 3rem;
+}
+
+i.fab:hover  {
+  color: #3273DC;
+}
+
