@@ -1,4 +1,10 @@
-// Toggle navbar
+// ------------------------------------------------------
+//                      main.js
+// ------------------------------------------------------
+
+// ------------------------------------------------------
+// Navbar functionalities
+// ------------------------------------------------------
 const burger = document.getElementById('navbar-burger');
 burger.addEventListener('click', () => {
   burger.classList.toggle('is-active');
@@ -12,6 +18,7 @@ for (i = 0; i < navItems.length; i++)
   navSections[i] = document.getElementById(navItems[i].dataset.target);
 
 const menuBarHeight = document.getElementById('menubar').offsetHeight;
+
 function isVisible(ele) {
   const r = ele.getBoundingClientRect();
   const h = (window.innerHeight || document.documentElement.clientHeight);
@@ -33,6 +40,7 @@ function activateIfVisible() {
 }
 
 var isTicking = null;
+
 window.addEventListener('scroll', () => {
   if (!isTicking) {
     window.requestAnimationFrame(() => {
