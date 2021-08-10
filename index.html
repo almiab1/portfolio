@@ -68,9 +68,9 @@
       <div class="hero-body">
         <div class="container is-max-widescreen has-text-centered">
           <div class="block">
-            <h1 class="block title is-2">
+            <h1 class="block title is-2 is-spaced">
               Welcome, I'm <br />
-              <strong class="title is-1">Alejandro Mira</strong>
+              <strong class="title is-1 is-spaced">Alejandro Mira</strong>
             </h1>
           </div>
 
@@ -98,15 +98,18 @@
     </section>
 
     <!-- ABOUT ME SECTION  -->
-    <section id="aboutMe" class="section is-large">
+    <section id="aboutMe" class="section is-medium">
       <div class="container is-fluid">
-        <div class="columns is-multiline">
+        <div class="columns is-mobile is-multiline is-vcentered">
+          <!-- Title Section -->
           <div class="column is-full">
             <div class="block">
-              <h1 class="title is-2">About Me</h1>
+              <h1 class="title is-2 is-spaced">
+                About <span class="resultTitle">Me</span>
+              </h1>
             </div>
           </div>
-          
+          <!-- Content Section -->
           <div class="column">
             <div class="columns is-multiline">
               <div class="column">
@@ -145,9 +148,9 @@
               </div>
             </div>
           </div>
-          <div class="column is-half">
+          <div class="column is-half-desktop is-0-mobile">
             <figure class="image">
-              <img src="src/media/me.jpg" />
+              <img src="src/media/me.jpg" style="width: 75%; height: 75%" />
             </figure>
           </div>
         </div>
@@ -156,10 +159,316 @@
     </section>
 
     <!-- SKILLS SECTION  -->
-    <section id="skills" class="section is-large">
+    <section id="skills" class="section is-medium">
       <div class="container is-fluid">
-        <h1 class="title">SKILLS</h1>
-        <p class="subtitle">Skills page <strong>3</strong>!</p>
+        <div class="columns is-mobile is-multiline">
+          <!-- Title section -->
+          <div class="column is-full">
+            <div class="block">
+              <h1 class="title is-2 is-spaced">
+                Skill'<span class="resultTitle">s</span>
+              </h1>
+            </div>
+          </div>
+          <!-- Content Section -->
+
+          <!-- Soft Skills -->
+          <div class="column is-full">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Soft Skills</div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Team Working</p>
+                      <progress
+                        class="progress is-normal is-success"
+                        value="100"
+                        max="100"
+                      >
+                        100%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Effective Communication
+                      </p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Analysis capacity
+                      </p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Agile Managment</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="65"
+                        max="100"
+                      >
+                        65%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Scrum</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="85"
+                        max="100"
+                      >
+                        85%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Projects management
+                      </p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="70"
+                        max="100"
+                      >
+                        70%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Technology Early Adopter
+                      </p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="95"
+                        max="100"
+                      >
+                        95%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Lifelong Learning
+                      </p>
+                      <progress
+                        class="progress is-normal is-success"
+                        value="100"
+                        max="100"
+                      >
+                        100%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Critical Thinking
+                      </p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Software Skills -->
+          <div class="column">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Software Skills</div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Python</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="85"
+                        max="100"
+                      >
+                        85%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">C++</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="70"
+                        max="100"
+                      >
+                        70%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Java</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">C#</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">JavaScript</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="65"
+                        max="100"
+                      >
+                        65%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Node.js</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="65"
+                        max="100"
+                      >
+                        65%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Git</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="85"
+                        max="100"
+                      >
+                        85%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">SQL</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="50"
+                        max="100"
+                      >
+                        50%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Vue</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="70"
+                        max="100"
+                      >
+                        70%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Ionic</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="70"
+                        max="100"
+                      >
+                        70%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">TypeScript</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="75"
+                        max="100"
+                      >
+                        75%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">
+                        Unix shell (Bash)
+                      </p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="50"
+                        max="100"
+                      >
+                        50%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Enviroments -->
+          <div class="column is-full">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Eviroments</div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">Unity</p>
+                      <progress
+                        class="progress is-normal is-primary"
+                        value="80"
+                        max="100"
+                      >
+                        80%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">AWS</p>
+                      <progress
+                        class="progress is-normal is-info"
+                        value="65"
+                        max="100"
+                      >
+                        65%
+                      </progress>
+                    </div>
+                    <div class="column is-one-third">
+                      <p class="subtitle has-text-centered">3D Studio Max</p>
+                      <progress
+                        class="progress is-normal is-warning"
+                        value="35"
+                        max="100"
+                      >
+                        35%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
