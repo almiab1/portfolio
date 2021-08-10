@@ -27,7 +27,7 @@ body {
   border-radius: 50px;
 }
 
-section {
+#home,#aboutMe {
   height: 100vh;
 }
 
