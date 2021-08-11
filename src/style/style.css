@@ -66,3 +66,31 @@ i.fab:hover  {
   color: #ffca84;
 }
 
+/* ------------------------------------- */
+/*               GRID                    */
+/* ------------------------------------- */
+
+.grid-item {
+  float: left;
+  width: 400px;
+  margin: 10px;
+}
+
+.grid {
+  margin: 0 auto; /* centered */
+}
+
+/* clear fix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ------------------------------------- */
+/*               GRID                    */
+/* ------------------------------------- */
+.tabs.projects li.is-active a {
+  border: 1px solid #D4AA70;
+  color: #D4AA70;
+}
