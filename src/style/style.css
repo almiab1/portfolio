@@ -27,7 +27,7 @@ body {
   border-radius: 50px;
 }
 
-#home {
+#home, #contact{
   height: 100vh;
 }
 
