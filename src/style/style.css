@@ -27,6 +27,10 @@ body {
   border-radius: 50px;
 }
 
+/* ------------------------------------- */
+/*               Sections                */
+/* ------------------------------------- */
+
 #home, #contact{
   height: 100vh;
 }
@@ -87,9 +91,6 @@ i.fab:hover  {
   clear: both;
 }
 
-/* ------------------------------------- */
-/*               GRID                    */
-/* ------------------------------------- */
 .tabs.projects li.is-active a {
   border: 1px solid #D4AA70;
   color: #D4AA70;
