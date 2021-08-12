@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html lang="es" class="has-navbar-fixed-top">
+<html lang="en" class="has-navbar-fixed-top">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alejandro Mira</title>
+    <meta name="author" content="Alejandro Mira" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Projects I've worked on recently" />
+    <meta name="keywords" content="portfolio,projects,work" />
+    <meta property="og:locale" content="en_gb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Portfolio" />
+    <meta
+      property="og:description"
+      content="Projects I've worked on recently"
+    />
+    <meta property="og:image" content="" />
+    <meta property="”og:url”" content="”permalink”" />
     <!-- CSS SHEETS -->
     <!-- BULMA -->
     <link
@@ -19,6 +32,8 @@
     />
     <!-- MY STYLE -->
     <link rel="stylesheet" href="src/style/style.css" />
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
   </head>
 
   <body>
@@ -473,11 +488,183 @@
     </section>
 
     <!-- PROJECTS SECTION  -->
-    <section id="projects" class="section is-large">
+    <section id="projects" class="section is-medium">
+      <!-- Title -->
       <div class="container is-fluid">
         <div class="block">
-          <h1 class="title">PROJECTS</h1>
-          <p class="subtitle">Projects page <strong>4</strong>!</p>
+          <h1 class="title"><span class="resultTitle">PROJ</span>ECTS</h1>
+        </div>
+
+        <!-- Selection -->
+        <div class="block">
+          <div class="tabs projects is-left sort-by-button-group">
+            <ul>
+              <li class="is-active">
+                <a data-filter=".grid-item"> All </a>
+              </li>
+              <li>
+                <a data-filter=".ai"> AI </a>
+              </li>
+              <li>
+                <a data-filter=".game"> Game </a>
+              </li>
+              <li>
+                <a data-filter=".web"> Web </a>
+              </li>
+              <li>
+                <a data-filter=".electronic"> Electronic </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="block">
+          <div class="columns">
+            <div class="column">
+              <div class="grid">
+                <!-- TFG -->
+                <div class="card grid-item ai">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img src="src/media/tfg.png" alt="TFG image" />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">
+                          Neuroevolutionary AI
+                        </p>
+                      </div>
+                    </div>
+  
+                    <div class="content">
+                      <p>AI by Neuroevotulion method for MTG</p>
+                      <div class="tags">
+                        <span class="tag is-dark">AI</span>
+                        <span class="tag is-dark">Machine Learning</span>
+                        <span class="tag is-dark">Neuroevolution</span>
+                        <span class="tag is-dark">MTG</span>
+                      </div>
+                      <time datetime="2021-7-22">2021</time>
+                    </div>
+                  </div>
+                </div>
+                <!-- Cookobot -->
+                <div class="card grid-item electronic web">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img src="src/media/cookobot.png" alt="Cookobot Image"/>
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">
+                          Cookobot
+                        </p>
+                      </div>
+                    </div>
+  
+                    <div class="content">
+                      <p>Robot witch cross-platform ecosystem</p>
+                      <div class="tags">
+                        <span class="tag is-dark">ROS</span>
+                        <span class="tag is-dark">VueJS</span>
+                        <span class="tag is-dark">Bulma</span>
+                        <span class="tag is-dark">TensorFlow</span>
+                      </div>
+                      <time datetime="2021-7-22">2020</time>
+                    </div>
+                  </div>
+                </div>
+                <!-- Lost Scout -->
+                <div class="card grid-item game">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img src="src/media/lostScout2.png" alt="Lost Scout Image" />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">
+                          Lost Scout
+                        </p>
+                      </div>
+                    </div>
+  
+                    <div class="content">
+                      <p>3D video game based on puzzles</p>
+                      <div class="tags">
+                        <span class="tag is-dark">Unity</span>
+                        <span class="tag is-dark">C#</span>
+                        <span class="tag is-dark">3D Studio Max</span>
+                      </div>
+                      <time datetime="2021-7-22">2019</time>
+                    </div>
+                  </div>
+                </div>
+                <!-- Smart Scale  -->
+                <div class="card grid-item electronic">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img src="src/media/smartScale.png" alt="Smart Scale Image" />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">
+                          Smart Scale
+                        </p>
+                      </div>
+                    </div>
+  
+                    <div class="content">
+                      <p>Smart scale with mobile app</p>
+                      <div class="tags">
+                        <span class="tag is-dark">Android</span>
+                        <span class="tag is-dark">Firebase</span>
+                        <span class="tag is-dark">ESP32</span>
+                      </div>
+                      <time datetime="2021-7-22">2018</time>
+                    </div>
+                  </div>
+                </div>
+                <!-- Field Sensors  -->
+                <div class="card grid-item electronic web">
+                  <div class="card-image">
+                    <figure class="image is-4by3">
+                      <img src="src/media/fieldSensors.png" alt="Smart Scale Image" />
+                    </figure>
+                  </div>
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-content">
+                        <p class="title is-4">
+                          Remote crop monitoring
+                        </p>
+                      </div>
+                    </div>
+  
+                    <div class="content">
+                      <p>Remote crop monitoring by sensor system</p>
+                      <div class="tags">
+                        <span class="tag is-dark">JavaScript</span>
+                        <span class="tag is-dark">Arduino</span>
+                        <span class="tag is-dark">MySqlite</span>
+                        <span class="tag is-dark">Express</span>
+                      </div>
+                      <time datetime="2021-7-22">2017 - 2018</time>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </section>

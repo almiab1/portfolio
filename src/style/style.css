@@ -27,7 +27,11 @@ body {
   border-radius: 50px;
 }
 
-#home {
+/* ------------------------------------- */
+/*               Sections                */
+/* ------------------------------------- */
+
+#home, #contact{
   height: 100vh;
 }
 
@@ -66,3 +70,28 @@ i.fab:hover  {
   color: #ffca84;
 }
 
+/* ------------------------------------- */
+/*               GRID                    */
+/* ------------------------------------- */
+
+.grid-item {
+  float: left;
+  width: 50vh;
+  margin: 10px;
+}
+
+.grid {
+  margin: 0 auto; /* centered */
+}
+
+/* clear fix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.tabs.projects li.is-active a {
+  border: 1px solid #D4AA70;
+  color: #D4AA70;
+}
