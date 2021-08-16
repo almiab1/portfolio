@@ -3,26 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alejandro Mira</title>
+    <title>Alejandro Mira | Videogame and AI Dev</title>
     <meta name="author" content="Alejandro Mira" />
     <meta name="robots" content="index, follow" />
-    <meta name="description" content="Projects I've worked on recently" />
-    <meta name="keywords" content="portfolio,projects,work" />
+    <meta
+      name="description"
+      content="Videogame and Artificial Intelligence Developer, I recently
+    graduated from the Interactive Technologies Degree at the
+    Universitat Politecnica de Valencia."
+    />
+    <meta
+      name="keywords"
+      content="about me, alejandro mira, alejandro mira abad, skills, portfolio,projects,work"
+    />
     <meta property="og:locale" content="en_gb" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Portfolio" />
+    <meta
+      property="og:title"
+      content="Videogame and Artificial Intelligence Developer"
+    />
     <meta
       property="og:description"
-      content="Projects I've worked on recently"
+      content="Videogame and Artificial Intelligence Developer, I recently
+      graduated from the Interactive Technologies Degree at the
+      Universitat Politecnica de Valencia."
     />
     <meta property="og:image" content="" />
     <meta property="”og:url”" content="”permalink”" />
+
     <!-- CSS SHEETS -->
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.min.css" />
     <!-- BULMA -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
-    />
+
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -30,10 +43,9 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <!-- MY STYLE -->
-    <link rel="stylesheet" href="src/style/style.css" />
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
+    <link rel="stylesheet" href="src/style/style.css" />
+    <!-- MY STYLE -->
   </head>
 
   <body>
@@ -98,11 +110,16 @@
 
           <!-- Icons -->
           <div class="block">
-            <a class="icon is-large" href="https://github.com/almiab1">
+            <a
+              class="icon is-large"
+              target="blank"
+              href="https://github.com/almiab1"
+            >
               <i class="fab fa-2x fa-github-square"></i>
             </a>
             <a
               class="icon is-large"
+              target="blank"
               href="https://www.linkedin.com/in/alejandro-mira/"
             >
               <i class="fab fa-2x fa-linkedin"></i>
@@ -165,7 +182,7 @@
           </div>
           <div class="column is-half-desktop is-0-mobile">
             <figure class="image">
-              <img src="src/media/me.jpg" style="width: 75%; height: 75%" />
+              <img src="src/media/img/me.jpg" style="width: 75%; height: 75%" />
             </figure>
           </div>
         </div>
@@ -176,7 +193,7 @@
     <!-- SKILLS SECTION  -->
     <section id="skills" class="section is-medium">
       <div class="container is-fluid">
-        <div class="columns is-mobile is-multiline">
+        <div id="my_skills" class="columns is-mobile is-multiline">
           <!-- Title section -->
           <div class="column is-full">
             <div class="block">
@@ -194,108 +211,19 @@
                 <div class="card-header-title title is-4">Soft Skills</div>
               </div>
               <div class="card-content">
-                <div class="content">
+                <div class="content container is-fluid">
                   <div class="columns is-multiline is-vcentered">
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Team Working</p>
+                    <div
+                      class="column is-one-third"
+                      v-for="skill in soft_skills"
+                    >
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
                       <progress
-                        class="progress is-normal is-success"
-                        value="100"
+                        class="progress is-normal is-warning"
+                        :value="`${skill.value}`"
                         max="100"
                       >
-                        100%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Effective Communication
-                      </p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="75"
-                        max="100"
-                      >
-                        75%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Analysis capacity
-                      </p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="75"
-                        max="100"
-                      >
-                        75%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Agile Managment</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="65"
-                        max="100"
-                      >
-                        65%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Scrum</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="85"
-                        max="100"
-                      >
-                        85%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Projects management
-                      </p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="70"
-                        max="100"
-                      >
-                        70%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Technology Early Adopter
-                      </p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="95"
-                        max="100"
-                      >
-                        95%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Lifelong Learning
-                      </p>
-                      <progress
-                        class="progress is-normal is-success"
-                        value="100"
-                        max="100"
-                      >
-                        100%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Critical Thinking
-                      </p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="75"
-                        max="100"
-                      >
-                        75%
+                        {{skill.value}}%
                       </progress>
                     </div>
                   </div>
@@ -303,8 +231,9 @@
               </div>
             </div>
           </div>
+
           <!-- Software Skills -->
-          <div class="column">
+          <div class="column is-full">
             <div class="card">
               <div class="cardheader">
                 <div class="card-header-title title is-4">Software Skills</div>
@@ -312,126 +241,17 @@
               <div class="card-content">
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Python</p>
+                    <div
+                      class="column is-one-third"
+                      v-for="skill in software_skills"
+                    >
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
                       <progress
-                        class="progress is-normal is-primary"
-                        value="85"
+                        class="progress is-normal is-warning"
+                        :value="`${skill.value}`"
                         max="100"
                       >
-                        85%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">C++</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="70"
-                        max="100"
-                      >
-                        70%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Java</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="75"
-                        max="100"
-                      >
-                        75%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">C#</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="75"
-                        max="100"
-                      >
-                        75%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">JavaScript</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="65"
-                        max="100"
-                      >
-                        65%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Node.js</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="65"
-                        max="100"
-                      >
-                        65%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Git</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="85"
-                        max="100"
-                      >
-                        85%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">SQL</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="50"
-                        max="100"
-                      >
-                        50%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Vue</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="70"
-                        max="100"
-                      >
-                        70%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Ionic</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="70"
-                        max="100"
-                      >
-                        70%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">TypeScript</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="75"
-                        max="100"
-                      >
-                        75%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">
-                        Unix shell (Bash)
-                      </p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="50"
-                        max="100"
-                      >
-                        50%
+                        {{skill.value}}%
                       </progress>
                     </div>
                   </div>
@@ -448,34 +268,17 @@
               <div class="card-content">
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">Unity</p>
-                      <progress
-                        class="progress is-normal is-primary"
-                        value="80"
-                        max="100"
-                      >
-                        80%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">AWS</p>
-                      <progress
-                        class="progress is-normal is-info"
-                        value="65"
-                        max="100"
-                      >
-                        65%
-                      </progress>
-                    </div>
-                    <div class="column is-one-third">
-                      <p class="subtitle has-text-centered">3D Studio Max</p>
+                    <div
+                      class="column is-one-third"
+                      v-for="skill in enviroments"
+                    >
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
                       <progress
                         class="progress is-normal is-warning"
-                        value="35"
+                        :value="`${skill.value}`"
                         max="100"
                       >
-                        35%
+                        {{skill.value}}%
                       </progress>
                     </div>
                   </div>
@@ -492,7 +295,7 @@
       <!-- Title -->
       <div class="container is-fluid">
         <div class="block">
-          <h1 class="title"><span class="resultTitle">PROJ</span>ECTS</h1>
+          <h1 class="title"><span class="resultTitle">PRO</span>JECTS</h1>
         </div>
 
         <!-- Selection -->
@@ -519,150 +322,45 @@
         </div>
 
         <!-- Projects -->
-        <div class="block">
+        <div id="my_projects" class="block">
           <div class="columns">
             <div class="column">
               <div class="grid">
-                <!-- TFG -->
-                <div class="card grid-item ai">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="src/media/tfg.png" alt="TFG image" />
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">
-                          Neuroevolutionary AI
-                        </p>
-                      </div>
+                <a
+                  href="#projects"
+                  class="portfolio-link"
+                  v-for="proj in projects"
+                >
+                  <div class="card grid-item" :class="`${proj.filter}`">
+                    <div class="card-image">
+                      <figure class="image is-4by3">
+                        <img :src="`${proj.main_img}`" alt="TFG image" />
+                      </figure>
                     </div>
-  
-                    <div class="content">
-                      <p>AI by Neuroevotulion method for MTG</p>
-                      <div class="tags">
-                        <span class="tag is-dark">AI</span>
-                        <span class="tag is-dark">Machine Learning</span>
-                        <span class="tag is-dark">Neuroevolution</span>
-                        <span class="tag is-dark">MTG</span>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-content">
+                          <p class="title is-4">{{proj.title}}</p>
+                        </div>
                       </div>
-                      <time datetime="2021-7-22">2021</time>
-                    </div>
-                  </div>
-                </div>
-                <!-- Cookobot -->
-                <div class="card grid-item electronic web">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="src/media/cookobot.png" alt="Cookobot Image"/>
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">
-                          Cookobot
-                        </p>
-                      </div>
-                    </div>
-  
-                    <div class="content">
-                      <p>Robot witch cross-platform ecosystem</p>
-                      <div class="tags">
-                        <span class="tag is-dark">ROS</span>
-                        <span class="tag is-dark">VueJS</span>
-                        <span class="tag is-dark">Bulma</span>
-                        <span class="tag is-dark">TensorFlow</span>
-                      </div>
-                      <time datetime="2021-7-22">2020</time>
-                    </div>
-                  </div>
-                </div>
-                <!-- Lost Scout -->
-                <div class="card grid-item game">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="src/media/lostScout2.png" alt="Lost Scout Image" />
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">
-                          Lost Scout
-                        </p>
-                      </div>
-                    </div>
-  
-                    <div class="content">
-                      <p>3D video game based on puzzles</p>
-                      <div class="tags">
-                        <span class="tag is-dark">Unity</span>
-                        <span class="tag is-dark">C#</span>
-                        <span class="tag is-dark">3D Studio Max</span>
-                      </div>
-                      <time datetime="2021-7-22">2019</time>
-                    </div>
-                  </div>
-                </div>
-                <!-- Smart Scale  -->
-                <div class="card grid-item electronic">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="src/media/smartScale.png" alt="Smart Scale Image" />
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">
-                          Smart Scale
-                        </p>
-                      </div>
-                    </div>
-  
-                    <div class="content">
-                      <p>Smart scale with mobile app</p>
-                      <div class="tags">
-                        <span class="tag is-dark">Android</span>
-                        <span class="tag is-dark">Firebase</span>
-                        <span class="tag is-dark">ESP32</span>
-                      </div>
-                      <time datetime="2021-7-22">2018</time>
-                    </div>
-                  </div>
-                </div>
-                <!-- Field Sensors  -->
-                <div class="card grid-item electronic web">
-                  <div class="card-image">
-                    <figure class="image is-4by3">
-                      <img src="src/media/fieldSensors.png" alt="Smart Scale Image" />
-                    </figure>
-                  </div>
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-content">
-                        <p class="title is-4">
-                          Remote crop monitoring
-                        </p>
-                      </div>
-                    </div>
-  
-                    <div class="content">
-                      <p>Remote crop monitoring by sensor system</p>
-                      <div class="tags">
-                        <span class="tag is-dark">JavaScript</span>
-                        <span class="tag is-dark">Arduino</span>
-                        <span class="tag is-dark">MySqlite</span>
-                        <span class="tag is-dark">Express</span>
-                      </div>
-                      <time datetime="2021-7-22">2017 - 2018</time>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
+                      <div class="content">
+                        <p>{{proj.sort_about}}</p>
+                        <div class="tags">
+                          <span
+                            v-for="id in proj.id_tarjects"
+                            class="tag is-dark"
+                            >{{id}}</span
+                          >
+                        </div>
+                        <time datetime="{proj.datetime}"
+                          >{{proj.sort_data}}</time
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -678,6 +376,15 @@
     </section>
 
     <!-- -------------------------------------- SCRIPTS ------------------------------------------------ -->
+    <!-- Scipts -->
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/isotope-layout/dist/isotope.pkgd.min.js"></script>
+
+    <!-- Vue components -->
+    <script type="text/javascript" src="src/js/sections/projects.js"></script>
+    <script type="text/javascript" src="src/js/sections/skills.js"></script>
+
+    <!-- Main JS -->
     <script type="text/javascript" src="src/js/main.js"></script>
   </body>
 </html>

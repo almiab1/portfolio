@@ -48,7 +48,7 @@ body {
 /* ------------------------------------- */
 
 .hero {
-  background: url(../media/fondoHero.jpg) no-repeat;
+  background: url(../media/img/fondoHero.jpg) no-repeat;
   background-size: cover;
   -khtml-opacity: 0.9;
   -moz-opacity: 0.9;
