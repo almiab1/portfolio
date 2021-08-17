@@ -72,8 +72,8 @@ var iso = new Isotope('.grid', {
   itemSelector: '.grid-item',
   resize: true,
   masonry: {
-      // set to the element
-      isFitWidth: true
+    // set to the element
+    isFitWidth: true
   }
 });
 
@@ -81,15 +81,15 @@ var iso = new Isotope('.grid', {
 var sortByGroup = document.querySelector('.sort-by-button-group');
 
 // Filter event
-var filter = function(event) {
+var filter = function (event) {
   // only <a> clicks
   if (!matchesSelector(event.target, 'a')) {
-      return;
+    return;
   }
   var filterValue = event.target.getAttribute('data-filter');
   // Filter
   iso.arrange({
-      filter: filterValue
+    filter: filterValue
   });
 
   // Switch is-active effect
