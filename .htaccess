@@ -6,13 +6,11 @@
 # -----------------------------------------------------------------------------------
 #                                 .html url
 # -----------------------------------------------------------------------------------
-# mod_rewrite start here and
-
 RewriteEngine on
 
 # does not apply to existing directories, mmeaning that if the folder exists on the server then don't chamge anything and don't run the Rule!
 
-# RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d
 
 # Check for file in directory with .html extensions
 
@@ -38,11 +36,11 @@ deny from all
 
 # ------------------------------ evita el hotlink -----------------------------------
 
-RewriteEngine on
+# RewriteEngine on
 
 RewriteCond %{HTTP_REFERER} !^$
 
-RewriteCond %{HTTP_REFERER} !^http://(www\.)?tudominio\.com/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?alejandromira\.com/.*$ [NC]
 
 RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 
@@ -51,7 +49,7 @@ RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 #                                 charge images
 # -----------------------------------------------------------------------------------
 
-#Cache de imágenes en el navegador durante un mes
+# Cache de imágenes en el navegador durante un mes
 
 <FilesMatch "\.(ico|jpg|jpeg|png|gif)$">
 

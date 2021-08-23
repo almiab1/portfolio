@@ -9,8 +9,8 @@ var projects_data = [
     about: "AI by Neuroevotulion method for MTG",
     filter: "ai",
     id_tarjects: ["AI", "Machine Learning", "Neuroevolution", "MTG"],
-    main_img: "src/media/img/tfg.png",
-    imgs: ["src/media/img/tfg.png"],
+    main_img: "./src/img/tfg.png",
+    imgs: ["./src/img/tfg.png"],
     datetime: "2021-7-22",
     sort_data: "2021"
   },
@@ -20,8 +20,8 @@ var projects_data = [
     about: "Robot witch cross-platform ecosystem",
     filter: "electronic web",
     id_tarjects: ["ROS", "VueJS", "Bulma", "TensorFlow"],
-    main_img: "src/media/img/cookobot.png",
-    imgs: ["src/media/img/cookobot.png"],
+    main_img: "./src/img/cookobot.png",
+    imgs: ["./src/img/cookobot.png"],
     datetime: "2020-6-2",
     sort_data: "2020"
   },
@@ -31,8 +31,8 @@ var projects_data = [
     about: "3D video game based on puzzles",
     filter: "game",
     id_tarjects: ["Unity","C#","3D Studio Max"],
-    main_img: "src/media/img/lostScout2.png",
-    imgs: ["src/media/img/lostScout2.png"],
+    main_img: "./src/img/lostScout2.png",
+    imgs: ["./src/img/lostScout2.png"],
     datetime: "2019-6-22",
     sort_data: "2019"
   },
@@ -42,10 +42,10 @@ var projects_data = [
     about: "Smart scale with mobile app",
     filter: "electronic",
     id_tarjects: ["Android", "Firebase", "ESP32"],
-    main_img: "src/media/img/smartScale.png",
-    imgs: ["src/media/img/smartScale.png"],
+    main_img: "./src/img/smartScale.png",
+    imgs: ["./src/img/smartScale.png"],
     datetime: "2020-6-2",
-    sort_data: "2020"
+    sort_data: "2018"
   },
   {
     title: "Remote crop monitoring",
@@ -53,8 +53,8 @@ var projects_data = [
     about: "Remote crop monitoring by sensor system",
     filter: "electronic web",
     id_tarjects: ["JavaScript", "Arduino", "MySqlite", "Express"],
-    main_img: "src/media/img/fieldSensors.png",
-    imgs: ["src/media/img/fieldSensors.png"],
+    main_img: "./src/img/fieldSensors.png",
+    imgs: ["./src/img/fieldSensors.png"],
     datetime: "2018-6-14",
     sort_data: "2017 - 2018"
   },
