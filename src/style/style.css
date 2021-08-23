@@ -60,7 +60,7 @@ body {
 /* ------------------------------------- */
 
 .hero {
-  background: url(../img/fondoHero.jpg) no-repeat;
+  background: url(../images/fondoHero.jpg) no-repeat;
   background-size: cover;
   -khtml-opacity: 0.9;
   -moz-opacity: 0.9;
@@ -163,22 +163,6 @@ home-btn {
   margin: 1rem;
 }
 
-@media screen and (max-width: 600px) {
-  .grid {
-    margin: 0;
-  }
-
-  .grid-item {
-    float: left;
-    width: 25em;
-    margin: 5% 0 5% 0;
-  }
-
-  .tabs-mobile li li.is-active a{
-    font-size: small;
-  }
-}
-
 /* clear fix */
 .grid:after {
   content: "";
@@ -201,7 +185,7 @@ home-btn {
 
 #contact {
   background-color: var(--color-icon);
-  background: url(../img/fondoContact.jpg) no-repeat;
+  background: url(../images/fondoContact.jpg) no-repeat;
   background-size: cover;
   -khtml-opacity: 0.9;
   -moz-opacity: 0.9;
@@ -305,4 +289,26 @@ a.mail {
 .wrapper .mail:hover .tooltip::before {
   background-color: var(--mail-icon);
   color: #ffffff;
+}
+
+
+
+
+/* Mobile */
+
+
+@media screen and (max-width: 768px) {
+  .grid {
+    margin: 0;
+  }
+
+  .grid-item {
+    float: left;
+    width: 25em;
+    margin: 5% 0 5% 0;
+  }
+
+  .tabs-mobile li li.is-active a{
+    font-size: small;
+  }
 }
