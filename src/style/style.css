@@ -4,7 +4,7 @@
 
 /* Colors */
 :root {
-  --primary: #D4AA70;
+  --primary: #d4aa70;
 }
 
 html,
@@ -37,7 +37,8 @@ body {
 /*               Sections                */
 /* ------------------------------------- */
 
-#home, #contact{
+#home,
+#contact {
   height: 100vh;
 }
 
@@ -45,8 +46,8 @@ body {
 /* Titles */
 /* ------------------------------------- */
 
-.resultTitle{
-  color:  var(--primary);
+.resultTitle {
+  color: var(--primary);
 }
 
 /* ------------------------------------- */
@@ -64,15 +65,7 @@ body {
   opacity: 0.9;
 }
 
-.title.is-1 {
-    font-size: 5rem;
-}
-
-.title.is-2 {
-    font-size: 3rem;
-}
-
-i.fab:hover  {
+i.home-fab:hover {
   color: #ffca84;
 }
 
@@ -98,11 +91,43 @@ i.fab:hover  {
 }
 
 .tabs.projects li.is-active a {
-  border: 1px solid  var(--primary);
-  color:  var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.progress {
+  color: var(--primary);
 }
 
 
-.progress{
-  color: var(--primary);
+/* Contact Section */
+
+#contact {
+  background: url(../media/img/fondoContact.jpg) no-repeat;
+  background-size: cover;
+  -khtml-opacity: 0.9;
+  -moz-opacity: 0.9;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=90);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.9);
+  opacity: 0.9;
+}
+
+/* Btn contact section */
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* Text Color */
+
+.light-contact {
+  color: #FEFEFE;
 }
