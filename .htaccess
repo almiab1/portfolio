@@ -12,9 +12,9 @@ RewriteEngine on
 
 # does not apply to existing directories, mmeaning that if the folder exists on the server then don't chamge anything and don't run the Rule!
 
-# RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-d
 
-# Check for file in directory with .html extensions
+# # Check for file in directory with .html extensions
 
 RewriteCond %{REQUEST_FILENAME}/.html -f
  
@@ -28,13 +28,13 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 # --------------------------- prevenir acceso a los archivos .htaccess --------------
 
-# <files .htaccess>
+<files .htaccess>
 
-# order allow,deny
+order allow,deny
 
-# # deny from all
+deny from all
 
-# </files>
+</files>
 
 # ------------------------------ evita el hotlink -----------------------------------
 
