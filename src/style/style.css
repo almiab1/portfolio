@@ -60,7 +60,7 @@ body {
 /* ------------------------------------- */
 
 .hero {
-  background: url(/src/media/img/fondoHero.jpg) no-repeat;
+  background: url('/src/media/img/fondoHero.jpg') no-repeat;
   background-size: cover;
   -khtml-opacity: 0.9;
   -moz-opacity: 0.9;
@@ -188,8 +188,8 @@ home-btn {
 /* ------------------------------------- */
 
 #contact {
-  background: url(./src/media/img/fondoContact.jpg) no-repeat;
-  background-color: var(--color-icon);
+  background-color: var(--color-icon); 
+  background: url('/src/media/img/fondoContact.jpg') no-repeat;
   background-size: cover;
   -khtml-opacity: 0.9;
   -moz-opacity: 0.9;
