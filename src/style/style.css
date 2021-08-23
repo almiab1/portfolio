@@ -191,6 +191,12 @@ home-btn {
   background-color: var(--color-icon); 
   background: url(../media/img/fondoContact.jpg) no-repeat;
   background-size: cover;
+  -khtml-opacity: 0.9;
+  -moz-opacity: 0.9;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=90);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.9);
+  opacity: 0.9;
 }
 /* Text Color */
 
