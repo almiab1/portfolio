@@ -28,13 +28,13 @@ RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
 # --------------------------- prevenir acceso a los archivos .htaccess --------------
 
-<files .htaccess>
+# <files .htaccess>
 
-order allow,deny
+# order allow,deny
 
-deny from all
+# # deny from all
 
-</files>
+# </files>
 
 # ------------------------------ evita el hotlink -----------------------------------
 
@@ -44,14 +44,14 @@ RewriteCond %{HTTP_REFERER} !^$
 
 RewriteCond %{HTTP_REFERER} !^http://(www\.)?alejandromira\.com/.*$ [NC]
 
-# RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
+RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 
 
 # -----------------------------------------------------------------------------------
 #                                 charge images
 # -----------------------------------------------------------------------------------
 
-#Cache de imágenes en el navegador durante un mes
+# Cache de imágenes en el navegador durante un mes
 
 <FilesMatch "\.(ico|jpg|jpeg|png|gif)$">
 
