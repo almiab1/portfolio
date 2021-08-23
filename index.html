@@ -1,19 +1,378 @@
-<!doctype html>
-<title>Site Maintenance</title>
-<meta charset="UTF-8">
-<style>
-  body { text-align: center; padding: 150px; }
-  h1 { font-size: 50px; }
-  body { font: 20px Helvetica, sans-serif; color: #333; }
-  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
-  a { color: #dc8100; text-decoration: none; }
-  a:hover { color: #333; text-decoration: none; }
-</style>
+<!DOCTYPE html>
+<html lang="en" class="has-navbar-fixed-top">
+  <head>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ---------------------------------------Meta's webpage ----------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
 
-<article>
-    <h1>We&rsquo;ll be back soon!</h1>
-    <div>
-        <p>Sorry for the inconvenience but I&rsquo;m performing some maintenance at the moment. If you need to you can always <a href="mailto:almiab1@epsg.upv.com">contact me</a>, otherwise I&rsquo;ll be back online shortly!</p>
-        <p>&mdash; Alejandro Mira</p>
-    </div>
-</article>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alejandro Mira | Videogame and AI Dev</title>
+    <meta name="author" content="Alejandro Mira" />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="description"
+      content="Videogame and Artificial Intelligence Developer, I recently
+    graduated from the Interactive Technologies Degree at the
+    Universitat Politecnica de Valencia."
+    />
+    <meta name="keywords" content="about me, alejandro mira, alejandro mira abad, skills, portfolio, projects, work" />
+    <meta property="og:locale" content="en_gb" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Videogame and Artificial Intelligence Developer" />
+    <meta
+      property="og:description"
+      content="Videogame and Artificial Intelligence Developer, I recently
+      graduated from the Interactive Technologies Degree at the
+      Universitat Politecnica de Valencia."
+    />
+    <meta property="og:image" content="" />
+    <meta property="”og:url”" content="”permalink”" />
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------- CSS ---------------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- ------------------------------------- BULMA --------------------------------------------------- -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <!-- ---------------------------------- Font Awesome ----------------------------------------------- -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- ------------------------------------ My Style ------------------------------------------------- -->
+    <link rel="stylesheet" href="src/style/style.css" />
+  </head>
+
+  <body>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- ----------------------------------------- Menu ------------------------------------------------ -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <nav class="navbar is-fixed-top is-dark" role="navigation" aria-label="main navigation">
+      <!-- Nav bar burguer -->
+      <a
+        id="navbar-burger"
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="menubar"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+
+      <!-- Nav bar items -->
+      <div id="menubar" class="navbar-menu">
+        <div class="navbar-end">
+          <a href="#home" class="navbar-item" data-target="home">Home</a>
+          <a href="#aboutMe" class="navbar-item" data-target="aboutMe">About me</a>
+          <a href="#skills" class="navbar-item" data-target="skills">Skills</a>
+          <a href="#projects" class="navbar-item" data-target="projects">Projects</a>
+          <a href="#contact" class="navbar-item" data-target="contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- --------------------------------------- Sections ---------------------------------------------- -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- -------------------------------------- HOME SECTION ------------------------------------------- -->
+    <section id="home" class="hero is-dark is-large">
+      <div class="hero-body">
+        <div class="container is-max-widescreen has-text-centered">
+          <div class="block">
+            <h1 class="block title is-2 is-spaced">
+              Welcome, I'm <br />
+              <strong class="title is-1 is-spaced">Alejandro Mira</strong>
+            </h1>
+          </div>
+
+          <div class="block">
+            <h2 class="subtitle is-4">Game and Artificial Intelligence Developer</h2>
+            <p class="subtitle is-4">This is my resume</p>
+          </div>
+
+          <!-- Icons -->
+          <div class="home-btn block">
+            <ul class="icon-list">
+              <li class="icon-item">
+                <a class="icon-link" target="blank" href="https://github.com/almiab1">
+                  <i class="fab fa-github-square"></i>
+                </a>
+              </li>
+              <li class="icon-item">
+                <a class="icon-link" target="blank" href="https://www.linkedin.com/in/alejandro-mira/">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------- ABOUT ME SECTION ---------------------------------------- -->
+    <section id="aboutMe" class="section is-medium">
+      <div class="container is-fluid">
+        <div class="columns is-mobile is-multiline is-vcentered">
+          <!-- Title Section -->
+          <div class="column is-full">
+            <div class="block">
+              <h1 class="title is-2 is-spaced">About <span class="resultTitle">Me</span></h1>
+            </div>
+          </div>
+          <!-- Content Section -->
+          <div class="column">
+            <div class="columns is-multiline">
+              <div class="column">
+                <div class="block">
+                  <p>
+                    Videogame and Artificial Intelligence Developer, I recently graduated from the Interactive
+                    Technologies Degree at the Universitat Politecnica de Valencia.
+                  </p>
+                </div>
+              </div>
+
+              <div class="column is-full">
+                <div class="block">
+                  <p>
+                    In my passage through the university degree I have developed different skills that help me to
+                    develop the work I do optimally. I am hard-working and I am used to work in a team, with experience
+                    in teamwork using agile methodologies such as Scrum.
+                  </p>
+                </div>
+              </div>
+
+              <div class="column is-full">
+                <div class="block">
+                  <p>
+                    I am passionate about technology and therefore I am in continuous evolution and learning looking for
+                    new challenges and goals to meet. I am used to face complex problems that require a general vision
+                    for its resolution, being able to solve in a technical way with ease since I am used to use
+                    different programming languages.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half-desktop is-0-mobile">
+            <figure class="image">
+              <img src="src/media/img/me.jpg" style="width: 75%; height: 75%" />
+            </figure>
+          </div>
+        </div>
+        <div class="content"></div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------- SKILLS SECTION ------------------------------------------ -->
+    <section id="skills" class="section is-medium">
+      <div class="container is-fluid">
+        <div id="my_skills" class="columns is-mobile is-multiline">
+          <!-- ------------------------------- Title section  ---------------------------------------- -->
+          <div class="column is-full">
+            <div class="block">
+              <h1 class="title is-2 is-spaced">Skill'<span class="resultTitle">s</span></h1>
+            </div>
+          </div>
+
+          <!-- -------------------------------- Skills Section --------------------------------------- -->
+
+          <!-- --------------------------------- Soft Skills ----------------------------------------- -->
+          <div class="column is-full">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Soft Skills</div>
+              </div>
+              <div class="card-content">
+                <div class="content container is-fluid">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third" v-for="skill in soft_skills">
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
+                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                        {{skill.value}}%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ------------------------------- Software Skills --------------------------------------- -->
+          <div class="column is-full">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Software Skills</div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third" v-for="skill in software_skills">
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
+                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                        {{skill.value}}%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ------------------------------- Enviroments ------------------------------------------- -->
+          <div class="column is-full">
+            <div class="card">
+              <div class="cardheader">
+                <div class="card-header-title title is-4">Eviroments</div>
+              </div>
+              <div class="card-content">
+                <div class="content">
+                  <div class="columns is-multiline is-vcentered">
+                    <div class="column is-one-third" v-for="skill in enviroments">
+                      <p class="subtitle has-text-centered">{{skill.name}}</p>
+                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                        {{skill.value}}%
+                      </progress>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------- PROJECTS SECTION ---------------------------------------- -->
+    <section id="projects" class="section is-medium">
+      <!-- ----------------------------------------- Title ------------------------------------------- -->
+      <div class="container is-fluid">
+        <div class="block">
+          <h1 class="title"><span class="resultTitle">PRO</span>JECTS</h1>
+        </div>
+
+        <!-- ------------------------------------- Selection ----------------------------------------- -->
+        <div class="block">
+          <div class="tabs projects is-left sort-by-button-group">
+            <ul>
+              <li class="is-active">
+                <a data-filter=".grid-item"> All </a>
+              </li>
+              <li>
+                <a data-filter=".ai"> AI </a>
+              </li>
+              <li>
+                <a data-filter=".game"> Game </a>
+              </li>
+              <li>
+                <a data-filter=".web"> Web </a>
+              </li>
+              <li>
+                <a data-filter=".electronic"> Electronic </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ------------------------------------- Projects ------------------------------------------ -->
+        <div id="my_projects" class="block">
+          <div class="columns">
+            <div class="column">
+              <div class="grid">
+                <a href="#projects" class="portfolio-link" v-for="proj in projects">
+                  <div class="card grid-item" :class="`${proj.filter}`">
+                    <div class="card-image">
+                      <figure class="image is-4by3">
+                        <img :src="`${proj.main_img}`" alt="TFG image" />
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-content">
+                          <p class="title is-4">{{proj.title}}</p>
+                        </div>
+                      </div>
+
+                      <div class="content">
+                        <p>{{proj.sort_about}}</p>
+                        <div class="tags">
+                          <span v-for="id in proj.id_tarjects" class="tag is-dark">{{id}}</span>
+                        </div>
+                        <time datetime="{proj.datetime}">{{proj.sort_data}}</time>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------- CONTACT SECTION ----------------------------------------- -->
+    <section id="contact" class="section is-large">
+      <div class="container is-fluid content is-dark">
+        <div class="columns is-multiline is-vcentered">
+          <div class="column is-full has-text-centered">
+            <h1 class="title is-2"><span class="light-contact">Get in Touch!</span></h1>
+            <p class="subtitle" style="margin-top: 0.5rem">
+              <span class="light-contact">
+                Whether it's for a cup of coffee, general questions, or how I can help your site out, please feel free
+                to reach out!
+              </span>
+            </p>
+          </div>
+          <div class="column is-full" style="margin-top: 2rem">
+            <div id="contact_interactive" class="columns is-multiline is-vcentered has-text-centered">
+              <!-- Mail -->
+              <div class="column">
+                <div class="wrapper">
+                  <a target="blank" href="https://www.linkedin.com/in/alejandro-mira/" class="contact icon linkedin">
+                    <div class="tooltip">Linkedin</div>
+                    <span><i class="fab fa-linkedin-in"></i></span>
+                  </a>
+                  <a target="blank" href="https://github.com/almiab1" class="contact icon github">
+                    <div class="tooltip">Github</div>
+                    <span><i class="fab fa-github"></i></span>
+                  </a>
+                  <a target="blank" href="mailto:miraabad.alejandro@gmail.com" class="contact icon mail">
+                    <div class="tooltip">Email</div>
+                    <span><i class="fas fa-envelope"></i></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- ----------------------------------------------------------------------------------------------- -->
+    <!-- -------------------------------------- SCRIPTS ------------------------------------------------ -->
+    <!-- ----------------------------------------------------------------------------------------------- -->
+
+    <!-- --------------------------------------- VueJS ------------------------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <!-- --------------------------------------- Isotope ----------------------------------------------- -->
+    <script src="src/js/plugins/isotope.pkgd.min.js"></script>
+
+    <!-- ----------------------------------- Vue components -------------------------------------------- -->
+    <script type="text/javascript" src="src/js/sections/projects.js"></script>
+    <script type="text/javascript" src="src/js/sections/skills.js"></script>
+
+    <!-- --------------------------------------- Main JS ----------------------------------------------- -->
+    <script type="text/javascript" src="src/js/main.js"></script>
+  </body>
+</html>

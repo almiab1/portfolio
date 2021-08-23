@@ -1,0 +1,296 @@
+/* ------------------------------------- */
+/*             GENERAL CSS               */
+/* ------------------------------------- */
+
+/* Colors */
+
+:root {
+  --primary: #d4aa70;
+  --color-icon: #535c68;  
+  --github-icon: #333333;  
+  --linkedin-icon: #3b5999;  
+  --mail-icon: #de463b;  
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: whitesmoke;
+
+  scrollbar-color: var(--primary) #e4e4e4;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 50px;
+}
+
+/* ------------------------------------- */
+/*               Sections                */
+/* ------------------------------------- */
+
+#home,
+#contact {
+  height: 100vh;
+}
+
+/* ------------------------------------- */
+/* Titles */
+/* ------------------------------------- */
+
+.resultTitle {
+  color: var(--primary);
+}
+
+/* ------------------------------------- */
+/*               Home                    */
+/* ------------------------------------- */
+
+.hero {
+  background: url(../media/img/fondoHero.jpg) no-repeat;
+  background-size: cover;
+  -khtml-opacity: 0.9;
+  -moz-opacity: 0.9;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=90);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.9);
+  opacity: 0.9;
+}
+
+/* ------------------------------------- */
+/*            Home icons                 */
+/* ------------------------------------- */
+
+
+home-btn {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  background: var(--bg);
+  z-index: -10;
+}
+
+.icon-list {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-item {
+  list-style: none
+}
+
+.icon-link {  
+  display: inline-flex;
+  font-size: 2rem;  
+  text-decoration: none;  
+  color: var(--color-icon);
+  width: 6rem;
+  height: 6rem;   
+  transition: .5s linear;
+  position: relative;
+  z-index: 1;
+  margin: auto
+}
+
+.icon-link:hover {
+  color: #fff;
+}
+
+.icon-link i {
+  margin: auto;    
+}
+
+.icon-link::before {  
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 6rem;
+  height: 6rem;
+  background: #000;
+  border-radius: 50%;
+  z-index: -1;
+  transform: scale(0);
+  transition: 0.3s cubic-bezier(.95, .32, .37, 1.21);
+}
+  
+.icon-link:hover::before {  
+  transform: scale(1);
+}
+
+.icon-item:nth-child(1) a:hover:before { 
+  background: var(--github-icon);
+}
+
+.icon-item:nth-child(2) a:hover:before { 
+  background: var(--linkedin-icon); 
+}
+
+/* ------------------------------------- */
+/*              Skills                   */
+/* ------------------------------------- */
+
+.progress.is-warning::-moz-progress-bar{
+  background-color: var(--primary);
+}
+
+
+/* ------------------------------------- */
+/*               GRID                    */
+/* ------------------------------------- */
+
+.grid-item {
+  float: left;
+  width: 50vh;
+  margin: 10px;
+}
+
+.grid {
+  margin: 0 auto; /* centered */
+}
+
+/* clear fix */
+.grid:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.tabs.projects li.is-active a {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.progress {
+  color: var(--primary);
+}
+
+
+/* ------------------------------------- */
+/*          Contact Section              */
+/* ------------------------------------- */
+
+#contact {
+  background: url(../media/img/fondoContact.jpg) no-repeat;
+  background-size: cover;
+  -khtml-opacity: 0.9;
+  -moz-opacity: 0.9;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=90);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.9);
+  opacity: 0.9;
+}
+/* Text Color */
+
+.light-contact {
+  color: #FEFEFE;
+}
+
+a.linkedin{
+  color: var(--linkedin-icon)
+}
+a.github{
+  color: var(--github-icon)
+}
+a.mail{
+  color: var(--mail-icon)
+}
+
+
+.wrapper {
+  display: inline-flex;
+}
+
+.wrapper .icon {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 15px;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background-color: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .linkedin:hover,
+.wrapper .linkedin:hover .tooltip,
+.wrapper .linkedin:hover .tooltip::before {
+  background-color: var(--linkedin-icon);
+  color: #ffffff;
+}
+
+.wrapper .github:hover,
+.wrapper .github:hover .tooltip,
+.wrapper .github:hover .tooltip::before {
+  background-color: var(--github-icon);
+  color: #ffffff;
+}
+
+.wrapper .mail:hover,
+.wrapper .mail:hover .tooltip,
+.wrapper .mail:hover .tooltip::before {
+  background-color: var(--mail-icon);
+  color: #ffffff;
+}
