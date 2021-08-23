@@ -70,11 +70,10 @@ body {
   opacity: 0.9;
 }
 
-i.home-fab:hover {
-  color: #ffca84;
-}
+/* ------------------------------------- */
+/*            Home icons                 */
+/* ------------------------------------- */
 
-/* Home icons */
 
 home-btn {
   width: 100%;
@@ -143,6 +142,15 @@ home-btn {
 .icon-item:nth-child(2) a:hover:before { 
   background: var(--linkedin-icon); 
 }
+
+/* ------------------------------------- */
+/*              Skills                   */
+/* ------------------------------------- */
+
+.progress.is-warning::-moz-progress-bar{
+  background-color: var(--primary);
+}
+
 
 /* ------------------------------------- */
 /*               GRID                    */
