@@ -181,7 +181,7 @@
           <!-- ------------------------------- Title section  ---------------------------------------- -->
           <div class="column is-full">
             <div class="block">
-              <h1 class="title is-2 is-spaced">Skill'<span class="resultTitle">s</span></h1>
+              <h1 class="title is-2 is-spaced">Skill<span class="resultTitle">s</span></h1>
             </div>
           </div>
 
@@ -232,7 +232,7 @@
           <div class="column is-full">
             <div class="card">
               <div class="cardheader">
-                <div class="card-header-title title is-4">Eviroments</div>
+                <div class="card-header-title title is-4">Environments</div>
               </div>
               <div class="card-content">
                 <div class="content">
@@ -263,7 +263,7 @@
         <!-- ------------------------------------- Selection ----------------------------------------- -->
         <div class="block">
           <div class="tabs projects is-left sort-by-button-group">
-            <ul>
+            <ul class="tabs-mobile">
               <li class="is-active">
                 <a data-filter=".grid-item"> All </a>
               </li>
@@ -290,7 +290,7 @@
               <div class="grid">
                 <a href="#projects" class="portfolio-link" v-for="proj in projects">
                   <div class="card grid-item" :class="`${proj.filter}`">
-                    <div class="card-image">
+                    <div class="card-image ">
                       <figure class="image is-4by3">
                         <img :src="`${proj.main_img}`" alt="Project Image" />
                       </figure>
