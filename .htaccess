@@ -38,13 +38,13 @@ deny from all
 
 # ------------------------------ evita el hotlink -----------------------------------
 
-RewriteEngine on
+# RewriteEngine on
 
-RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^$
 
-RewriteCond %{HTTP_REFERER} !^http://(www\.)?alejandromira\.com/.*$ [NC]
+# RewriteCond %{HTTP_REFERER} !^http://(www\.)?alejandromira\.com/.*$ [NC]
 
-RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
+# RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 
 
 # -----------------------------------------------------------------------------------
