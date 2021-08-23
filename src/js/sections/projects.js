@@ -45,7 +45,7 @@ var projects_data = [
     main_img: "./src/media/img/smartScale.png",
     imgs: ["./src/media/img/smartScale.png"],
     datetime: "2020-6-2",
-    sort_data: "2020"
+    sort_data: "2018"
   },
   {
     title: "Remote crop monitoring",
