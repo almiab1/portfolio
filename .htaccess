@@ -42,7 +42,7 @@ RewriteEngine on
 
 RewriteCond %{HTTP_REFERER} !^$
 
-RewriteCond %{HTTP_REFERER} !^http://(www\.)?tudominio\.com/.*$ [NC]
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?alejandromira\.com/.*$ [NC]
 
 RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 
@@ -53,8 +53,8 @@ RewriteRule .*\.(jpg|gif|bmp|png|mp4)$ [L]
 
 #Cache de imágenes en el navegador durante un mes
 
-<FilesMatch "\.(ico|jpg|jpeg|png|gif)$">
+# <FilesMatch "\.(ico|jpg|jpeg|png|gif)$">
 
-Header set Cache-Control "max-age=2592000, public"
+# Header set Cache-Control "max-age=2592000, public"
 
-</FilesMatch>
+# </FilesMatch>
