@@ -70,3 +70,13 @@ const my_projects = new Vue({
     projects: projects_data
   }
 })
+
+
+const contact_interactive = new Vue({
+  el: '#contact_interactive',
+  data: {
+    git_btn_active: false,
+    linkedin_btn_active: false,
+    mail_btn_active: false,
+  }
+})
