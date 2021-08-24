@@ -146,7 +146,11 @@ home-btn {
 /*              Skills                   */
 /* ------------------------------------- */
 
-.progress.is-warning::-moz-progress-bar  {
+.progress.is-warning::-webkit-progress-value {
+  background-color: var(--primary);
+}
+
+.progress.is-warning::-moz-progress-bar {
   background-color: var(--primary);
 }
 
