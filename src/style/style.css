@@ -146,7 +146,7 @@ home-btn {
 /*              Skills                   */
 /* ------------------------------------- */
 
-.progress.is-warning::-moz-progress-bar {
+.progress.is-warning::-moz-progress-bar  {
   background-color: var(--primary);
 }
 
@@ -319,5 +319,11 @@ a.mail {
 
   .tabs-mobile li li.is-active a{
     font-size: small;
+  }
+
+  /* Contact */
+
+  #contact div.container, #home div.container {
+    margin-top: 45%;
   }
 }
