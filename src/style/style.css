@@ -293,11 +293,20 @@ a.mail {
 
 
 
-
-/* Mobile */
-
+/* ------------------------------------- */
+/*              Mobile                   */
+/* ------------------------------------- */
 
 @media screen and (max-width: 768px) {
+  
+  /* About me - Mobile */
+
+  #aboutMe div.container{
+    padding: 5% 0 5% 0;
+    text-align: justify;
+  }
+
+  /* Projects - Mobile */
   .grid {
     margin: 0;
   }
