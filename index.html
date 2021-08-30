@@ -164,15 +164,69 @@
               </div>
             </div>
           </div>
+
+          <!--  Img  -->
           <div class="column is-half-desktop is-0-mobile">
             <figure class="image">
               <img src="./src/img/me.jpg" style="width: 75%; height: 75%" />
             </figure>
           </div>
+
+          <!-- Btns -->
+          <div class="column is-full">
+            <div class="columns is-multiline is-vcentered">
+              <div class="column is-half-tablet is-2 has-text-centered">
+                <button class="button modal-button is-dark is-outlined" data-target="#modalCV">Download CV</button>
+              </div>
+              <div class="column is-half-tablet is-2 has-text-centered">
+                <a href="#contact" class="button modal-button is-dark is-outlined">Hire me</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="content"></div>
       </div>
     </section>
+
+    <!-- Modal buttons -->
+    <div id="modalCV" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="container is-fluid">
+          <div class="card">
+            <div class="cardheader">
+              <div class="card-header-title title is-4">In which language do you want it?</div>
+            </div>
+            <div class="card-content">
+              <div class="container is-fluid">
+                <div class="columns">
+                  <!-- Spn btn -->
+                  <div class="column is-half has-text-centered">
+                    <a href="/src/cv/esp/CV_MiraAbad_Alejandro.pdf" target="blank" class="spn" download="CV_MiraAbad_Alejandro_Castellano">
+                      <span>Spanish</span>
+                      <svg width="13px" height="10px" viewBox="0 0 13 10" class="hide-mobile-min">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                  <!-- English btn -->
+                  <div class="column is-half has-text-centered">
+                    <a href="/src/cv/eng/CV_MiraAbad_Alejandro.pdf" target="blank" class="eng" download="CV_MiraAbad_Alejandro_English">
+                      <span>English</span>
+                      <svg width="13px" height="10px" viewBox="0 0 13 10" class="hide-mobile-min">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
 
     <!-- ------------------------------------- SKILLS SECTION ------------------------------------------ -->
     <section id="skills" class="section is-medium">
@@ -197,10 +251,19 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in soft_skills">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -218,16 +281,26 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in software_skills">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <!-- ------------------------------- Enviroments ------------------------------------------- -->
           <div class="column is-full">
             <div class="card">
@@ -238,10 +311,19 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in enviroments">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
