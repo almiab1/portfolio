@@ -197,10 +197,19 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in soft_skills">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -218,16 +227,26 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in software_skills">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <!-- ------------------------------- Enviroments ------------------------------------------- -->
           <div class="column is-full">
             <div class="card">
@@ -238,10 +257,19 @@
                 <div class="content">
                   <div class="columns is-multiline is-vcentered">
                     <div class="column is-one-third" v-for="skill in enviroments">
-                      <p class="subtitle has-text-centered">{{skill.name}}</p>
-                      <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
-                        {{skill.value}}%
-                      </progress>
+                      <div class="columns is-multiline is-vcentered">
+                        <div class="column is-full-mobile is-9-tablet is-three-quarters">
+                          <p class="subtitle">{{skill.name}}</p>
+                        </div>
+                        <div v-show="!isMobile()" class="column is-3-tablet is-one-quarter">
+                          <p class="subtitle has-text-right">{{skill.value}}%</p>
+                        </div>
+                        <div class="column is-full">
+                          <progress class="progress is-normal is-warning" :value="`${skill.value}`" max="100">
+                            {{skill.value}}%
+                          </progress>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

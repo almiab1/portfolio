@@ -117,5 +117,10 @@ var enviroments_data = [
         soft_skills: soft_skills_data,
         software_skills: software_skills_data,
         enviroments: enviroments_data,
+    },
+    methods: {
+      isMobile:  function() {
+        return (document.documentElement.clientWidth <= 800);
+      }
     }
   })
