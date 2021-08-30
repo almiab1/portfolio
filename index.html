@@ -164,15 +164,65 @@
               </div>
             </div>
           </div>
+
+          <!--  Img  -->
           <div class="column is-half-desktop is-0-mobile">
             <figure class="image">
               <img src="./src/img/me.jpg" style="width: 75%; height: 75%" />
             </figure>
           </div>
+
+          <!-- Btns -->
+          <div class="column is-full">
+            <div class="columns is-multiline is-vcentered">
+              <div class="column is-half-tablet is-2 has-text-centered">
+                <button class="button modal-button is-dark is-outlined" data-target="#modalCV">Download CV</button>
+              </div>
+              <div class="column is-half-tablet is-2 has-text-centered">
+                <a href="#contact" class="button modal-button is-dark is-outlined">Hire me</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="content"></div>
       </div>
     </section>
+
+    <!-- Modal buttons -->
+    <div id="modalCV" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">In which language do you want it?</p>
+        </header>
+        <section class="modal-card-body">
+          <div class="container is-multiline is-vcentered">
+            <div class="columns">
+              <div class="column is-half has-text-centered">
+                <!-- <a href="" target="blank" class="button btn-spn is-dark">Spain</a> -->
+                <a href="/src/cv/esp/CV_MiraAbad_Alejandro.pdf" target="blank" class="spn" download="">
+                  <span>Spanish</span>
+                  <svg width="13px" height="10px" viewBox="0 0 13 10">
+                    <path d="M1,5 L11,5"></path>
+                    <polyline points="8 1 12 5 8 9"></polyline>
+                  </svg>
+                </a>
+              </div>
+              <div class="column is-half has-text-centered">
+                <!-- <a href="" target="blank" class="button is-dark">Spain</a> -->
+                <a  href="/src/cv/eng/CV_MiraAbad_Alejandro.pdf" target="blank" class="eng" download="">
+                  <span>English</span>
+                  <svg width="13px" height="10px" viewBox="0 0 13 10">
+                    <path d="M1,5 L11,5"></path>
+                    <polyline points="8 1 12 5 8 9"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
 
     <!-- ------------------------------------- SKILLS SECTION ------------------------------------------ -->
     <section id="skills" class="section is-medium">
