@@ -146,9 +146,8 @@ home-btn {
 /*              About me                 */
 /* ------------------------------------- */
 
-.modal-card-body {
-  border-end-end-radius: 0.5rem;
-  border-end-start-radius: 0.5rem;
+.card-content-modal {
+  border-radius: 5rem;
 }
 
 
@@ -383,6 +382,11 @@ a.mail {
 /* ------------------------------------- */
 /*              Mobile                   */
 /* ------------------------------------- */
+@media screen and (max-width: 400px) {
+  .hide-mobile-min{
+    display: none;
+  }
+}
 
 @media screen and (max-width: 768px) {
   

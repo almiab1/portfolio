@@ -190,36 +190,40 @@
     <!-- Modal buttons -->
     <div id="modalCV" class="modal">
       <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">In which language do you want it?</p>
-        </header>
-        <section class="modal-card-body">
-          <div class="container is-multiline is-vcentered">
-            <div class="columns">
-              <div class="column is-half has-text-centered">
-                <!-- <a href="" target="blank" class="button btn-spn is-dark">Spain</a> -->
-                <a href="/src/cv/esp/CV_MiraAbad_Alejandro.pdf" target="blank" class="spn" download="">
-                  <span>Spanish</span>
-                  <svg width="13px" height="10px" viewBox="0 0 13 10">
-                    <path d="M1,5 L11,5"></path>
-                    <polyline points="8 1 12 5 8 9"></polyline>
-                  </svg>
-                </a>
-              </div>
-              <div class="column is-half has-text-centered">
-                <!-- <a href="" target="blank" class="button is-dark">Spain</a> -->
-                <a  href="/src/cv/eng/CV_MiraAbad_Alejandro.pdf" target="blank" class="eng" download="">
-                  <span>English</span>
-                  <svg width="13px" height="10px" viewBox="0 0 13 10">
-                    <path d="M1,5 L11,5"></path>
-                    <polyline points="8 1 12 5 8 9"></polyline>
-                  </svg>
-                </a>
+      <div class="modal-content">
+        <div class="container is-fluid">
+          <div class="card">
+            <div class="cardheader">
+              <div class="card-header-title title is-4">In which language do you want it?</div>
+            </div>
+            <div class="card-content">
+              <div class="container is-fluid">
+                <div class="columns">
+                  <!-- Spn btn -->
+                  <div class="column is-half has-text-centered">
+                    <a href="/src/cv/esp/CV_MiraAbad_Alejandro.pdf" target="blank" class="spn" download="CV_MiraAbad_Alejandro_Castellano">
+                      <span>Spanish</span>
+                      <svg width="13px" height="10px" viewBox="0 0 13 10" class="hide-mobile-min">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                  <!-- English btn -->
+                  <div class="column is-half has-text-centered">
+                    <a href="/src/cv/eng/CV_MiraAbad_Alejandro.pdf" target="blank" class="eng" download="CV_MiraAbad_Alejandro_English">
+                      <span>English</span>
+                      <svg width="13px" height="10px" viewBox="0 0 13 10" class="hide-mobile-min">
+                        <path d="M1,5 L11,5"></path>
+                        <polyline points="8 1 12 5 8 9"></polyline>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
