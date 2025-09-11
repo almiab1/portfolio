@@ -1,0 +1,27 @@
+---
+import Header from "@/components/core/Header";
+import "../styles/global.css";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Alejandro Mira — GenAI & AI Engineer",
+  description = "Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.",
+} = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  </head>
+  <body class="bg-background text-foreground min-h-screen">
+    <Header client:load />
+    <slot />
+  </body>
+</html>

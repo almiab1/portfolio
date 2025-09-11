@@ -1,0 +1,21 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const projects = await getCollection("projects");
+---
+
+<Layout title="Proyectos — GenAI & Agentes">
+  <main class="mx-auto grid max-w-6xl gap-6 px-6 py-12 md:grid-cols-2">
+    {
+      projects.map((p) => (
+        <a
+          href={`/work/${p.slug}`}
+          class="block rounded-xl border p-5 hover:shadow"
+        >
+          <h2 class="text-xl font-semibold">{p.data.title}</h2>
+          <p class="opacity-80">{p.data.summary}</p>
+        </a>
+      ))
+    }
+  </main>
+</Layout>

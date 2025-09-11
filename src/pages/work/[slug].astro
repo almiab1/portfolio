@@ -1,0 +1,24 @@
+---
+import Layout from "@/layouts/BaseLayout.astro";
+import { ldCreativeWork } from "@/lib/schema";
+import { getEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const data = project.data;
+---
+<Layout title={`${data.title} — Case Study`} description={data.summary}>
+  <script type="application/ld+json">{JSON.stringify(ldCreativeWork({ title: data.title, date: data.date }))}</script>
+  <article class="prose dark:prose-invert max-w-3xl mx-auto px-6 py-12">
+    <h1>{data.title}</h1>
+    <p class="lead">{data.summary}</p>
+    <slot /> {/* si renderizas MDX del entry, puedes importarlo con Content */}
+  </article>
+</Layout>

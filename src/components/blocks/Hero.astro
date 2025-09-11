@@ -1,0 +1,177 @@
+---
+import { Button } from "@/components/ui/button";
+import {
+  ArrowDown,
+  Github,
+  Linkedin,
+  Mail,
+  Brain,
+  Code2,
+  Sparkles,
+} from "lucide-react";
+---
+
+<section
+  class="relative flex min-h-screen items-center justify-center overflow-hidden"
+>
+  {/* Background Pattern */}
+  <div
+    class="from-primary/10 via-background to-secondary/10 absolute inset-0 bg-gradient-to-br"
+  >
+  </div>
+  <div
+    class="absolute inset-0 bg-[url('/abstract-ai-neural-network.png')] bg-cover bg-center opacity-10"
+  >
+  </div>
+
+  <div class="absolute top-20 left-10 animate-pulse">
+    <Brain className="text-primary/30 h-8 w-8" />
+  </div>
+  <div class="absolute top-40 right-20 animate-bounce delay-1000">
+    <Code2 className="text-secondary/40 h-6 w-6" />
+  </div>
+  <div class="absolute bottom-40 left-20 animate-pulse delay-500">
+    <Sparkles className="text-primary/25 h-7 w-7" />
+  </div>
+
+  <div class="relative z-10 container mx-auto px-4">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        {/* Left side - Content */}
+        <div class="order-2 text-center lg:order-1 lg:text-left">
+          <h1
+            class="mb-6 text-4xl font-bold text-balance md:text-5xl lg:text-6xl"
+          >
+            Ingeniero de <span class="text-primary"
+              >Inteligencia Artificial</span
+            >
+          </h1>
+
+          <p class="text-muted-foreground mb-8 text-lg text-pretty md:text-xl">
+            Especializado en <strong class="text-primary">GenAI</strong> y sistemas
+            de agentes basados en{" "}
+            <strong class="text-secondary">LLMs</strong>. Desarrollo soluciones
+            innovadoras que transforman ideas en realidad mediante IA
+            generativa.
+          </p>
+
+          <div
+            class="mb-8 flex flex-wrap justify-center gap-3 lg:justify-start"
+          >
+            <span
+              class="bg-primary/20 text-primary rounded-full px-3 py-1 text-sm font-medium"
+              >LangChain</span
+            >
+            <span
+              class="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-sm font-medium"
+            >
+              OpenAI
+            </span>
+            <span
+              class="bg-primary/20 text-primary rounded-full px-3 py-1 text-sm font-medium"
+              >Next.js</span
+            >
+            <span
+              class="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-sm font-medium"
+            >
+              Python
+            </span>
+          </div>
+
+          <div
+            class="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
+          >
+            <Button
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3"
+            >
+              Ver mis proyectos
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent px-8 py-3"
+            >
+              Contactar
+            </Button>
+          </div>
+
+          {/* Social Links */}
+          <div class="flex justify-center space-x-6 lg:justify-start">
+            <a
+              href="#"
+              class="text-muted-foreground hover:text-primary transition-colors duration-200"
+              aria-label="GitHub"
+            >
+              <Github size={24} />
+            </a>
+            <a
+              href="#"
+              class="text-muted-foreground hover:text-primary transition-colors duration-200"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={24} />
+            </a>
+            <a
+              href="#"
+              class="text-muted-foreground hover:text-primary transition-colors duration-200"
+              aria-label="Email"
+            >
+              <Mail size={24} />
+            </a>
+          </div>
+        </div>
+
+        {/* Right side - Photo and visual elements */}
+        <div class="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <div class="relative">
+            <div class="relative h-80 w-80 md:h-96 md:w-96">
+              <div
+                class="from-primary via-secondary to-primary absolute inset-0 animate-pulse rounded-full bg-gradient-to-br opacity-20"
+              >
+              </div>
+              <div
+                class="from-primary/30 to-secondary/30 absolute inset-2 rounded-full bg-gradient-to-br"
+              >
+              </div>
+              <div
+                class="bg-card border-primary/30 absolute inset-4 flex items-center justify-center rounded-full border-2"
+              >
+                {/* Placeholder for your photo */}
+                <div
+                  class="from-muted to-muted-foreground/20 flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br"
+                >
+                  <span class="text-muted-foreground text-lg font-medium"
+                    >Tu Foto</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-primary/20 absolute -top-4 -right-4 animate-bounce rounded-full p-3 backdrop-blur-sm"
+            >
+              <Brain className="text-primary h-6 w-6" />
+            </div>
+            <div
+              class="bg-secondary/20 absolute -bottom-4 -left-4 animate-pulse rounded-full p-3 backdrop-blur-sm"
+            >
+              <Code2 className="text-secondary h-6 w-6" />
+            </div>
+            <div
+              class="bg-primary/15 absolute top-1/2 -right-8 animate-bounce rounded-full p-2 backdrop-blur-sm delay-300"
+            >
+              <Sparkles className="text-primary h-5 w-5" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 flex justify-center">
+        <div class="animate-bounce">
+          <ArrowDown className="text-muted-foreground" size={24} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

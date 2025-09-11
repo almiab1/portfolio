@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"],
+      "type": "stdio"
+    },
+    "shadcn-components": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@jpisnice/shadcn-ui-mcp-server"]
+    },
+    "MCP_DOCKER": {
+      "command": "docker.exe",
+      "args": ["mcp", "gateway", "run"],
+      "type": "stdio"
+    }
+  }
+}
