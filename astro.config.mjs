@@ -13,4 +13,15 @@ export default defineConfig({
   },
   integrations: [react(), mdx(), sitemap()],
   prefetch: true,
+  i18n: {
+    locales: ["es", "en"],
+    defaultLocale: "es",
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false,
+    },
+    fallback: {
+      en: "es"
+    }
+  }
 });

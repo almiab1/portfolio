@@ -9,6 +9,29 @@ import {
   Code2,
   Sparkles,
 } from "lucide-react";
+import { useTranslations, type Language } from "@/i18n/utils";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+// Importar la imagen de perfil optimizada con Astro
+import { Image } from "astro:assets";
+import profileImage from "@/assets/me.jpg";
+
+const currentLang: Language = (Astro.currentLocale as Language) || "es";
+const t = useTranslations(currentLang);
+
+// Generar URLs localizadas para los links
+const workUrl = getRelativeLocaleUrl(currentLang, "/work");
+const contactUrl = "#contact"; // Si tienes una página de contacto, usar getRelativeLocaleUrl también
+
+// Helper para interpolación en traducciones
+function interpolate(text: string, values: Record<string, string>): string {
+  return text.replace(/\{(\w+)\}/g, (_, key) => values[key] || `{${key}}`);
+}
+
+const specializationText = interpolate(t("hero.specialization"), {
+  genai: `<strong class="text-primary">${t("hero.genai")}</strong>`,
+  llms: `<strong class="text-secondary">${t("hero.llms")}</strong>`,
+});
 ---
 
 <section
@@ -16,14 +39,19 @@ import {
 >
   {/* Background Pattern */}
   <div
-    class="from-primary/10 via-background to-secondary/10 absolute inset-0 bg-gradient-to-br"
+    class="from-primary/20 via-background to-secondary/20 absolute inset-0 bg-gradient-to-br"
   >
   </div>
+  {
+    /* Background decorativo - Mantener en public por ser puramente decorativo con opacity muy baja */
+  }
   <div
-    class="absolute inset-0 bg-[url('/abstract-ai-neural-network.png')] bg-cover bg-center opacity-10"
+    class="absolute inset-0 bg-[url('/background_hero.png')] bg-cover bg-center opacity-60"
+    role="presentation"
   >
   </div>
 
+  {/* Decorative animated icons */}
   <div class="absolute top-20 left-10 animate-pulse">
     <Brain className="text-primary/30 h-8 w-8" />
   </div>
@@ -42,18 +70,14 @@ import {
           <h1
             class="mb-6 text-4xl font-bold text-balance md:text-5xl lg:text-6xl"
           >
-            Ingeniero de <span class="text-primary"
-              >Inteligencia Artificial</span
-            >
+            {t("hero.title")}
+            <span class="text-primary">{t("hero.titleHighlight")}</span>
           </h1>
 
-          <p class="text-muted-foreground mb-8 text-lg text-pretty md:text-xl">
-            Especializado en <strong class="text-primary">GenAI</strong> y sistemas
-            de agentes basados en{" "}
-            <strong class="text-secondary">LLMs</strong>. Desarrollo soluciones
-            innovadoras que transforman ideas en realidad mediante IA
-            generativa.
-          </p>
+          <p
+            class="text-muted-foreground mb-8 text-lg text-pretty md:text-xl"
+            set:html={specializationText}
+          />
 
           <div
             class="mb-8 flex flex-wrap justify-center gap-3 lg:justify-start"
@@ -81,39 +105,42 @@ import {
           <div
             class="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
           >
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3"
+            <a
+              href={workUrl}
+              class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
-              Ver mis proyectos
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent px-8 py-3"
+              {t("hero.viewProjects")}
+            </a>
+            <a
+              href={contactUrl}
+              class="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border-2 bg-transparent px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
-              Contactar
-            </Button>
+              {t("hero.contact")}
+            </a>
           </div>
 
           {/* Social Links */}
           <div class="flex justify-center space-x-6 lg:justify-start">
             <a
-              href="#"
+              href="https://github.com/almiab1"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-muted-foreground hover:text-primary transition-colors duration-200"
               aria-label="GitHub"
             >
               <Github size={24} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/alejandro-mira/"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-muted-foreground hover:text-primary transition-colors duration-200"
               aria-label="LinkedIn"
             >
               <Linkedin size={24} />
             </a>
             <a
-              href="#"
+              href={contactUrl}
               class="text-muted-foreground hover:text-primary transition-colors duration-200"
               aria-label="Email"
             >
@@ -135,16 +162,20 @@ import {
               >
               </div>
               <div
-                class="bg-card border-primary/30 absolute inset-4 flex items-center justify-center rounded-full border-2"
+                class="bg-card border-primary/30 absolute inset-4 flex items-center justify-center overflow-hidden rounded-full border-2"
               >
-                {/* Placeholder for your photo */}
-                <div
-                  class="from-muted to-muted-foreground/20 flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br"
-                >
-                  <span class="text-muted-foreground text-lg font-medium"
-                    >Tu Foto</span
-                  >
-                </div>
+                {/* Foto de perfil optimizada con Astro */}
+                <Image
+                  src={profileImage}
+                  alt={t("hero.profileAlt")}
+                  width={352}
+                  height={352}
+                  format="webp"
+                  quality={90}
+                  loading="eager"
+                  class="h-full w-full rounded-full object-cover"
+                  densities={[1, 2]}
+                />
               </div>
             </div>
 
@@ -168,9 +199,11 @@ import {
       </div>
 
       <div class="mt-16 flex justify-center">
-        <div class="animate-bounce">
-          <ArrowDown className="text-muted-foreground" size={24} />
-        </div>
+        <a href="#work" aria-label="Scroll to projects section">
+          <div class="animate-bounce">
+            <ArrowDown className="text-muted-foreground" size={24} />
+          </div>
+        </a>
       </div>
     </div>
   </div>

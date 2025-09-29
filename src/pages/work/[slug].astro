@@ -1,24 +1,213 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
 import { ldCreativeWork } from "@/lib/schema";
-import { getEntry, getCollection } from "astro:content";
+import { getProjectsByLang } from "@/lib/i18n-content";
+import { useTranslations } from "@/i18n/utils";
+import { ExternalLink, Github, ChevronLeft } from "lucide-react";
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = await getProjectsByLang('es');
   return projects.map((project) => ({
-    params: { slug: project.slug },
+    // Extraer slug base sin el prefijo de idioma (es/cookobot -> cookobot)
+    params: { slug: project.slug.replace(/^(es|en)\//, '') },
     props: { project },
   }));
 }
 
 const { project } = Astro.props;
+const { Content } = await project.render();
 const data = project.data;
+const t = useTranslations("es");
 ---
-<Layout title={`${data.title} — Case Study`} description={data.summary}>
+
+<Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
   <script type="application/ld+json">{JSON.stringify(ldCreativeWork({ title: data.title, date: data.date }))}</script>
-  <article class="prose dark:prose-invert max-w-3xl mx-auto px-6 py-12">
-    <h1>{data.title}</h1>
-    <p class="lead">{data.summary}</p>
-    <slot /> {/* si renderizas MDX del entry, puedes importarlo con Content */}
+  
+  <article class="mx-auto max-w-4xl px-6 py-12">
+    <!-- Back Button -->
+    <a 
+      href="/work" 
+      class="text-primary hover:text-primary/80 mb-8 inline-flex items-center gap-2 text-sm font-medium transition-colors"
+      aria-label={t('work.backToProjects')}
+    >
+      <ChevronLeft size={16} />
+      {t('work.backToProjects')}
+    </a>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <!-- Título y badges -->
+      <div class="mb-6">
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          {data.featured && (
+            <span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-semibold">
+              ⭐ Featured
+            </span>
+          )}
+          <span class="bg-accent text-accent-foreground rounded-full px-3 py-1 text-sm font-medium">
+            {t(`project.type.${data.type || "other"}`)}
+          </span>
+          <span class="text-muted-foreground text-sm">
+            {t(`project.status.${data.status || "completed"}`)}
+          </span>
+        </div>
+        
+        <h1 class="text-foreground mb-4 text-4xl font-bold md:text-5xl">
+          {data.title}
+        </h1>
+        <p class="text-muted-foreground mb-6 text-xl leading-relaxed">
+          {data.summary}
+        </p>
+      </div>
+
+      <!-- Metadata Grid Mejorado -->
+      <div class="border-border bg-card grid gap-6 rounded-xl border p-8 md:grid-cols-2">
+        
+        <!-- Stack Tecnológico (prominente) -->
+        {data.tech && data.tech.length > 0 && (
+          <div class="md:col-span-2">
+            <h3 class="text-foreground mb-3 flex items-center gap-2 text-base font-semibold">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="3" rx="2"/>
+                <path d="M9 3v18"/>
+                <path d="m16 15-3-3 3-3"/>
+              </svg>
+              {t('project.tech')}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              {data.tech.map((tech) => (
+                <span class="border-primary/30 bg-primary/5 text-foreground rounded-lg border px-4 py-2 text-sm font-medium">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Rol -->
+        {data.role && (
+          <div>
+            <h3 class="text-muted-foreground mb-2 text-sm font-medium uppercase">
+              {t('project.role')}
+            </h3>
+            <p class="text-foreground text-base font-medium">{data.role}</p>
+          </div>
+        )}
+
+        <!-- Duración -->
+        {data.duration && (
+          <div>
+            <h3 class="text-muted-foreground mb-2 text-sm font-medium uppercase">
+              {t('project.duration')}
+            </h3>
+            <p class="text-foreground text-base font-medium">{data.duration}</p>
+          </div>
+        )}
+
+        <!-- Tags -->
+        {data.tags && data.tags.length > 0 && (
+          <div class="md:col-span-2">
+            <h3 class="text-muted-foreground mb-3 text-sm font-medium uppercase">
+              {t('project.tags')}
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {data.tags.map((tag) => (
+                <span class="bg-secondary text-secondary-foreground rounded-full px-3 py-1.5 text-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <!-- Enlaces -->
+        {(data.links?.demo || data.links?.repo) && (
+          <div class="border-border md:col-span-2 border-t pt-6">
+            <h3 class="text-muted-foreground mb-4 text-sm font-medium uppercase">
+              {t('project.links')}
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              {data.links.demo && (
+                <a
+                  href={data.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-colors"
+                >
+                  <ExternalLink size={18} />
+                  {t('project.demo')}
+                </a>
+              )}
+              {data.links.repo && (
+                <a
+                  href={data.links.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition-colors"
+                >
+                  <Github size={18} />
+                  {t('project.repo')}
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Galería de Imágenes -->
+    {data.gallery && data.gallery.length > 0 && (
+      <section class="mb-12">
+        <h2 class="text-foreground mb-6 text-2xl font-bold">
+          {data.gallery.length === 1 ? t('project.galleryView') : t('project.galleryMultiple')}
+        </h2>
+        
+        {/* Una sola imagen - Display grande */}
+        {data.gallery.length === 1 && (
+          <div class="border-border overflow-hidden rounded-xl border">
+            <img
+              src={data.gallery[0].src}
+              alt={data.gallery[0].alt}
+              class="h-auto w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
+
+        {/* Múltiples imágenes - Grid responsive */}
+        {data.gallery.length > 1 && (
+          <div class={`grid gap-4 ${
+            data.gallery.length === 2 ? 'md:grid-cols-2' :
+            data.gallery.length === 3 ? 'md:grid-cols-3' :
+            data.gallery.length === 4 ? 'md:grid-cols-2' :
+            'md:grid-cols-2 lg:grid-cols-3'
+          }`}>
+            {data.gallery.map((image, index) => (
+              <div class="border-border group relative overflow-hidden rounded-lg border transition-all hover:shadow-lg">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  class="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+                {/* Overlay con descripción al hover */}
+                {image.alt && (
+                  <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity group-hover:opacity-100">
+                    <p class="w-full p-4 text-sm text-white">
+                      {image.alt}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Content -->
+    <div class="prose dark:prose-invert prose-lg mx-auto">
+      <Content />
+    </div>
   </article>
 </Layout>

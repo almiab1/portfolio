@@ -1,0 +1,27 @@
+---
+import Base from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/blocks/Hero.astro";
+import Contact from "@/components/blocks/Contact.astro";
+import { ldPerson, ldWebsite, ldCreativeWork, ldBlogPosting, ldEvent } from "@/lib/schema";
+import ProjectGrid from "@/components/blocks/ProjectGrid.astro";
+
+const jsonLd = [
+  ldPerson(), 
+  ldWebsite(), 
+  ldCreativeWork({ title: "Building products with generative AI and agent systems" }), 
+  ldBlogPosting({ title: "Building products with generative AI and agent systems", date: "2025-01-01" }), 
+  ldEvent({ name: "Building products with generative AI and agent systems", startDate: "2025-01-01" })
+];
+---
+
+<Base title="Alejandro Mira — GenAI & LLM Agents" description="Portfolio, projects and articles.">
+  {jsonLd.map((o: any) => <script type="application/ld+json">{JSON.stringify(o)}</script>)}
+
+  <main class="min-h-screen">
+    <Hero />
+    <section id="work" class="scroll-mt-24">
+      <ProjectGrid limit={6} moreHref="/en/work" showTitle={true} />
+    </section>
+    <Contact />
+  </main>
+</Base>

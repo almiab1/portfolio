@@ -3,10 +3,20 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
+import { t, type Language } from "@/i18n/translations"
 
-function Header() {
+interface HeaderProps {
+  currentLocale?: string;
+  currentPath?: string;
+}
+
+function Header({ currentLocale = "es", currentPath = "/" }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  const lang = currentLocale as Language;
+  const translate = t(lang);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,11 +26,21 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Determinar si estamos en la home
+  const isHome = currentPath === "/" || currentPath === "/en" || currentPath === "/en/";
+  
+  // Prefijo base para links según idioma
+  const basePrefix = currentLocale === "es" ? "" : "/en";
+  
+  // Si no estamos en home, necesitamos el prefijo completo para las anclas
+  const anchorPrefix = isHome ? "" : (currentLocale === "es" ? "" : "/en");
+
   const navItems = [
-    { href: "#about", label: "Sobre mí" },
-    { href: "#skills", label: "Habilidades" },
-    { href: "#projects", label: "Proyectos" },
-    { href: "#contact", label: "Contacto" },
+    { href: currentLocale === "es" ? "/" : "/en", label: translate('nav.home'), isPage: true },
+    { href: `${basePrefix}/work`, label: translate('nav.work'), isPage: true },
+    { href: `${anchorPrefix}#about`, label: translate('nav.about'), isPage: false },
+    { href: `${anchorPrefix}#skills`, label: translate('nav.skills'), isPage: false },
+    { href: `${anchorPrefix}#contact`, label: translate('nav.contact'), isPage: false },
   ]
 
   return (
@@ -31,10 +51,12 @@ function Header() {
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-xl font-bold text-foreground">Alejandro Mira</div>
+          <a href={currentLocale === "es" ? "/" : "/en"} className="text-xl font-bold text-foreground hover:text-primary transition-colors">
+            Alejandro Mira
+          </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -44,8 +66,9 @@ function Header() {
                 {item.label}
               </a>
             ))}
+            <LanguageSwitcher currentLocale={currentLocale} />
             <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Descargar CV
+              {translate('nav.downloadCV')}
             </Button>
           </div>
 
@@ -74,8 +97,11 @@ function Header() {
                   {item.label}
                 </a>
               ))}
+              <div className="pt-2">
+                <LanguageSwitcher currentLocale={currentLocale} />
+              </div>
               <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit">
-                Descargar CV
+                {translate('nav.downloadCV')}
               </Button>
             </div>
           </div>

@@ -4,8 +4,8 @@ import { getProjectsByLang } from "@/lib/i18n-content";
 import { useTranslations } from "@/i18n/utils";
 import ProjectCard from "@/components/blocks/ProjectCard.astro";
 
-const projects = await getProjectsByLang("es");
-const t = useTranslations("es");
+const projects = await getProjectsByLang("en");
+const t = useTranslations("en");
 
 // Ordenar proyectos: destacados primero, luego por priority, luego por fecha
 const sortedProjects = projects.sort((a, b) => {
@@ -46,15 +46,15 @@ const stats = {
       <!-- Estadísticas -->
       <div class="grid gap-4 sm:grid-cols-3">
         <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Total de proyectos</p>
+          <p class="text-muted-foreground text-sm">Total projects</p>
           <p class="text-foreground text-2xl font-bold">{stats.total}</p>
         </div>
         <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Proyectos destacados</p>
+          <p class="text-muted-foreground text-sm">Featured projects</p>
           <p class="text-foreground text-2xl font-bold">{stats.featured}</p>
         </div>
         <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Tipos de proyectos</p>
+          <p class="text-muted-foreground text-sm">Project types</p>
           <p class="text-foreground text-2xl font-bold">{stats.types}</p>
         </div>
       </div>
@@ -65,7 +65,7 @@ const stats = {
       sortedProjects.length > 0 ? (
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sortedProjects.map((project) => (
-            <ProjectCard project={project} currentLang="es" />
+            <ProjectCard project={project} currentLang="en" />
           ))}
         </div>
       ) : (

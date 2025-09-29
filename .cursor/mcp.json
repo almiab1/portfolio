@@ -10,10 +10,9 @@
       "command": "npx",
       "args": ["@jpisnice/shadcn-ui-mcp-server"]
     },
-    "MCP_DOCKER": {
-      "command": "docker.exe",
-      "args": ["mcp", "gateway", "run"],
-      "type": "stdio"
+    "Astro docs": {
+      "url": "https://mcp.docs.astro.build/mcp",
+      "headers": {}
     }
   }
 }

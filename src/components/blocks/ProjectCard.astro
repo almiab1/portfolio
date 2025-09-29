@@ -1,0 +1,198 @@
+---
+import { useTranslations, type Language } from "@/i18n/utils";
+import type { CollectionEntry } from "astro:content";
+import {
+  Globe,
+  Smartphone,
+  Cpu,
+  Brain,
+  Database,
+  Server,
+  Monitor,
+  Package,
+  CheckCircle2,
+  Clock,
+  Archive,
+  RefreshCw,
+} from "lucide-react";
+
+export interface Props {
+  project: CollectionEntry<"projects">;
+  currentLang: Language;
+}
+
+const { project, currentLang } = Astro.props;
+const t = useTranslations(currentLang);
+
+// Extraer slug base sin el prefijo de idioma (es/cookobot -> cookobot)
+const slugBase = project.slug.replace(/^(es|en)\//, "");
+
+// Determinar URL según idioma
+const href =
+  currentLang === "es"
+    ? `/work/${slugBase}`
+    : `/${currentLang}/work/${slugBase}`;
+
+// Iconos por tipo de proyecto
+const typeIcons = {
+  web: Globe,
+  mobile: Smartphone,
+  iot: Cpu,
+  ai: Brain,
+  data: Database,
+  api: Server,
+  desktop: Monitor,
+  other: Package,
+};
+
+// Iconos por estado
+const statusIcons = {
+  completed: CheckCircle2,
+  "in-progress": Clock,
+  archived: Archive,
+  maintained: RefreshCw,
+};
+
+// Colores por estado
+const statusColors = {
+  completed: "text-green-600 dark:text-green-400",
+  "in-progress": "text-blue-600 dark:text-blue-400",
+  archived: "text-gray-600 dark:text-gray-400",
+  maintained: "text-purple-600 dark:text-purple-400",
+};
+
+const TypeIcon = typeIcons[project.data.type || "other"];
+const StatusIcon = statusIcons[project.data.status || "completed"];
+const statusColor = statusColors[project.data.status || "completed"];
+---
+
+<a
+  href={href}
+  class="group border-border bg-card hover:border-primary relative block overflow-hidden rounded-xl border transition-all duration-300 hover:shadow-lg"
+>
+  <!-- Badge de destacado -->
+  {
+    project.data.featured && (
+      <div class="bg-primary/10 text-primary absolute top-4 right-4 z-10 rounded-full px-3 py-1 text-xs font-semibold">
+        ⭐ Featured
+      </div>
+    )
+  }
+
+  <div class="p-6">
+    <!-- Header con tipo y estado -->
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="text-primary bg-primary/10 rounded-lg p-2">
+          <TypeIcon size={18} />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-muted-foreground text-xs font-medium uppercase">
+            {t(`project.type.${project.data.type || "other"}`)}
+          </span>
+          {
+            project.data.duration && (
+              <span class="text-muted-foreground text-xs">
+                {project.data.duration}
+              </span>
+            )
+          }
+        </div>
+      </div>
+
+      <div class={`flex items-center gap-1 ${statusColor}`}>
+        <StatusIcon size={16} />
+        <span class="text-xs font-medium">
+          {t(`project.status.${project.data.status || "completed"}`)}
+        </span>
+      </div>
+    </div>
+
+    <!-- Título y enlaces -->
+    <div class="mb-3 flex items-start justify-between gap-3">
+      <h3
+        class="text-foreground group-hover:text-primary line-clamp-2 text-xl font-semibold transition-colors"
+      >
+        {project.data.title}
+      </h3>
+      {
+        project.data.links?.demo && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="text-muted-foreground group-hover:text-primary flex-shrink-0 transition-colors"
+          >
+            <path d="M7 7h10v10" />
+            <path d="M7 17 17 7" />
+          </svg>
+        )
+      }
+    </div>
+
+    <!-- Summary -->
+    <p class="text-muted-foreground mb-4 line-clamp-3 text-sm leading-relaxed">
+      {project.data.summary}
+    </p>
+
+    <!-- Stack tecnológico (prominente) -->
+    {
+      project.data.tech && project.data.tech.length > 0 && (
+        <div class="mb-4">
+          <div class="mb-2 flex items-center gap-2">
+            <Server size={14} className="text-muted-foreground" />
+            <span class="text-muted-foreground text-xs font-medium uppercase">
+              Stack
+            </span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {project.data.tech.slice(0, 4).map((tech) => (
+              <span class="border-primary/20 bg-primary/5 text-foreground rounded-lg border px-2.5 py-1 text-xs font-medium">
+                {tech}
+              </span>
+            ))}
+            {project.data.tech.length > 4 && (
+              <span class="text-muted-foreground rounded-lg border border-dashed px-2.5 py-1 text-xs font-medium">
+                +{project.data.tech.length - 4}
+              </span>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Tags (secundario) -->
+    {
+      project.data.tags && project.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {project.data.tags.slice(0, 3).map((tag) => (
+            <span class="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs">
+              {tag}
+            </span>
+          ))}
+          {project.data.tags.length > 3 && (
+            <span class="text-muted-foreground rounded-full px-3 py-1 text-xs">
+              +{project.data.tags.length - 3}
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <!-- Role -->
+    {
+      project.data.role && (
+        <p class="text-muted-foreground mt-4 border-t pt-3 text-xs">
+          <span class="font-medium">{t("project.role")}:</span>{" "}
+          {project.data.role}
+        </p>
+      )
+    }
+  </div>
+</a>

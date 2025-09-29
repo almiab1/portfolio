@@ -1,0 +1,102 @@
+---
+title: "Monitoreo Remoto de Cultivos - iPollution"
+summary: "Sistema IoT multiplataforma de monitoreo ambiental mediante sensores Arduino, API REST y aplicación web Ionic."
+date: "2018-06-01"
+lang: "es"
+translationKey: "crop-monitoring"
+type: "iot"
+status: "completed"
+duration: "6 meses"
+featured: true
+priority: 7
+tags: ["JavaScript", "Arduino", "MySQL", "Express", "IoT"]
+tech: ["JavaScript", "Node.js", "Express", "Arduino", "MySQL", "ESP32", "Ionic", "C++"]
+role: "Full Stack IoT Developer"
+links:
+  repo: "https://github.com/almiab1/Proyecto3A-Webapp"
+cover: { src: "/og/crop-monitoring.png", alt: "Sistema de Monitoreo de Cultivos" }
+seo: { title: "Monitoreo Remoto de Cultivos", description: "Sistema IoT para agricultura con Arduino, JavaScript y Express." }
+---
+
+## Contexto
+
+Proyecto académico desarrollado en equipo aplicando **metodologías ágiles (Scrum)**. Sistema completo de IoT para monitoreo ambiental y de cultivos que integra hardware, backend, frontend y desarrollo móvil multiplataforma.
+
+## Arquitectura Multiplataforma
+
+El sistema se divide en **tres repositorios independientes**:
+- **Hardware (Arduino + C++)**: [Proyecto3A-Arduino](https://github.com/almiab1/Proyecto3A-Arduino) - Red de sensores con ESP32/Arduino
+- **Backend (Node.js + Express)**: [Proyecto3A-Server](https://github.com/almiab1/Proyecto3A-Server) - API RESTful en JavaScript
+- **Frontend (Ionic + TypeScript)**: [Proyecto3A-Webapp](https://github.com/almiab1/Proyecto3A-Webapp) - App multiplataforma (74.2% TypeScript, 20% HTML, 5.1% SCSS)
+
+## Tecnologías y Stack
+
+### Hardware Layer
+- **Microcontroladores**: Arduino / ESP32
+- **Lenguaje**: C++
+- **Sensores**: Módulos ambientales (temperatura, humedad, luminosidad, calidad del aire)
+- **Conectividad**: WiFi / Bluetooth
+
+### Backend Layer  
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Base de datos**: MySQL / SQLite
+- **Arquitectura**: API REST
+- **Comunicación**: HTTP/HTTPS, WebSockets
+
+### Frontend Layer
+- **Framework**: Ionic (Angular-based)
+- **Lenguajes**: TypeScript (74.2%), HTML (20%), SCSS (5.1%)
+- **Plataformas**: Web, iOS, Android
+- **UI**: Componentes Ionic Material
+
+## Funcionalidades del Sistema
+
+### Monitoreo en Tiempo Real
+- Visualización de datos de sensores en vivo
+- Gráficos históricos y tendencias
+- Dashboards personalizables
+- Alertas automáticas por umbrales
+
+### Gestión de Datos
+- Almacenamiento histórico
+- Exportación de reportes
+- Análisis de tendencias
+- Métricas agregadas
+
+### Aplicación Móvil
+- Acceso remoto desde cualquier dispositivo
+- Notificaciones push
+- Sincronización offline
+- Interfaz responsiva
+
+## Metodología de Desarrollo
+
+- **Scrum**: Sprints documentados (ver ApartadoCalidadSprint3.pdf en repo)
+- **Trabajo en equipo**: 3 desarrolladores colaborando
+- **Control de versiones**: Git con flujo de trabajo por ramas (develop, feature branches)
+- **Documentación**: Diseños técnicos y diagramas UML
+
+## Resultados y Aprendizajes
+
+### Competencias Desarrolladas
+- **Full Stack Development**: Frontend, Backend y Hardware
+- **Metodologías ágiles**: Scrum, trabajo en equipo
+- **Arquitectura distribuida**: Microservicios e IoT
+- **Cross-platform**: Una codebase para múltiples plataformas con Ionic
+- **Integración de sistemas**: Arduino ↔ API ↔ Web/Mobile
+
+### Impacto del Proyecto
+
+Este proyecto demuestra la viabilidad de soluciones IoT accesibles para:
+- Monitoreo ambiental en tiempo real
+- Toma de decisiones basada en datos
+- Optimización de recursos en agricultura
+- Alertas tempranas para prevención
+
+### Características Técnicas
+
+- **+312 commits** en el repositorio de la webapp
+- **9 pull requests** gestionados
+- **Licencia**: GNU GPL v3.0
+- **Documentación completa** de calidad y diseño
