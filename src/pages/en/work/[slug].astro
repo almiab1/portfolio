@@ -3,7 +3,7 @@ import Layout from "@/layouts/BaseLayout.astro";
 import { ldCreativeWork } from "@/lib/schema";
 import { getProjectsByLang } from "@/lib/i18n-content";
 import { useTranslations } from "@/i18n/utils";
-import { ExternalLink, Github, ChevronLeft } from "lucide-react";
+import { ExternalLink, Github, ChevronLeft, Star, Cpu } from "lucide-react";
 
 export async function getStaticPaths() {
   const projects = await getProjectsByLang('en');
@@ -23,104 +23,188 @@ const t = useTranslations("en");
 <Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
   <script type="application/ld+json">{JSON.stringify(ldCreativeWork({ title: data.title, date: data.date }))}</script>
   
-  <article class="mx-auto max-w-4xl px-6 py-12">
-    <!-- Back Button -->
-    <a 
-      href="/en/work" 
-      class="text-primary hover:text-primary/80 mb-8 inline-flex items-center gap-2 text-sm font-medium transition-colors"
-      aria-label={t('work.backToProjects')}
-    >
-      <ChevronLeft size={16} />
-      {t('work.backToProjects')}
-    </a>
-
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-foreground mb-4 text-4xl font-bold md:text-5xl">
-        {data.title}
-      </h1>
-      <p class="text-muted-foreground mb-6 text-xl leading-relaxed">
-        {data.summary}
-      </p>
-
-      <!-- Metadata Grid -->
-      <div class="border-border bg-card grid gap-6 rounded-xl border p-6 md:grid-cols-2">
-        {data.role && (
-          <div>
-            <h3 class="text-muted-foreground mb-2 text-sm font-medium uppercase">
-              {t('project.role')}
-            </h3>
-            <p class="text-foreground font-medium">{data.role}</p>
-          </div>
-        )}
-
-        {data.tags && data.tags.length > 0 && (
-          <div>
-            <h3 class="text-muted-foreground mb-2 text-sm font-medium uppercase">
-              {t('project.tags')}
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              {data.tags.map((tag) => (
-                <span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {data.tech && data.tech.length > 0 && (
-          <div class="md:col-span-2">
-            <h3 class="text-muted-foreground mb-2 text-sm font-medium uppercase">
-              {t('project.tech')}
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              {data.tech.map((tech) => (
-                <span class="border-border bg-background rounded-lg border px-3 py-1 text-sm font-medium">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {(data.links?.demo || data.links?.repo) && (
-          <div class="md:col-span-2">
-            <h3 class="text-muted-foreground mb-3 text-sm font-medium uppercase">
-              {t('project.links')}
-            </h3>
-            <div class="flex flex-wrap gap-3">
-              {data.links.demo && (
-                <a
-                  href={data.links.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  {t('project.demo')}
-                </a>
-              )}
-              {data.links.repo && (
-                <a
-                  href={data.links.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors"
-                >
-                  <Github size={16} />
-                  {t('project.repo')}
-                </a>
-              )}
-            </div>
-          </div>
-        )}
+  <!-- Container principal: pantalla completa en desktop con padding para header, scroll normal en móvil -->
+  <div class="pt-16 lg:h-screen lg:overflow-hidden flex flex-col">
+    
+    <!-- Back Navigation Bar -->
+    <div class="border-b border-border bg-card/30 backdrop-blur-sm px-6 py-5 lg:py-4 shadow-sm">
+      <div class="max-w-7xl mx-auto">
+        <a 
+          href="/en/work" 
+          class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
+          aria-label={t('work.backToProjects')}
+        >
+          <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <span>{t('work.backToProjects')}</span>
+        </a>
       </div>
-    </header>
-
-    <!-- Content -->
-    <div class="prose dark:prose-invert prose-lg mx-auto">
-      <Content />
     </div>
-  </article>
+
+    <!-- Grid principal responsive con separación visual -->
+    <div class="flex-1 lg:overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0 bg-gradient-to-b from-background/50 to-background">
+      
+      <!-- Columna izquierda: Header y Metadata -->
+      <aside class="lg:overflow-y-auto border-r border-border/50 bg-card/20 px-6 py-10 lg:px-10 lg:py-12 lg:flex lg:items-center">
+        <article class="mx-auto max-w-2xl w-full">
+          
+          <!-- Header -->
+          <header class="mb-8">
+            <!-- Título y badges -->
+            <div class="mb-6">
+              <div class="mb-4 flex flex-wrap items-center gap-3">
+                {data.featured && (
+                  <span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-semibold flex items-center gap-2">
+                    <Star size={16} />
+                    Featured
+                  </span>
+                )}
+                <span class="bg-accent text-accent-foreground rounded-full px-3 py-1 text-sm font-medium">
+                  {t(`project.type.${data.type || "other"}`)}
+                </span>
+              </div>
+              
+              <h1 class="text-foreground mb-4 text-3xl font-bold lg:text-4xl xl:text-5xl">
+                {data.title}
+              </h1>
+              <p class="text-muted-foreground mb-6 text-lg leading-relaxed">
+                {data.summary}
+              </p>
+            </div>
+
+            <!-- Metadata Grid Mejorado -->
+            <div class="border-border bg-card grid gap-6 rounded-xl border p-6 lg:p-8">
+              
+              <!-- Stack Tecnológico (prominente) -->
+              {data.tech && data.tech.length > 0 && (
+                <div>
+                  <h3 class="text-foreground mb-3 flex items-center gap-2 text-base font-semibold">
+                    <Cpu size={20} />
+                    {t('project.tech')}
+                  </h3>
+                  <div class="flex flex-wrap gap-2">
+                    {data.tech.map((tech) => (
+                      <span class="border-primary/30 bg-primary/5 text-foreground rounded-lg border px-3 py-1.5 text-sm font-medium">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <!-- Duración -->
+              {data.duration && (
+                <div>
+                  <h3 class="text-muted-foreground mb-2 text-xs font-medium uppercase">
+                    {t('project.duration')}
+                  </h3>
+                  <p class="text-foreground text-sm font-medium">{data.duration}</p>
+                </div>
+              )}
+
+              <!-- Tags -->
+              {data.tags && data.tags.length > 0 && (
+                <div>
+                  <h3 class="text-muted-foreground mb-3 text-xs font-medium uppercase">
+                    {t('project.tags')}
+                  </h3>
+                  <div class="flex flex-wrap gap-2">
+                    {data.tags.map((tag) => (
+                      <span class="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <!-- Enlaces -->
+              {(data.links?.demo || data.links?.repo) && (
+                <div class="border-border border-t pt-6">
+                  <h3 class="text-muted-foreground mb-4 text-xs font-medium uppercase">
+                    {t('project.links')}
+                  </h3>
+                  <div class="flex flex-wrap gap-3">
+                    {data.links.demo && (
+                      <a
+                        href={data.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors"
+                      >
+                        <ExternalLink size={16} />
+                        {t('project.demo')}
+                      </a>
+                    )}
+                    {data.links.repo && (
+                      <a
+                        href={data.links.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-colors"
+                      >
+                        <Github size={16} />
+                        {t('project.repo')}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </header>
+
+          <!-- Galería de Imágenes (si existe) -->
+          {data.gallery && data.gallery.length > 0 && (
+            <section class="mb-8">
+              <h2 class="text-foreground mb-4 text-xl font-bold">
+                {data.gallery.length === 1 ? t('project.galleryView') : t('project.galleryMultiple')}
+              </h2>
+              
+              {/* Una sola imagen - Display grande */}
+              {data.gallery.length === 1 && (
+                <div class="border-border overflow-hidden rounded-xl border">
+                  <img
+                    src={data.gallery[0].src}
+                    alt={data.gallery[0].alt}
+                    class="h-auto w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
+              {/* Múltiples imágenes - Grid responsive */}
+              {data.gallery.length > 1 && (
+                <div class="grid gap-3 grid-cols-2">
+                  {data.gallery.map((image, index) => (
+                    <div class="border-border group relative overflow-hidden rounded-lg border transition-all hover:shadow-lg">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      {/* Overlay con descripción al hover */}
+                      {image.alt && (
+                        <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity group-hover:opacity-100">
+                          <p class="w-full p-3 text-xs text-white">
+                            {image.alt}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          )}
+        </article>
+      </aside>
+
+      <!-- Columna derecha: Contenido MDX (con scroll interno en desktop) -->
+      <main class="lg:overflow-y-auto bg-background px-6 py-10 lg:px-12 lg:py-12 lg:flex lg:items-center">
+        <div class="prose dark:prose-invert prose-lg mx-auto max-w-3xl w-full">
+          <Content />
+        </div>
+      </main>
+    </div>
+  </div>
 </Layout>

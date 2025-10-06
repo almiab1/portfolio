@@ -3,6 +3,7 @@ import Layout from "@/layouts/BaseLayout.astro";
 import { getProjectsByLang } from "@/lib/i18n-content";
 import { useTranslations } from "@/i18n/utils";
 import ProjectCard from "@/components/blocks/ProjectCard.astro";
+import ProjectFilter from "@/components/blocks/ProjectFilter";
 
 const projects = await getProjectsByLang("en");
 const t = useTranslations("en");
@@ -22,43 +23,42 @@ const sortedProjects = projects.sort((a, b) => {
   return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
 });
 
-// Estadísticas
-const stats = {
-  total: sortedProjects.length,
-  featured: sortedProjects.filter((p) => p.data.featured).length,
-  types: [...new Set(sortedProjects.map((p) => p.data.type))].length,
-};
+// Extraer todos los tags únicos
+const allTags = [
+  ...new Set(sortedProjects.flatMap((p) => p.data.tags || [])),
+].sort();
 ---
 
 <Layout title={t("work.title")} description={t("hero.description")}>
-  <main class="mx-auto max-w-7xl px-6 py-12">
-    <!-- Header con estadísticas -->
-    <div class="mb-12">
-      <div class="mb-6">
-        <h1 class="text-foreground mb-4 text-4xl font-bold md:text-5xl">
-          {t("nav.work")}
-        </h1>
-        <p class="text-muted-foreground max-w-2xl text-lg">
-          {t("hero.description")}
-        </p>
-      </div>
-
-      <!-- Estadísticas -->
-      <div class="grid gap-4 sm:grid-cols-3">
-        <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Total projects</p>
-          <p class="text-foreground text-2xl font-bold">{stats.total}</p>
-        </div>
-        <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Featured projects</p>
-          <p class="text-foreground text-2xl font-bold">{stats.featured}</p>
-        </div>
-        <div class="border-border bg-card rounded-lg border p-4">
-          <p class="text-muted-foreground text-sm">Project types</p>
-          <p class="text-foreground text-2xl font-bold">{stats.types}</p>
-        </div>
-      </div>
+  <main class="mx-auto max-w-7xl px-6 pt-24 pb-12">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-foreground mb-4 text-4xl font-bold md:text-5xl">
+        {t("nav.work")}
+      </h1>
+      <p class="text-muted-foreground max-w-2xl text-lg">
+        {t("hero.description")}
+      </p>
     </div>
+
+    <!-- Filtro de proyectos -->
+    {
+      allTags.length > 0 && (
+        <ProjectFilter
+          client:load
+          allTags={allTags}
+          totalProjects={sortedProjects.length}
+          translations={{
+            filterBy: t("work.filterBy"),
+            allProjects: t("work.allProjects"),
+            clearFilters: t("work.clearFilters"),
+            noResults: t("work.noResults"),
+            searchPlaceholder: t("work.searchPlaceholder"),
+            searchLabel: t("work.searchLabel"),
+          }}
+        />
+      )
+    }
 
     <!-- Projects Grid -->
     {

@@ -10,9 +10,10 @@
       "command": "npx",
       "args": ["@jpisnice/shadcn-ui-mcp-server"]
     },
-    "Astro docs": {
-      "url": "https://mcp.docs.astro.build/mcp",
-      "headers": {}
+    "chrome-devtools": {
+      "command": "npx -y chrome-devtools-mcp@latest",
+      "env": {},
+      "args": []
     }
   }
 }

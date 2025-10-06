@@ -22,6 +22,12 @@ export const ui = {
     'work.backToProjects': 'Volver a proyectos',
     'work.noProjects': 'No hay proyectos disponibles.',
     'work.featured': 'Proyectos Destacados',
+    'work.filterBy': 'Filtrar por categoría',
+    'work.allProjects': 'Todos los proyectos',
+    'work.clearFilters': 'Limpiar filtros',
+    'work.noResults': 'No se encontraron proyectos con los filtros seleccionados',
+    'work.searchPlaceholder': 'Buscar proyectos...',
+    'work.searchLabel': 'Búsqueda',
     
     // Hero
     'hero.greeting': 'Hola, soy',
@@ -99,6 +105,12 @@ export const ui = {
     'work.backToProjects': 'Back to projects',
     'work.noProjects': 'No projects available.',
     'work.featured': 'Featured Projects',
+    'work.filterBy': 'Filter by category',
+    'work.allProjects': 'All projects',
+    'work.clearFilters': 'Clear filters',
+    'work.noResults': 'No projects found with the selected filters',
+    'work.searchPlaceholder': 'Search projects...',
+    'work.searchLabel': 'Search',
     
     // Hero
     'hero.greeting': 'Hi, I\'m',
