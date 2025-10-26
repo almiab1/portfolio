@@ -41,6 +41,9 @@ export const ui = {
     'hero.genai': 'GenAI',
     'hero.llms': 'LLMs',
     'hero.profileAlt': 'Foto de perfil del Ingeniero de IA',
+    'hero.agents': 'Agentes',
+    'hero.ai': 'AI',
+    'hero.emergingTechnologies': 'Tecnologías Emergentes',
     
     // Común
     'common.readMore': 'Leer más',
@@ -124,6 +127,9 @@ export const ui = {
     'hero.genai': 'GenAI',
     'hero.llms': 'LLMs',
     'hero.profileAlt': 'AI Engineer profile photo',
+    'hero.agents': 'Agents',
+    'hero.ai': 'AI',
+    'hero.emergingTechnologies': 'Emerging Technologies',
     
     // Common
     'common.readMore': 'Read more',

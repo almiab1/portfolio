@@ -28,6 +28,11 @@ function interpolate(text: string, values: Record<string, string>): string {
   return text.replace(/\{(\w+)\}/g, (_, key) => values[key] || `{${key}}`);
 }
 
+const agents = t("hero.agents");
+const ai = t("hero.ai");
+const genai = t("hero.genai");
+const emergingTechnologies = t("hero.emergingTechnologies");
+
 const specializationText = interpolate(t("hero.specialization"), {
   genai: `<strong class="text-primary">${t("hero.genai")}</strong>`,
   llms: `<strong class="text-secondary">${t("hero.llms")}</strong>`,
@@ -39,7 +44,7 @@ const specializationText = interpolate(t("hero.specialization"), {
 >
   {/* Background Pattern */}
   <div
-    class="from-primary/20 via-background to-secondary/20 absolute inset-0 bg-gradient-to-br"
+    class="from-primary/40 via-background to-secondary/40 absolute inset-0 bg-gradient-to-br"
   >
   </div>
   {
@@ -53,13 +58,13 @@ const specializationText = interpolate(t("hero.specialization"), {
 
   {/* Decorative animated icons */}
   <div class="absolute top-20 left-10 animate-pulse">
-    <Brain className="text-primary/30 h-8 w-8" />
+    <Brain className="text-primary/50 h-8 w-8" />
   </div>
   <div class="absolute top-40 right-20 animate-bounce delay-1000">
-    <Code2 className="text-secondary/40 h-6 w-6" />
+    <Code2 className="text-secondary/50 h-6 w-6" />
   </div>
   <div class="absolute bottom-40 left-20 animate-pulse delay-500">
-    <Sparkles className="text-primary/25 h-7 w-7" />
+    <Sparkles className="text-primary/50 h-7 w-7" />
   </div>
 
   <div class="relative z-10 container mx-auto px-4">
@@ -84,21 +89,21 @@ const specializationText = interpolate(t("hero.specialization"), {
           >
             <span
               class="bg-primary/20 text-primary rounded-full px-3 py-1 text-sm font-medium"
-              >LangChain</span
+              >{agents}</span
             >
             <span
-              class="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-sm font-medium"
+              class="bg-secondary/50 text-primary rounded-full px-3 py-1 text-sm font-medium"
             >
-              OpenAI
+              {ai}
             </span>
             <span
               class="bg-primary/20 text-primary rounded-full px-3 py-1 text-sm font-medium"
-              >Next.js</span
+              >{genai}</span
             >
             <span
-              class="bg-secondary/20 text-secondary rounded-full px-3 py-1 text-sm font-medium"
+              class="bg-secondary/50 text-primary rounded-full px-3 py-1 text-sm font-medium"
             >
-              Python
+              {emergingTechnologies}
             </span>
           </div>
 
@@ -107,13 +112,13 @@ const specializationText = interpolate(t("hero.specialization"), {
           >
             <a
               href={workUrl}
-              class="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+              class="bg-primary text-primary-foreground hover:bg-primary/70 focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
               {t("hero.viewProjects")}
             </a>
             <a
               href={contactUrl}
-              class="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border-2 bg-transparent px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+              class="border-secondary text-primary hover:bg-secondary hover:text-secondary-foreground focus-visible:ring-ring inline-flex h-11 items-center justify-center rounded-md border-2 bg-transparent px-8 py-3 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
             >
               {t("hero.contact")}
             </a>
