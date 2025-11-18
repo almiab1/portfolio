@@ -24,9 +24,9 @@ export default function LanguageSwitcher({ currentLocale = "es" }: LanguageSwitc
     // Eliminar el prefijo de idioma actual
     let path = currentPath;
     
-    // Si la ruta comienza con /en o /es, quitarlo
-    if (path.startsWith('/en') || path.startsWith('/es')) {
-      path = path.substring(3) || '/';
+    // Si la ruta comienza con /en o /es (seguido de / o fin de cadena), quitarlo
+    if (path === '/en' || path === '/es' || path.startsWith('/en/') || path.startsWith('/es/')) {
+      path = path.replace(/^\/(en|es)(\/|$)/, '/') || '/';
     }
     
     // Si el idioma objetivo es español (default), no añadir prefijo

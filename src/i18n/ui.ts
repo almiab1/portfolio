@@ -44,6 +44,9 @@ export const ui = {
     'hero.agents': 'Agentes',
     'hero.ai': 'AI',
     'hero.emergingTechnologies': 'Tecnologías Emergentes',
+
+    // Contacto
+    'contact.cta': '¿Tienes un proyecto en mente? ¡Hablemos!',
     
     // Común
     'common.readMore': 'Leer más',
@@ -138,6 +141,9 @@ export const ui = {
     'hero.agents': 'Agents',
     'hero.ai': 'AI',
     'hero.emergingTechnologies': 'Emerging Technologies',
+
+    // Contact
+    'contact.cta': 'Have a project in mind? Let\'s talk!',
     
     // Common
     'common.readMore': 'Read more',
