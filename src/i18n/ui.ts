@@ -62,9 +62,11 @@ export const ui = {
     'project.links': 'Enlaces',
     'project.demo': 'Ver demo',
     'project.repo': 'Ver código',
+    'project.external': 'Ver proyecto',
     'project.type': 'Tipo',
     'project.status': 'Estado',
     'project.duration': 'Duración',
+    'project.context': 'Contexto',
     'project.gallery': 'Galería',
     'project.galleryView': 'Vista del Proyecto',
     'project.galleryMultiple': 'Galería del Proyecto',
@@ -84,6 +86,12 @@ export const ui = {
     'project.status.in-progress': 'En progreso',
     'project.status.archived': 'Archivado',
     'project.status.maintained': 'Mantenido',
+    
+    // Contextos de proyecto
+    'project.context.personal': 'Personal',
+    'project.context.company': 'Empresa',
+    'project.context.research': 'Investigación',
+    'project.context.academic': 'Académico',
   },
   en: {
     // Navigation
@@ -148,9 +156,11 @@ export const ui = {
     'project.links': 'Links',
     'project.demo': 'View demo',
     'project.repo': 'View code',
+    'project.external': 'View project',
     'project.type': 'Type',
     'project.status': 'Status',
     'project.duration': 'Duration',
+    'project.context': 'Context',
     'project.gallery': 'Gallery',
     'project.galleryView': 'Project View',
     'project.galleryMultiple': 'Project Gallery',
@@ -170,5 +180,11 @@ export const ui = {
     'project.status.in-progress': 'In progress',
     'project.status.archived': 'Archived',
     'project.status.maintained': 'Maintained',
+    
+    // Project contexts
+    'project.context.personal': 'Personal',
+    'project.context.company': 'Company',
+    'project.context.research': 'Research',
+    'project.context.academic': 'Academic',
   },
 } as const;

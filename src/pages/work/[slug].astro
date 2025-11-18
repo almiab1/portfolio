@@ -24,7 +24,7 @@ const t = useTranslations("es");
   <script type="application/ld+json">{JSON.stringify(ldCreativeWork({ title: data.title, date: data.date }))}</script>
   
   <!-- Container principal: pantalla completa en desktop con padding para header, scroll normal en móvil -->
-  <div class="pt-16 lg:h-screen lg:overflow-hidden flex flex-col">
+  <div class="pt-16 flex flex-col min-h-screen lg:h-screen lg:overflow-hidden">
     
     <!-- Back Navigation Bar -->
     <div class="border-b border-border bg-card/30 backdrop-blur-sm px-6 py-5 lg:py-4 shadow-sm">
@@ -41,16 +41,16 @@ const t = useTranslations("es");
     </div>
 
     <!-- Grid principal responsive con separación visual -->
-    <div class="flex-1 lg:overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-0 bg-gradient-to-b from-background/50 to-background">
+    <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:overflow-hidden bg-gradient-to-b from-background/50 to-background">
       
       <!-- Columna izquierda: Header y Metadata -->
-      <aside class="lg:overflow-y-auto border-r border-border/50 bg-card/20 px-6 py-10 lg:px-10 lg:py-12 lg:flex lg:items-center">
-        <article class="mx-auto max-w-2xl w-full">
+      <aside class="border-r border-border/50 bg-card/20 px-6 py-8 lg:px-8 lg:py-10 lg:flex lg:items-center lg:justify-center">
+        <article class="mx-auto max-w-2xl w-full lg:max-h-[90vh]">
           
           <!-- Header -->
-          <header class="mb-8">
+          <header class="mb-6">
             <!-- Título y badges -->
-            <div class="mb-6">
+            <div class="mb-4">
               <div class="mb-4 flex flex-wrap items-center gap-3">
                 {data.featured && (
                   <span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-semibold flex items-center gap-2">
@@ -63,30 +63,42 @@ const t = useTranslations("es");
                 </span>
               </div>
               
-              <h1 class="text-foreground mb-4 text-3xl font-bold lg:text-4xl xl:text-5xl">
+              <h1 class="text-foreground mb-3 text-2xl font-bold lg:text-3xl">
                 {data.title}
               </h1>
-              <p class="text-muted-foreground mb-6 text-lg leading-relaxed">
+              <p class="text-muted-foreground mb-4 text-base leading-relaxed">
                 {data.summary}
               </p>
             </div>
 
             <!-- Metadata Grid Mejorado -->
-            <div class="border-border bg-card grid gap-6 rounded-xl border p-6 lg:p-8">
+            <div class="border-border bg-card grid gap-4 rounded-xl border p-4 lg:p-5">
               
               <!-- Stack Tecnológico (prominente) -->
               {data.tech && data.tech.length > 0 && (
-                <div>
-                  <h3 class="text-foreground mb-3 flex items-center gap-2 text-base font-semibold">
-                    <Cpu size={20} />
+                <div class="min-w-0">
+                  <h3 class="text-foreground mb-2 flex items-center gap-2 text-sm font-semibold">
+                    <Cpu size={18} />
                     {t('project.tech')}
                   </h3>
-                  <div class="flex flex-wrap gap-2">
-                    {data.tech.map((tech) => (
-                      <span class="border-primary/30 bg-primary/5 text-foreground rounded-lg border px-3 py-1.5 text-sm font-medium">
-                        {tech}
-                      </span>
-                    ))}
+                  <div class="scroll-container-wrapper relative group">
+                    <div class="scroll-container flex gap-2 overflow-x-auto pb-2 scroll-smooth -mx-1 px-1 scrollbar-hide">
+                      {data.tech.map((tech) => (
+                        <span class="border-primary/30 bg-primary/5 text-foreground whitespace-nowrap rounded-lg border px-3 py-1.5 text-sm font-medium flex-shrink-0 transition-colors hover:border-primary/50 hover:bg-primary/10">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                    <!-- Botones de navegación -->
+                    <button class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll left">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll right">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                    <!-- Fade gradients -->
+                    <div class="fade-left pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity"></div>
+                    <div class="fade-right pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent opacity-0 transition-opacity"></div>
                   </div>
                 </div>
               )}
@@ -101,37 +113,59 @@ const t = useTranslations("es");
                 </div>
               )}
 
+              <!-- Contexto -->
+              {data.context && (
+                <div>
+                  <h3 class="text-muted-foreground mb-2 text-xs font-medium uppercase">
+                    {t('project.context')}
+                  </h3>
+                  <p class="text-foreground text-sm font-medium">{t(`project.context.${data.context}`)}</p>
+                </div>
+              )}
+
               <!-- Tags -->
               {data.tags && data.tags.length > 0 && (
-                <div>
-                  <h3 class="text-muted-foreground mb-3 text-xs font-medium uppercase">
+                <div class="min-w-0">
+                  <h3 class="text-muted-foreground mb-2 text-xs font-medium uppercase">
                     {t('project.tags')}
                   </h3>
-                  <div class="flex flex-wrap gap-2">
-                    {data.tags.map((tag) => (
-                      <span class="bg-secondary text-secondary-foreground rounded-full px-3 py-1 text-xs">
-                        {tag}
-                      </span>
-                    ))}
+                  <div class="scroll-container-wrapper relative group">
+                    <div class="scroll-container flex gap-2 overflow-x-auto pb-2 scroll-smooth -mx-1 px-1 scrollbar-hide">
+                      {data.tags.map((tag) => (
+                        <span class="bg-secondary text-secondary-foreground whitespace-nowrap rounded-full px-3 py-1 text-xs flex-shrink-0 transition-colors hover:bg-secondary/80">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <!-- Botones de navegación -->
+                    <button class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll left">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll right">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                    <!-- Fade gradients -->
+                    <div class="fade-left pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity"></div>
+                    <div class="fade-right pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent opacity-0 transition-opacity"></div>
                   </div>
                 </div>
               )}
 
               <!-- Enlaces -->
-              {(data.links?.demo || data.links?.repo) && (
-                <div class="border-border border-t pt-6">
-                  <h3 class="text-muted-foreground mb-4 text-xs font-medium uppercase">
+              {(data.links?.demo || data.links?.repo || data.links?.external) && (
+                <div class="border-border border-t pt-4">
+                  <h3 class="text-muted-foreground mb-3 text-xs font-medium uppercase">
                     {t('project.links')}
                   </h3>
-                  <div class="flex flex-wrap gap-3">
+                  <div class="flex flex-wrap gap-2">
                     {data.links.demo && (
                       <a
                         href={data.links.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors"
+                        class="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-colors"
                       >
-                        <ExternalLink size={16} />
+                        <ExternalLink size={14} />
                         {t('project.demo')}
                       </a>
                     )}
@@ -140,10 +174,21 @@ const t = useTranslations("es");
                         href={data.links.repo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-semibold transition-colors"
+                        class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors"
                       >
-                        <Github size={16} />
+                        <Github size={14} />
                         {t('project.repo')}
+                      </a>
+                    )}
+                    {data.links.external && (
+                      <a
+                        href={data.links.external}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors"
+                      >
+                        <ExternalLink size={14} />
+                        {t('project.external')}
                       </a>
                     )}
                   </div>
@@ -208,3 +253,78 @@ const t = useTranslations("es");
     </div>
   </div>
 </Layout>
+
+<style is:global>
+  /* Ocultar scrollbar completamente */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  function initScrollContainers() {
+    const containers = document.querySelectorAll('.scroll-container-wrapper');
+    
+    containers.forEach((wrapper) => {
+      const container = wrapper.querySelector('.scroll-container');
+      const btnLeft = wrapper.querySelector('.scroll-btn-left');
+      const btnRight = wrapper.querySelector('.scroll-btn-right');
+      const fadeLeft = wrapper.querySelector('.fade-left');
+      const fadeRight = wrapper.querySelector('.fade-right');
+      
+      if (!container || !btnLeft || !btnRight) return;
+      
+      const updateButtons = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = container;
+        const hasOverflow = scrollWidth > clientWidth;
+        const canScrollLeft = scrollLeft > 0;
+        const canScrollRight = scrollLeft < scrollWidth - clientWidth - 1;
+        
+        // Mostrar/ocultar botones
+        if (hasOverflow) {
+          btnLeft.style.opacity = canScrollLeft ? '1' : '0';
+          btnLeft.style.pointerEvents = canScrollLeft ? 'auto' : 'none';
+          btnRight.style.opacity = canScrollRight ? '1' : '0';
+          btnRight.style.pointerEvents = canScrollRight ? 'auto' : 'none';
+        } else {
+          btnLeft.style.opacity = '0';
+          btnRight.style.opacity = '0';
+          btnLeft.style.pointerEvents = 'none';
+          btnRight.style.pointerEvents = 'none';
+        }
+        
+        // Mostrar/ocultar gradientes
+        if (fadeLeft && fadeRight) {
+          fadeLeft.style.opacity = canScrollLeft ? '1' : '0';
+          fadeRight.style.opacity = canScrollRight ? '1' : '0';
+        }
+      };
+      
+      // Scroll al hacer clic
+      btnLeft.addEventListener('click', () => {
+        container.scrollBy({ left: -200, behavior: 'smooth' });
+      });
+      
+      btnRight.addEventListener('click', () => {
+        container.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+      
+      // Actualizar al hacer scroll
+      container.addEventListener('scroll', updateButtons);
+      
+      // Actualizar al cargar y redimensionar
+      updateButtons();
+      window.addEventListener('resize', updateButtons);
+    });
+  }
+  
+  // Inicializar al cargar
+  document.addEventListener('DOMContentLoaded', initScrollContainers);
+  
+  // Reinicializar en navegación SPA (si usas View Transitions)
+  document.addEventListener('astro:page-load', initScrollContainers);
+</script>

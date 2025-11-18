@@ -20,8 +20,9 @@ export const collections = {
       duration: z.string().optional(), // e.g. "3 meses", "1 año"
       featured: z.boolean().default(false), // Proyectos destacados
       priority: z.number().min(0).max(10).default(5), // Para ordenamiento
+      context: z.enum(['personal', 'company', 'research', 'academic']).optional(), // Contexto del proyecto
       
-      links: z.object({ demo: z.string().url().optional(), repo: z.string().url().optional() }).partial(),
+      links: z.object({ demo: z.string().url().optional(), repo: z.string().url().optional(), external: z.string().url().optional() }).partial(),
       cover: z.object({ src: z.string(), alt: z.string() }).partial(),
       gallery: z.array(z.object({ src: z.string(), alt: z.string() })).optional(), // Galería de imágenes del proyecto
       seo: z.object({ title: z.string().optional(), description: z.string().optional() }).partial()

@@ -14,7 +14,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 
 // Importar la imagen de perfil optimizada con Astro
 import { Image } from "astro:assets";
-import profileImage from "@/assets/me.jpg";
+import profileImage from "@/assets/me.png";
 
 const currentLang: Language = (Astro.currentLocale as Language) || "es";
 const t = useTranslations(currentLang);
@@ -42,20 +42,6 @@ const specializationText = interpolate(t("hero.specialization"), {
 <section
   class="relative flex min-h-screen items-center justify-center overflow-hidden pt-20"
 >
-  {/* Background Pattern */}
-  <div
-    class="from-primary/40 via-background to-secondary/40 absolute inset-0 bg-gradient-to-br"
-  >
-  </div>
-  {
-    /* Background decorativo - Mantener en public por ser puramente decorativo con opacity muy baja */
-  }
-  <div
-    class="absolute inset-0 bg-cover bg-center opacity-60"
-    role="presentation"
-  >
-  </div>
-
   {/* Decorative animated icons */}
   <div class="absolute top-20 left-10 animate-pulse">
     <Brain className="text-primary/50 h-8 w-8" />
@@ -173,8 +159,7 @@ const specializationText = interpolate(t("hero.specialization"), {
                 <Image
                   src={profileImage}
                   alt={t("hero.profileAlt")}
-                  width={352}
-                  height={352}
+                  width={832}
                   format="webp"
                   quality={90}
                   loading="eager"

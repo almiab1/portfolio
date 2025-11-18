@@ -4,6 +4,7 @@ import Hero from "@/components/blocks/Hero.astro";
 import Contact from "@/components/blocks/Contact.astro";
 import { ldPerson, ldWebsite, ldCreativeWork, ldBlogPosting, ldEvent } from "@/lib/schema";
 import ProjectGrid from "@/components/blocks/ProjectGrid.astro";
+import NeuralBackground from "@/components/ui/NeuralBackground";
 
 const jsonLd = [ldPerson(), ldWebsite(), ldCreativeWork({ title: "Construyendo productos con IA generativa y sistemas de agentes" }), ldBlogPosting({ title: "Construyendo productos con IA generativa y sistemas de agentes", date: "2025-01-01" }), ldEvent({ name: "Construyendo productos con IA generativa y sistemas de agentes", startDate: "2025-01-01" })];
 ---
@@ -11,6 +12,8 @@ const jsonLd = [ldPerson(), ldWebsite(), ldCreativeWork({ title: "Construyendo p
 <Base title="Alejandro Mira — GenAI & Agentes LLM" description="Porfolio, proyectos y artículos.">
 
   {jsonLd.map((o: any) => <script type="application/ld+json">{JSON.stringify(o)}</script>)}
+
+  <NeuralBackground client:only="react" />
 
   <main class="min-h-screen">
     <Hero />

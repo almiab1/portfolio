@@ -11,9 +11,8 @@
       "args": ["@jpisnice/shadcn-ui-mcp-server"]
     },
     "chrome-devtools": {
-      "command": "npx -y chrome-devtools-mcp@latest",
-      "env": {},
-      "args": []
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
     }
   }
 }

@@ -4,6 +4,7 @@ import Hero from "@/components/blocks/Hero.astro";
 import Contact from "@/components/blocks/Contact.astro";
 import { ldPerson, ldWebsite, ldCreativeWork, ldBlogPosting, ldEvent } from "@/lib/schema";
 import ProjectGrid from "@/components/blocks/ProjectGrid.astro";
+import NeuralBackground from "@/components/ui/NeuralBackground";
 
 const jsonLd = [
   ldPerson(), 
@@ -16,6 +17,8 @@ const jsonLd = [
 
 <Base title="Alejandro Mira — GenAI & LLM Agents" description="Portfolio, projects and articles.">
   {jsonLd.map((o: any) => <script type="application/ld+json">{JSON.stringify(o)}</script>)}
+
+  <NeuralBackground client:only="react" />
 
   <main class="min-h-screen">
     <Hero />
