@@ -208,6 +208,18 @@ export const ui = {
 #### Hero
 
 - `hero.greeting`, `hero.role`, `hero.description`
+- `hero.viewProjects`, `hero.contact`
+
+#### About (Sobre mí)
+
+- `about.title` - Título de la sección
+- `about.intro` - Introducción personal
+- `about.background` - Experiencia y trayectoria profesional
+- `about.currentFocus` - Enfoque actual e intereses
+
+#### Contacto
+
+- `contact.cta` - Call to action de la sección de contacto
 
 #### Común
 

@@ -50,6 +50,15 @@ export const ui = {
     // Contacto
     'contact.cta': '¿Tienes un proyecto en mente? ¡Hablemos!',
 
+    // Sobre mí
+    'about.title': 'Sobre mí',
+    'about.intro':
+      'Soy un Ingeniero de Inteligencia Artificial especializado en IA generativa y sistemas de agentes basados en LLMs. Mi pasión es transformar ideas innovadoras en soluciones reales que impulsan el futuro de la tecnología.',
+    'about.background':
+      'Con experiencia en desarrollo de productos de IA, he trabajado en la creación de sistemas inteligentes que automatizan procesos complejos y mejoran la toma de decisiones. Mi enfoque combina conocimientos técnicos profundos con una visión estratégica del producto.',
+    'about.currentFocus':
+      'Actualmente, me concentro en construir agentes autónomos y aplicaciones de IA generativa que resuelven problemas reales. Estoy especialmente interesado en arquitecturas de agentes, RAG (Retrieval-Augmented Generation), y la integración de LLMs en productos escalables.',
+
     // Común
     'common.readMore': 'Leer más',
     'common.learnMore': 'Saber más',
@@ -148,6 +157,15 @@ export const ui = {
 
     // Contact
     'contact.cta': "Have a project in mind? Let's talk!",
+
+    // About
+    'about.title': 'About Me',
+    'about.intro':
+      "I'm an Artificial Intelligence Engineer specialized in generative AI and LLM-based agent systems. My passion is transforming innovative ideas into real solutions that drive the future of technology.",
+    'about.background':
+      "With experience in AI product development, I've worked on building intelligent systems that automate complex processes and improve decision-making. My approach combines deep technical knowledge with a strategic product vision.",
+    'about.currentFocus':
+      "Currently, I focus on building autonomous agents and generative AI applications that solve real problems. I'm particularly interested in agent architectures, RAG (Retrieval-Augmented Generation), and integrating LLMs into scalable products.",
 
     // Common
     'common.readMore': 'Read more',
