@@ -39,7 +39,6 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
     { href: currentLocale === 'es' ? '/' : '/en', label: translate('nav.home'), isPage: true },
     { href: `${basePrefix}/work`, label: translate('nav.work'), isPage: true },
     { href: `${anchorPrefix}#about`, label: translate('nav.about'), isPage: false },
-    { href: `${anchorPrefix}#skills`, label: translate('nav.skills'), isPage: false },
     { href: `${anchorPrefix}#contact`, label: translate('nav.contact'), isPage: false },
   ];
 
@@ -71,7 +70,11 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
             ))}
             <LanguageSwitcher currentLocale={currentLocale} />
             <a
-              href={currentLocale === 'es' ? '/cv/esp/CV_MiraAbad_Alejandro.pdf' : '/cv/eng/CV_MiraAbad_Alejandro.pdf'}
+              href={
+                currentLocale === 'es'
+                  ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
+                  : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
+              }
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -114,7 +117,11 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
                 <LanguageSwitcher currentLocale={currentLocale} />
               </div>
               <a
-                href={currentLocale === 'es' ? '/cv/esp/CV_MiraAbad_Alejandro.pdf' : '/cv/eng/CV_MiraAbad_Alejandro.pdf'}
+                href={
+                  currentLocale === 'es'
+                    ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
+                    : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
+                }
                 download
                 target="_blank"
                 rel="noopener noreferrer"
