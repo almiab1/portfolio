@@ -1,0 +1,157 @@
+---
+import { useTranslations, type Language } from '@/i18n/utils';
+import type { CollectionEntry } from 'astro:content';
+import {
+  Globe,
+  Smartphone,
+  Cpu,
+  Brain,
+  Database,
+  Server,
+  Monitor,
+  Package,
+  Star,
+} from 'lucide-react';
+
+export interface Props {
+  project: CollectionEntry<'projects'>;
+  currentLang: Language;
+}
+
+const { project, currentLang } = Astro.props;
+const t = useTranslations(currentLang);
+
+// Extraer slug base sin el prefijo de idioma (es/cookobot -> cookobot)
+const slugBase = project.slug.replace(/^(es|en)\//, '');
+
+// Determinar URL según idioma
+const href = currentLang === 'es' ? `/work/${slugBase}` : `/${currentLang}/work/${slugBase}`;
+
+// Iconos por tipo de proyecto
+const typeIcons = {
+  web: Globe,
+  mobile: Smartphone,
+  iot: Cpu,
+  ai: Brain,
+  data: Database,
+  api: Server,
+  desktop: Monitor,
+  other: Package,
+};
+
+const TypeIcon = typeIcons[project.data.type || 'other'];
+---
+
+<a
+  href={href}
+  data-project-tags={project.data.tags?.join(',') || ''}
+  data-project-title={project.data.title}
+  data-project-summary={project.data.summary}
+  class="group relative block overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:z-10 hover:scale-105 hover:border-primary hover:shadow-lg"
+>
+  <div class="p-6">
+    <!-- Header con tipo -->
+    <div class="mb-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="rounded-lg bg-primary/10 p-2 text-primary">
+          <TypeIcon size={18} />
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xs font-medium text-muted-foreground uppercase">
+            {t(`project.type.${project.data.type || 'other'}`)}
+          </span>
+          {
+            project.data.duration && (
+              <span class="text-xs text-muted-foreground">{project.data.duration}</span>
+            )
+          }
+        </div>
+      </div>
+
+      <!-- Badge de destacado -->
+      {
+        project.data.featured && (
+          <div class="flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            <Star size={16} />
+            Featured
+          </div>
+        )
+      }
+    </div>
+
+    <!-- Título y enlaces -->
+    <div class="mb-3 flex items-start justify-between gap-3">
+      <h3
+        class="line-clamp-2 text-xl font-semibold text-foreground transition-colors group-hover:text-primary"
+      >
+        {project.data.title}
+      </h3>
+      {
+        project.data.links?.demo && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="flex-shrink-0 text-muted-foreground transition-colors group-hover:text-primary"
+          >
+            <path d="M7 7h10v10" />
+            <path d="M7 17 17 7" />
+          </svg>
+        )
+      }
+    </div>
+
+    <!-- Summary -->
+    <p class="mb-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+      {project.data.summary}
+    </p>
+
+    <!-- Stack tecnológico (prominente) -->
+    {
+      project.data.tech && project.data.tech.length > 0 && (
+        <div class="mb-4">
+          <div class="mb-2 flex items-center gap-2">
+            <Server size={14} className="text-muted-foreground" />
+            <span class="text-xs font-medium text-muted-foreground uppercase">Stack</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {project.data.tech.slice(0, 4).map((tech) => (
+              <span class="rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs font-medium text-foreground">
+                {tech}
+              </span>
+            ))}
+            {project.data.tech.length > 4 && (
+              <span class="rounded-lg border border-dashed px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                +{project.data.tech.length - 4}
+              </span>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Tags (secundario) -->
+    {
+      project.data.tags && project.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {project.data.tags.slice(0, 3).map((tag) => (
+            <span class="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">
+              {tag}
+            </span>
+          ))}
+          {project.data.tags.length > 3 && (
+            <span class="rounded-full px-3 py-1 text-xs text-muted-foreground">
+              +{project.data.tags.length - 3}
+            </span>
+          )}
+        </div>
+      )
+    }
+  </div>
+</a>

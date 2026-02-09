@@ -1,0 +1,180 @@
+---
+import { Button } from '@/components/ui/button';
+import { ArrowDown, Github, Linkedin, Mail, Brain, Code2, Sparkles } from 'lucide-react';
+import { useTranslations, type Language } from '@/i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+// Importar la imagen de perfil optimizada con Astro
+import { Image } from 'astro:assets';
+import profileImage from '@/assets/me.png';
+
+const currentLang: Language = (Astro.currentLocale as Language) || 'es';
+const t = useTranslations(currentLang);
+
+// Generar URLs localizadas para los links
+const workUrl = getRelativeLocaleUrl(currentLang, '/work');
+const contactUrl = '#contact'; // Si tienes una página de contacto, usar getRelativeLocaleUrl también
+
+// Helper para interpolación en traducciones
+function interpolate(text: string, values: Record<string, string>): string {
+  return text.replace(/\{(\w+)\}/g, (_, key) => values[key] || `{${key}}`);
+}
+
+const agents = t('hero.agents');
+const ai = t('hero.ai');
+const genai = t('hero.genai');
+const emergingTechnologies = t('hero.emergingTechnologies');
+
+const specializationText = interpolate(t('hero.specialization'), {
+  genai: `<strong class="text-primary">${t('hero.genai')}</strong>`,
+  llms: `<strong class="text-primary">${t('hero.llms')}</strong>`,
+});
+---
+
+<section class="relative flex min-h-screen items-center justify-center overflow-hidden pt-20">
+  {/* Decorative animated icons */}
+  <div class="absolute top-20 left-10 animate-pulse">
+    <Brain className="h-8 w-8 text-primary/50" />
+  </div>
+  <div class="absolute top-40 right-20 animate-bounce delay-1000">
+    <Code2 className="h-6 w-6 text-secondary/50" />
+  </div>
+  <div class="absolute bottom-40 left-20 animate-pulse delay-500">
+    <Sparkles className="h-7 w-7 text-primary/50" />
+  </div>
+
+  <div class="relative z-10 container mx-auto px-4">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        {/* Left side - Content */}
+        <div class="order-2 text-center lg:order-1 lg:text-left">
+          <h1 class="mb-6 text-4xl font-bold text-balance md:text-5xl lg:text-6xl">
+            {t('hero.title')}
+            <span class="text-primary">{t('hero.titleHighlight')}</span>
+          </h1>
+
+          <p
+            class="mb-8 text-lg text-pretty text-muted-foreground md:text-xl"
+            set:html={specializationText}
+          />
+
+          <div class="mb-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary"
+              >{agents}</span
+            >
+            <span class="rounded-full bg-secondary/50 px-3 py-1 text-sm font-medium text-primary">
+              {ai}
+            </span>
+            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary"
+              >{genai}</span
+            >
+            <span class="rounded-full bg-secondary/50 px-3 py-1 text-sm font-medium text-primary">
+              {emergingTechnologies}
+            </span>
+          </div>
+
+          <div
+            class="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
+          >
+            <a
+              href={workUrl}
+              class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+            >
+              {t('hero.viewProjects')}
+            </a>
+            <a
+              href={contactUrl}
+              class="inline-flex h-11 items-center justify-center rounded-md border-2 border-secondary bg-transparent px-8 py-3 text-sm font-medium text-primary transition-colors hover:bg-secondary hover:text-secondary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+            >
+              {t('hero.contact')}
+            </a>
+          </div>
+
+          {/* Social Links */}
+          <div class="flex justify-center space-x-6 lg:justify-start">
+            <a
+              href="https://github.com/almiab1"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-muted-foreground transition-colors duration-200 hover:text-primary"
+              aria-label="GitHub"
+            >
+              <Github size={24} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/alejandro-mira/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-muted-foreground transition-colors duration-200 hover:text-primary"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={24} />
+            </a>
+            <a
+              href={contactUrl}
+              class="text-muted-foreground transition-colors duration-200 hover:text-primary"
+              aria-label="Email"
+            >
+              <Mail size={24} />
+            </a>
+          </div>
+        </div>
+
+        {/* Right side - Photo and visual elements */}
+        <div class="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <div class="relative">
+            <div class="relative h-80 w-80 md:h-96 md:w-96">
+              <div
+                class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-primary via-secondary to-primary opacity-20"
+              >
+              </div>
+              <div
+                class="absolute inset-2 rounded-full bg-gradient-to-br from-primary/30 to-secondary/30"
+              >
+              </div>
+              <div
+                class="absolute inset-4 flex items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-card"
+              >
+                {/* Foto de perfil optimizada con Astro */}
+                <Image
+                  src={profileImage}
+                  alt={t('hero.profileAlt')}
+                  width={832}
+                  format="webp"
+                  quality={90}
+                  loading="eager"
+                  class="h-full w-full rounded-full object-cover"
+                  densities={[1, 2]}
+                />
+              </div>
+            </div>
+
+            <div
+              class="absolute -top-4 -right-4 animate-bounce rounded-full bg-primary/20 p-3 backdrop-blur-sm"
+            >
+              <Brain className="h-6 w-6 text-primary" />
+            </div>
+            <div
+              class="absolute -bottom-4 -left-4 animate-pulse rounded-full bg-secondary/20 p-3 backdrop-blur-sm"
+            >
+              <Code2 className="h-6 w-6 text-secondary" />
+            </div>
+            <div
+              class="absolute top-1/2 -right-8 animate-bounce rounded-full bg-primary/15 p-2 backdrop-blur-sm delay-300"
+            >
+              <Sparkles className="h-5 w-5 text-primary" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-16 flex justify-center">
+        <a href="#about" aria-label="Scroll to projects section">
+          <div class="animate-bounce">
+            <ArrowDown className="text-muted-foreground" size={24} />
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

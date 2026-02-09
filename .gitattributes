@@ -1,0 +1,74 @@
+# Auto detect
+*                 text=auto
+
+# Source code
+*.astro           text
+*.css             text diff=css
+*.htm             text diff=html
+*.html            text diff=html
+*.js              text
+*.mjs             text
+*.cjs             text
+*.json            text
+*.jsx             text
+*.mdx             text diff=markdown
+*.scss            text diff=css
+*.ts              text
+*.tsx             text
+*.xml             text
+
+# Shell scripts
+*.bash            text eol=lf
+*.sh              text eol=lf
+.husky/*          text eol=lf
+
+# Documentation
+*.md              text diff=markdown
+*.txt             text
+LICENSE           text
+README*           text
+
+# Configs
+.editorconfig     text
+*.env             text
+.gitattributes    text
+.gitconfig        text
+.htaccess         text
+*.lock            text -diff
+package.json      text eol=lf
+pnpm-lock.yaml    text eol=lf -diff
+.prettierrc       text
+*.toml            text
+*.yaml            text
+*.yml             text
+tsconfig.json     linguist-language=JSON-with-Comments
+
+# Graphics
+*.gif             binary
+*.ico             binary
+*.jpg             binary
+*.jpeg            binary
+*.png             binary
+*.svg             text
+*.svgz            binary
+*.webp            binary
+
+# Fonts
+*.ttf             binary
+*.eot             binary
+*.otf             binary
+*.woff            binary
+*.woff2           binary
+
+# Archives
+*.gz              binary
+*.zip             binary
+
+# RC files
+*.*rc             text
+
+# Ignore files
+*.*ignore         text
+
+# Prevents massive diffs from built files
+dist/**           binary
