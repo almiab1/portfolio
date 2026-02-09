@@ -70,12 +70,19 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
               </a>
             ))}
             <LanguageSwitcher currentLocale={currentLocale} />
-            <Button
-              variant="default"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            <a
+              href={currentLocale === 'es' ? '/cv/esp/CV_MiraAbad_Alejandro.pdf' : '/cv/eng/CV_MiraAbad_Alejandro.pdf'}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {translate('nav.downloadCV')}
-            </Button>
+              <Button
+                variant="default"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                {translate('nav.downloadCV')}
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -106,12 +113,19 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
               <div className="pt-2">
                 <LanguageSwitcher currentLocale={currentLocale} />
               </div>
-              <Button
-                variant="default"
-                className="w-fit bg-primary text-primary-foreground hover:bg-primary/90"
+              <a
+                href={currentLocale === 'es' ? '/cv/esp/CV_MiraAbad_Alejandro.pdf' : '/cv/eng/CV_MiraAbad_Alejandro.pdf'}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {translate('nav.downloadCV')}
-              </Button>
+                <Button
+                  variant="default"
+                  className="w-fit bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  {translate('nav.downloadCV')}
+                </Button>
+              </a>
             </div>
           </div>
         )}
