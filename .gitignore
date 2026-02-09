@@ -15,41 +15,26 @@ pnpm-debug.log*
 
 # environment variables
 .env
+.env.local
 .env.production
 
 # macOS-specific files
 .DS_Store
 
-# ignore Editor files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
-
-# ignore log files and databases
-*.log
-*.sql
-*.sqlite
-
-# ignore compiled files
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# ignore composer vendor directory
-/vendor
-
-# --------------------------------------------------------
-# BEGIN Explictly Allowed Files (i.e. do NOT ignore these)
-# --------------------------------------------------------
-
-# track these files, if they exist
-!.gitignore
-!.editorconfig
-!.phpcs.xml.dist
-!.env.example
-.dist
+# caches
 .cache
 .vercel
+
+# IDE / editor files
+*.sublime-project
+*.sublime-workspace
+.idea/
+*.swp
+*.swo
+
+# Claude Code / MCP
+.claude/
+.mcp.json
+
+# worktrees
+.trees/
