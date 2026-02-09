@@ -1,0 +1,135 @@
+---
+// ABOUTME: About section component displaying professional background and expertise
+// ABOUTME: Features visual hierarchy, stat cards, and integrated specialization badges
+import { useTranslations, type Language } from '@/i18n/utils';
+import { Sparkles, Target, Lightbulb } from 'lucide-react';
+
+const currentLang: Language = (Astro.currentLocale as Language) || 'es';
+const t = useTranslations(currentLang);
+
+// Helper para interpolación en traducciones
+function interpolate(text: string, values: Record<string, string>): string {
+  return text.replace(/\{(\w+)\}/g, (_, key) => values[key] || `{${key}}`);
+}
+
+// Specialization areas
+const specializations = [
+  { label: t('hero.genai'), color: 'primary' },
+  { label: t('hero.agents'), color: 'secondary' },
+  { label: t('hero.llms'), color: 'primary' },
+  { label: t('hero.emergingTechnologies'), color: 'secondary' },
+];
+
+// Prepare interpolated text
+const introText = interpolate(t('about.intro'), {
+  highlight: `<span class="text-primary">${t('about.highlight')}</span>`,
+});
+
+const experienceText = interpolate(t('about.experience.description'), {
+  genai: `<strong class="text-foreground">${t('about.experience.genai')}</strong>`,
+  agentic: `<strong class="text-foreground">${t('about.experience.agentic')}</strong>`,
+});
+
+const transitionText = interpolate(t('about.transition.description'), {
+  role: `<strong class="text-foreground">${t('about.transition.role')}</strong>`,
+});
+---
+
+<section id="about" class="py-20 lg:py-32">
+  <div class="container mx-auto max-w-6xl px-4">
+    <!-- Section Header -->
+    <div class="mb-16 text-center">
+      <h2 class="mb-4 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+        {t('nav.about')}
+      </h2>
+      <div class="mx-auto h-1 w-20 rounded-full bg-gradient-to-r from-primary to-secondary"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="grid gap-12 lg:grid-cols-3 lg:gap-8">
+      <!-- Left Column: Main Bio (2/3 width) -->
+      <div class="lg:col-span-2">
+        <!-- Intro with Icon -->
+        <div class="mb-8 flex items-start gap-4">
+          <div class="mt-1 flex-shrink-0 rounded-lg bg-primary/20 p-3">
+            <Sparkles className="h-6 w-6 text-primary" />
+          </div>
+          <div>
+            <p class="text-xl font-medium leading-relaxed text-foreground md:text-2xl" set:html={introText} />
+          </div>
+        </div>
+
+        <!-- Key Points with Icons -->
+        <div class="space-y-6">
+          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
+            <div class="mt-1 flex-shrink-0 rounded-lg bg-secondary/20 p-2">
+              <Target className="h-5 w-5 text-secondary" />
+            </div>
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-foreground">{t('about.experience.title')}</h3>
+              <p class="leading-relaxed text-muted-foreground" set:html={experienceText} />
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
+            <div class="mt-1 flex-shrink-0 rounded-lg bg-primary/20 p-2">
+              <Lightbulb className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h3 class="mb-2 text-lg font-semibold text-foreground">{t('about.transition.title')}</h3>
+              <p class="leading-relaxed text-muted-foreground" set:html={transitionText} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Specializations & Stats (1/3 width) -->
+      <div class="space-y-6">
+        <!-- Specializations Card -->
+        <div class="rounded-xl border border-border bg-card p-6 shadow-sm">
+          <h3 class="mb-4 text-lg font-semibold text-foreground">{t('about.specialization')}</h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              specializations.map((spec) => (
+                <span
+                  class={`rounded-full px-4 py-2 text-sm font-medium transition-transform hover:scale-105 ${
+                    spec.color === 'primary'
+                      ? 'bg-primary/20 text-primary'
+                      : 'bg-secondary/50 text-primary'
+                  }`}
+                >
+                  {spec.label}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Mission Statement -->
+        <div class="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5 p-6">
+          <div class="mb-3 flex items-center gap-2">
+            <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></div>
+            <p class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+              {t('about.goal')}
+            </p>
+          </div>
+          <p class="text-base font-medium italic leading-relaxed text-foreground">
+            &ldquo;{t('about.goal.text')}&rdquo;
+          </p>
+        </div>
+
+        <!-- Quick Stats (Optional - can be customized) -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="rounded-lg bg-muted/30 p-4 text-center">
+            <div class="text-2xl font-bold text-primary">5+</div>
+            <div class="text-xs text-muted-foreground">{t('about.stats.years')}</div>
+          </div>
+          <div class="rounded-lg bg-muted/30 p-4 text-center">
+            <div class="text-2xl font-bold text-primary">20+</div>
+            <div class="text-xs text-muted-foreground">{t('about.stats.projects')}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

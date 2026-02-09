@@ -1,0 +1,257 @@
+---
+alwaysApply: true
+---
+
+# Sistema de Internacionalización (i18n)
+
+## 🌍 Reglas CRÍTICAS
+
+1. **SIEMPRE consultar** `/docs/i18n/` antes de modificar i18n
+2. **NUNCA hardcodear** texto en español o inglés en componentes
+3. **USAR traducciones** de `src/i18n/ui.ts`
+4. **Contenido multiidioma** DEBE tener `lang` y `translationKey`
+
+## 📚 Documentación Completa
+
+- **Visión general**: `/docs/i18n/i18n-overview.md`
+- **Guía de contenido**: `/docs/i18n/i18n-content-guide.md`
+- **API Reference**: `/docs/i18n/i18n-api-reference.md`
+
+## 🎯 Configuración
+
+```javascript
+// astro.config.mjs
+i18n: {
+  locales: ["es", "en"],
+  defaultLocale: "es",
+  routing: {
+    prefixDefaultLocale: false,     // Sin /es/ en URLs
+    redirectToDefaultLocale: false,
+  },
+  fallback: { en: "es" }  // Fallback a español
+}
+```
+
+## 🔧 Traducir Componentes
+
+### Astro Components
+
+```astro
+---
+import { useTranslations } from '@/i18n/utils';
+
+const lang = Astro.currentLocale || 'es';
+const t = useTranslations(lang);
+---
+
+<h1>{t('home.title')}</h1>
+<p>{t('home.description')}</p>
+```
+
+### React Components
+
+```tsx
+import { t, type Language } from '@/i18n/translations';
+
+function Component({ currentLocale = 'es' }: Props) {
+  const translate = t(currentLocale as Language);
+  
+  return (
+    <div>
+      <h1>{translate('nav.home')}</h1>
+      <p>{translate('nav.work')}</p>
+    </div>
+  );
+}
+```
+
+## 📝 Contenido Multiidioma
+
+### Proyectos en MDX
+
+**Español**: `agente-llm-proyecto.mdx`
+
+```yaml
+---
+title: "Agentes LLM para soporte"
+summary: "Descripción"
+date: "2025-01-01"
+lang: "es"                        # OBLIGATORIO
+translationKey: "agente-llm"      # OBLIGATORIO para vincular
+tags: ["GenAI", "Agents"]
+---
+```
+
+**Inglés**: `llm-agent-project.mdx`
+
+```yaml
+---
+title: "LLM Agents for support"
+summary: "Description"
+date: "2025-01-01"
+lang: "en"                        # OBLIGATORIO
+translationKey: "agente-llm"      # MISMA CLAVE
+tags: ["GenAI", "Agents"]
+---
+```
+
+## 🔍 Obtener Contenido por Idioma
+
+```typescript
+import { getProjectsByLang } from '@/lib/i18n-content';
+
+// En páginas españolas
+const projects = await getProjectsByLang('es');
+
+// En páginas inglesas
+const projects = await getProjectsByLang('en');
+```
+
+## 🌐 URLs Generadas
+
+| Contenido | Español | Inglés |
+|-----------|---------|--------|
+| Home | `/` | `/en` |
+| Proyectos | `/work` o `/es/work` | `/en/work` |
+| Proyecto | `/work/[slug]` | `/en/work/[slug]` |
+
+## 📋 Checklist i18n
+
+### Al Crear Componentes
+
+- [ ] Usar `t()` o `useTranslations()` para texto
+- [ ] NO hardcodear strings
+- [ ] Añadir nuevas claves a `src/i18n/ui.ts`
+- [ ] Probar en español E inglés
+
+### Al Crear Contenido
+
+- [ ] Incluir campo `lang: "es"` o `lang: "en"`
+- [ ] Incluir `translationKey` si tiene traducción
+- [ ] Crear versión en ambos idiomas (opcional)
+- [ ] Verificar en `/work` y `/en/work`
+
+### Antes de Commit
+
+- [ ] Build sin errores: `npm run build`
+- [ ] Probar en `/` (español)
+- [ ] Probar en `/en` (inglés)
+- [ ] Verificar selector de idioma funciona
+
+## 🎨 Añadir Nueva Traducción
+
+### 1. Añadir a `src/i18n/ui.ts`
+
+```typescript
+export const ui = {
+  es: {
+    'nueva.clave': 'Texto en español',
+  },
+  en: {
+    'nueva.clave': 'Text in English',
+  },
+} as const;
+```
+
+### 2. Usar en Componente
+
+```astro
+---
+const t = useTranslations(lang);
+---
+
+<p>{t('nueva.clave')}</p>
+```
+
+## ⚠️ Errores Comunes
+
+### ❌ Hardcodear Texto
+
+```tsx
+// ❌ MAL
+<button>Ver proyectos</button>
+
+// ✅ BIEN
+<button>{translate('work.viewAll')}</button>
+```
+
+### ❌ Olvidar Campo lang
+
+```yaml
+# ❌ MAL
+---
+title: "Mi Proyecto"
+summary: "Descripción"
+---
+
+# ✅ BIEN
+---
+title: "Mi Proyecto"
+summary: "Descripción"
+lang: "es"
+translationKey: "mi-proyecto"
+---
+```
+
+### ❌ translationKey Diferente
+
+```yaml
+# ❌ MAL
+# Español
+lang: "es"
+translationKey: "mi-proyecto"
+
+# Inglés
+lang: "en"
+translationKey: "my-project"  # ❌ Diferente
+
+# ✅ BIEN
+# Ambos deben tener:
+translationKey: "mi-proyecto"
+```
+
+## 🚀 Testing i18n
+
+```bash
+# Servidor de desarrollo
+npm run dev
+
+# Verificar ambos idiomas
+http://localhost:4321/      # Español
+http://localhost:4321/en    # Inglés
+
+# Build y verificar páginas generadas
+npm run build
+ls -R dist/
+```
+
+## 🔗 Referencias Completas
+
+- **Visión General**: `/docs/i18n/i18n-overview.md` - Sistema completo
+- **Guía de Contenido**: `/docs/i18n/i18n-content-guide.md` - Crear contenido
+- **API Reference**: `/docs/i18n/i18n-api-reference.md` - Todas las funciones
+
+## 📊 Claves de Traducción Disponibles
+
+### Navegación (7)
+`nav.home`, `nav.work`, `nav.about`, `nav.skills`, `nav.projects`, `nav.contact`, `nav.downloadCV`
+
+### Páginas (4)
+`home.title`, `home.description`, `site.title`, `site.description`
+
+### Proyectos (6)
+`work.title`, `work.viewAll`, `work.caseStudy`, `work.backToProjects`, `work.noProjects`, `work.featured`
+
+### Hero (3)
+`hero.greeting`, `hero.role`, `hero.description`
+
+### Común (4)
+`common.readMore`, `common.learnMore`, `common.viewMore`, `common.loading`
+
+### Fechas (2)
+`date.updated`, `date.published`
+
+### Labels (6)
+`project.role`, `project.tech`, `project.tags`, `project.links`, `project.demo`, `project.repo`
+
+**Total: 47 claves de traducción**
