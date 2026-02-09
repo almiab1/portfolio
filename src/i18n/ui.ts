@@ -53,11 +53,23 @@ export const ui = {
     // Sobre mí
     'about.title': 'Sobre mí',
     'about.intro':
-      'Soy un Ingeniero de Inteligencia Artificial especializado en IA generativa y sistemas de agentes basados en LLMs. Mi pasión es transformar ideas innovadoras en soluciones reales que impulsan el futuro de la tecnología.',
-    'about.background':
-      'Con experiencia en desarrollo de productos de IA, he trabajado en la creación de sistemas inteligentes que automatizan procesos complejos y mejoran la toma de decisiones. Mi enfoque combina conocimientos técnicos profundos con una visión estratégica del producto.',
-    'about.currentFocus':
-      'Actualmente, me concentro en construir agentes autónomos y aplicaciones de IA generativa que resuelven problemas reales. Estoy especialmente interesado en arquitecturas de agentes, RAG (Retrieval-Augmented Generation), y la integración de LLMs en productos escalables.',
+      'Experto en {highlight}, transformo conceptos complejos de IA en soluciones empresariales escalables que impulsan la innovación y generan resultados medibles.',
+    'about.highlight': 'IA Generativa y Sistemas de Agentes Autónomos',
+    'about.experience.title': 'Expertise & Resultados',
+    'about.experience.description':
+      'Especializado en {genai} y {agentic}, diseño arquitecturas de IA que automatizan procesos críticos y optimizan la toma de decisiones estratégicas. Mi dominio full-stack garantiza implementaciones robustas que van del prototipo a producción, maximizando el ROI tecnológico.',
+    'about.experience.genai': 'IA Generativa con LLMs',
+    'about.experience.agentic': 'Sistemas Multi-Agente',
+    'about.transition.title': 'Innovación + Visión Estratégica',
+    'about.transition.description':
+      'Con experiencia consolidada en I+D y consultoría tecnológica, traduzco investigación de vanguardia en ventajas competitivas reales. Combino rigor científico con pragmatismo empresarial para entregar soluciones de {role} que aceleran la transformación digital.',
+    'about.transition.role': 'IA de alto impacto',
+    'about.specialization': 'Áreas de Expertise',
+    'about.goal': 'Filosofía',
+    'about.goal.text':
+      'Construir el futuro de la IA, un agente a la vez. Experimentar, innovar y compartir conocimiento para democratizar el acceso a sistemas inteligentes',
+    'about.stats.years': 'Años de Experiencia',
+    'about.stats.projects': 'Proyectos de IA',
 
     // Común
     'common.readMore': 'Leer más',
@@ -161,11 +173,23 @@ export const ui = {
     // About
     'about.title': 'About Me',
     'about.intro':
-      "I'm an Artificial Intelligence Engineer specialized in generative AI and LLM-based agent systems. My passion is transforming innovative ideas into real solutions that drive the future of technology.",
-    'about.background':
-      "With experience in AI product development, I've worked on building intelligent systems that automate complex processes and improve decision-making. My approach combines deep technical knowledge with a strategic product vision.",
-    'about.currentFocus':
-      "Currently, I focus on building autonomous agents and generative AI applications that solve real problems. I'm particularly interested in agent architectures, RAG (Retrieval-Augmented Generation), and integrating LLMs into scalable products.",
+      'Expert in {highlight}, I transform complex AI concepts into scalable enterprise solutions that drive innovation and deliver measurable business outcomes.',
+    'about.highlight': 'Generative AI & Autonomous Agent Systems',
+    'about.experience.title': 'Expertise & Impact',
+    'about.experience.description':
+      'Specialized in {genai} and {agentic}, I architect AI solutions that automate critical processes and optimize strategic decision-making. My full-stack mastery ensures robust implementations from prototype to production, maximizing technological ROI.',
+    'about.experience.genai': 'Generative AI with LLMs',
+    'about.experience.agentic': 'Multi-Agent Systems',
+    'about.transition.title': 'Innovation + Strategic Vision',
+    'about.transition.description':
+      'With proven expertise in R&D and technology consulting, I translate cutting-edge research into tangible competitive advantages. I combine scientific rigor with business pragmatism to deliver {role} solutions that accelerate digital transformation.',
+    'about.transition.role': 'high-impact AI',
+    'about.specialization': 'Core Expertise',
+    'about.goal': 'Philosophy',
+    'about.goal.text':
+      'Building the future of AI, one agent at a time. Experimenting, innovating, and sharing knowledge to democratize access to intelligent systems',
+    'about.stats.years': 'Years of Experience',
+    'about.stats.projects': 'AI Projects',
 
     // Common
     'common.readMore': 'Read more',
