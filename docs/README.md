@@ -90,12 +90,12 @@ Cada documento incluye metadatos en formato YAML al inicio:
 
 ```yaml
 ---
-title: "Título del Documento"
-category: "i18n|architecture|features|guides"
-tags: ["tag1", "tag2", "tag3"]
-related: ["doc1.md", "doc2.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'Título del Documento'
+category: 'i18n|architecture|features|guides'
+tags: ['tag1', 'tag2', 'tag3']
+related: ['doc1.md', 'doc2.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 ```
 
@@ -126,7 +126,7 @@ Al añadir nuevas features:
 1. Crear/actualizar documento en la categoría correspondiente
 2. Actualizar este README con link al nuevo documento
 3. Añadir referencias cruzadas en documentos relacionados
-4. Actualizar `.cursorrules` si es necesario
+4. Actualizar `CLAUDE.md` si es necesario
 
 ## 📞 Soporte
 
@@ -140,5 +140,5 @@ Para dudas sobre la documentación:
 ---
 
 **Versión**: 1.0.0  
-**Última Actualización**: 2025-01-15  
+**Última Actualización**: 2026-02-09  
 **Mantenedor**: Alejandro Mira

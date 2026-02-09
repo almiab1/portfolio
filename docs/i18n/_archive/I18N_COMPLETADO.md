@@ -15,7 +15,7 @@
 
 ```typescript
 const translate = t(lang);
-translate("nav.about"); // "Sobre mí" o "About"
+translate('nav.about'); // "Sobre mí" o "About"
 ```
 
 ### 2. ✅ Añadir traducciones para proyectos
@@ -235,13 +235,13 @@ npm run preview
 
 ```mdx
 ---
-title: "Mi Proyecto"
-summary: "Descripción breve"
-date: "2025-01-15"
-lang: "es"
-translationKey: "mi-proyecto"
-tags: ["tag1", "tag2"]
-tech: ["tech1", "tech2"]
+title: 'Mi Proyecto'
+summary: 'Descripción breve'
+date: '2025-01-15'
+lang: 'es'
+translationKey: 'mi-proyecto'
+tags: ['tag1', 'tag2']
+tech: ['tech1', 'tech2']
 ---
 
 Contenido del proyecto...
@@ -251,13 +251,13 @@ Contenido del proyecto...
 
 ```mdx
 ---
-title: "My Project"
-summary: "Brief description"
-date: "2025-01-15"
-lang: "en"
-translationKey: "mi-proyecto" # ¡Misma clave!
-tags: ["tag1", "tag2"]
-tech: ["tech1", "tech2"]
+title: 'My Project'
+summary: 'Brief description'
+date: '2025-01-15'
+lang: 'en'
+translationKey: 'mi-proyecto' # ¡Misma clave!
+tags: ['tag1', 'tag2']
+tech: ['tech1', 'tech2']
 ---
 
 Project content...

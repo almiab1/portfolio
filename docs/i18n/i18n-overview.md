@@ -1,11 +1,10 @@
 ---
-title: "Sistema i18n - Visión General"
-category: "i18n"
-tags: ["i18n", "internacionalización", "multiidioma"]
-related:
-  ["i18n-implementation.md", "i18n-content-guide.md", "i18n-api-reference.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'Sistema i18n - Visión General'
+category: 'i18n'
+tags: ['i18n', 'internacionalización', 'multiidioma']
+related: ['i18n-implementation.md', 'i18n-content-guide.md', 'i18n-api-reference.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 
 # 🌍 Sistema de Internacionalización (i18n)
@@ -80,16 +79,16 @@ src/
 
 ```javascript
 export default defineConfig({
-  site: "https://alejandromira.com",
+  site: 'https://alejandromira.com',
   i18n: {
-    locales: ["es", "en"],
-    defaultLocale: "es",
+    locales: ['es', 'en'],
+    defaultLocale: 'es',
     routing: {
       prefixDefaultLocale: false, // Sin /es/ en URLs
       redirectToDefaultLocale: false, // Sin redirección automática
     },
     fallback: {
-      en: "es", // Si falta página en inglés, mostrar español
+      en: 'es', // Si falta página en inglés, mostrar español
     },
   },
 });
@@ -137,13 +136,13 @@ Si una página no existe en inglés:
 ```typescript
 export const ui = {
   es: {
-    "nav.about": "Sobre mí",
-    "nav.work": "Proyectos",
+    'nav.about': 'Sobre mí',
+    'nav.work': 'Proyectos',
     // ...
   },
   en: {
-    "nav.about": "About",
-    "nav.work": "Projects",
+    'nav.about': 'About',
+    'nav.work': 'Projects',
     // ...
   },
 } as const;
@@ -165,25 +164,25 @@ export const ui = {
 
 ```astro
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<h1>{t("home.title")}</h1>
+<h1>{t('home.title')}</h1>
 ```
 
 #### Para Componentes React
 
 ```tsx
-import { t, type Language } from "@/i18n/translations";
+import { t, type Language } from '@/i18n/translations';
 
-function Component({ currentLocale = "es" }: Props) {
+function Component({ currentLocale = 'es' }: Props) {
   const lang = currentLocale as Language;
   const translate = t(lang);
 
-  return <h1>{translate("home.title")}</h1>;
+  return <h1>{translate('home.title')}</h1>;
 }
 ```
 
@@ -197,7 +196,7 @@ projects: defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    lang: z.enum(["es", "en"]).default("es"),
+    lang: z.enum(['es', 'en']).default('es'),
     translationKey: z.string().optional(),
     // ... otros campos
   }),
@@ -207,13 +206,13 @@ projects: defineCollection({
 **Helpers de Contenido**:
 
 ```typescript
-import { getProjectsByLang } from "@/lib/i18n-content";
+import { getProjectsByLang } from '@/lib/i18n-content';
 
 // Obtener proyectos en español
-const esProjects = await getProjectsByLang("es");
+const esProjects = await getProjectsByLang('es');
 
 // Obtener proyectos en inglés
-const enProjects = await getProjectsByLang("en");
+const enProjects = await getProjectsByLang('en');
 ```
 
 ### 4. Selector de Idioma
@@ -242,11 +241,8 @@ Características:
 <link rel="alternate" hreflang="x-default" href={esUrl} />
 
 <!-- Open Graph -->
-<meta property="og:locale" content={currentLang === "es" ? "es_ES" : "en_US"} />
-<meta
-  property="og:locale:alternate"
-  content={currentLang === "es" ? "en_US" : "es_ES"}
-/>
+<meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
+<meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
 ```
 
 ## 📊 Flujo de Datos
@@ -273,13 +269,13 @@ Se renderizan solo proyectos con lang: 'en'
 
 ```astro
 ---
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations } from '@/i18n/utils';
 
-const lang = Astro.currentLocale || "es";
+const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 ---
 
-<button>{t("common.learnMore")}</button>
+<button>{t('common.learnMore')}</button>
 ```
 
 ### Caso 2: Crear Contenido Bilingüe
@@ -288,9 +284,9 @@ const t = useTranslations(lang);
 
 ```yaml
 ---
-title: "Mi Proyecto"
-lang: "es"
-translationKey: "mi-proyecto"
+title: 'Mi Proyecto'
+lang: 'es'
+translationKey: 'mi-proyecto'
 ---
 ```
 
@@ -298,9 +294,9 @@ translationKey: "mi-proyecto"
 
 ```yaml
 ---
-title: "My Project"
-lang: "en"
-translationKey: "mi-proyecto"
+title: 'My Project'
+lang: 'en'
+translationKey: 'mi-proyecto'
 ---
 ```
 
@@ -308,10 +304,10 @@ translationKey: "mi-proyecto"
 
 ```astro
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const esUrl = getRelativeLocaleUrl("es", "/work");
-const enUrl = getRelativeLocaleUrl("en", "/work");
+const esUrl = getRelativeLocaleUrl('es', '/work');
+const enUrl = getRelativeLocaleUrl('en', '/work');
 ---
 
 <a href={esUrl}>Proyectos</a>
