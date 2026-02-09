@@ -213,9 +213,20 @@ export const ui = {
 #### About (Sobre mí)
 
 - `about.title` - Título de la sección
-- `about.intro` - Introducción personal
-- `about.background` - Experiencia y trayectoria profesional
-- `about.currentFocus` - Enfoque actual e intereses
+- `about.intro` - Introducción con interpolación para {highlight}
+- `about.highlight` - Texto destacado para expertise principal
+- `about.experience.title` - Título de la tarjeta de experiencia
+- `about.experience.description` - Descripción con interpolación para {genai} y {agentic}
+- `about.experience.genai` - Label para IA Generativa
+- `about.experience.agentic` - Label para Sistemas Agénticos
+- `about.transition.title` - Título de la tarjeta de transición/visión
+- `about.transition.description` - Descripción con interpolación para {role}
+- `about.transition.role` - Label para tipo de rol/impacto
+- `about.specialization` - Título para áreas de especialización
+- `about.goal` - Título para filosofía/objetivo
+- `about.goal.text` - Texto de la declaración de filosofía
+- `about.stats.years` - Label para años de experiencia
+- `about.stats.projects` - Label para número de proyectos
 
 #### Contacto
 
