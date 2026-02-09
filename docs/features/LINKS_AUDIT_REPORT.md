@@ -190,7 +190,7 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 
 | Enlace | Estado | Nota |
 |--------|--------|------|
-| `#about` | ⚠️ Sección no existe | Ancla para futura implementación |
+| `#about` | ✅ Funciona | Sección creada (Issue #3) |
 | `#skills` | ⚠️ Sección no existe | Ancla para futura implementación |
 | `#projects` | ⚠️ Usar `#work` | Redirigir o cambiar a `#work` |
 | `#contact` | ✅ Funciona | Sección creada |
@@ -240,7 +240,7 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 ### Corto Plazo
 
 1. **Crear secciones faltantes**:
-   - [ ] Sección "Sobre mí" (`#about`)
+   - [x] Sección "Sobre mí" (`#about`) - ✅ Completado (Issue #3)
    - [ ] Sección "Habilidades" (`#skills`)
 
 2. **Actualizar enlaces de proyectos**:

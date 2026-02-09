@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/BaseLayout.astro";
 import Hero from "@/components/blocks/Hero.astro";
+import About from "@/components/blocks/About.astro";
 import Contact from "@/components/blocks/Contact.astro";
 import { ldPerson, ldWebsite, ldCreativeWork, ldBlogPosting, ldEvent } from "@/lib/schema";
 import ProjectGrid from "@/components/blocks/ProjectGrid.astro";
@@ -17,6 +18,7 @@ const jsonLd = [ldPerson(), ldWebsite(), ldCreativeWork({ title: "Construyendo p
 
   <main class="min-h-screen">
     <Hero />
+    <About />
     <section id="work" class="scroll-mt-24">
       <ProjectGrid limit={6} moreHref="/work" showTitle={true} />
     </section>
