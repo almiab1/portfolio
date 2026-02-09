@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Filter, X, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from 'react';
+import { Filter, X, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Props {
   allTags: string[];
@@ -16,13 +16,9 @@ interface Props {
   totalProjects: number;
 }
 
-export default function ProjectFilter({
-  allTags,
-  translations,
-  totalProjects,
-}: Props) {
+export default function ProjectFilter({ allTags, translations, totalProjects }: Props) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(totalProjects);
   const [availableTags, setAvailableTags] = useState<string[]>(allTags);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -40,47 +36,46 @@ export default function ProjectFilter({
       const projectTags = (card.getAttribute('data-project-tags') || '').split(',').filter(Boolean);
       const projectTitle = (card.getAttribute('data-project-title') || '').toLowerCase();
       const projectSummary = (card.getAttribute('data-project-summary') || '').toLowerCase();
-      
+
       // Verificar si coincide con la búsqueda de texto
-      const matchesSearch = query === '' || 
-        projectTitle.includes(query) || 
+      const matchesSearch =
+        query === '' ||
+        projectTitle.includes(query) ||
         projectSummary.includes(query) ||
-        projectTags.some(tag => tag.toLowerCase().includes(query));
-      
+        projectTags.some((tag) => tag.toLowerCase().includes(query));
+
       // Verificar si coincide con los tags seleccionados
-      const matchesTags = selectedTags.length === 0 || 
-        selectedTags.some(tag => projectTags.includes(tag));
-      
+      const matchesTags =
+        selectedTags.length === 0 || selectedTags.some((tag) => projectTags.includes(tag));
+
       // Mostrar solo si coincide con ambos filtros
       const shouldShow = matchesSearch && matchesTags;
-      
+
       (card as HTMLElement).style.display = shouldShow ? '' : 'none';
-      
+
       if (shouldShow) {
         count++;
         // Agregar tags de proyectos visibles
-        projectTags.forEach(tag => tagsInFilteredProjects.add(tag));
+        projectTags.forEach((tag) => tagsInFilteredProjects.add(tag));
       }
     });
 
     setVisibleCount(count);
-    
+
     // Actualizar tags disponibles basándose en proyectos filtrados
-    const newAvailableTags = allTags.filter(tag => 
-      tagsInFilteredProjects.has(tag)
-    );
+    const newAvailableTags = allTags.filter((tag) => tagsInFilteredProjects.has(tag));
     setAvailableTags(newAvailableTags);
   }, [selectedTags, searchQuery, allTags]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
   const clearFilters = () => {
     setSelectedTags([]);
-    setSearchQuery("");
+    setSearchQuery('');
   };
 
   const hasActiveFilters = selectedTags.length > 0 || searchQuery.length > 0;
@@ -88,7 +83,7 @@ export default function ProjectFilter({
   // Función para actualizar visibilidad de flechas
   const updateArrows = () => {
     if (!scrollContainerRef.current) return;
-    
+
     const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
     setShowLeftArrow(scrollLeft > 0);
     setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
@@ -97,22 +92,23 @@ export default function ProjectFilter({
   // Función para hacer scroll
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return;
-    
+
     const scrollAmount = 200;
-    const newScrollLeft = direction === 'left' 
-      ? scrollContainerRef.current.scrollLeft - scrollAmount
-      : scrollContainerRef.current.scrollLeft + scrollAmount;
-    
+    const newScrollLeft =
+      direction === 'left'
+        ? scrollContainerRef.current.scrollLeft - scrollAmount
+        : scrollContainerRef.current.scrollLeft + scrollAmount;
+
     scrollContainerRef.current.scrollTo({
       left: newScrollLeft,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
   // Actualizar flechas cuando cambien los tags disponibles o el tamaño
   useEffect(() => {
     updateArrows();
-    
+
     const container = scrollContainerRef.current;
     if (!container) return;
 
@@ -133,9 +129,7 @@ export default function ProjectFilter({
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Filter size={20} className="text-primary" />
-          <h2 className="text-foreground text-lg font-semibold">
-            {translations.filterBy}
-          </h2>
+          <h2 className="text-lg font-semibold text-foreground">{translations.filterBy}</h2>
         </div>
         {hasActiveFilters && (
           <button
@@ -151,21 +145,21 @@ export default function ProjectFilter({
       {/* Barra de búsqueda */}
       <div className="mb-4">
         <div className="relative">
-          <Search 
-            size={18} 
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" 
+          <Search
+            size={18}
+            className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={translations.searchPlaceholder}
-            className="w-full rounded-lg border border-border bg-background py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+            className="w-full rounded-lg border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-foreground transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              onClick={() => setSearchQuery('')}
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
               aria-label="Limpiar búsqueda"
             >
               <X size={16} />
@@ -180,7 +174,7 @@ export default function ProjectFilter({
         {showLeftArrow && (
           <button
             onClick={() => scroll('left')}
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/95 p-2 shadow-lg border border-border hover:bg-accent transition-colors"
+            className="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-full border border-border bg-background/95 p-2 shadow-lg transition-colors hover:bg-accent"
             aria-label="Scroll izquierda"
           >
             <ChevronLeft size={20} />
@@ -188,9 +182,9 @@ export default function ProjectFilter({
         )}
 
         {/* Contenedor scrolleable */}
-        <div 
+        <div
           ref={scrollContainerRef}
-          className="flex gap-2 flex-row overflow-x-auto scrollbar-hide scroll-smooth px-8"
+          className="scrollbar-hide flex flex-row gap-2 overflow-x-auto scroll-smooth px-8"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {availableTags.map((tag) => {
@@ -199,10 +193,10 @@ export default function ProjectFilter({
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
-                className={`rounded-lg px-4 py-2 text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${
+                className={`flex-shrink-0 rounded-lg px-4 py-2 text-sm font-medium whitespace-nowrap transition-all ${
                   isSelected
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "border border-border bg-background text-foreground hover:border-primary hover:bg-primary/10"
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'border border-border bg-background text-foreground hover:border-primary hover:bg-primary/10'
                 }`}
               >
                 {tag}
@@ -215,7 +209,7 @@ export default function ProjectFilter({
         {showRightArrow && (
           <button
             onClick={() => scroll('right')}
-            className="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-full bg-background/95 p-2 shadow-lg border border-border hover:bg-accent transition-colors"
+            className="absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-full border border-border bg-background/95 p-2 shadow-lg transition-colors hover:bg-accent"
             aria-label="Scroll derecha"
           >
             <ChevronRight size={20} />
@@ -245,4 +239,3 @@ export default function ProjectFilter({
     </div>
   );
 }
-

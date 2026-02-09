@@ -1,10 +1,10 @@
 ---
-title: "Estructura del Proyecto"
-category: "architecture"
-tags: ["estructura", "directorios", "organización"]
-related: ["tech-stack.md", "../guides/getting-started.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'Estructura del Proyecto'
+category: 'architecture'
+tags: ['estructura', 'directorios', 'organización']
+related: ['tech-stack.md', '../guides/getting-started.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 
 # 📁 Estructura del Proyecto
@@ -75,66 +75,89 @@ Documentación completa de la organización de archivos y directorios del portfo
 ## 📂 Descripción de Directorios
 
 ### `/public`
+
 Archivos estáticos servidos directamente:
+
 - Imágenes, fuentes, íconos
 - No procesados por Vite
 - Accesibles desde la raíz del sitio
 
 ### `/src/components`
+
 Componentes reutilizables organizados por tipo:
 
 #### `/components/blocks`
+
 Bloques grandes de contenido para páginas:
+
 - `Hero.astro` - Sección hero principal
 - `ProjectGrid.astro` - Grid de proyectos con i18n
 - `ContactCTA.astro` - Call-to-action de contacto
 
 #### `/components/core`
+
 Componentes fundamentales del sitio:
+
 - `Header.tsx` - Header con navegación y selector de idioma
 
 #### `/components/ui`
+
 Componentes UI de shadcn/ui:
+
 - Componentes atómicos reutilizables
 - Basados en Radix UI
 - Estilizados con Tailwind
 
 ### `/src/content`
+
 Contenido en MDX organizado por tipo:
 
 #### `/content/projects`
+
 Proyectos del portfolio:
+
 - Archivos MDX con frontmatter
 - Incluye campo `lang` para multiidioma
 - Vinculados con `translationKey`
 
 #### `/content/posts`, `/content/talks`, `/content/oss`
+
 Otras colecciones de contenido (configuradas pero vacías)
 
 ### `/src/i18n`
+
 Sistema de internacionalización:
+
 - `utils.ts` - Helpers para detectar idioma y traducir
 - `ui.ts` - Diccionario de traducciones
 - `translations.ts` - Helpers específicos para React
 
 ### `/src/layouts`
+
 Layouts base para páginas:
+
 - `BaseLayout.astro` - Layout principal con SEO, hreflang, Open Graph
 
 ### `/src/lib`
+
 Librerías y utilidades:
+
 - `schema.ts` - Generadores de JSON-LD para SEO
 - `i18n-content.ts` - Helpers para filtrar contenido por idioma
 
 ### `/src/pages`
+
 Sistema de routing de Astro:
+
 - `index.astro` - Ruta raíz (español)
 - `/es/*` - Páginas en español
 - `/en/*` - Páginas en inglés
 - Rutas dinámicas con `[slug].astro`
 
 ### `/docs`
+
 Documentación técnica del proyecto:
+
 - Organizada por categorías
 - Optimizada para Agentes LLM
 - Formato Markdown con metadatos
@@ -142,7 +165,9 @@ Documentación técnica del proyecto:
 ## 🔧 Archivos de Configuración
 
 ### `astro.config.mjs`
+
 Configuración principal de Astro:
+
 ```javascript
 {
   site: "https://alejandromira.com",
@@ -160,19 +185,25 @@ Configuración principal de Astro:
 ```
 
 ### `content.config.ts`
+
 Definición de colecciones de contenido:
+
 - Schema de validación con Zod
 - Campos requeridos y opcionales
 - Tipos TypeScript generados automáticamente
 
 ### `tsconfig.json`
+
 Configuración de TypeScript:
+
 - Path aliases (`@/*`)
 - Strict mode habilitado
 - JSX para React
 
 ### `tailwind.config.ts`
+
 Configuración de Tailwind CSS v4:
+
 - Variables CSS custom
 - Tema personalizado
 - Plugins y utilidades
@@ -180,16 +211,19 @@ Configuración de Tailwind CSS v4:
 ## 🎯 Convenciones de Nombres
 
 ### Archivos de Componentes
+
 - **Astro**: `ComponentName.astro` (PascalCase)
 - **React**: `ComponentName.tsx` (PascalCase)
 - **Estilos**: `styles.css` o integrados
 
 ### Archivos de Contenido
+
 - **Español**: `nombre-descriptivo.mdx`
 - **Inglés**: `descriptive-name.mdx`
 - Usar slugs URL-friendly (kebab-case)
 
 ### Archivos de Utilidades
+
 - **TypeScript**: `feature-name.ts` (kebab-case)
 - **Helpers**: `useFeatureName.ts` o `getFeatureName.ts`
 
@@ -209,14 +243,16 @@ Configurados en `tsconfig.json`:
 ```
 
 **Uso:**
+
 ```typescript
-import Header from "@/components/core/Header";
-import { ldPerson } from "@/lib/schema";
+import Header from '@/components/core/Header';
+import { ldPerson } from '@/lib/schema';
 ```
 
 ## 📦 Bundles y Chunks
 
 ### Build Output (`/dist`)
+
 ```
 dist/
 ├── _astro/              # Assets optimizados
@@ -234,12 +270,14 @@ dist/
 ## 🚀 Rutas Generadas
 
 ### Estáticas
+
 - `/` - Home español
 - `/en` - Home inglés
 - `/es/work` - Lista de proyectos español
 - `/en/work` - Lista de proyectos inglés
 
 ### Dinámicas
+
 - `/es/work/[slug]` - Proyecto individual español
 - `/en/work/[slug]` - Proyecto individual inglés
 
@@ -248,20 +286,26 @@ Generadas en build time con `getStaticPaths()`.
 ## 📝 Archivos Importantes
 
 ### `.cursorrules`
+
 Reglas para Cursor AI con:
+
 - Convenciones del proyecto
 - Referencias a documentación
 - Guías de estilo
 
 ### `.gitignore`
+
 Excluye:
+
 - `node_modules/`
 - `dist/`
 - `.astro/`
 - Archivos de configuración local
 
 ### `package.json`
+
 Scripts disponibles:
+
 - `npm run dev` - Servidor de desarrollo
 - `npm run build` - Build de producción
 - `npm run preview` - Vista previa del build
@@ -271,7 +315,9 @@ Scripts disponibles:
 ## 🔍 Notas Adicionales
 
 ### Generación de Tipos
+
 Astro genera automáticamente tipos TypeScript en `.astro/`:
+
 - Tipos de colecciones de contenido
 - Tipos de rutas
 - Tipos de componentes
@@ -279,7 +325,9 @@ Astro genera automáticamente tipos TypeScript en `.astro/`:
 **No editar manualmente** - se regeneran en cada build.
 
 ### Hot Module Replacement (HMR)
+
 En desarrollo, Astro recarga automáticamente:
+
 - Componentes `.astro`
 - Estilos CSS
 - Contenido MDX
@@ -288,6 +336,7 @@ En desarrollo, Astro recarga automáticamente:
 ---
 
 **Ver también:**
+
 - [Stack Tecnológico](./tech-stack.md)
 - [Guía de Inicio](../guides/getting-started.md)
 - [Sistema i18n](../i18n/i18n-overview.md)

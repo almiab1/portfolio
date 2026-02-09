@@ -1,40 +1,40 @@
 ---
-import Header from "@/components/core/Header";
-import "../styles/global.css";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import Header from '@/components/core/Header';
+import '../styles/global.css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 export interface Props {
   title?: string;
   description?: string;
 }
 const {
-  title = "Alejandro Mira — GenAI & AI Engineer",
-  description = "Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.",
+  title = 'Alejandro Mira — GenAI & AI Engineer',
+  description = 'Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.',
 } = Astro.props;
 
 // Detectar el idioma actual de la URL
-const currentLang = Astro.currentLocale || "es";
+const currentLang = Astro.currentLocale || 'es';
 
 // Obtener la ruta sin el prefijo de idioma para generar alternativas
 const currentPath = Astro.url.pathname;
 let pathWithoutLang = currentPath;
 
 // Eliminar el prefijo /es o /en
-if (currentPath.startsWith("/en/")) {
+if (currentPath.startsWith('/en/')) {
   pathWithoutLang = currentPath.substring(3);
-} else if (currentPath.startsWith("/es/")) {
+} else if (currentPath.startsWith('/es/')) {
   pathWithoutLang = currentPath.substring(3);
 }
 
 // Asegurar que pathWithoutLang siempre comience con /
-if (!pathWithoutLang.startsWith("/")) {
-  pathWithoutLang = "/" + pathWithoutLang;
+if (!pathWithoutLang.startsWith('/')) {
+  pathWithoutLang = '/' + pathWithoutLang;
 }
 
 // Generar URLs completas para hreflang
-const esUrl = new URL(getRelativeLocaleUrl("es", pathWithoutLang), Astro.site);
-const enUrl = new URL(getRelativeLocaleUrl("en", pathWithoutLang), Astro.site);
-const canonicalUrl = currentLang === "es" ? esUrl : enUrl;
+const esUrl = new URL(getRelativeLocaleUrl('es', pathWithoutLang), Astro.site);
+const enUrl = new URL(getRelativeLocaleUrl('en', pathWithoutLang), Astro.site);
+const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
 ---
 
 <html lang={currentLang}>
@@ -54,16 +54,10 @@ const canonicalUrl = currentLang === "es" ? esUrl : enUrl;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta
-      property="og:locale"
-      content={currentLang === "es" ? "es_ES" : "en_US"}
-    />
-    <meta
-      property="og:locale:alternate"
-      content={currentLang === "es" ? "en_US" : "es_ES"}
-    />
+    <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
   </head>
-  <body class="bg-background text-foreground min-h-screen">
+  <body class="min-h-screen bg-background text-foreground">
     <Header client:load currentLocale={currentLang} currentPath={currentPath} />
     <slot />
   </body>

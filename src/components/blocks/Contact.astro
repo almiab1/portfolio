@@ -1,31 +1,31 @@
 ---
-import { Mail, Linkedin, Github } from "lucide-react";
-import { useTranslations, type Language } from "@/i18n/utils";
+import { Mail, Linkedin, Github } from 'lucide-react';
+import { useTranslations, type Language } from '@/i18n/utils';
 
-const currentLang: Language = (Astro.currentLocale as Language) || "es";
+const currentLang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(currentLang);
 
 // Información de contacto
-const email = "hello@alejandromira.com";
-const linkedin = "https://www.linkedin.com/in/alejandro-mira/";
-const github = "https://github.com/almiab1";
+const email = 'hello@alejandromira.com';
+const linkedin = 'https://www.linkedin.com/in/alejandro-mira/';
+const github = 'https://github.com/almiab1';
 ---
 
 <section id="contact" class="bg-muted/30 py-20">
   <div class="container mx-auto max-w-4xl px-6">
     <div class="text-center">
-      <h2 class="text-foreground mb-4 text-3xl font-bold md:text-4xl">
-        {t("nav.contact")}
+      <h2 class="mb-4 text-3xl font-bold text-foreground md:text-4xl">
+        {t('nav.contact')}
       </h2>
-      <p class="text-muted-foreground mx-auto mb-12 max-w-2xl text-lg">
-        {t("contact.cta")}
+      <p class="mx-auto mb-12 max-w-2xl text-lg text-muted-foreground">
+        {t('contact.cta')}
       </p>
 
       <div class="flex flex-col items-center gap-6">
         <!-- Email principal -->
         <a
           href={`mailto:${email}`}
-          class="bg-primary text-primary-foreground hover:bg-primary/90 group inline-flex items-center gap-3 rounded-lg px-8 py-4 text-lg font-medium transition-all duration-200 hover:shadow-lg"
+          class="group inline-flex items-center gap-3 rounded-lg bg-primary px-8 py-4 text-lg font-medium text-primary-foreground transition-all duration-200 hover:bg-primary/90 hover:shadow-lg"
         >
           <Mail size={24} />
           <span>{email}</span>
@@ -37,7 +37,7 @@ const github = "https://github.com/almiab1";
             href={linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-muted-foreground hover:text-primary group flex flex-col items-center gap-2 transition-colors duration-200"
+            class="group flex flex-col items-center gap-2 text-muted-foreground transition-colors duration-200 hover:text-primary"
           >
             <Linkedin size={32} />
             <span class="text-sm">LinkedIn</span>
@@ -46,7 +46,7 @@ const github = "https://github.com/almiab1";
             href={github}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-muted-foreground hover:text-primary group flex flex-col items-center gap-2 transition-colors duration-200"
+            class="group flex flex-col items-center gap-2 text-muted-foreground transition-colors duration-200 hover:text-primary"
           >
             <Github size={32} />
             <span class="text-sm">GitHub</span>

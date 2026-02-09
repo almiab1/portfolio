@@ -1,10 +1,10 @@
 ---
-title: "API Reference i18n"
-category: "i18n"
-tags: ["api", "funciones", "helpers", "referencia"]
-related: ["i18n-overview.md", "i18n-implementation.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'API Reference i18n'
+category: 'i18n'
+tags: ['api', 'funciones', 'helpers', 'referencia']
+related: ['i18n-overview.md', 'i18n-implementation.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 
 # 🔧 API Reference i18n
@@ -41,15 +41,15 @@ APIs nativas de Astro
 
 ```typescript
 const languages: {
-  es: "Español";
-  en: "English";
+  es: 'Español';
+  en: 'English';
 };
 ```
 
 **Uso**: Obtener lista de idiomas disponibles
 
 ```typescript
-import { languages } from "@/i18n/utils";
+import { languages } from '@/i18n/utils';
 
 Object.keys(languages); // ['es', 'en']
 Object.values(languages); // ['Español', 'English']
@@ -62,14 +62,14 @@ Object.values(languages); // ['Español', 'English']
 **Tipo**: `type`
 
 ```typescript
-type Language = "es" | "en";
+type Language = 'es' | 'en';
 ```
 
 **Uso**: Type-safe para idiomas
 
 ```typescript
-const lang: Language = "es"; // ✅
-const lang: Language = "fr"; // ❌ Error de TypeScript
+const lang: Language = 'es'; // ✅
+const lang: Language = 'fr'; // ❌ Error de TypeScript
 ```
 
 ---
@@ -79,7 +79,7 @@ const lang: Language = "fr"; // ❌ Error de TypeScript
 **Tipo**: `const`
 
 ```typescript
-const defaultLang: Language = "es";
+const defaultLang: Language = 'es';
 ```
 
 **Uso**: Idioma por defecto del sitio
@@ -137,14 +137,14 @@ const lang = getLangFromUrl(Astro.url);
 
 ```astro
 ---
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations } from '@/i18n/utils';
 
-const lang = Astro.currentLocale || "es";
+const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 ---
 
-<h1>{t("home.title")}</h1>
-<p>{t("home.description")}</p>
+<h1>{t('home.title')}</h1>
+<p>{t('home.description')}</p>
 ```
 
 ---
@@ -163,8 +163,8 @@ const t = useTranslations(lang);
 **Ejemplo**:
 
 ```typescript
-getLocalizedUrl("/work", "es"); // '/work' o '/es/work'
-getLocalizedUrl("/work", "en"); // '/en/work'
+getLocalizedUrl('/work', 'es'); // '/work' o '/es/work'
+getLocalizedUrl('/work', 'en'); // '/en/work'
 ```
 
 ## 🎨 src/i18n/ui.ts
@@ -176,13 +176,13 @@ getLocalizedUrl("/work", "en"); // '/en/work'
 ```typescript
 export const ui = {
   es: {
-    "nav.home": "Inicio",
-    "nav.work": "Proyectos",
+    'nav.home': 'Inicio',
+    'nav.work': 'Proyectos',
     // ... 47 claves más
   },
   en: {
-    "nav.home": "Home",
-    "nav.work": "Projects",
+    'nav.home': 'Home',
+    'nav.work': 'Projects',
     // ...
   },
 } as const;
@@ -230,7 +230,7 @@ export const ui = {
 **Tipo**: `type`
 
 ```typescript
-type Language = "es" | "en";
+type Language = 'es' | 'en';
 ```
 
 ---
@@ -240,7 +240,7 @@ type Language = "es" | "en";
 **Tipo**: `type`
 
 ```typescript
-type TranslationKey = keyof (typeof ui)["es"];
+type TranslationKey = keyof (typeof ui)['es'];
 ```
 
 **Descripción**: Tipo con todas las claves válidas de traducción
@@ -272,8 +272,8 @@ const translations: {
 **Ejemplo**:
 
 ```typescript
-getTranslation("es", "nav.home"); // 'Inicio'
-getTranslation("en", "nav.home"); // 'Home'
+getTranslation('es', 'nav.home'); // 'Inicio'
+getTranslation('en', 'nav.home'); // 'Home'
 ```
 
 ---
@@ -291,15 +291,15 @@ getTranslation("en", "nav.home"); // 'Home'
 **Ejemplo**:
 
 ```tsx
-import { t, type Language } from "@/i18n/translations";
+import { t, type Language } from '@/i18n/translations';
 
-function Header({ currentLocale = "es" }: Props) {
+function Header({ currentLocale = 'es' }: Props) {
   const translate = t(currentLocale as Language);
 
   return (
     <nav>
-      <a href="/">{translate("nav.home")}</a>
-      <a href="/work">{translate("nav.work")}</a>
+      <a href="/">{translate('nav.home')}</a>
+      <a href="/work">{translate('nav.work')}</a>
     </nav>
   );
 }
@@ -312,7 +312,7 @@ function Header({ currentLocale = "es" }: Props) {
 **Tipo**: `type`
 
 ```typescript
-type Language = "es" | "en";
+type Language = 'es' | 'en';
 ```
 
 ---
@@ -331,7 +331,7 @@ type Language = "es" | "en";
 
 ```astro
 ---
-const projects = await getProjectsByLang("es");
+const projects = await getProjectsByLang('es');
 ---
 
 {projects.map((p) => <div>{p.data.title}</div>)}
@@ -353,13 +353,10 @@ const projects = await getProjectsByLang("es");
 **Ejemplo**:
 
 ```typescript
-const { project, translation } = await getProjectWithTranslation(
-  "agente-llm-proyecto",
-  "es",
-);
+const { project, translation } = await getProjectWithTranslation('agente-llm-proyecto', 'es');
 
 if (translation) {
-  console.log("Traducción disponible:", translation.data.title);
+  console.log('Traducción disponible:', translation.data.title);
 }
 ```
 
@@ -379,7 +376,7 @@ if (translation) {
 **Ejemplo**:
 
 ```typescript
-const hasEnglish = await hasTranslation("mi-proyecto", "es");
+const hasEnglish = await hasTranslation('mi-proyecto', 'es');
 if (hasEnglish) {
   // Mostrar link a versión en inglés
 }
@@ -426,10 +423,10 @@ if (hasEnglish) {
 
 ```astro
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const esUrl = getRelativeLocaleUrl("es", "/work");
-const enUrl = getRelativeLocaleUrl("en", "/work");
+const esUrl = getRelativeLocaleUrl('es', '/work');
+const enUrl = getRelativeLocaleUrl('en', '/work');
 ---
 
 <a href={esUrl}>Proyectos</a>
@@ -450,7 +447,7 @@ const enUrl = getRelativeLocaleUrl("en", "/work");
 
 ```astro
 ---
-const lang = Astro.currentLocale || "es";
+const lang = Astro.currentLocale || 'es';
 ---
 ```
 
@@ -480,17 +477,17 @@ const lang = Astro.currentLocale || "es";
 
 ```astro
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { useTranslations } from "@/i18n/utils";
-import { getProjectsByLang } from "@/lib/i18n-content";
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { useTranslations } from '@/i18n/utils';
+import { getProjectsByLang } from '@/lib/i18n-content';
 
-const lang = Astro.currentLocale || "es";
+const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 const projects = await getProjectsByLang(lang);
 ---
 
-<BaseLayout title={t("work.title")}>
-  <h1>{t("work.featured")}</h1>
+<BaseLayout title={t('work.title')}>
+  <h1>{t('work.featured')}</h1>
 
   {
     projects.map((p) => (
@@ -506,20 +503,20 @@ const projects = await getProjectsByLang(lang);
 ### Ejemplo 2: Componente React con Traducciones
 
 ```tsx
-import { t, type Language } from "@/i18n/translations";
+import { t, type Language } from '@/i18n/translations';
 
 interface Props {
   currentLocale?: string;
 }
 
-export default function Nav({ currentLocale = "es" }: Props) {
+export default function Nav({ currentLocale = 'es' }: Props) {
   const translate = t(currentLocale as Language);
 
   return (
     <nav>
-      <a href="#">{translate("nav.home")}</a>
-      <a href="#">{translate("nav.work")}</a>
-      <a href="#">{translate("nav.about")}</a>
+      <a href="#">{translate('nav.home')}</a>
+      <a href="#">{translate('nav.work')}</a>
+      <a href="#">{translate('nav.about')}</a>
     </nav>
   );
 }
@@ -529,23 +526,17 @@ export default function Nav({ currentLocale = "es" }: Props) {
 
 ```astro
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const currentLang = Astro.currentLocale || "es";
+const currentLang = Astro.currentLocale || 'es';
 const currentPath = Astro.url.pathname;
 ---
 
 <div class="language-selector">
-  <a
-    href={getRelativeLocaleUrl("es", currentPath)}
-    class:list={{ active: currentLang === "es" }}
-  >
+  <a href={getRelativeLocaleUrl('es', currentPath)} class:list={{ active: currentLang === 'es' }}>
     ES
   </a>
-  <a
-    href={getRelativeLocaleUrl("en", currentPath)}
-    class:list={{ active: currentLang === "en" }}
-  >
+  <a href={getRelativeLocaleUrl('en', currentPath)} class:list={{ active: currentLang === 'en' }}>
     EN
   </a>
 </div>

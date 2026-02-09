@@ -1,12 +1,12 @@
 ---
-import Layout from "@/layouts/BaseLayout.astro";
-import { getProjectsByLang } from "@/lib/i18n-content";
-import { useTranslations } from "@/i18n/utils";
-import ProjectCard from "@/components/blocks/ProjectCard.astro";
-import ProjectFilter from "@/components/blocks/ProjectFilter";
+import Layout from '@/layouts/BaseLayout.astro';
+import { getProjectsByLang } from '@/lib/i18n-content';
+import { useTranslations } from '@/i18n/utils';
+import ProjectCard from '@/components/blocks/ProjectCard.astro';
+import ProjectFilter from '@/components/blocks/ProjectFilter';
 
-const projects = await getProjectsByLang("es");
-const t = useTranslations("es");
+const projects = await getProjectsByLang('es');
+const t = useTranslations('es');
 
 // Ordenar proyectos: destacados primero, luego por priority, luego por fecha
 const sortedProjects = projects.sort((a, b) => {
@@ -24,20 +24,18 @@ const sortedProjects = projects.sort((a, b) => {
 });
 
 // Extraer todos los tags únicos
-const allTags = [
-  ...new Set(sortedProjects.flatMap((p) => p.data.tags || [])),
-].sort();
+const allTags = [...new Set(sortedProjects.flatMap((p) => p.data.tags || []))].sort();
 ---
 
-<Layout title={t("work.title")} description={t("hero.description")}>
+<Layout title={t('work.title')} description={t('hero.description')}>
   <main class="mx-auto max-w-7xl px-6 pt-24 pb-12">
     <!-- Header -->
     <div class="mb-8">
-      <h1 class="text-foreground mb-4 text-4xl font-bold md:text-5xl">
-        {t("nav.work")}
+      <h1 class="mb-4 text-4xl font-bold text-foreground md:text-5xl">
+        {t('nav.work')}
       </h1>
-      <p class="text-muted-foreground max-w-2xl text-lg">
-        {t("hero.description")}
+      <p class="max-w-2xl text-lg text-muted-foreground">
+        {t('hero.description')}
       </p>
     </div>
 
@@ -49,12 +47,12 @@ const allTags = [
           allTags={allTags}
           totalProjects={sortedProjects.length}
           translations={{
-            filterBy: t("work.filterBy"),
-            allProjects: t("work.allProjects"),
-            clearFilters: t("work.clearFilters"),
-            noResults: t("work.noResults"),
-            searchPlaceholder: t("work.searchPlaceholder"),
-            searchLabel: t("work.searchLabel"),
+            filterBy: t('work.filterBy'),
+            allProjects: t('work.allProjects'),
+            clearFilters: t('work.clearFilters'),
+            noResults: t('work.noResults'),
+            searchPlaceholder: t('work.searchPlaceholder'),
+            searchLabel: t('work.searchLabel'),
           }}
         />
       )
@@ -69,9 +67,7 @@ const allTags = [
           ))}
         </div>
       ) : (
-        <p class="text-muted-foreground py-12 text-center">
-          {t("work.noProjects")}
-        </p>
+        <p class="py-12 text-center text-muted-foreground">{t('work.noProjects')}</p>
       )
     }
   </main>

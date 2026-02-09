@@ -17,9 +17,9 @@ export function getLangFromUrl(url: URL) {
 }
 
 export function useTranslations(lang: Language) {
-  return function t(key: keyof typeof ui[typeof defaultLang]) {
+  return function t(key: keyof (typeof ui)[typeof defaultLang]) {
     return ui[lang][key] || ui[defaultLang][key];
-  }
+  };
 }
 
 export function getLocalizedUrl(url: string, lang: Language) {

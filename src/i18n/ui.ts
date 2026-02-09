@@ -8,13 +8,14 @@ export const ui = {
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
     'nav.downloadCV': 'Descargar CV',
-    
+
     // Páginas
     'home.title': 'Alejandro Mira — GenAI & Agentes LLM',
     'home.description': 'Porfolio, proyectos y artículos.',
     'site.title': 'Alejandro Mira — GenAI & AI Engineer',
-    'site.description': 'Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.',
-    
+    'site.description':
+      'Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.',
+
     // Proyectos
     'work.title': 'Proyectos — GenAI & Agentes',
     'work.viewAll': 'Ver todos los proyectos',
@@ -28,7 +29,7 @@ export const ui = {
     'work.noResults': 'No se encontraron proyectos con los filtros seleccionados',
     'work.searchPlaceholder': 'Buscar proyectos...',
     'work.searchLabel': 'Búsqueda',
-    
+
     // Hero
     'hero.greeting': 'Hola, soy',
     'hero.role': 'Desarrollador especializado en IA Generativa y Sistemas de Agentes',
@@ -37,7 +38,8 @@ export const ui = {
     'hero.contact': 'Contactar',
     'hero.title': 'Ingeniero de',
     'hero.titleHighlight': 'Inteligencia Artificial',
-    'hero.specialization': 'Especializado en {genai} y sistemas de agentes basados en {llms}. Desarrollo soluciones innovadoras que transforman ideas en realidad mediante IA generativa.',
+    'hero.specialization':
+      'Especializado en {genai} y sistemas de agentes basados en {llms}. Desarrollo soluciones innovadoras que transforman ideas en realidad mediante IA generativa.',
     'hero.genai': 'GenAI',
     'hero.llms': 'LLMs',
     'hero.profileAlt': 'Foto de perfil del Ingeniero de IA',
@@ -47,17 +49,17 @@ export const ui = {
 
     // Contacto
     'contact.cta': '¿Tienes un proyecto en mente? ¡Hablemos!',
-    
+
     // Común
     'common.readMore': 'Leer más',
     'common.learnMore': 'Saber más',
     'common.viewMore': 'Ver más',
     'common.loading': 'Cargando...',
-    
+
     // Fechas
     'date.updated': 'Actualizado',
     'date.published': 'Publicado',
-    
+
     // Etiquetas de proyecto
     'project.role': 'Rol',
     'project.tech': 'Tecnologías',
@@ -73,7 +75,7 @@ export const ui = {
     'project.gallery': 'Galería',
     'project.galleryView': 'Vista del Proyecto',
     'project.galleryMultiple': 'Galería del Proyecto',
-    
+
     // Tipos de proyecto
     'project.type.web': 'Web',
     'project.type.mobile': 'Móvil',
@@ -83,13 +85,13 @@ export const ui = {
     'project.type.api': 'API',
     'project.type.desktop': 'Escritorio',
     'project.type.other': 'Otro',
-    
+
     // Estados de proyecto
     'project.status.completed': 'Completado',
     'project.status.in-progress': 'En progreso',
     'project.status.archived': 'Archivado',
     'project.status.maintained': 'Mantenido',
-    
+
     // Contextos de proyecto
     'project.context.personal': 'Personal',
     'project.context.company': 'Empresa',
@@ -105,13 +107,14 @@ export const ui = {
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
     'nav.downloadCV': 'Download CV',
-    
+
     // Pages
     'home.title': 'Alejandro Mira — GenAI & LLM Agents',
     'home.description': 'Portfolio, projects and articles.',
     'site.title': 'Alejandro Mira — GenAI & AI Engineer',
-    'site.description': 'Portfolio of projects, articles and talks about generative AI and LLM agents.',
-    
+    'site.description':
+      'Portfolio of projects, articles and talks about generative AI and LLM agents.',
+
     // Projects
     'work.title': 'Projects — GenAI & Agents',
     'work.viewAll': 'View all projects',
@@ -125,16 +128,17 @@ export const ui = {
     'work.noResults': 'No projects found with the selected filters',
     'work.searchPlaceholder': 'Search projects...',
     'work.searchLabel': 'Search',
-    
+
     // Hero
-    'hero.greeting': 'Hi, I\'m',
+    'hero.greeting': "Hi, I'm",
     'hero.role': 'Developer specialized in Generative AI and Agent Systems',
     'hero.description': 'Building products with generative AI and agent systems',
     'hero.viewProjects': 'View my projects',
     'hero.contact': 'Contact me',
     'hero.title': 'Artificial Intelligence',
     'hero.titleHighlight': 'Engineer',
-    'hero.specialization': 'Specialized in {genai} and agent systems based on {llms}. Building innovative solutions that transform ideas into reality through generative AI.',
+    'hero.specialization':
+      'Specialized in {genai} and agent systems based on {llms}. Building innovative solutions that transform ideas into reality through generative AI.',
     'hero.genai': 'GenAI',
     'hero.llms': 'LLMs',
     'hero.profileAlt': 'AI Engineer profile photo',
@@ -143,18 +147,18 @@ export const ui = {
     'hero.emergingTechnologies': 'Emerging Technologies',
 
     // Contact
-    'contact.cta': 'Have a project in mind? Let\'s talk!',
-    
+    'contact.cta': "Have a project in mind? Let's talk!",
+
     // Common
     'common.readMore': 'Read more',
     'common.learnMore': 'Learn more',
     'common.viewMore': 'View more',
     'common.loading': 'Loading...',
-    
+
     // Dates
     'date.updated': 'Updated',
     'date.published': 'Published',
-    
+
     // Project labels
     'project.role': 'Role',
     'project.tech': 'Technologies',
@@ -170,7 +174,7 @@ export const ui = {
     'project.gallery': 'Gallery',
     'project.galleryView': 'Project View',
     'project.galleryMultiple': 'Project Gallery',
-    
+
     // Project types
     'project.type.web': 'Web',
     'project.type.mobile': 'Mobile',
@@ -180,13 +184,13 @@ export const ui = {
     'project.type.api': 'API',
     'project.type.desktop': 'Desktop',
     'project.type.other': 'Other',
-    
+
     // Project status
     'project.status.completed': 'Completed',
     'project.status.in-progress': 'In progress',
     'project.status.archived': 'Archived',
     'project.status.maintained': 'Maintained',
-    
+
     // Project contexts
     'project.context.personal': 'Personal',
     'project.context.company': 'Company',

@@ -8,11 +8,11 @@ Cada proyecto ahora puede tener las siguientes propiedades adicionales en su fro
 
 ```yaml
 ---
-title: "Título del proyecto"
-summary: "Resumen breve"
-date: "2025-01-01"
-lang: "es" # Idioma del proyecto: 'es' o 'en'
-translationKey: "mi-proyecto" # Clave única para vincular traducciones
+title: 'Título del proyecto'
+summary: 'Resumen breve'
+date: '2025-01-01'
+lang: 'es' # Idioma del proyecto: 'es' o 'en'
+translationKey: 'mi-proyecto' # Clave única para vincular traducciones
 # ... otros campos
 ---
 ```
@@ -23,17 +23,17 @@ Archivo: `src/content/projects/agente-llm-proyecto.mdx`
 
 ```mdx
 ---
-title: "Agentes LLM para soporte de producto"
-summary: "Orquestación multi-agente con LangGraph reduciendo el tiempo de respuesta un 40%."
-date: "2025-09-01"
-lang: "es"
-translationKey: "agente-llm-proyecto"
-tags: ["GenAI", "Agents", "LangGraph", "AWS"]
-tech: ["Python", "FastAPI", "OpenAI", "S3", "RDS"]
-role: "Lead Engineer"
+title: 'Agentes LLM para soporte de producto'
+summary: 'Orquestación multi-agente con LangGraph reduciendo el tiempo de respuesta un 40%.'
+date: '2025-09-01'
+lang: 'es'
+translationKey: 'agente-llm-proyecto'
+tags: ['GenAI', 'Agents', 'LangGraph', 'AWS']
+tech: ['Python', 'FastAPI', 'OpenAI', 'S3', 'RDS']
+role: 'Lead Engineer'
 links:
-  demo: "https://demo.ejemplo.com"
-  repo: "https://github.com/usuario/proyecto"
+  demo: 'https://demo.ejemplo.com'
+  repo: 'https://github.com/usuario/proyecto'
 ---
 
 # Contenido del proyecto en español
@@ -47,17 +47,17 @@ Archivo: `src/content/projects/llm-agent-project.mdx`
 
 ```mdx
 ---
-title: "LLM Agents for product support"
-summary: "Multi-agent orchestration with LangGraph reducing response time by 40%."
-date: "2025-09-01"
-lang: "en"
-translationKey: "agente-llm-proyecto" # ¡Misma clave que la versión en español!
-tags: ["GenAI", "Agents", "LangGraph", "AWS"]
-tech: ["Python", "FastAPI", "OpenAI", "S3", "RDS"]
-role: "Lead Engineer"
+title: 'LLM Agents for product support'
+summary: 'Multi-agent orchestration with LangGraph reducing response time by 40%.'
+date: '2025-09-01'
+lang: 'en'
+translationKey: 'agente-llm-proyecto' # ¡Misma clave que la versión en español!
+tags: ['GenAI', 'Agents', 'LangGraph', 'AWS']
+tech: ['Python', 'FastAPI', 'OpenAI', 'S3', 'RDS']
+role: 'Lead Engineer'
 links:
-  demo: "https://demo.example.com"
-  repo: "https://github.com/user/project"
+  demo: 'https://demo.example.com'
+  repo: 'https://github.com/user/project'
 ---
 
 # Project content in English
@@ -90,13 +90,13 @@ Las páginas de proyectos filtran automáticamente por idioma:
 
 ```astro
 ---
-import { getProjectsByLang } from "@/lib/i18n-content";
+import { getProjectsByLang } from '@/lib/i18n-content';
 
 // En /es/work/
-const projects = await getProjectsByLang("es");
+const projects = await getProjectsByLang('es');
 
 // En /en/work/
-const projects = await getProjectsByLang("en");
+const projects = await getProjectsByLang('en');
 ---
 ```
 
@@ -109,9 +109,9 @@ Si un proyecto no tiene traducción al inglés, el sistema puede mostrar automá
 Puedes verificar si existe una traducción:
 
 ```typescript
-import { hasTranslation } from "@/lib/i18n-content";
+import { hasTranslation } from '@/lib/i18n-content';
 
-const hasEnglishVersion = await hasTranslation("agente-llm-proyecto", "es");
+const hasEnglishVersion = await hasTranslation('agente-llm-proyecto', 'es');
 // true si existe la versión en inglés
 ```
 
@@ -157,10 +157,10 @@ Si no tienes traducción, simplemente crea el proyecto en español. El fallback 
 
 ```mdx
 ---
-title: "Mi Proyecto"
-summary: "Descripción"
-date: "2025-01-15"
-lang: "es"
+title: 'Mi Proyecto'
+summary: 'Descripción'
+date: '2025-01-15'
+lang: 'es'
 # No necesitas translationKey si no planeas traducir
 ---
 ```
@@ -172,15 +172,15 @@ Para proyectos importantes que quieres en ambos idiomas:
 **Español:** `mi-proyecto.mdx`
 
 ```yaml
-lang: "es"
-translationKey: "mi-proyecto"
+lang: 'es'
+translationKey: 'mi-proyecto'
 ```
 
 **Inglés:** `my-project.mdx`
 
 ```yaml
-lang: "en"
-translationKey: "mi-proyecto" # ¡Misma clave!
+lang: 'en'
+translationKey: 'mi-proyecto' # ¡Misma clave!
 ```
 
 ## 📊 Estadísticas y Utilidades
@@ -189,14 +189,14 @@ Usa las funciones helper de `src/lib/i18n-content.ts`:
 
 ```typescript
 // Obtener proyectos por idioma
-const esProjects = await getProjectsByLang("es");
-const enProjects = await getProjectsByLang("en");
+const esProjects = await getProjectsByLang('es');
+const enProjects = await getProjectsByLang('en');
 
 // Obtener proyecto con su traducción
-const { project, translation } = await getProjectWithTranslation("slug", "es");
+const { project, translation } = await getProjectWithTranslation('slug', 'es');
 
 // Verificar si existe traducción
-const hasTranslation = await hasTranslation("slug", "es");
+const hasTranslation = await hasTranslation('slug', 'es');
 ```
 
 ## ⚠️ Notas Importantes

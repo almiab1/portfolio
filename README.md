@@ -57,18 +57,17 @@ Ejemplo (`src/content/projects/agente-llm-proyecto.mdx`):
 
 ```mdx
 ---
-title: "Agentes LLM para soporte de producto"
-summary: "Orquestación multi-agente con LangGraph reduciendo el tiempo de respuesta un 40%."
-date: "2025-09-01"
-tags: ["GenAI", "Agents", "LangGraph", "AWS"]
-tech: ["Python", "FastAPI", "OpenAI", "S3", "RDS"]
-role: "Lead Engineer"
+title: 'Agentes LLM para soporte de producto'
+summary: 'Orquestación multi-agente con LangGraph reduciendo el tiempo de respuesta un 40%.'
+date: '2025-09-01'
+tags: ['GenAI', 'Agents', 'LangGraph', 'AWS']
+tech: ['Python', 'FastAPI', 'OpenAI', 'S3', 'RDS']
+role: 'Lead Engineer'
 links:
-  demo: "https://demo.ejemplo.com"
-  repo: "https://github.com/usuario/proyecto"
-cover: { src: "/og/proyecto.png", alt: "Vista del agente" }
-seo:
-  { title: "Case Study — Agentes LLM", description: "Arquitectura y métricas." }
+  demo: 'https://demo.ejemplo.com'
+  repo: 'https://github.com/usuario/proyecto'
+cover: { src: '/og/proyecto.png', alt: 'Vista del agente' }
+seo: { title: 'Case Study — Agentes LLM', description: 'Arquitectura y métricas.' }
 ---
 
 ## Contexto

@@ -1,12 +1,12 @@
 ---
-import { languages } from "@/i18n/utils";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { languages } from '@/i18n/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
 const currentPath = Astro.url.pathname;
-const currentLang = Astro.currentLocale || "es";
+const currentLang = Astro.currentLocale || 'es';
 
 // Eliminar el prefijo de idioma de la ruta actual para obtener la ruta base
-const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, "/") || "/";
+const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, '/') || '/';
 ---
 
 <div class="language-selector flex items-center gap-2">
@@ -19,12 +19,12 @@ const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, "/") || "/";
         <a
           href={url}
           class:list={[
-            "rounded-md px-3 py-1 text-sm font-medium transition-colors",
+            'rounded-md px-3 py-1 text-sm font-medium transition-colors',
             isActive
-              ? "bg-blue-600 text-white"
-              : "text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700",
+              ? 'bg-blue-600 text-white'
+              : 'text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700',
           ]}
-          aria-current={isActive ? "page" : undefined}
+          aria-current={isActive ? 'page' : undefined}
         >
           {label}
         </a>

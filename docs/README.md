@@ -90,12 +90,12 @@ Cada documento incluye metadatos en formato YAML al inicio:
 
 ```yaml
 ---
-title: "Título del Documento"
-category: "i18n|architecture|features|guides"
-tags: ["tag1", "tag2", "tag3"]
-related: ["doc1.md", "doc2.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'Título del Documento'
+category: 'i18n|architecture|features|guides'
+tags: ['tag1', 'tag2', 'tag3']
+related: ['doc1.md', 'doc2.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 ```
 

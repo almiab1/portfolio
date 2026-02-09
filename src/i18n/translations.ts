@@ -5,7 +5,7 @@
 import { ui } from './ui';
 
 export type Language = 'es' | 'en';
-export type TranslationKey = keyof typeof ui['es'];
+export type TranslationKey = keyof (typeof ui)['es'];
 
 export const translations = {
   es: ui.es,
