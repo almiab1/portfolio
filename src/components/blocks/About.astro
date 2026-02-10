@@ -55,28 +55,39 @@ const transitionText = interpolate(t('about.transition.description'), {
             <Sparkles className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <p class="text-xl font-medium leading-relaxed text-foreground md:text-2xl" set:html={introText} />
+            <p
+              class="text-xl leading-relaxed font-medium text-foreground md:text-2xl"
+              set:html={introText}
+            />
           </div>
         </div>
 
         <!-- Key Points with Icons -->
         <div class="space-y-6">
-          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
+          <div
+            class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50"
+          >
             <div class="mt-1 flex-shrink-0 rounded-lg bg-secondary/20 p-2">
               <Target className="h-5 w-5 text-secondary" />
             </div>
             <div>
-              <h3 class="mb-2 text-lg font-semibold text-foreground">{t('about.experience.title')}</h3>
+              <h3 class="mb-2 text-lg font-semibold text-foreground">
+                {t('about.experience.title')}
+              </h3>
               <p class="leading-relaxed text-muted-foreground" set:html={experienceText} />
             </div>
           </div>
 
-          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
+          <div
+            class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50"
+          >
             <div class="mt-1 flex-shrink-0 rounded-lg bg-primary/20 p-2">
               <Lightbulb className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h3 class="mb-2 text-lg font-semibold text-foreground">{t('about.transition.title')}</h3>
+              <h3 class="mb-2 text-lg font-semibold text-foreground">
+                {t('about.transition.title')}
+              </h3>
               <p class="leading-relaxed text-muted-foreground" set:html={transitionText} />
             </div>
           </div>
@@ -106,14 +117,16 @@ const transitionText = interpolate(t('about.transition.description'), {
         </div>
 
         <!-- Mission Statement -->
-        <div class="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5 p-6">
+        <div
+          class="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5 p-6"
+        >
           <div class="mb-3 flex items-center gap-2">
             <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></div>
-            <p class="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+            <p class="text-sm font-medium tracking-wider text-muted-foreground uppercase">
               {t('about.goal')}
             </p>
           </div>
-          <p class="text-base font-medium italic leading-relaxed text-foreground">
+          <p class="text-base leading-relaxed font-medium text-foreground italic">
             &ldquo;{t('about.goal.text')}&rdquo;
           </p>
         </div>

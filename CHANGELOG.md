@@ -8,25 +8,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.2] - 2026-02-10
 
 ### Security
+
 - Removed `.mcp.json` from git tracking to prevent API key exposure
 - Added `.mcp.json` to `.gitignore` to prevent future commits of sensitive data
 - Created `.mcp.json.example` template for safe configuration sharing
 
 ### Note
+
 This release addresses a security issue where a Context7 API key was exposed in the public repository. The exposed key has been rotated.
 
 ## [1.0.1] - 2026-02-10
 
 ### Fixed
+
 - Removed non-existent Skills navigation link from header (fixes broken anchor)
 - Updated contact email from `hello@alejandromira.com` to `miraabad.alejandro@gmail.com`
 
 ### Changed
+
 - Removed `nav.skills` translation keys from Spanish and English i18n files
 
 ## [1.0.0] - 2026-02-10
 
 ### Added
+
 - Initial production release of portfolio website
 - Astro 5 framework with islands architecture
 - React 19 for interactive components
@@ -40,6 +45,7 @@ This release addresses a security issue where a Context7 API key was exposed in 
 - Dark mode support
 
 ### Features
+
 - **Home Page**: Hero section with animated background, About section, Featured projects
 - **Projects Page**: Full project listing with filtering by type, tags, and search
 - **Project Detail Pages**: Individual project case studies with gallery support
@@ -47,6 +53,7 @@ This release addresses a security issue where a Context7 API key was exposed in 
 - **Contact Section**: Email and social media links
 
 ### Technical
+
 - TypeScript with strict mode
 - ESLint and Prettier configuration
 - Vercel deployment setup

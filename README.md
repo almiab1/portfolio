@@ -29,20 +29,24 @@
 ## 🛠️ Tech Stack
 
 ### Core
+
 - **Framework**: [Astro 5](https://astro.build) - Islands architecture
 - **UI Library**: [React 19](https://react.dev) - Interactive components
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) utilities
 - **Language**: [TypeScript 5](https://www.typescriptlang.org) - Type safety
 
 ### Content & Data
+
 - **Content**: [MDX](https://mdxjs.com) with Astro Content Collections
 - **Internationalization**: Custom i18n implementation (es/en)
 
 ### SEO & Analytics
+
 - **Sitemap**: [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)
 - **Structured Data**: JSON-LD schemas for rich search results
 
 ### Deployment
+
 - **Hosting**: [Vercel](https://vercel.com) - Automatic deployments
 - **Domain**: Custom domain with SSL
 
@@ -126,13 +130,14 @@ pnpm run format
 Projects are MDX files in `src/content/projects/` organized by language:
 
 **Spanish**: `src/content/projects/es/my-project.mdx`
+
 ```yaml
 ---
 title: 'Título del Proyecto'
 summary: 'Descripción breve del proyecto'
 date: '2024-01-15'
 lang: 'es'
-translationKey: 'my-project'  # Same key for translations
+translationKey: 'my-project' # Same key for translations
 type: 'ai'
 status: 'completed'
 tags: ['GenAI', 'Agents', 'LangGraph']
@@ -143,13 +148,13 @@ links:
   repo: 'https://github.com/username/project'
 cover: { src: '/projects/project-cover.png', alt: 'Project screenshot' }
 ---
-
 ## Context
 
 Your project content here...
 ```
 
 **English**: `src/content/projects/en/my-project.mdx`
+
 - Use the same `translationKey` to link translations
 - Same frontmatter structure with English content
 
@@ -165,6 +170,7 @@ Your project content here...
 The site supports Spanish (default) and English:
 
 ### Configuration
+
 - **Default locale**: Spanish (`es`)
 - **Available locales**: `['es', 'en']`
 - **Routing**: No prefix for Spanish, `/en` prefix for English
@@ -173,16 +179,19 @@ The site supports Spanish (default) and English:
 ### Usage in Components
 
 **Astro components**:
+
 ```astro
 ---
 import { useTranslations } from '@/i18n/utils';
 const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 ---
+
 <h1>{t('home.title')}</h1>
 ```
 
 **React components**:
+
 ```tsx
 import { t, type Language } from '@/i18n/translations';
 
@@ -235,6 +244,7 @@ pnpm run build
 ### Linting
 
 ESLint is configured with:
+
 - TypeScript support
 - React rules
 - Astro-specific rules
@@ -246,6 +256,7 @@ pnpm run lint
 ### Formatting
 
 Prettier is configured with:
+
 - Astro plugin
 - Tailwind CSS class sorting
 - TypeScript support
@@ -299,6 +310,7 @@ GenAI & LLM Agent Systems Engineer
 ## 🙏 Acknowledgments
 
 Built with:
+
 - [Astro](https://astro.build) - The web framework for content-driven websites
 - [React](https://react.dev) - The library for web and native user interfaces
 - [Tailwind CSS](https://tailwindcss.com) - A utility-first CSS framework
