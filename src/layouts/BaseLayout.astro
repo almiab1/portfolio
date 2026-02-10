@@ -1,5 +1,6 @@
 ---
 import Header from '@/components/core/Header';
+import Analytics from '@vercel/analytics/astro';
 import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
@@ -60,5 +61,6 @@ const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
   <body class="min-h-screen bg-background text-foreground">
     <Header client:load currentLocale={currentLang} currentPath={currentPath} />
     <slot />
+    <Analytics />
   </body>
 </html>
