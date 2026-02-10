@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/BaseLayout.astro";
-import { ldCreativeWork } from "@/lib/schema";
+import { ldSoftwareProject } from "@/lib/schema";
 import { getProjectsByLang } from "@/lib/i18n-content";
 import { useTranslations } from "@/i18n/utils";
 import { ExternalLink, Github, ChevronLeft, Star, Cpu } from "lucide-react";
@@ -21,7 +21,16 @@ const t = useTranslations("es");
 ---
 
 <Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
-  <script type="application/ld+json">{JSON.stringify(ldCreativeWork({ title: data.title, date: data.date }))}</script>
+  <script type="application/ld+json">{JSON.stringify(ldSoftwareProject({
+    title: data.title,
+    description: data.summary,
+    date: data.date,
+    url: Astro.url.href,
+    repo: data.links?.repo,
+    technologies: data.tech,
+    keywords: data.tags,
+    image: data.cover?.src,
+  }))}</script>
   
   <!-- Container principal: pantalla completa en desktop con padding para header, scroll normal en móvil -->
   <div class="pt-16 flex flex-col min-h-screen lg:h-screen lg:overflow-hidden">

@@ -1,6 +1,6 @@
 ---
 title: 'Smart Scale'
-summary: 'Connected scale with Android mobile app for weight tracking and analysis using Firebase and ESP32.'
+summary: 'IoT connected scale with Kotlin Android app, cloud sync via Firebase, and ESP32 microcontroller.'
 date: '2018-12-01'
 lang: 'en'
 translationKey: 'smart-scale'
@@ -12,41 +12,55 @@ priority: 6
 context: 'academic'
 tags: ['IoT', 'Mobile', 'Health Tracking', 'Cloud Integration']
 tech: ['Android', 'Firebase', 'ESP32', 'Kotlin', 'C++']
-role: 'IoT Developer'
+role: 'IoT and Mobile Developer'
 links: {}
-cover: { src: '/og/smartscale.png', alt: 'Smart Scale' }
+cover:
+  { src: '/og/smartscale.png', alt: 'Mobile app with weight tracking charts and IoT scale data' }
 seo:
   {
-    title: 'IoT Smart Scale',
-    description: 'Connected scale with mobile app using Firebase and ESP32.',
+    title: 'IoT Smart Scale with Android App and Firebase',
+    description: 'IoT system integrating a scale with ESP32, cloud synchronization via Firebase Realtime Database, and a Kotlin Android app for weight tracking.',
   }
 ---
 
-## IoT Scale with Mobile App
+## IoT Weight Tracking System with Mobile App
 
-IoT system integrating **ESP32 hardware**, **Firebase**, and **Android app** for real-time weight tracking.
+IoT system integrating **ESP32 hardware**, **Firebase Realtime Database**, and a **Kotlin Android application** for weight tracking with automatic cloud synchronization.
 
-### Architecture
+### The Challenge
 
-- **ESP32**: Microcontroller with weight sensors and WiFi
-- **Firebase Realtime Database**: Instant data synchronization
-- **Android App**: Kotlin interface for visualization and analysis
+Building a complete end-to-end IoT product: from the physical weight sensor to a mobile app with user profiles, history, and trend analysis. The challenge included reliable wireless communication between hardware and cloud, and instant data synchronization.
 
-### Features
+### My Role
 
-- 📊 **History and charts** of weight evolution
-- 👥 **Multiple profiles** with Firebase authentication
-- 🔔 **Customizable notifications** and reminders
-- 📈 **Trend analysis** and goal progress tracking
-- ⚡ **Automatic sync** when stepping on the scale
+As **IoT and mobile developer**, I implemented all product layers:
 
-### ESP32 Hardware
+- Programmed the ESP32 firmware in C++ with weight sensors and WiFi connectivity
+- Configured Firebase Realtime Database for instant data synchronization
+- Developed the Android app in Kotlin with authentication and multiple profiles
+- Implemented the automatic hardware calibration system
+- Designed the history visualization and trend analysis features
 
-- High-precision weight sensors
+### Technical Approach
+
+**Hardware:**
+
+- **ESP32** as microcontroller with high-precision weight sensors
 - Bidirectional WiFi connectivity
-- Automatic calibration
-- Power consumption optimization
+- Automatic calibration and power consumption optimization
 
-### Result
+**Cloud:**
 
-Complete integration of embedded hardware with cloud services and mobile development, demonstrating a functional and scalable IoT product.
+- **Firebase Realtime Database** for instant synchronization between scale and app
+- **Firebase Authentication** for multi-user profile management
+
+**Mobile app:**
+
+- **Kotlin** for native Android development
+- Weight evolution history and charts
+- Customizable notifications and reminders
+- Trend analysis and goal progress tracking
+
+### Outcome
+
+Functional and scalable IoT product demonstrating the complete integration of embedded hardware with cloud services and native mobile development.

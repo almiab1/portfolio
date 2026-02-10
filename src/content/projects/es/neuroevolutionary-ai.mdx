@@ -1,6 +1,6 @@
 ---
 title: 'IA Neuroevolutiva para MTG'
-summary: 'Desarrollo de una IA basada en métodos neuroevolutivos para el juego Magic: The Gathering.'
+summary: 'Framework de IA que combina redes neuronales y algoritmos genéticos para aprender estrategias competitivas en Magic: The Gathering.'
 date: '2021-12-01'
 lang: 'es'
 translationKey: 'neuroevolutionary-ai'
@@ -10,46 +10,72 @@ duration: '6 meses'
 featured: true
 priority: 10
 context: 'research'
-tags: ['AI', 'Machine Learning', 'Neuroevolution', 'Game AI', 'Genetic Algorithms']
+tags:
+  ['AI', 'Machine Learning', 'Neuroevolution', 'Game AI', 'Genetic Algorithms', 'Neural Networks']
 tech: ['Python', 'Java', 'Groovy']
-role: 'Developer'
+role: 'Investigador y Desarrollador Principal'
 links:
   repo: 'https://github.com/almiab1/AI_Neuroevolution_MTG'
-cover: { src: '/og/neuroevo.png', alt: 'IA Neuroevolutiva MTG' }
+cover:
+  {
+    src: '/og/neuroevo.png',
+    alt: 'Diagrama de arquitectura neuroevolutiva con redes neuronales y algoritmos genéticos',
+  }
 seo:
   {
-    title: 'IA Neuroevolutiva para MTG',
-    description: 'Desarrollo de inteligencia artificial usando neuroevolución para Magic: The Gathering.',
+    title: 'IA Neuroevolutiva para Magic: The Gathering - Alejandro Mira',
+    description: 'Trabajo de Fin de Grado que desarrolla un framework de IA neuroevolutiva combinando redes neuronales y algoritmos genéticos para aprender estrategias en MTG.',
   }
 ---
 
-# IA Neuroevolutiva para Juegos
+## Inteligencia Artificial Neuroevolutiva para Juegos de Estrategia
 
-**Trabajo de Fin de Grado** que desarrolla una IA mediante **neuroevolución** para Magic: The Gathering, combinando redes neuronales con algoritmos evolutivos.
+Trabajo de Fin de Grado centrado en desarrollar un **framework de inteligencia artificial** que combina **redes neuronales** con **algoritmos genéticos** para aprender estrategias competitivas en Magic: The Gathering, un juego de cartas con alta complejidad estratégica.
 
-### Framework Custom
+### El Desafío
 
-Sistema autodeveloped que implementa:
+Magic: The Gathering presenta un espacio de estados extremadamente amplio con información imperfecta, miles de cartas posibles y múltiples fases de juego. Los enfoques tradicionales de IA basados en búsqueda exhaustiva resultan inviables debido a la complejidad combinatoria del juego. El reto consistía en diseñar un sistema capaz de aprender estrategias competitivas sin supervisión humana directa.
 
-- 🧠 **Algoritmos neuroevolutivos**: Redes neuronales + algoritmos genéticos
-- 🎮 **Evaluación de estados**: Sistema complejo para posiciones de juego
-- 📈 **Aprendizaje adaptativo**: Evolución a través de generaciones
-- 📊 **Métricas de complejidad**: Análisis cuantitativo del entorno
+### Mi Rol
 
-### Stack Técnico
+Como **investigador y desarrollador principal**, diseñé e implementé el framework completo:
 
-- **Java**: Framework principal
-- **Groovy**: Scripts de automatización
-- **Python**: Análisis y evaluación
-- **Magarena**: Motor de juego MTG
+- Diseñé la arquitectura del sistema neuroevolutivo desde cero
+- Implementé los algoritmos genéticos para evolución de redes neuronales
+- Desarrollé el sistema de evaluación de estados de juego
+- Integré el framework con el motor de juego Magarena para entrenamiento automatizado
+- Diseñé y ejecuté los experimentos de validación
+- Analicé los resultados mediante métricas cuantitativas de rendimiento
 
-### Funcionalidades
+### Enfoque Técnico
 
-- Gestión de múltiples generaciones evolutivas
-- Entrenamiento paralelo de agentes
-- Evaluación automática de desempeño
-- Sistema de logs y métricas detalladas
+El framework implementa un pipeline neuroevolutivo completo:
+
+**Arquitectura del sistema:**
+
+- **Redes neuronales** como agentes de decisión que evalúan posiciones de juego
+- **Algoritmos genéticos** que evolucionan los pesos y la topología de las redes a lo largo de generaciones
+- **Sistema de fitness** basado en partidas automatizadas contra agentes de referencia
+- **Evaluación paralela** de múltiples agentes por generación
+
+**Motor de juego:**
+
+- Integración con **Magarena**, motor open-source de MTG en Java
+- Scripts de automatización en **Groovy** para gestión de torneos y generaciones
+- Análisis y visualización de resultados en **Python**
+
+**Proceso evolutivo:**
+
+- Población de redes neuronales compitiendo entre sí y contra agentes base
+- Selección, cruce y mutación de los mejores individuos
+- Evaluación de métricas de complejidad del entorno de juego
+
+### Decisiones Técnicas Clave
+
+- **Neuroevolución sobre aprendizaje por refuerzo**: Elegí métodos neuroevolutivos porque permiten explorar el espacio de soluciones sin necesidad de definir una función de recompensa explícita, algo difícil en un juego con estados tan complejos
+- **Java como lenguaje principal**: La integración nativa con Magarena evitó la sobrecarga de comunicación entre procesos
+- **Evaluación multi-agente**: Cada generación enfrentaba agentes entre sí y contra baselines fijos para medir mejora absoluta y relativa
 
 ### Resultados
 
-La IA demostró capacidad para **aprender estrategias competitivas** y mejorar su rendimiento generación tras generación, validando la aplicabilidad de métodos neuroevolutivos en juegos de alta complejidad estratégica.
+La IA demostró capacidad para aprender estrategias competitivas y mejorar su rendimiento de forma consistente generación tras generación. El sistema validó la aplicabilidad de métodos neuroevolutivos en juegos de alta complejidad estratégica con información imperfecta, abriendo una línea de investigación sobre evolución de comportamientos emergentes en entornos de juego complejos.

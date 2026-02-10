@@ -17,6 +17,32 @@ export const ldCreativeWork = (p: { title: string; date?: string }) => ({
   name: p.title,
   datePublished: p.date,
 });
+export const ldSoftwareProject = (p: {
+  title: string;
+  description: string;
+  date: string;
+  url: string;
+  repo?: string;
+  technologies?: string[];
+  keywords?: string[];
+  image?: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': p.repo ? 'SoftwareSourceCode' : 'CreativeWork',
+  name: p.title,
+  description: p.description,
+  datePublished: p.date,
+  url: p.url,
+  ...(p.repo && { codeRepository: p.repo }),
+  ...(p.technologies && { programmingLanguage: p.technologies }),
+  ...(p.keywords && { keywords: p.keywords }),
+  ...(p.image && { image: p.image }),
+  author: {
+    '@type': 'Person',
+    name: 'Alejandro Mira',
+    url: 'https://alejandromira.com',
+  },
+});
 export const ldBlogPosting = (p: { title: string; date: string; description?: string }) => ({
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
