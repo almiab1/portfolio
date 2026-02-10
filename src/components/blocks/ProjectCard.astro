@@ -83,6 +83,7 @@ const TypeIcon = typeIcons[project.data.type || 'other'];
     <div class="mb-3 flex items-start justify-between gap-3">
       <h3
         class="line-clamp-2 text-xl font-semibold text-foreground transition-colors group-hover:text-primary"
+        transition:name={`project-title-${slugBase}`}
       >
         {project.data.title}
       </h3>

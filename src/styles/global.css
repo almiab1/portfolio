@@ -162,6 +162,12 @@
   }
 }
 
+/* View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 250ms;
+}
+
 @layer utilities {
   /* Ocultar scrollbar pero mantener funcionalidad */
   .scrollbar-hide {
