@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Astro View Transitions for smooth SPA-like navigation between pages
+- Shared element morph animation on project titles (card grid → detail page)
+- Header persistence across navigations via `transition:persist`
+- Custom 250ms fade transition timing
+- Unit test infrastructure with Vitest + Testing Library (9 tests)
+
+### Changed
+
+- Header component now syncs locale/path from `window.location` on `astro:after-swap` to handle stale props when persisted across view transitions
+
 ## [1.0.2] - 2026-02-10
 
 ### Security
@@ -59,6 +73,7 @@ This release addresses a security issue where a Context7 API key was exposed in 
 - Vercel deployment setup
 - Git worktree workflow support
 
+[Unreleased]: https://github.com/almiab1/personalWeb/compare/v1.0.2...HEAD
 [1.0.2]: https://github.com/almiab1/personalWeb/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/almiab1/personalWeb/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/almiab1/personalWeb/releases/tag/v1.0.0
