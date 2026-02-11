@@ -176,6 +176,116 @@ describe('Header', () => {
     expect(workLinks.length).toBeGreaterThan(0);
   });
 
+  it('generates anchor links with / prefix on Spanish non-home pages', () => {
+    render(<Header currentLocale="es" currentPath="/work" />);
+
+    const header = screen.getByRole('banner');
+    const links = within(header).getAllByRole('link');
+
+    // Anchor links on non-home Spanish page should prefix with /
+    const aboutLinks = links.filter((a) => a.getAttribute('href') === '/#about');
+    expect(aboutLinks.length).toBeGreaterThan(0);
+
+    const contactLinks = links.filter((a) => a.getAttribute('href') === '/#contact');
+    expect(contactLinks.length).toBeGreaterThan(0);
+  });
+
+  it('generates anchor links with / prefix on Spanish project detail pages', () => {
+    render(<Header currentLocale="es" currentPath="/work/my-project" />);
+
+    const header = screen.getByRole('banner');
+    const links = within(header).getAllByRole('link');
+
+    const aboutLinks = links.filter((a) => a.getAttribute('href') === '/#about');
+    expect(aboutLinks.length).toBeGreaterThan(0);
+
+    const contactLinks = links.filter((a) => a.getAttribute('href') === '/#contact');
+    expect(contactLinks.length).toBeGreaterThan(0);
+  });
+
+  it('mobile menu has opaque background and shadow', async () => {
+    const user = userEvent.setup();
+    render(<Header currentLocale="es" currentPath="/" />);
+
+    const header = screen.getByRole('banner');
+    const menuButton = within(header).getByTestId('menu-icon').closest('button')!;
+    await user.click(menuButton);
+
+    const mobileNav = document.getElementById('mobile-nav');
+    expect(mobileNav).toBeInTheDocument();
+    expect(mobileNav).toHaveClass('bg-background');
+    expect(mobileNav).toHaveClass('shadow-lg');
+  });
+
+  it('header becomes opaque when mobile menu is open', async () => {
+    const user = userEvent.setup();
+    render(<Header currentLocale="es" currentPath="/" />);
+
+    const header = screen.getByRole('banner');
+
+    // Before opening menu (not scrolled), header is transparent
+    expect(header).toHaveClass('bg-transparent');
+
+    // Open mobile menu
+    const menuButton = within(header).getByTestId('menu-icon').closest('button')!;
+    await user.click(menuButton);
+
+    // Header should now have opaque background
+    expect(header).toHaveClass('bg-background/95');
+    expect(header).not.toHaveClass('bg-transparent');
+  });
+
+  it('hamburger button has correct ARIA attributes when closed', () => {
+    render(<Header currentLocale="es" currentPath="/" />);
+
+    const header = screen.getByRole('banner');
+    const menuButton = within(header).getByTestId('menu-icon').closest('button')!;
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+    expect(menuButton).toHaveAttribute('aria-controls', 'mobile-nav');
+    expect(menuButton).toHaveAttribute('aria-label', 'Open menu');
+  });
+
+  it('hamburger button has correct ARIA attributes when open', async () => {
+    const user = userEvent.setup();
+    render(<Header currentLocale="es" currentPath="/" />);
+
+    const header = screen.getByRole('banner');
+    const menuButton = within(header).getByTestId('menu-icon').closest('button')!;
+    await user.click(menuButton);
+
+    // After opening, find the button with X icon
+    const closeButton = within(header).getByTestId('x-icon').closest('button')!;
+    expect(closeButton).toHaveAttribute('aria-expanded', 'true');
+    expect(closeButton).toHaveAttribute('aria-controls', 'mobile-nav');
+    expect(closeButton).toHaveAttribute('aria-label', 'Close menu');
+  });
+
+  it('anchor links update from home to non-home after astro:after-swap', () => {
+    render(<Header currentLocale="es" currentPath="/" />);
+
+    const header = screen.getByRole('banner');
+
+    // On home, anchors are just #about
+    let links = within(header).getAllByRole('link');
+    expect(links.some((a) => a.getAttribute('href') === '#about')).toBe(true);
+
+    // Navigate to /work via view transition
+    Object.defineProperty(window, 'location', {
+      writable: true,
+      value: { pathname: '/work' },
+    });
+
+    act(() => {
+      document.dispatchEvent(new Event('astro:after-swap'));
+    });
+
+    // Now anchors should be /#about
+    links = within(header).getAllByRole('link');
+    expect(links.some((a) => a.getAttribute('href') === '/#about')).toBe(true);
+    expect(links.some((a) => a.getAttribute('href') === '/#contact')).toBe(true);
+  });
+
   it('cleans up astro:after-swap listener on unmount', () => {
     const addSpy = vi.spyOn(document, 'addEventListener');
     const removeSpy = vi.spyOn(document, 'removeEventListener');
@@ -183,9 +293,7 @@ describe('Header', () => {
     const { unmount } = render(<Header />);
 
     // Verify listener was added
-    const afterSwapCalls = addSpy.mock.calls.filter(
-      ([event]) => event === 'astro:after-swap',
-    );
+    const afterSwapCalls = addSpy.mock.calls.filter(([event]) => event === 'astro:after-swap');
     expect(afterSwapCalls.length).toBeGreaterThanOrEqual(1);
 
     const handler = afterSwapCalls[0][1];
