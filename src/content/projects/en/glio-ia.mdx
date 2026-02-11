@@ -1,6 +1,6 @@
 ---
 title: 'GLIO-IA'
-summary: 'Comprehensive and intelligent platform for precision medicine applied to brain tumors.'
+summary: 'AI platform for precision medicine that analyzes clinical data, medical images, and omics data from brain tumor patients.'
 date: '2022-09-01'
 lang: 'en'
 translationKey: 'glio-ia'
@@ -12,72 +12,76 @@ priority: 8
 context: 'research'
 tags: ['AI', 'Machine Learning', 'Deep Learning', 'Healthcare', 'Medical AI', 'Computer Vision']
 tech: ['Python', 'PyTorch', 'PyTorch Lightning', 'FastAPI', 'PostgreSQL', 'React']
-role: 'Researcher and Developer'
+role: 'AI Researcher and Platform Developer'
 links:
   external: 'https://www.aiju.es/proyectos/plataforma-integral-e-inteligente-para-la-medicina-de-precision-aplicada-a-tumores-cerebrales-glio-ia/'
-cover: { src: '/og/glio-ia.png', alt: 'GLIO-IA Platform' }
+cover:
+  {
+    src: '/og/glio-ia.png',
+    alt: 'Medical platform interface with clinical data visualization and AI models',
+  }
 seo:
   {
-    title: 'GLIO-IA - Precision Medicine',
-    description: 'AI platform for comprehensive analysis of clinical data in brain tumors.',
+    title: 'GLIO-IA - AI Platform for Precision Medicine in Brain Tumors',
+    description: 'Artificial intelligence platform for multimodal analysis of clinical data, histological images, and omics data in brain tumor patients.',
   }
 ---
 
-## AI Platform for Precision Medicine
+## AI Platform for Precision Medicine in Brain Oncology
 
-Research project developing a **comprehensive platform** for analyzing clinical data of brain tumor patients through **Artificial Intelligence algorithms**, enabling personalized diagnosis and classification.
+A 24-month research project developing a **comprehensive platform** for analyzing clinical data from brain tumor patients through **Deep Learning algorithms**, enabling personalized diagnosis and automated classification.
+
+### The Challenge
+
+Brain tumor diagnosis requires integrating information from multiple sources: histological images, radiological images, clinical data, and omics data (transcriptomics, epigenomics, genomics). Medical professionals need tools that unify these heterogeneous data sources and assist in clinical decision-making, especially when dealing with limited datasets and strict privacy requirements.
 
 ### My Role
 
-As a **researcher and developer**, I focused on:
+As **AI researcher and platform developer**, I led the complete technical development:
 
-- 🏗️ **Development and deployment** of the complete platform
-- 🧠 **Research and development** of specialized AI models
-- 🎯 **Training Deep Learning models** for medical analysis
-- 🔬 **Scientific validation** of algorithms and results
+- Designed and deployed the full clinical analysis platform
+- Researched and developed Deep Learning models specialized in histological and radiological images
+- Implemented distributed training pipelines using PyTorch Lightning
+- Designed data augmentation and transfer learning strategies for small medical datasets
+- Developed explainability techniques for clinical decision support
+- Scientifically validated algorithms with metrics adapted to the medical context
 
-### Key Features
+### Technical Approach
 
-- **Multimodal analysis**: Integration of clinical data, images, and omics data
-- **Medical Deep Learning**: Specialized models for histological and radiological images
-- **Omics processing**: Analysis of transcriptomics, epigenomics, and oncological genomics
-- **Assisted diagnosis**: Automated brain tumor classification
-- **Clinical interface**: Intuitive system for use by medical professionals
+**Multimodal analysis:**
 
-### Tech Stack
+- Integration of clinical data, medical images, and omics data into a unified pipeline
+- Specialized models for each data modality
+- Processing of transcriptomics, epigenomics, and oncological genomics
 
-**Backend & ML**
+**Backend and ML:**
 
-- **PyTorch + Lightning**: Main framework for Deep Learning models
-- **FastAPI**: High-performance REST API
-- **PostgreSQL**: Database for clinical data storage
+- **PyTorch + Lightning** as the main Deep Learning framework
+- **FastAPI** as a high-performance REST API for serving predictions
+- **PostgreSQL** for structured clinical data storage
+- Distributed training pipeline with automated validation and evaluation
 
-**Frontend**
+**Frontend:**
 
-- **React**: Modern and responsive web interface
-
-**Infrastructure**
-
-- Distributed training pipeline
-- Model validation and evaluation system
-- Sensitive medical dataset management
+- **React** for an intuitive clinical interface aimed at medical professionals
+- Visualization of analysis results and predictions
 
 ### Technical Challenges
 
-- **Multimodality**: Effective integration of heterogeneous data (images, text, omics data)
-- **Limited data**: Data augmentation and transfer learning strategies for small datasets
-- **Medical privacy**: Compliance with healthcare data protection regulations
-- **Explainability**: Implementation of interpretability techniques for clinical decisions
-- **Clinical validation**: Metrics adapted to real medical context
+- **Multimodality**: Effective integration of heterogeneous data (images, text, omics) into a unified model
+- **Limited data**: Data augmentation and transfer learning strategies to compensate for small datasets
+- **Medical privacy**: Compliance with healthcare data protection regulations (GDPR, Spanish healthcare regulation)
+- **Explainability**: Implementation of interpretability techniques so clinicians can trust model decisions
+- **Clinical validation**: Evaluation metrics and protocols adapted to real-world medical context
 
-### Impact
+### Results
 
-Platform that enables doctors and researchers to:
+The platform enables doctors and researchers to:
 
-- Accelerate brain tumor diagnosis
-- Identify new therapeutic biomarkers
-- Personalize treatments according to patient profile
-- Facilitate precision medicine research
+- Accelerate brain tumor diagnosis through automated classification
+- Identify new therapeutic biomarkers from multi-omics analysis
+- Personalize treatments based on the patient's molecular profile
+- Facilitate collaborative research in precision medicine
 
 ### Funding
 

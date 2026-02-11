@@ -1,6 +1,6 @@
 ---
 title: 'Neuroevolutionary AI for MTG'
-summary: 'Development of an AI based on neuroevolutionary methods for Magic: The Gathering game.'
+summary: 'AI framework combining neural networks and genetic algorithms to learn competitive strategies in Magic: The Gathering.'
 date: '2021-12-01'
 lang: 'en'
 translationKey: 'neuroevolutionary-ai'
@@ -10,46 +10,72 @@ duration: '6 months'
 featured: true
 priority: 10
 context: 'research'
-tags: ['AI', 'Machine Learning', 'Neuroevolution', 'Game AI', 'Genetic Algorithms']
+tags:
+  ['AI', 'Machine Learning', 'Neuroevolution', 'Game AI', 'Genetic Algorithms', 'Neural Networks']
 tech: ['Python', 'Java', 'Groovy']
-role: 'Developer'
+role: 'Lead Researcher and Developer'
 links:
   repo: 'https://github.com/almiab1/AI_Neuroevolution_MTG'
-cover: { src: '/og/neuroevo.png', alt: 'Neuroevolutionary AI MTG' }
+cover:
+  {
+    src: '/og/neuroevo.png',
+    alt: 'Neuroevolutionary architecture diagram with neural networks and genetic algorithms',
+  }
 seo:
   {
-    title: 'Neuroevolutionary AI for MTG',
-    description: 'Development of artificial intelligence using neuroevolution for Magic: The Gathering.',
+    title: 'Neuroevolutionary AI for Magic: The Gathering - Alejandro Mira',
+    description: 'Bachelor thesis developing a neuroevolutionary AI framework combining neural networks and genetic algorithms to learn competitive strategies in MTG.',
   }
 ---
 
-## Neuroevolutionary AI for Games
+## Neuroevolutionary Artificial Intelligence for Strategy Games
 
-**Bachelor's Thesis** developing an AI through **neuroevolution** for Magic: The Gathering, combining neural networks with evolutionary algorithms.
+Bachelor's Thesis focused on developing an **artificial intelligence framework** that combines **neural networks** with **genetic algorithms** to learn competitive strategies in Magic: The Gathering, a card game with high strategic complexity.
 
-### Custom Framework
+### The Challenge
 
-Self-developed system implementing:
+Magic: The Gathering presents an extremely large state space with imperfect information, thousands of possible cards, and multiple game phases. Traditional AI approaches based on exhaustive search are infeasible due to the game's combinatorial complexity. The challenge was to design a system capable of learning competitive strategies without direct human supervision.
 
-- 🧠 **Neuroevolutionary algorithms**: Neural networks + genetic algorithms
-- 🎮 **State evaluation**: Complex system for game positions
-- 📈 **Adaptive learning**: Evolution across generations
-- 📊 **Complexity metrics**: Quantitative environment analysis
+### My Role
 
-### Tech Stack
+As **lead researcher and developer**, I designed and implemented the complete framework:
 
-- **Java**: Main framework
-- **Groovy**: Automation scripts
-- **Python**: Analysis and evaluation
-- **Magarena**: MTG game engine
+- Designed the neuroevolutionary system architecture from scratch
+- Implemented genetic algorithms for neural network evolution
+- Developed the game state evaluation system
+- Integrated the framework with the Magarena game engine for automated training
+- Designed and executed validation experiments
+- Analyzed results through quantitative performance metrics
 
-### Features
+### Technical Approach
 
-- Management of multiple evolutionary generations
-- Parallel agent training
-- Automated performance evaluation
-- Detailed logging and metrics system
+The framework implements a complete neuroevolutionary pipeline:
+
+**System architecture:**
+
+- **Neural networks** as decision agents evaluating game positions
+- **Genetic algorithms** evolving network weights and topology across generations
+- **Fitness system** based on automated matches against reference agents
+- **Parallel evaluation** of multiple agents per generation
+
+**Game engine:**
+
+- Integration with **Magarena**, an open-source MTG engine in Java
+- **Groovy** automation scripts for tournament and generation management
+- **Python** for result analysis and visualization
+
+**Evolutionary process:**
+
+- Population of neural networks competing against each other and baseline agents
+- Selection, crossover, and mutation of the fittest individuals
+- Complexity metrics evaluation of the game environment
+
+### Key Technical Decisions
+
+- **Neuroevolution over reinforcement learning**: I chose neuroevolutionary methods because they explore the solution space without requiring an explicit reward function, which is difficult to define in a game with such complex states
+- **Java as primary language**: Native integration with Magarena avoided inter-process communication overhead
+- **Multi-agent evaluation**: Each generation tested agents against each other and fixed baselines to measure both absolute and relative improvement
 
 ### Results
 
-The AI demonstrated capability to **learn competitive strategies** and improve performance generation after generation, validating the applicability of neuroevolutionary methods in highly complex strategic games.
+The AI demonstrated the capability to learn competitive strategies and consistently improve its performance generation after generation. The system validated the applicability of neuroevolutionary methods in highly complex strategic games with imperfect information, opening a research line on emergent behavior evolution in complex game environments.

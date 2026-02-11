@@ -2,26 +2,16 @@
   "mcpServers": {
     "sequentialthinking": {
       "command": "docker",
-      "args": [
-        "run",
-        "--rm",
-        "-i",
-        "mcp/sequentialthinking"
-      ]
+      "args": ["run", "--rm", "-i", "mcp/sequentialthinking"]
     },
     "playwright": {
       "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
+      "args": ["@playwright/mcp@latest"]
     },
     "shadcn": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "shadcn@latest",
-        "mcp"
-      ],
+      "args": ["shadcn@latest", "mcp"],
       "env": {
         "REGISTRY_URL": "https://alpine-registry.vercel.app/r/registry.json"
       }
@@ -29,19 +19,12 @@
     "shadcn-components": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "@jpisnice/shadcn-ui-mcp-server"
-      ]
+      "args": ["@jpisnice/shadcn-ui-mcp-server"]
     },
     "context7": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp",
-        "--api-key",
-        "YOUR_CONTEXT7_API_KEY_HERE"
-      ],
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "YOUR_CONTEXT7_API_KEY_HERE"],
       "env": {}
     }
   }

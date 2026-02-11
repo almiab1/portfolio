@@ -1,6 +1,6 @@
 ---
 title: 'Cookobot'
-summary: 'Robot asistente de cocina con ecosistema multiplataforma integrando ROS, VueJS y TensorFlow.'
+summary: 'Robot asistente de cocina que integra ROS, visión por computadora con TensorFlow e interfaz web con VueJS.'
 date: '2020-12-01'
 lang: 'es'
 translationKey: 'cookobot'
@@ -12,41 +12,62 @@ priority: 7
 context: 'academic'
 tags: ['Robotics', 'AI', 'Machine Learning', 'Computer Vision', 'Web Interface']
 tech: ['ROS', 'VueJS', 'TensorFlow', 'Python', 'JavaScript', 'Bulma']
-role: 'Full Stack Developer'
+role: 'Desarrollador Full Stack y Robótica'
 links: {}
-cover: { src: '/og/cookobot.png', alt: 'Cookobot Robot' }
+cover:
+  {
+    src: '/og/cookobot.png',
+    alt: 'Interfaz de control robótico con panel de visión por computadora y telemetría',
+  }
 seo:
   {
-    title: 'Cookobot - Robot de Cocina',
-    description: 'Robot asistente con ecosistema multiplataforma usando ROS, VueJS y TensorFlow.',
+    title: 'Cookobot - Robot Asistente de Cocina con IA y ROS',
+    description: 'Sistema robótico de asistencia en cocina que integra ROS para control, TensorFlow para visión por computadora y VueJS para interfaz web de control remoto.',
   }
 ---
 
-## Robot Asistente con IA
+## Robot Asistente de Cocina con Inteligencia Artificial
 
-Sistema robótico que integra **ROS**, **visión por computadora** con TensorFlow e **interfaz web** para asistencia en cocina.
+Sistema robótico que integra **ROS (Robot Operating System)**, **visión por computadora** con TensorFlow y una **interfaz web** con VueJS para asistencia en tareas de cocina.
 
-### Ecosistema Multiplataforma
+### El Desafío
 
-- **ROS (Robot Operating System)**: Control y coordinación del robot
-- **VueJS + Bulma**: Interfaz web responsiva para control remoto
-- **TensorFlow**: Reconocimiento visual de ingredientes y utensilios
-- **Backend Python**: Lógica de negocio y comunicación en tiempo real
+Crear un ecosistema robótico multiplataforma que coordinara control de hardware, reconocimiento visual de objetos y una interfaz de usuario accesible. El principal reto técnico era integrar sistemas heterogéneos (ROS, framework web, modelos ML) en un flujo de trabajo coherente con comunicación bidireccional en tiempo real.
 
-### Funcionalidades
+### Mi Rol
 
-- 🤖 **Control remoto** vía interfaz web
-- 👁️ **Visión por computadora** para reconocimiento de objetos
-- 📝 **Asistencia en recetas** con guía paso a paso
-- 📈 **Monitoreo en tiempo real** de estado y telemetría
+Como **desarrollador Full Stack y robótica**, implementé componentes en las tres capas del ecosistema:
+
+- Desarrollé la interfaz web responsiva con VueJS y Bulma para control remoto del robot
+- Integré modelos TensorFlow para reconocimiento visual de ingredientes y utensilios
+- Implementé la comunicación bidireccional en tiempo real entre la web y ROS
+- Optimicé los modelos de ML para ejecución en hardware embebido con recursos limitados
+
+### Enfoque Técnico
+
+**Control robótico:**
+
+- **ROS** para control, coordinación y comunicación entre nodos del robot
+- Arquitectura de nodos ROS para separación de responsabilidades (navegación, manipulación, percepción)
+
+**Visión por computadora:**
+
+- **TensorFlow** para reconocimiento de ingredientes y utensilios de cocina
+- Optimización de modelos para ejecución en hardware embebido
+
+**Interfaz web:**
+
+- **VueJS + Bulma** para interfaz web responsiva de control remoto
+- **Backend Python** para lógica de negocio y puente de comunicación con ROS
+- Monitoreo de telemetría y estado del robot en tiempo real
 
 ### Desafíos Resueltos
 
-- Integración de sistemas heterogéneos (ROS, web, ML)
-- Comunicación bidireccional en tiempo real
-- Optimización de modelos TensorFlow para hardware embebido
-- Sincronización de múltiples subsistemas
+- Integración de sistemas heterogéneos (ROS, web, ML) en un flujo unificado
+- Comunicación bidireccional en tiempo real entre navegador web y nodos ROS
+- Optimización de modelos TensorFlow para hardware embebido con restricciones de memoria y CPU
+- Sincronización de múltiples subsistemas concurrentes
 
 ### Resultado
 
-Demostración de integración exitosa de robótica, IA y tecnologías web para crear un asistente doméstico práctico y accesible.
+Demostración funcional de integración de robótica, inteligencia artificial y tecnologías web para crear un asistente doméstico práctico con control remoto y percepción visual.

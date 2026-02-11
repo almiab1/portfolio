@@ -1,3 +1,5 @@
+// ABOUTME: Language switcher component that toggles between ES and EN locales.
+// ABOUTME: Syncs path on astro:after-swap to stay correct with view transitions.
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,10 +11,18 @@ interface LanguageSwitcherProps {
 }
 
 export default function LanguageSwitcher({ currentLocale = 'es' }: LanguageSwitcherProps) {
-  const [currentPath, setCurrentPath] = useState('');
+  const [currentPath, setCurrentPath] = useState(() =>
+    typeof window !== 'undefined' ? window.location.pathname : '',
+  );
 
+  // Sync path from window.location after view transition swaps the DOM.
+  // This keeps the switcher links correct when transition:persist prevents re-mounting.
   useEffect(() => {
-    setCurrentPath(window.location.pathname);
+    const handleSwap = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    document.addEventListener('astro:after-swap', handleSwap);
+    return () => document.removeEventListener('astro:after-swap', handleSwap);
   }, []);
 
   const languages = [

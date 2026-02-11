@@ -1,3 +1,5 @@
+// ABOUTME: Main navigation header component with mobile menu support.
+// ABOUTME: Handles transition:persist by syncing locale/path from window.location on astro:after-swap.
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -15,7 +17,12 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const lang = currentLocale as Language;
+  // Internal state for locale/path — updated on astro:after-swap when
+  // the Header is kept alive across navigations via transition:persist.
+  const [locale, setLocale] = useState(currentLocale);
+  const [path, setPath] = useState(currentPath);
+
+  const lang = locale as Language;
   const translate = t(lang);
 
   useEffect(() => {
@@ -26,17 +33,31 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Sync locale/path from window.location after view transition swaps the DOM.
+  // This keeps the Header in sync when transition:persist prevents re-mounting.
+  useEffect(() => {
+    const handleSwap = () => {
+      const newPath = window.location.pathname;
+      const newLocale = newPath.startsWith('/en') ? 'en' : 'es';
+      setPath(newPath);
+      setLocale(newLocale);
+      setIsMobileMenuOpen(false);
+    };
+    document.addEventListener('astro:after-swap', handleSwap);
+    return () => document.removeEventListener('astro:after-swap', handleSwap);
+  }, []);
+
   // Determinar si estamos en la home
-  const isHome = currentPath === '/' || currentPath === '/en' || currentPath === '/en/';
+  const isHome = path === '/' || path === '/en' || path === '/en/';
 
   // Prefijo base para links según idioma
-  const basePrefix = currentLocale === 'es' ? '' : '/en';
+  const basePrefix = locale === 'es' ? '' : '/en';
 
-  // Si no estamos en home, necesitamos el prefijo completo para las anclas
-  const anchorPrefix = isHome ? '' : currentLocale === 'es' ? '' : '/en';
+  // When not on home, prefix anchors with the home path so they navigate back
+  const anchorPrefix = isHome ? '' : locale === 'es' ? '/' : '/en';
 
   const navItems = [
-    { href: currentLocale === 'es' ? '/' : '/en', label: translate('nav.home'), isPage: true },
+    { href: locale === 'es' ? '/' : '/en', label: translate('nav.home'), isPage: true },
     { href: `${basePrefix}/work`, label: translate('nav.work'), isPage: true },
     { href: `${anchorPrefix}#about`, label: translate('nav.about'), isPage: false },
     { href: `${anchorPrefix}#contact`, label: translate('nav.contact'), isPage: false },
@@ -45,13 +66,15 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? 'border-b border-border bg-background/95 backdrop-blur-sm' : 'bg-transparent'
+        isScrolled || isMobileMenuOpen
+          ? 'border-b border-border bg-background/95 backdrop-blur-sm'
+          : 'bg-transparent'
       }`}
     >
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <a
-            href={currentLocale === 'es' ? '/' : '/en'}
+            href={locale === 'es' ? '/' : '/en'}
             className="text-xl font-bold text-foreground transition-colors hover:text-primary"
           >
             Alejandro Mira
@@ -68,10 +91,10 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
                 {item.label}
               </a>
             ))}
-            <LanguageSwitcher currentLocale={currentLocale} />
+            <LanguageSwitcher currentLocale={locale} />
             <a
               href={
-                currentLocale === 'es'
+                locale === 'es'
                   ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
                   : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
               }
@@ -94,6 +117,9 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
             size="icon"
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
@@ -101,7 +127,10 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="mt-4 border-t border-border pb-4 md:hidden">
+          <div
+            id="mobile-nav"
+            className="mt-4 border-t border-border bg-background pb-4 shadow-lg md:hidden"
+          >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => (
                 <a
@@ -114,11 +143,11 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
                 </a>
               ))}
               <div className="pt-2">
-                <LanguageSwitcher currentLocale={currentLocale} />
+                <LanguageSwitcher currentLocale={locale} />
               </div>
               <a
                 href={
-                  currentLocale === 'es'
+                  locale === 'es'
                     ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
                     : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
                 }

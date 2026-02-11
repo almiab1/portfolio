@@ -1,6 +1,6 @@
 ---
 title: 'Monitoreo Remoto de Cultivos - iPollution'
-summary: 'Sistema IoT multiplataforma de monitoreo ambiental mediante sensores Arduino, API REST y aplicación web Ionic.'
+summary: 'Sistema IoT multiplataforma para monitoreo ambiental con sensores Arduino, API REST en Node.js y app móvil Ionic.'
 date: '2018-06-01'
 lang: 'es'
 translationKey: 'crop-monitoring'
@@ -12,98 +12,75 @@ priority: 7
 context: 'academic'
 tags: ['IoT', 'Agriculture', 'Environmental Monitoring', 'Full Stack', 'Hardware']
 tech: ['JavaScript', 'Node.js', 'Express', 'Arduino', 'MySQL', 'ESP32', 'Ionic', 'C++']
-role: 'Full Stack IoT Developer'
+role: 'Desarrollador Full Stack IoT'
 links:
   repo: 'https://github.com/almiab1/Proyecto3A-Webapp'
-cover: { src: '/og/crop-monitoring.png', alt: 'Sistema de Monitoreo de Cultivos' }
+cover:
+  {
+    src: '/og/crop-monitoring.png',
+    alt: 'Dashboard de monitoreo ambiental con gráficos de sensores en tiempo real',
+  }
 seo:
   {
-    title: 'Monitoreo Remoto de Cultivos',
-    description: 'Sistema IoT para agricultura con Arduino, JavaScript y Express.',
+    title: 'Sistema IoT de Monitoreo Remoto de Cultivos - Alejandro Mira',
+    description: 'Sistema IoT completo con sensores Arduino/ESP32, API REST en Node.js y aplicación multiplataforma Ionic para monitoreo ambiental y agrícola en tiempo real.',
   }
 ---
 
-## Contexto
+## Sistema IoT Completo para Monitoreo Ambiental y Agrícola
 
-Proyecto académico desarrollado en equipo aplicando **metodologías ágiles (Scrum)**. Sistema completo de IoT para monitoreo ambiental y de cultivos que integra hardware, backend, frontend y desarrollo móvil multiplataforma.
+Proyecto académico desarrollado en equipo con **metodologías ágiles (Scrum)** que implementa un sistema IoT completo: desde sensores de hardware hasta aplicación móvil multiplataforma, pasando por API REST y base de datos.
 
-## Arquitectura Multiplataforma
+### El Desafío
+
+Los agricultores y gestores ambientales necesitan datos en tiempo real sobre condiciones del terreno (temperatura, humedad, luminosidad, calidad del aire) para tomar decisiones informadas. Las soluciones comerciales existentes resultan costosas y cerradas. El reto era construir un sistema IoT accesible y completo que cubriera todas las capas: hardware, backend, frontend y móvil.
+
+### Mi Rol
+
+Como **desarrollador Full Stack IoT**, participé en el desarrollo de las tres capas del sistema:
+
+- Programé los microcontroladores Arduino/ESP32 para captura y transmisión de datos de sensores
+- Diseñé e implementé la API RESTful en Node.js con Express
+- Desarrollé la aplicación multiplataforma en Ionic con TypeScript
+- Configuré la base de datos MySQL para almacenamiento histórico
+- Implementé comunicación en tiempo real via WebSockets
+
+### Arquitectura Multiplataforma
 
 El sistema se divide en **tres repositorios independientes**:
 
-- **Hardware (Arduino + C++)**: [Proyecto3A-Arduino](https://github.com/almiab1/Proyecto3A-Arduino) - Red de sensores con ESP32/Arduino
-- **Backend (Node.js + Express)**: [Proyecto3A-Server](https://github.com/almiab1/Proyecto3A-Server) - API RESTful en JavaScript
-- **Frontend (Ionic + TypeScript)**: [Proyecto3A-Webapp](https://github.com/almiab1/Proyecto3A-Webapp) - App multiplataforma (74.2% TypeScript, 20% HTML, 5.1% SCSS)
+- **Hardware (Arduino + C++)**: [Proyecto3A-Arduino](https://github.com/almiab1/Proyecto3A-Arduino) — Red de sensores con ESP32/Arduino
+- **Backend (Node.js + Express)**: [Proyecto3A-Server](https://github.com/almiab1/Proyecto3A-Server) — API RESTful en JavaScript
+- **Frontend (Ionic + TypeScript)**: [Proyecto3A-Webapp](https://github.com/almiab1/Proyecto3A-Webapp) — App multiplataforma
 
-## Tecnologías y Stack
+### Enfoque Técnico
 
-### Hardware Layer
+**Capa de hardware:**
 
-- **Microcontroladores**: Arduino / ESP32
-- **Lenguaje**: C++
-- **Sensores**: Módulos ambientales (temperatura, humedad, luminosidad, calidad del aire)
-- **Conectividad**: WiFi / Bluetooth
+- Microcontroladores Arduino / ESP32
+- Sensores ambientales: temperatura, humedad, luminosidad, calidad del aire
+- Conectividad WiFi / Bluetooth para transmisión de datos
 
-### Backend Layer
+**Capa de backend:**
 
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Base de datos**: MySQL / SQLite
-- **Arquitectura**: API REST
-- **Comunicación**: HTTP/HTTPS, WebSockets
+- Node.js con Express.js como API REST
+- MySQL para almacenamiento histórico de mediciones
+- WebSockets para comunicación bidireccional en tiempo real
 
-### Frontend Layer
+**Capa de frontend:**
 
-- **Framework**: Ionic (Angular-based)
-- **Lenguajes**: TypeScript, HTML, SCSS
-- **Plataformas**: Web, iOS, Android
-- **UI**: Componentes Ionic Material
+- Ionic (Angular) para app multiplataforma (Web, iOS, Android)
+- Dashboards personalizables con gráficos históricos y tendencias
+- Alertas automáticas por umbrales configurables
+- Sincronización offline y notificaciones push
 
-## Funcionalidades del Sistema
+### Metodología de Desarrollo
 
-### Monitoreo en Tiempo Real
+- **Scrum** con sprints documentados
+- Equipo de 3 desarrolladores colaborando
+- Git con flujo de trabajo por ramas (develop, feature branches)
+- Documentación técnica con diagramas UML
 
-- Visualización de datos de sensores en vivo
-- Gráficos históricos y tendencias
-- Dashboards personalizables
-- Alertas automáticas por umbrales
+### Resultado
 
-### Gestión de Datos
-
-- Almacenamiento histórico
-- Exportación de reportes
-- Análisis de tendencias
-- Métricas agregadas
-
-### Aplicación Móvil
-
-- Acceso remoto desde cualquier dispositivo
-- Notificaciones push
-- Sincronización offline
-- Interfaz responsiva
-
-## Metodología de Desarrollo
-
-- **Scrum**: Sprints documentados (ver ApartadoCalidadSprint3.pdf en repo)
-- **Trabajo en equipo**: 3 desarrolladores colaborando
-- **Control de versiones**: Git con flujo de trabajo por ramas (develop, feature branches)
-- **Documentación**: Diseños técnicos y diagramas UML
-
-## Resultados y Aprendizajes
-
-### Competencias Desarrolladas
-
-- **Full Stack Development**: Frontend, Backend y Hardware
-- **Metodologías ágiles**: Scrum, trabajo en equipo
-- **Arquitectura distribuida**: Microservicios e IoT
-- **Cross-platform**: Una codebase para múltiples plataformas con Ionic
-- **Integración de sistemas**: Arduino ↔ API ↔ Web/Mobile
-
-### Impacto del Proyecto
-
-Este proyecto demuestra la viabilidad de soluciones IoT accesibles para:
-
-- Monitoreo ambiental en tiempo real
-- Toma de decisiones basada en datos
-- Optimización de recursos en agricultura
-- Alertas tempranas para prevención
+Sistema IoT funcional que demuestra la viabilidad de soluciones accesibles para monitoreo ambiental en tiempo real, toma de decisiones basada en datos y optimización de recursos agrícolas.

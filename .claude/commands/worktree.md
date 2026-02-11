@@ -1,5 +1,4 @@
-<github_isssue>
-#$ARGUMENTS
+<github_isssue> #$ARGUMENTS
 </github_isssue>
 1- git worktree add ./.trees/feature-issue-$ARGUMENTS -b feature-issue-$ARGUMENTS
 2- cd .trees/feature-issue-$ARGUMENTS

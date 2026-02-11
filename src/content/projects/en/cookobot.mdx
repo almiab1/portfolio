@@ -1,6 +1,6 @@
 ---
 title: 'Cookobot'
-summary: 'Kitchen assistant robot with cross-platform ecosystem integrating ROS, VueJS and TensorFlow.'
+summary: 'Kitchen assistant robot integrating ROS, computer vision with TensorFlow, and a VueJS web interface.'
 date: '2020-12-01'
 lang: 'en'
 translationKey: 'cookobot'
@@ -12,41 +12,62 @@ priority: 7
 context: 'academic'
 tags: ['Robotics', 'AI', 'Machine Learning', 'Computer Vision', 'Web Interface']
 tech: ['ROS', 'VueJS', 'TensorFlow', 'Python', 'JavaScript', 'Bulma']
-role: 'Full Stack Developer'
+role: 'Full Stack and Robotics Developer'
 links: {}
-cover: { src: '/og/cookobot.png', alt: 'Cookobot Robot' }
+cover:
+  {
+    src: '/og/cookobot.png',
+    alt: 'Robotic control interface with computer vision panel and telemetry data',
+  }
 seo:
   {
-    title: 'Cookobot - Kitchen Robot',
-    description: 'Assistant robot with cross-platform ecosystem using ROS, VueJS and TensorFlow.',
+    title: 'Cookobot - AI-Powered Kitchen Assistant Robot with ROS',
+    description: 'Kitchen assistance robotic system integrating ROS for control, TensorFlow for computer vision, and VueJS for remote web interface control.',
   }
 ---
 
-## AI-Powered Assistant Robot
+## AI-Powered Kitchen Assistant Robot
 
-Robotic system integrating **ROS**, **computer vision** with TensorFlow, and **web interface** for kitchen assistance.
+Robotic system integrating **ROS (Robot Operating System)**, **computer vision** with TensorFlow, and a **web interface** with VueJS for kitchen task assistance.
 
-### Cross-Platform Ecosystem
+### The Challenge
 
-- **ROS (Robot Operating System)**: Robot control and coordination
-- **VueJS + Bulma**: Responsive web interface for remote control
-- **TensorFlow**: Visual recognition of ingredients and utensils
-- **Python Backend**: Business logic and real-time communication
+Building a cross-platform robotic ecosystem that coordinated hardware control, visual object recognition, and an accessible user interface. The main technical challenge was integrating heterogeneous systems (ROS, web framework, ML models) into a coherent workflow with bidirectional real-time communication.
 
-### Features
+### My Role
 
-- 🤖 **Remote control** via web interface
-- 👁️ **Computer vision** for object recognition
-- 📝 **Recipe assistance** with step-by-step guidance
-- 📈 **Real-time monitoring** of status and telemetry
+As **Full Stack and robotics developer**, I implemented components across all three ecosystem layers:
+
+- Developed the responsive web interface with VueJS and Bulma for remote robot control
+- Integrated TensorFlow models for visual recognition of ingredients and utensils
+- Implemented bidirectional real-time communication between the web app and ROS
+- Optimized ML models for execution on resource-constrained embedded hardware
+
+### Technical Approach
+
+**Robotic control:**
+
+- **ROS** for control, coordination, and communication between robot nodes
+- ROS node architecture for separation of concerns (navigation, manipulation, perception)
+
+**Computer vision:**
+
+- **TensorFlow** for recognition of kitchen ingredients and utensils
+- Model optimization for embedded hardware execution
+
+**Web interface:**
+
+- **VueJS + Bulma** for responsive remote control web interface
+- **Python backend** for business logic and ROS communication bridge
+- Real-time telemetry and robot status monitoring
 
 ### Challenges Solved
 
-- Integration of heterogeneous systems (ROS, web, ML)
-- Bidirectional real-time communication
-- TensorFlow model optimization for embedded hardware
-- Multi-subsystem synchronization
+- Integration of heterogeneous systems (ROS, web, ML) into a unified workflow
+- Bidirectional real-time communication between web browser and ROS nodes
+- TensorFlow model optimization for embedded hardware with memory and CPU constraints
+- Synchronization of multiple concurrent subsystems
 
-### Result
+### Outcome
 
-Successful demonstration of robotics, AI, and web technologies integration to create a practical and accessible home assistant.
+Functional demonstration of robotics, artificial intelligence, and web technologies integration to create a practical home assistant with remote control and visual perception capabilities.
