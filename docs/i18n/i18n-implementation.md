@@ -1,14 +1,14 @@
 ---
-title: "i18n Implementation"
-description: "Technical implementation details of the Astro i18n system including routing, translation loading, and content filtering"
-category: "i18n"
-subcategory: "implementation"
-tags: ["i18n", "routing", "translations", "astro", "react", "content-filtering"]
-related: ["i18n-overview.md", "i18n-content-guide.md", "i18n-api-reference.md"]
-audience: ["developers", "llm-agents"]
-complexity: "intermediate"
-version: "1.0.0"
-lastUpdated: "2026-02-09"
+title: 'i18n Implementation'
+description: 'Technical implementation details of the Astro i18n system including routing, translation loading, and content filtering'
+category: 'i18n'
+subcategory: 'implementation'
+tags: ['i18n', 'routing', 'translations', 'astro', 'react', 'content-filtering']
+related: ['i18n-overview.md', 'i18n-content-guide.md', 'i18n-api-reference.md']
+audience: ['developers', 'llm-agents']
+complexity: 'intermediate'
+version: '1.0.0'
+lastUpdated: '2026-02-09'
 ---
 
 # i18n Implementation
@@ -38,11 +38,11 @@ i18n: {
 
 ### URL Structure
 
-| Route | Spanish (default) | English |
-|-------|-------------------|---------|
-| Home | `/` | `/en` |
-| Projects | `/work` | `/en/work` |
-| Project detail | `/work/[slug]` | `/en/work/[slug]` |
+| Route          | Spanish (default) | English           |
+| -------------- | ----------------- | ----------------- |
+| Home           | `/`               | `/en`             |
+| Projects       | `/work`           | `/en/work`        |
+| Project detail | `/work/[slug]`    | `/en/work/[slug]` |
 
 **Key rule**: Spanish routes never have a `/es` prefix. English routes always have `/en`.
 
@@ -78,7 +78,7 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'hero.title': 'Artificial Intelligence',
-    'contact.cta': 'Have a project in mind? Let\'s talk!',
+    'contact.cta': "Have a project in mind? Let's talk!",
     // ...
   },
 } as const;
@@ -101,9 +101,9 @@ return ui[lang][key] || ui[defaultLang][key];
 ### Astro Components (`src/i18n/utils.ts`)
 
 ```typescript
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations } from '@/i18n/utils';
 
-const lang = Astro.currentLocale || "es";
+const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 // Usage: t("nav.home") → "Inicio" or "Home"
 ```
@@ -126,11 +126,11 @@ function MyComponent({ currentLocale = "es" }: Props) {
 ### URL Localization
 
 ```typescript
-import { getLocalizedUrl } from "@/i18n/utils";
+import { getLocalizedUrl } from '@/i18n/utils';
 
 // Generate localized URL
-getLocalizedUrl("/work", "en"); // → "/en/work"
-getLocalizedUrl("/work", "es"); // → "/work"
+getLocalizedUrl('/work', 'en'); // → "/en/work"
+getLocalizedUrl('/work', 'es'); // → "/work"
 ```
 
 Uses Astro's built-in `getRelativeLocaleUrl()` internally.
@@ -144,10 +144,10 @@ Uses Astro's built-in `getRelativeLocaleUrl()` internally.
 Content collections use a `lang` field in frontmatter for filtering:
 
 ```typescript
-import { getProjectsByLang } from "@/lib/i18n-content";
+import { getProjectsByLang } from '@/lib/i18n-content';
 
 // Get all Spanish projects
-const projects = await getProjectsByLang("es");
+const projects = await getProjectsByLang('es');
 ```
 
 ### Translation Linking
@@ -165,7 +165,7 @@ Projects across languages are linked via `translationKey`:
 The `getProjectWithTranslation()` function finds the counterpart:
 
 ```typescript
-const { project, translation } = await getProjectWithTranslation(slug, "es");
+const { project, translation } = await getProjectWithTranslation(slug, 'es');
 // translation contains the English version if it exists
 ```
 

@@ -22,43 +22,43 @@ lang: "es" | "en"      # Idioma del contenido
 ### Campos Opcionales con Defaults
 
 ```yaml
-translationKey: string           # Clave para vincular versiones en diferentes idiomas
-type: enum                       # Tipo de proyecto (default: "other")
-status: enum                     # Estado del proyecto (default: "completed")
-duration: string                 # Duración (ej: "3 meses", "1 año")
-featured: boolean                # Proyecto destacado (default: false)
-priority: number                 # Prioridad 0-10 (default: 5)
-tags: string[]                   # Etiquetas/categorías (default: [])
-tech: string[]                   # Stack tecnológico (default: [])
-role: string                     # Rol en el proyecto
-links: { demo?, repo? }          # Enlaces del proyecto
-cover: { src, alt }              # Imagen de portada
-gallery: Array<{ src, alt }>     # Galería de imágenes (opcional, nuevo)
-seo: { title?, description? }    # Metadatos SEO
-updated: string                  # Fecha de última actualización
+translationKey: string # Clave para vincular versiones en diferentes idiomas
+type: enum # Tipo de proyecto (default: "other")
+status: enum # Estado del proyecto (default: "completed")
+duration: string # Duración (ej: "3 meses", "1 año")
+featured: boolean # Proyecto destacado (default: false)
+priority: number # Prioridad 0-10 (default: 5)
+tags: string[] # Etiquetas/categorías (default: [])
+tech: string[] # Stack tecnológico (default: [])
+role: string # Rol en el proyecto
+links: { demo?, repo? } # Enlaces del proyecto
+cover: { src, alt } # Imagen de portada
+gallery: Array<{ src, alt }> # Galería de imágenes (opcional, nuevo)
+seo: { title?, description? } # Metadatos SEO
+updated: string # Fecha de última actualización
 ```
 
 ## 🎨 Tipos de Proyecto (`type`)
 
-| Valor | Descripción | Icono | Ejemplo |
-|-------|-------------|-------|---------|
-| `web` | Aplicaciones web | 🌐 | SaaS, dashboards, sitios web |
-| `mobile` | Apps móviles | 📱 | iOS, Android, React Native |
-| `iot` | Internet de las Cosas | 🔌 | Arduino, sensores, hardware |
-| `ai` | Inteligencia Artificial | 🧠 | ML, LLMs, agentes |
-| `data` | Ciencia de datos | 📊 | Analytics, visualización |
-| `api` | APIs y servicios | 🔧 | Backend, microservicios |
-| `desktop` | Apps de escritorio | 💻 | Electron, Qt |
-| `other` | Otros tipos | 📦 | Proyectos misceláneos |
+| Valor     | Descripción             | Icono | Ejemplo                      |
+| --------- | ----------------------- | ----- | ---------------------------- |
+| `web`     | Aplicaciones web        | 🌐    | SaaS, dashboards, sitios web |
+| `mobile`  | Apps móviles            | 📱    | iOS, Android, React Native   |
+| `iot`     | Internet de las Cosas   | 🔌    | Arduino, sensores, hardware  |
+| `ai`      | Inteligencia Artificial | 🧠    | ML, LLMs, agentes            |
+| `data`    | Ciencia de datos        | 📊    | Analytics, visualización     |
+| `api`     | APIs y servicios        | 🔧    | Backend, microservicios      |
+| `desktop` | Apps de escritorio      | 💻    | Electron, Qt                 |
+| `other`   | Otros tipos             | 📦    | Proyectos misceláneos        |
 
 ## 🔄 Estados del Proyecto (`status`)
 
-| Valor | Significado | Color | Icono |
-|-------|-------------|-------|-------|
-| `completed` | Proyecto terminado | Verde | ✓ |
-| `in-progress` | En desarrollo activo | Azul | 🔄 |
-| `archived` | Archivado, no se mantiene | Gris | 📦 |
-| `maintained` | Activamente mantenido | Morado | 🔧 |
+| Valor         | Significado               | Color  | Icono |
+| ------------- | ------------------------- | ------ | ----- |
+| `completed`   | Proyecto terminado        | Verde  | ✓     |
+| `in-progress` | En desarrollo activo      | Azul   | 🔄    |
+| `archived`    | Archivado, no se mantiene | Gris   | 📦    |
+| `maintained`  | Activamente mantenido     | Morado | 🔧    |
 
 ## ⭐ Sistema de Featured y Priority
 
@@ -86,49 +86,48 @@ updated: string                  # Fecha de última actualización
 
 ```yaml
 ---
-title: "Sistema de Monitoreo IoT"
-summary: "Plataforma de monitoreo en tiempo real con sensores Arduino y dashboard web."
-date: "2023-06-01"
-lang: "es"
-translationKey: "iot-monitoring"
+title: 'Sistema de Monitoreo IoT'
+summary: 'Plataforma de monitoreo en tiempo real con sensores Arduino y dashboard web.'
+date: '2023-06-01'
+lang: 'es'
+translationKey: 'iot-monitoring'
 
 # Campos nuevos
-type: "iot"
-status: "maintained"
-duration: "6 meses"
+type: 'iot'
+status: 'maintained'
+duration: '6 meses'
 featured: true
 priority: 9
 
 # Stack completo
-tags: ["IoT", "Real-time", "Dashboard"]
-tech: ["Arduino", "Node.js", "React", "MQTT", "PostgreSQL"]
-role: "Full Stack IoT Developer"
+tags: ['IoT', 'Real-time', 'Dashboard']
+tech: ['Arduino', 'Node.js', 'React', 'MQTT', 'PostgreSQL']
+role: 'Full Stack IoT Developer'
 
 # Enlaces
 links:
-  demo: "https://demo.example.com"
-  repo: "https://github.com/user/project"
+  demo: 'https://demo.example.com'
+  repo: 'https://github.com/user/project'
 
 # Portada
 cover:
-  src: "/projects/iot-monitoring.png"
-  alt: "Dashboard del sistema IoT"
+  src: '/projects/iot-monitoring.png'
+  alt: 'Dashboard del sistema IoT'
 
 # 📸 Galería de imágenes (opcional)
 gallery:
-  - src: "/images/projects/iot/dashboard.png"
-    alt: "Dashboard en tiempo real con métricas de sensores"
-  - src: "/images/projects/iot/sensors-map.png"
-    alt: "Mapa interactivo mostrando ubicación de sensores"
-  - src: "/images/projects/iot/analytics.png"
-    alt: "Panel de analytics con datos históricos"
+  - src: '/images/projects/iot/dashboard.png'
+    alt: 'Dashboard en tiempo real con métricas de sensores'
+  - src: '/images/projects/iot/sensors-map.png'
+    alt: 'Mapa interactivo mostrando ubicación de sensores'
+  - src: '/images/projects/iot/analytics.png'
+    alt: 'Panel de analytics con datos históricos'
 
 # SEO
 seo:
-  title: "Sistema IoT de Monitoreo - Proyecto"
-  description: "Sistema completo de monitoreo IoT con Arduino y React"
+  title: 'Sistema IoT de Monitoreo - Proyecto'
+  description: 'Sistema completo de monitoreo IoT con Arduino y React'
 ---
-
 ## Contexto
 
 [... contenido del proyecto ...]
@@ -138,25 +137,25 @@ seo:
 
 ```yaml
 ---
-title: "Agente LLM Inteligente"
-summary: "Sistema de agentes basado en LLMs para automatización de soporte."
-date: "2025-01-15"
-lang: "es"
-translationKey: "llm-agent"
+title: 'Agente LLM Inteligente'
+summary: 'Sistema de agentes basado en LLMs para automatización de soporte.'
+date: '2025-01-15'
+lang: 'es'
+translationKey: 'llm-agent'
 
-type: "ai"
-status: "in-progress"
-duration: "3 meses (en curso)"
+type: 'ai'
+status: 'in-progress'
+duration: '3 meses (en curso)'
 featured: true
 priority: 10
 
-tags: ["GenAI", "LLM", "Agents", "RAG"]
-tech: ["Python", "LangChain", "OpenAI", "Pinecone", "FastAPI"]
-role: "AI Engineer"
+tags: ['GenAI', 'LLM', 'Agents', 'RAG']
+tech: ['Python', 'LangChain', 'OpenAI', 'Pinecone', 'FastAPI']
+role: 'AI Engineer'
 
 links:
-  demo: "https://demo.ai-agent.com"
-  repo: "https://github.com/user/llm-agent"
+  demo: 'https://demo.ai-agent.com'
+  repo: 'https://github.com/user/llm-agent'
 ---
 ```
 
@@ -164,22 +163,22 @@ links:
 
 ```yaml
 ---
-title: "Portfolio Personal"
-summary: "Sitio web personal construido con Astro y Tailwind CSS."
-date: "2024-03-10"
-lang: "es"
+title: 'Portfolio Personal'
+summary: 'Sitio web personal construido con Astro y Tailwind CSS.'
+date: '2024-03-10'
+lang: 'es'
 
-type: "web"
-status: "completed"
-duration: "2 semanas"
+type: 'web'
+status: 'completed'
+duration: '2 semanas'
 featured: false
 priority: 5
 
-tags: ["Web", "Portfolio"]
-tech: ["Astro", "Tailwind CSS", "TypeScript"]
+tags: ['Web', 'Portfolio']
+tech: ['Astro', 'Tailwind CSS', 'TypeScript']
 
 links:
-  demo: "https://portfolio.example.com"
+  demo: 'https://portfolio.example.com'
 ---
 ```
 
@@ -205,6 +204,7 @@ featured: false, priority: 8   // 5º (no featured)
 ### En el Grid (`/work`)
 
 **ProjectCard muestra:**
+
 - Badge de Featured (si aplica)
 - Tipo de proyecto con icono
 - Estado con color
@@ -218,6 +218,7 @@ featured: false, priority: 8   // 5º (no featured)
 ### En Página Individual (`/work/[slug]`)
 
 **Header mejorado con:**
+
 - Badges de Featured, Tipo y Estado
 - Título grande
 - Summary destacado
@@ -242,20 +243,23 @@ La página `/work` muestra automáticamente:
 Usa `translationKey` para vincular versiones en diferentes idiomas:
 
 **Español** (`proyecto-iot.mdx`):
+
 ```yaml
-lang: "es"
-translationKey: "iot-monitoring"
+lang: 'es'
+translationKey: 'iot-monitoring'
 ```
 
 **Inglés** (`iot-project.mdx`):
+
 ```yaml
-lang: "en"
-translationKey: "iot-monitoring"  # Misma clave
+lang: 'en'
+translationKey: 'iot-monitoring' # Misma clave
 ```
 
 ### Traducciones de UI
 
 Todas las etiquetas y estados están traducidos automáticamente:
+
 - `project.type.iot` → "IoT" / "IoT"
 - `project.status.completed` → "Completado" / "Completed"
 - Etc.
@@ -267,13 +271,13 @@ Todas las etiquetas y estados están traducidos automáticamente:
 ```yaml
 # Proyecto existente
 ---
-title: "Mi Proyecto"
+title: 'Mi Proyecto'
 # ... campos existentes
 
 # Agregar:
-type: "web"
-status: "completed"
-duration: "2 meses"
+type: 'web'
+status: 'completed'
+duration: '2 meses'
 featured: false
 priority: 5
 ---
@@ -282,6 +286,7 @@ priority: 5
 ### Opción 2: Sin Cambios (Usar Defaults)
 
 Los proyectos sin los nuevos campos seguirán funcionando con valores por defecto:
+
 - `type: "other"`
 - `status: "completed"`
 - `featured: false`
@@ -294,14 +299,16 @@ Los proyectos sin los nuevos campos seguirán funcionando con valores por defect
 Componente reutilizable para mostrar proyectos en grid.
 
 **Props:**
+
 ```typescript
 {
-  project: CollectionEntry<"projects">;
+  project: CollectionEntry<'projects'>;
   currentLang: Language;
 }
 ```
 
 **Uso:**
+
 ```astro
 <ProjectCard project={project} currentLang="es" />
 ```
@@ -330,26 +337,25 @@ Para nuevos proyectos, sigue esta plantilla:
 
 ```yaml
 ---
-title: "Nombre del Proyecto"
-summary: "Descripción breve y atractiva"
-date: "YYYY-MM-DD"
-lang: "es"
-translationKey: "clave-unica"
+title: 'Nombre del Proyecto'
+summary: 'Descripción breve y atractiva'
+date: 'YYYY-MM-DD'
+lang: 'es'
+translationKey: 'clave-unica'
 
-type: "web"              # Tipo apropiado
-status: "completed"      # Estado real
-duration: "X meses"      # Duración real
-featured: true/false     # ¿Es destacado?
-priority: 5-10          # Prioridad
+type: 'web' # Tipo apropiado
+status: 'completed' # Estado real
+duration: 'X meses' # Duración real
+featured: true/false # ¿Es destacado?
+priority: 5-10 # Prioridad
 
-tags: ["Tag1", "Tag2"]
-tech: ["Tech1", "Tech2", "Tech3"]  # Stack completo
-role: "Tu rol en el proyecto"
+tags: ['Tag1', 'Tag2']
+tech: ['Tech1', 'Tech2', 'Tech3'] # Stack completo
+role: 'Tu rol en el proyecto'
 
 links:
-  demo: "https://..."   # opcional
-  repo: "https://..."   # opcional
+  demo: 'https://...' # opcional
+  repo: 'https://...' # opcional
 ---
-
 [Contenido detallado del proyecto...]
 ```
