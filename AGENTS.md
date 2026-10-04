@@ -49,6 +49,7 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 ## Git
 
 - `develop` is the integration branch and `main` is production. Branch features from `develop`, and target PRs at `develop`.
+- Keep history linear: rebase feature branches onto `develop` (`git pull --rebase`, `git rebase develop`) and integrate by fast-forward or GitHub "Rebase and merge"; merge commits are disabled.
 - Use Conventional Commits (`feat|fix|chore|refactor|test|docs: …`) and commit often.
 - If uncommitted changes exist when you start, ask Alex how to handle them. Work on a branch, never directly on `develop` or `main`.
 - Worktrees go in `.trees/`. Run `git worktree remove` before deleting the branch.
