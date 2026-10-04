@@ -2,6 +2,7 @@
 import Layout from "@/layouts/BaseLayout.astro";
 import { ldSoftwareProject } from "@/lib/schema";
 import { getProjectsByLang } from "@/lib/i18n-content";
+import { render } from "astro:content";
 import { useTranslations } from "@/i18n/utils";
 import { ExternalLink, Github, ChevronLeft, Star, Cpu } from "lucide-react";
 
@@ -9,13 +10,13 @@ export async function getStaticPaths() {
   const projects = await getProjectsByLang('en');
   return projects.map((project) => ({
     // Extraer slug base sin el prefijo de idioma (en/cookobot -> cookobot)
-    params: { slug: project.slug.replace(/^(es|en)\//, '') },
+    params: { slug: project.id.replace(/^(es|en)\//, '') },
     props: { project },
   }));
 }
 
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content } = await render(project);
 const data = project.data;
 const t = useTranslations("en");
 ---
