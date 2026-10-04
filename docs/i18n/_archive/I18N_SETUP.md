@@ -46,6 +46,7 @@ Tu proyecto Astro ahora está completamente configurado para soporte multiidioma
 
 ## ⚙️ Configuración Aplicada
 
+<!-- prettier-ignore -->
 ```javascript
 i18n: {
   locales: ["es", "en"],

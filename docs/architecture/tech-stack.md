@@ -298,11 +298,7 @@ import { ldPerson, ldWebsite } from "@/lib/schema";
 const jsonLd = [ldPerson(), ldWebsite()];
 ---
 
-{jsonLd.map((o) => (
-  <script type="application/ld+json">
-    {JSON.stringify(o)}
-  </script>
-))}
+{jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
 ```
 
 ### Sitemap

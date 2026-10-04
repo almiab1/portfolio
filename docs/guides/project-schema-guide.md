@@ -11,6 +11,7 @@ El schema de proyectos ha sido mejorado para proporcionar una presentación más
 
 ### Campos Obligatorios
 
+<!-- prettier-ignore -->
 ```yaml
 title: string           # Título del proyecto
 summary: string         # Descripción breve (se muestra en cards)

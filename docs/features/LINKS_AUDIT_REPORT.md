@@ -22,6 +22,7 @@ Se realizó una auditoría completa de todos los enlaces y rutas del portfolio, 
 - Esto causaba rutas duplicadas como `/en/es/work/index.html`
 
 **Configuración en `astro.config.mjs`**:
+<!-- prettier-ignore -->
 ```javascript
 i18n: {
   locales: ["es", "en"],
