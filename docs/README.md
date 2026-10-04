@@ -126,7 +126,7 @@ Al añadir nuevas features:
 1. Crear/actualizar documento en la categoría correspondiente
 2. Actualizar este README con link al nuevo documento
 3. Añadir referencias cruzadas en documentos relacionados
-4. Actualizar `CLAUDE.md` si es necesario
+4. Actualizar `AGENTS.md` si es necesario
 
 ## 📞 Soporte
 
