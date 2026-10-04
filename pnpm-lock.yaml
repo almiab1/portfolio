@@ -78,6 +78,9 @@ importers:
       '@playwright/cli':
         specifier: 0.1.23
         version: 0.1.23
+      '@playwright/test':
+        specifier: ^1.63.0
+        version: 1.63.0
       '@tailwindcss/typography':
         specifier: ^0.5.20
         version: 0.5.20(tailwindcss@4.3.3)
@@ -1066,6 +1069,11 @@ packages:
   '@playwright/cli@0.1.23':
     resolution: {integrity: sha512-+TuHfVgpK1SIlwyV7bcZ9SRRhnVOAIwJwxZCgEh5LWkZuyGfSYnHNx8J7H78dhCwMyLkJtGb/j5XICjzEKzrfg==}
     engines: {node: '>=18'}
+    hasBin: true
+
+  '@playwright/test@1.63.0':
+    resolution: {integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==}
+    engines: {node: '>=20'}
     hasBin: true
 
   '@prettier/parse-srcset@3.1.0':
@@ -2758,8 +2766,18 @@ packages:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
 
+  playwright-core@1.63.0:
+    resolution: {integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   playwright-core@1.65.0-alpha-2026-10-30:
     resolution: {integrity: sha512-LPMw8B/HRQKMcJeXTqWSrkB/AfCKKmbDQMbu0p7zg8MgibOWaKMjZWR/StAtrQkOxvOmZEju1o1TnPgdoOCwrg==}
+    engines: {node: '>=20'}
+    hasBin: true
+
+  playwright@1.63.0:
+    resolution: {integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -4292,6 +4310,10 @@ snapshots:
     dependencies:
       playwright: 1.65.0-alpha-2026-10-30
       playwright-core: 1.65.0-alpha-2026-10-30
+
+  '@playwright/test@1.63.0':
+    dependencies:
+      playwright: 1.63.0
 
   '@prettier/parse-srcset@3.1.0': {}
 
@@ -5995,7 +6017,13 @@ snapshots:
 
   picomatch@4.0.7: {}
 
+  playwright-core@1.63.0: {}
+
   playwright-core@1.65.0-alpha-2026-10-30: {}
+
+  playwright@1.63.0:
+    dependencies:
+      playwright-core: 1.63.0
 
   playwright@1.65.0-alpha-2026-10-30:
     dependencies:
