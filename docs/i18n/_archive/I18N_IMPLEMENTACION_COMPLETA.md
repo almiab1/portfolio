@@ -194,6 +194,7 @@
    ```
 
 2. **Añadir traducciones:**
+<!-- prettier-ignore -->
    ```typescript
    // src/i18n/ui.ts
    'nueva.clave': 'Nueva traducción'

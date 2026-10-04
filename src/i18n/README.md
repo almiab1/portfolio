@@ -30,6 +30,7 @@ src/
 
 La configuración de i18n está en `astro.config.mjs`:
 
+<!-- prettier-ignore -->
 ```javascript
 i18n: {
   locales: ["es", "en"],

@@ -23,6 +23,7 @@ The portfolio supports two languages: **Spanish (es)** as default and **English 
 
 ### Configuration (`astro.config.mjs`)
 
+<!-- prettier-ignore -->
 ```javascript
 i18n: {
   locales: ["es", "en"],
