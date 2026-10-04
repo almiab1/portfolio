@@ -461,3 +461,17 @@ The site is static Astro with React islands; there is no backend.
 ## Compliance Check
 
 Before making an exception to any rule above, ask Alex first.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (`almiab1/portfolio`) via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default triage roles, reusing GitHub's `question` (needs-info) and `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
