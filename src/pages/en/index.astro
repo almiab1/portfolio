@@ -1,23 +1,19 @@
 ---
-import Base from "@/layouts/BaseLayout.astro";
-import Hero from "@/components/blocks/Hero.astro";
-import About from "@/components/blocks/About.astro";
-import Contact from "@/components/blocks/Contact.astro";
-import { ldPerson, ldWebsite, ldCreativeWork, ldBlogPosting, ldEvent } from "@/lib/schema";
-import ProjectGrid from "@/components/blocks/ProjectGrid.astro";
-import NeuralBackground from "@/components/ui/NeuralBackground";
+import Base from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/blocks/Hero.astro';
+import About from '@/components/blocks/About.astro';
+import Contact from '@/components/blocks/Contact.astro';
+import { ldPerson, ldWebsite } from '@/lib/schema';
+import ProjectGrid from '@/components/blocks/ProjectGrid.astro';
+import NeuralBackground from '@/components/ui/NeuralBackground';
 
-const jsonLd = [
-  ldPerson(), 
-  ldWebsite(), 
-  ldCreativeWork({ title: "Building products with generative AI and agent systems" }), 
-  ldBlogPosting({ title: "Building products with generative AI and agent systems", date: "2025-01-01" }), 
-  ldEvent({ name: "Building products with generative AI and agent systems", startDate: "2025-01-01" })
-];
+const jsonLd = [ldPerson(), ldWebsite()];
 ---
 
 <Base title="Alejandro Mira — GenAI & LLM Agents" description="Portfolio, projects and articles.">
-  {jsonLd.map((o: any) => <script type="application/ld+json">{JSON.stringify(o)}</script>)}
+  {jsonLd.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
 
   <NeuralBackground client:only="react" />
 

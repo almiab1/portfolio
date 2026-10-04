@@ -1,10 +1,10 @@
 ---
-import Layout from "@/layouts/BaseLayout.astro";
-import { ldSoftwareProject } from "@/lib/schema";
-import { getProjectsByLang } from "@/lib/i18n-content";
-import { render } from "astro:content";
-import { useTranslations } from "@/i18n/utils";
-import { ExternalLink, Github, ChevronLeft, Star, Cpu } from "lucide-react";
+import Layout from '@/layouts/BaseLayout.astro';
+import { ldSoftwareProject } from '@/lib/schema';
+import { getProjectsByLang } from '@/lib/i18n-content';
+import { render } from 'astro:content';
+import { useTranslations } from '@/i18n/utils';
+import { ExternalLink, Github, ChevronLeft, Star, Cpu } from 'lucide-react';
 
 export async function getStaticPaths() {
   const projects = await getProjectsByLang('en');
@@ -18,29 +18,32 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 const data = project.data;
-const t = useTranslations("en");
+const t = useTranslations('en');
 ---
 
 <Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
-  <script type="application/ld+json">{JSON.stringify(ldSoftwareProject({
-    title: data.title,
-    description: data.summary,
-    date: data.date,
-    url: Astro.url.href,
-    repo: data.links?.repo,
-    technologies: data.tech,
-    keywords: data.tags,
-    image: data.cover?.src,
-  }))}</script>
-  
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(
+      ldSoftwareProject({
+        title: data.title,
+        description: data.summary,
+        date: data.date,
+        url: Astro.url.href,
+        repo: data.links?.repo,
+        technologies: data.tech,
+        keywords: data.tags,
+        image: data.cover?.src,
+      }),
+    )}
+  />
   <!-- Container principal: pantalla completa en desktop con padding para header, scroll normal en móvil -->
   <div class="pt-16 flex flex-col min-h-screen lg:h-screen lg:overflow-hidden">
-    
     <!-- Back Navigation Bar -->
     <div class="border-b border-border bg-card/30 backdrop-blur-sm px-6 py-5 lg:py-4 shadow-sm">
       <div class="max-w-7xl mx-auto">
-        <a 
-          href="/en/work" 
+        <a
+          href="/en/work"
           class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
           aria-label={t('work.backToProjects')}
         >
@@ -52,11 +55,9 @@ const t = useTranslations("en");
 
     <!-- Grid principal responsive con separación visual -->
     <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-0 lg:overflow-hidden bg-gradient-to-b from-background/50 to-background">
-      
       <!-- Columna izquierda: Header y Metadata -->
       <aside class="border-r border-border/50 bg-card/20 px-6 py-8 lg:px-8 lg:py-10 lg:flex lg:items-center lg:justify-center">
         <article class="mx-auto max-w-2xl w-full lg:max-h-[90vh]">
-          
           <!-- Header -->
           <header class="mb-6">
             <!-- Título y badges -->
@@ -69,21 +70,21 @@ const t = useTranslations("en");
                   </span>
                 )}
                 <span class="bg-accent text-accent-foreground rounded-full px-3 py-1 text-sm font-medium">
-                  {t(`project.type.${data.type || "other"}`)}
+                  {t(`project.type.${data.type || 'other'}`)}
                 </span>
               </div>
-              
-              <h1 class="text-foreground mb-3 text-2xl font-bold lg:text-3xl" transition:name={`project-title-${Astro.params.slug}`}>
+
+              <h1
+                class="text-foreground mb-3 text-2xl font-bold lg:text-3xl"
+                transition:name={`project-title-${Astro.params.slug}`}
+              >
                 {data.title}
               </h1>
-              <p class="text-muted-foreground mb-4 text-base leading-relaxed">
-                {data.summary}
-              </p>
+              <p class="text-muted-foreground mb-4 text-base leading-relaxed">{data.summary}</p>
             </div>
 
             <!-- Metadata Grid Mejorado -->
             <div class="border-border bg-card grid gap-4 rounded-xl border p-4 lg:p-5">
-              
               <!-- Stack Tecnológico (prominente) -->
               {data.tech && data.tech.length > 0 && (
                 <div class="min-w-0">
@@ -100,11 +101,41 @@ const t = useTranslations("en");
                       ))}
                     </div>
                     <!-- Botones de navegación -->
-                    <button class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll left">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    <button
+                      class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10"
+                      aria-label="Scroll left"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
                     </button>
-                    <button class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll right">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    <button
+                      class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10"
+                      aria-label="Scroll right"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
                     </button>
                     <!-- Fade gradients -->
                     <div class="fade-left pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity"></div>
@@ -129,7 +160,9 @@ const t = useTranslations("en");
                   <h3 class="text-muted-foreground mb-2 text-xs font-medium uppercase">
                     {t('project.context')}
                   </h3>
-                  <p class="text-foreground text-sm font-medium">{t(`project.context.${data.context}`)}</p>
+                  <p class="text-foreground text-sm font-medium">
+                    {t(`project.context.${data.context}`)}
+                  </p>
                 </div>
               )}
 
@@ -148,11 +181,41 @@ const t = useTranslations("en");
                       ))}
                     </div>
                     <!-- Botones de navegación -->
-                    <button class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll left">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    <button
+                      class="scroll-btn-left absolute left-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10"
+                      aria-label="Scroll left"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m15 18-6-6 6-6" />
+                      </svg>
                     </button>
-                    <button class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10" aria-label="Scroll right">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    <button
+                      class="scroll-btn-right absolute right-0 top-[calc(50%-4px)] -translate-y-1/2 bg-card/90 hover:bg-card border border-border rounded-full p-1.5 opacity-0 transition-opacity shadow-lg z-10"
+                      aria-label="Scroll right"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
                     </button>
                     <!-- Fade gradients -->
                     <div class="fade-left pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-card to-transparent opacity-0 transition-opacity"></div>
@@ -211,9 +274,11 @@ const t = useTranslations("en");
           {data.gallery && data.gallery.length > 0 && (
             <section class="mb-8">
               <h2 class="text-foreground mb-4 text-xl font-bold">
-                {data.gallery.length === 1 ? t('project.galleryView') : t('project.galleryMultiple')}
+                {data.gallery.length === 1
+                  ? t('project.galleryView')
+                  : t('project.galleryMultiple')}
               </h2>
-              
+
               {/* Una sola imagen - Display grande */}
               {data.gallery.length === 1 && (
                 <div class="border-border overflow-hidden rounded-xl border">
@@ -240,9 +305,7 @@ const t = useTranslations("en");
                       {/* Overlay con descripción al hover */}
                       {image.alt && (
                         <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent opacity-0 transition-opacity group-hover:opacity-100">
-                          <p class="w-full p-3 text-xs text-white">
-                            {image.alt}
-                          </p>
+                          <p class="w-full p-3 text-xs text-white">{image.alt}</p>
                         </div>
                       )}
                     </div>
@@ -278,22 +341,22 @@ const t = useTranslations("en");
 <script>
   function initScrollContainers() {
     const containers = document.querySelectorAll('.scroll-container-wrapper');
-    
+
     containers.forEach((wrapper) => {
       const container = wrapper.querySelector('.scroll-container');
       const btnLeft = wrapper.querySelector('.scroll-btn-left');
       const btnRight = wrapper.querySelector('.scroll-btn-right');
       const fadeLeft = wrapper.querySelector('.fade-left');
       const fadeRight = wrapper.querySelector('.fade-right');
-      
+
       if (!container || !btnLeft || !btnRight) return;
-      
+
       const updateButtons = () => {
         const { scrollLeft, scrollWidth, clientWidth } = container;
         const hasOverflow = scrollWidth > clientWidth;
         const canScrollLeft = scrollLeft > 0;
         const canScrollRight = scrollLeft < scrollWidth - clientWidth - 1;
-        
+
         // Mostrar/ocultar botones
         if (hasOverflow) {
           btnLeft.style.opacity = canScrollLeft ? '1' : '0';
@@ -306,35 +369,35 @@ const t = useTranslations("en");
           btnLeft.style.pointerEvents = 'none';
           btnRight.style.pointerEvents = 'none';
         }
-        
+
         // Mostrar/ocultar gradientes
         if (fadeLeft && fadeRight) {
           fadeLeft.style.opacity = canScrollLeft ? '1' : '0';
           fadeRight.style.opacity = canScrollRight ? '1' : '0';
         }
       };
-      
+
       // Scroll al hacer clic
       btnLeft.addEventListener('click', () => {
         container.scrollBy({ left: -200, behavior: 'smooth' });
       });
-      
+
       btnRight.addEventListener('click', () => {
         container.scrollBy({ left: 200, behavior: 'smooth' });
       });
-      
+
       // Actualizar al hacer scroll
       container.addEventListener('scroll', updateButtons);
-      
+
       // Actualizar al cargar y redimensionar
       updateButtons();
       window.addEventListener('resize', updateButtons);
     });
   }
-  
+
   // Inicializar al cargar
   document.addEventListener('DOMContentLoaded', initScrollContainers);
-  
+
   // Reinicializar en navegación SPA (si usas View Transitions)
   document.addEventListener('astro:page-load', initScrollContainers);
 </script>
