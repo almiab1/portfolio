@@ -10,25 +10,23 @@ const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, '/') || '/';
 ---
 
 <div class="language-selector flex items-center gap-2">
-  {
-    Object.entries(languages).map(([lang, label]) => {
-      const url = getRelativeLocaleUrl(lang, pathWithoutLang);
-      const isActive = currentLang === lang;
+  {Object.entries(languages).map(([lang, label]) => {
+    const url = getRelativeLocaleUrl(lang, pathWithoutLang);
+    const isActive = currentLang === lang;
 
-      return (
-        <a
-          href={url}
-          class:list={[
-            'rounded-md px-3 py-1 text-sm font-medium transition-colors',
-            isActive
-              ? 'bg-blue-600 text-white'
-              : 'text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700',
-          ]}
-          aria-current={isActive ? 'page' : undefined}
-        >
-          {label}
-        </a>
-      );
-    })
-  }
+    return (
+      <a
+        href={url}
+        class:list={[
+          'rounded-md px-3 py-1 text-sm font-medium transition-colors',
+          isActive
+            ? 'bg-blue-600 text-white'
+            : 'text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700',
+        ]}
+        aria-current={isActive ? 'page' : undefined}
+      >
+        {label}
+      </a>
+    );
+  })}
 </div>
