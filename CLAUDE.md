@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 pnpm run dev       # Start dev server at http://localhost:4321
 pnpm run build     # Build to ./dist
 pnpm run preview   # Preview production build
+pnpm run test      # Run Vitest unit tests
 pnpm run lint      # Lint .astro,.js,.jsx,.ts,.tsx files
 pnpm run format    # Format with Prettier
 ```
@@ -37,7 +38,7 @@ pnpm run format    # Format with Prettier
 ```
 src/
 ├── components/
-│   ├── blocks/      # Page sections (Hero, ProjectGrid, ContactCTA)
+│   ├── blocks/      # Page sections (Hero, About, ProjectGrid, Contact…)
 │   ├── core/        # Core components (Header)
 │   └── ui/          # shadcn UI components
 ├── content/
@@ -53,7 +54,7 @@ src/
 │   └── i18n-content.ts  # Content collection i18n helpers
 └── pages/
     ├── index.astro  # Spanish home (/)
-    ├── es/          # Explicit Spanish pages
+    ├── work/        # Spanish project pages (/work/*)
     └── en/          # English pages (/en/*)
 ```
 
@@ -183,7 +184,7 @@ const projects = await getProjectsByLang('en');
 - **Code**: English (variables, functions, comments)
 - **Content**: Spanish (projects, UI text via i18n)
 - **Documentation**: Spanish (docs/, README)
-- **Git Commits**: Spanish preferred
+- **Git Commits**: English, Conventional Commits
 
 ### TypeScript
 
@@ -249,9 +250,9 @@ pnpm run build     # Verify build succeeds
 
 ### Branch Structure
 
-- `new-portfolio` — Active development branch (PRs target this)
-- `main` — Legacy branch
-- Feature branches: Created from and merged into `new-portfolio`
+- `develop` — Active development branch (PRs target this)
+- `main` — Production
+- Feature branches: Created from and merged into `develop`
 
 ### Git Worktrees
 
@@ -260,8 +261,7 @@ pnpm run build     # Verify build succeeds
 
 ### Creating PRs
 
-- **Target branch**: `new-portfolio` (NOT `main`)
-- Create from feature branch to `new-portfolio`
+- **Target branch**: `develop` (not `main`)
 
 ## Deployment
 
@@ -365,35 +365,25 @@ import { ldPerson, ldWebsite } from '@/lib/schema';
 ### Git
 
 - ❌ Creating PRs to `main` branch
-- ✅ Creating PRs to `new-portfolio` branch
+- ✅ Creating PRs to `develop` branch
 
 ### Package Manager
 
 - ❌ Using `npm install` or `npm run`
 - ✅ Using `pnpm install` or `pnpm run`
 
-## Sub-Agent Workflow
+## Session Context (multi-phase features)
 
-## Rules
-
-- After a plan mode phase you should create a `.claude/sessions/context_session_{feature_name}.md` with the definition of the plan
-- Before you do any work, MUST view files in `.claude/sessions/context_session_{feature_name}.md` file and `.claude/doc/{feature_name}/*` files to get the full context (feature_name being the id of the session we are operate, if file doesnt exist, then create one)
-- `.claude/sessions/context_session_{feature_name}.md` should contain most of context of what we did, overall plan, and sub agents will continusly add context to the file
-- After you finish the work, MUST update the `.claude/sessions/context_session_{feature_name}.md` file to make sure others can get full context of what you did
-- After you finish the each phase, MUST update the `.claude/sessions/context_session_{feature_name}.md` file to make sure others can get full context of what you did
+For features planned in phases or involving subagents, keep `.claude/sessions/context_session_{feature_name}.md` as the shared plan: read it (and `.claude/doc/{feature_name}/`) before starting, and update it after each phase. Small, single-step tasks don't need one.
 
 ## Sub-Agent Workflow
 
-This project uses specialized sub-agents for different concerns. Always consult the appropriate agent:
+Specialized sub-agents in `.claude/agents/`, used when the task calls for them:
 
 - **shadcn-ui-architect**: UI building & component architecture
-- **qa-criteria-validator**: Final UI/UX validation and feedback
+- **qa-criteria-validator**: Acceptance criteria and Playwright validation
 - **ui-ux-analyzer**: UI review, improvements & tweaking
-- **frontend-developer**: Client-side business logic
-- **frontend-test-engineer**: Frontend test case definitions
-- **typescript-test-explorer**: Test case design
-- **hexagonal-backend-architect**: NextJS API & backend architecture
-- **backend-test-architect**: Backend test definitions
+- **frontend-test-engineer**: Vitest + RTL test design
 
 Sub agents will do research about the implementation and report feedback, but you will do the actual implementation;
 When passing task to sub agent, make sure you pass the context file, e.g. `.claude/sessions/context_session_{feature_name}.md`.
@@ -430,34 +420,21 @@ The only way to skip tests: Alex EXPLICITLY states "I AUTHORIZE YOU TO SKIP WRIT
 
 ## Architecture Compliance
 
-When writing backend code:
+The site is static Astro with React islands; there is no backend.
 
-1. **Keep Domain Pure**: Zero framework dependencies in `src/domain/`
-2. **Define Ports First**: Interfaces in `src/application/ports/` before implementations
-3. **Thin Controllers**: API routes delegate immediately to use cases
-4. **Dependency Injection**: All dependencies injected via constructor
-5. **Repository Pattern**: Data access only through repository interfaces
-
-When writing frontend code:
-
-1. **Container Pattern**: Separate business logic from presentation
-2. **Custom Hooks**: Business logic in hooks (e.g., `useConversation`)
-3. **Feature Organization**: Group by feature in `app/features/`
-4. **Component Purity**: Components receive props, hooks manage state
+- Static content stays in `.astro` components; use React only for interactive islands (`client:load` / `client:only`).
+- Keep island logic in custom hooks; components receive props.
 
 ## Code Writing
 
-- YOU MUST ALWAYS address me as "Alex" in all communications.
-- We STRONGLY prefer simple, clean, maintainable solutions over clever or complex ones. Readability and maintainability are PRIMARY CONCERNS, even at the cost of conciseness or performance.
-- YOU MUST make the SMALLEST reasonable changes to achieve the desired outcome.
-- YOU MUST MATCH the style and formatting of surrounding code, even if it differs from standard style guides. Consistency within a file trumps external standards.
-- YOU MUST NEVER make code changes unrelated to your current task. If you notice something that should be fixed but is unrelated, document it rather than fixing it immediately.
-- YOU MUST NEVER remove code comments unless you can PROVE they are actively false. Comments are important documentation and must be preserved.
-- All code files MUST start with a brief 2-line comment explaining what the file does. Each line MUST start with "ABOUTME: " to make them easily greppable.
-- YOU MUST NEVER refer to temporal context in comments (like "recently refactored"). Comments should be evergreen and describe the code as it is.
-- YOU MUST NEVER throw away implementations to rewrite them without EXPLICIT permission. If you're considering this, YOU MUST STOP and ask first.
-- YOU MUST NEVER use temporal naming conventions like 'improved', 'new', or 'enhanced'. All naming should be evergreen.
-- YOU MUST NOT change whitespace unrelated to code you're modifying.
+- Address me as "Alex".
+- Prefer simple, maintainable solutions over clever ones; readability beats conciseness and performance.
+- Make the smallest reasonable change for the task. Don't touch unrelated code or whitespace — note unrelated issues instead of fixing them.
+- Match the style of surrounding code; consistency within a file beats external style guides.
+- Keep existing comments unless they are provably false.
+- Start every code file with a 2-line comment, each line prefixed `ABOUTME: `, so it stays greppable.
+- Keep names and comments evergreen: no "new", "improved", "enhanced", "recently refactored".
+- Don't throw away an implementation to rewrite it without asking first.
 
 ## Version Control
 
@@ -483,4 +460,4 @@ When writing frontend code:
 
 ## Compliance Check
 
-Before submitting any work, verify that you have followed ALL guidelines above. If you find yourself considering an exception to ANY rule, YOU MUST STOP and get explicit permission from Alex first.
+Before making an exception to any rule above, ask Alex first.

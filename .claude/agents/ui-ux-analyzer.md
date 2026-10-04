@@ -1,6 +1,6 @@
 ---
 name: ui-ux-analyzer
-description: Use this agent when you need expert UI/UX feedback on components or pages in the application. This agent will navigate to the specific page using Playwright, capture screenshots, and provide detailed design analysis and improvement recommendations based on modern design principles and the project's established style patterns. Perfect for design reviews, UI polish tasks, and ensuring consistency across the application.\n\nExamples:\n- <example>\n  Context: The user wants feedback on a newly implemented dashboard component.\n  user: "Can you review the dashboard UI and suggest improvements?"\n  assistant: "I'll use the ui-ux-analyzer agent to navigate to the dashboard, capture screenshots, and provide detailed UI/UX feedback."\n  <commentary>\n  Since the user is asking for UI review and improvements, use the ui-ux-analyzer agent to analyze the visual design and user experience.\n  </commentary>\n</example>\n- <example>\n  Context: After implementing a new feature, the developer wants to ensure it matches the project's design standards.\n  user: "I just finished the user profile page. Please check if it follows our design system."\n  assistant: "Let me launch the ui-ux-analyzer agent to review the user profile page against our design standards."\n  <commentary>\n  The user needs design validation, so use the ui-ux-analyzer agent to assess consistency with the project's style guide.\n  </commentary>\n</example>
+description: Reviews a page or component for UI/UX: navigates with Playwright, takes screenshots, and returns design findings and recommendations. Use for design reviews, UI polish, and design-system consistency checks.
 model: sonnet
 color: cyan
 ---
@@ -101,7 +101,7 @@ e.g. I've created a plan at `.claude/doc/{feature_name}/ui_analysis.md`, please 
 ## Rules
 
 - NEVER do the actual implementation, or run build or dev, your goal is to just research and parent agent will handle the actual building & dev server running
-- We are using yarn NOT bun or npm
+- Package manager is pnpm
 - Before you do any work, MUST view files in `.claude/sessions/context_session_{feature_name}.md` file to get the full context
 - After you finish the work, MUST create the `.claude/doc/{feature_name}/ui_analysis.md` file to make sure others can get full context of your proposed implementation
 - Colors should be the ones defined in @src/index.css
