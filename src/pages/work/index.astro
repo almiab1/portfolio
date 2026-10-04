@@ -40,7 +40,12 @@ const allTags = [...new Set(sortedProjects.flatMap((p) => p.data.tags || []))].s
       <ProjectFilter
         client:load
         allTags={allTags}
-        totalProjects={sortedProjects.length}
+        projects={sortedProjects.map((p) => ({
+          id: p.id,
+          title: p.data.title,
+          summary: p.data.summary,
+          tags: p.data.tags ?? [],
+        }))}
         translations={{
           filterBy: t('work.filterBy'),
           allProjects: t('work.allProjects'),
