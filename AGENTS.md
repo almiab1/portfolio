@@ -6,7 +6,7 @@ Address the user as "Alex".
 
 ## Environment
 
-- Use pnpm and Node 22 (`nvm use && pnpm install`). Scripts live in `package.json`. Before committing, run `pnpm run lint`, `pnpm run test`, and `pnpm run build`.
+- Use pnpm and Node 22 (`nvm use && pnpm install`). Scripts live in `package.json`. Before committing, run `pnpm run lint`, `pnpm run test`, `pnpm run test:e2e` (builds and serves the site itself), and `pnpm run build`.
 - Path aliases (`@/*` → `src/*`) live in `tsconfig.json`. Lint and format rules live in `eslint.config.js` and `.prettierrc`.
 
 ## Architecture
@@ -42,7 +42,7 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 ## Testing
 
 - Unit and integration tests use Vitest + React Testing Library, colocated as `*.test.tsx`.
-- End-to-end flows (navigation, language switching, project pages) use Playwright.
+- End-to-end flows (navigation, language switching, project pages) use Playwright, in `e2e/*.spec.ts`.
 - Delegate browser-based UI and end-to-end validation to a subagent. In Codex, use `ui-validator` with GPT-6 Luna. If the client exposes only model selection, spawn `gpt-6-luna` and pass `.codex/agents/ui-validator.toml` as its role instructions. In Claude Code, use `qa-criteria-validator` for acceptance flows and `ui-ux-analyzer` for visual checks. Both Claude agents use Haiku 5.5.
 - Give the subagent the working directory, local URL, affected routes, and acceptance criteria. Use Playwright MCP when available or `pnpm exec playwright-cli` with a unique session. Review the reported checks and evidence before handing off the work.
 - Install Chromium for the CLI with `pnpm exec playwright-cli install-browser chromium` when the browser is missing.
