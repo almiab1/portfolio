@@ -1,5 +1,7 @@
 ---
-import { Mail, Linkedin, Github } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
+import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
 
 const currentLang: Language = (Astro.currentLocale as Language) || 'es';
@@ -35,7 +37,7 @@ const github = 'https://github.com/almiab1';
             rel="noopener noreferrer"
             class="group flex flex-col items-center gap-2 text-muted-foreground transition-colors duration-200 hover:text-primary"
           >
-            <Linkedin size={32} />
+            <LinkedinIcon size={32} />
             <span class="text-sm">LinkedIn</span>
           </a>
           <a
@@ -44,7 +46,7 @@ const github = 'https://github.com/almiab1';
             rel="noopener noreferrer"
             class="group flex flex-col items-center gap-2 text-muted-foreground transition-colors duration-200 hover:text-primary"
           >
-            <Github size={32} />
+            <GithubIcon size={32} />
             <span class="text-sm">GitHub</span>
           </a>
         </div>
