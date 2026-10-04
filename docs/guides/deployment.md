@@ -75,6 +75,11 @@ If needed, set in Vercel Dashboard > Settings > Environment Variables:
 | -------------- | ----- | --------------------------- |
 | `NODE_VERSION` | `22`  | Ensure correct Node version |
 
+### DNS (OVH)
+
+- Registro A: `@` → `76.76.21.21` (Vercel)
+- CNAME: `www` → `cname.vercel-dns.com`
+
 ---
 
 ## Build Output
