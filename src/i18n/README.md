@@ -51,24 +51,24 @@ i18n: {
 
 ```astro
 ---
-import { getLangFromUrl, useTranslations } from "@/i18n/utils";
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<h1>{t("home.title")}</h1>
-<p>{t("home.description")}</p>
+<h1>{t('home.title')}</h1>
+<p>{t('home.description')}</p>
 ```
 
 ### 2. Generar URLs localizadas
 
 ```astro
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
+import { getRelativeLocaleUrl } from 'astro:i18n';
 
-const esUrl = getRelativeLocaleUrl("es", "/work");
-const enUrl = getRelativeLocaleUrl("en", "/work");
+const esUrl = getRelativeLocaleUrl('es', '/work');
+const enUrl = getRelativeLocaleUrl('en', '/work');
 ---
 
 <a href={esUrl}>Proyectos (ES)</a>
@@ -79,7 +79,7 @@ const enUrl = getRelativeLocaleUrl("en", "/work");
 
 ```astro
 ---
-import LanguageSelector from "@/components/LanguageSelector.astro";
+import LanguageSelector from '@/components/LanguageSelector.astro';
 ---
 
 <header>
@@ -103,10 +103,10 @@ const currentLocale = Astro.currentLocale; // 'es' o 'en'
 ```typescript
 export const ui = {
   es: {
-    "nueva.clave": "Texto en español",
+    'nueva.clave': 'Texto en español',
   },
   en: {
-    "nueva.clave": "Text in English",
+    'nueva.clave': 'Text in English',
   },
 };
 ```

@@ -55,9 +55,7 @@ const lang = Astro.currentLocale || 'es';
 const t = useTranslations(lang);
 ---
 
-<BaseLayout title={t('page.title')}>
-  <!-- Page content -->
-</BaseLayout>
+<BaseLayout title={t('page.title')}><!-- Page content --></BaseLayout>
 ```
 
 ---

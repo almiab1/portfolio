@@ -66,12 +66,13 @@ Review and improve the quality of all 11 project descriptions to make them more 
 ### SEO Research Findings
 
 **Optimal Lengths:**
-| Element | Optimal Length | Notes |
-|---------|--------------|-------|
-| Meta Title | 50-60 chars | 51-55 is the sweet spot; primary keywords first |
-| Meta Description | 150-160 chars | 120+ for mobile compatibility |
-| Alt Text | 8-12 words | Max 125 chars; describe image content |
-| H1 per page | 1 only | Primary keyword included |
+
+| Element          | Optimal Length | Notes                                           |
+| ---------------- | -------------- | ----------------------------------------------- |
+| Meta Title       | 50-60 chars    | 51-55 is the sweet spot; primary keywords first |
+| Meta Description | 150-160 chars  | 120+ for mobile compatibility                   |
+| Alt Text         | 8-12 words     | Max 125 chars; describe image content           |
+| H1 per page      | 1 only         | Primary keyword included                        |
 
 **JSON-LD Best Practices:**
 
@@ -181,11 +182,12 @@ Define a consistent template for ALL project MDX files:
 - NO emojis anywhere (headings, list items, content) — remove all existing emojis
 
 **Content Depth Targets:**
-| Project Type | Target Words | Required Sections |
-|-------------|-------------|-------------------|
-| Featured (priority >= 8) | 400-600 words | All required + optional |
-| Standard (priority 5-7) | 250-400 words | All required + 1-2 optional |
-| Minor (priority < 5) | 200-300 words | Required only |
+
+| Project Type             | Target Words  | Required Sections           |
+| ------------------------ | ------------- | --------------------------- |
+| Featured (priority >= 8) | 400-600 words | All required + optional     |
+| Standard (priority 5-7)  | 250-400 words | All required + 1-2 optional |
+| Minor (priority < 5)     | 200-300 words | Required only               |
 
 ### Phase 2: Frontmatter SEO Optimization
 
@@ -336,6 +338,7 @@ export const ldSoftwareProject = (p: {
 
 **Phase 1-3: MDX Content Rewrite (22 files)**
 All 11 projects (ES + EN) have been rewritten with:
+
 - Improved `summary`, `seo.title`, `seo.description`, `cover.alt`
 - Standardized template: H2 opening → Challenge → My Role → Technical Approach → Outcome
 - All emojis removed
@@ -345,16 +348,19 @@ All 11 projects (ES + EN) have been rewritten with:
 - neuroevolutionary-ai expanded from LOW to full depth
 
 **Phase 4: JSON-LD Schema Enhancement**
+
 - Added `ldSoftwareProject` function to `src/lib/schema.ts`
 - Updated both `[slug].astro` pages (ES + EN) to pass richer data: description, technologies, keywords, repo, image
 - Uses `SoftwareSourceCode` type when repo exists, `CreativeWork` otherwise
 
 **Phase 5: Build Validation**
+
 - `pnpm run build`: PASS (26 pages built)
 - `pnpm run lint`: Pre-existing errors only (no new errors)
 - `pnpm run format`: Formatted all modified files (pre-existing Astro parse errors only)
 
 ### Files Modified (26 total)
+
 - `src/content/projects/es/*.mdx` (11 files)
 - `src/content/projects/en/*.mdx` (11 files)
 - `src/lib/schema.ts` (added `ldSoftwareProject`)

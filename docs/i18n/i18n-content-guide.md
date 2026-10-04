@@ -1,10 +1,10 @@
 ---
-title: "Guía de Contenido Multiidioma"
-category: "i18n"
-tags: ["contenido", "proyectos", "traducciones", "mdx"]
-related: ["i18n-overview.md", "i18n-api-reference.md"]
-version: "1.0.0"
-lastUpdated: "2025-01-15"
+title: 'Guía de Contenido Multiidioma'
+category: 'i18n'
+tags: ['contenido', 'proyectos', 'traducciones', 'mdx']
+related: ['i18n-overview.md', 'i18n-api-reference.md']
+version: '1.0.0'
+lastUpdated: '2025-01-15'
 ---
 
 # 📝 Guía de Contenido Multiidioma
@@ -14,6 +14,7 @@ Guía completa para crear y gestionar contenido traducido en el portfolio.
 ## 🎯 Resumen
 
 Todos los proyectos pueden existir en múltiples idiomas usando:
+
 - Campo `lang` para especificar idioma
 - Campo `translationKey` para vincular versiones
 - Sistema de filtrado automático por idioma
@@ -24,10 +25,10 @@ Todos los proyectos pueden existir en múltiples idiomas usando:
 
 ```yaml
 ---
-title: "Título del proyecto"
-summary: "Resumen breve"
-date: "2025-01-01"
-lang: "es" # OBLIGATORIO: 'es' o 'en'
+title: 'Título del proyecto'
+summary: 'Resumen breve'
+date: '2025-01-01'
+lang: 'es' # OBLIGATORIO: 'es' o 'en'
 ---
 ```
 
@@ -35,13 +36,13 @@ lang: "es" # OBLIGATORIO: 'es' o 'en'
 
 ```yaml
 ---
-translationKey: "proyecto-unico" # Para vincular traducciones
-tags: ["GenAI", "Agents"]
-tech: ["Python", "FastAPI"]
-role: "Lead Engineer"
+translationKey: 'proyecto-unico' # Para vincular traducciones
+tags: ['GenAI', 'Agents']
+tech: ['Python', 'FastAPI']
+role: 'Lead Engineer'
 links:
-  demo: "https://demo.example.com"
-  repo: "https://github.com/user/repo"
+  demo: 'https://demo.example.com'
+  repo: 'https://github.com/user/repo'
 ---
 ```
 
@@ -53,15 +54,15 @@ links:
 
 ```mdx
 ---
-title: "Agentes LLM para soporte de producto"
-summary: "Orquestación multi-agente con LangGraph."
-date: "2025-09-01"
-lang: "es"
-translationKey: "agente-llm-proyecto"
-tags: ["GenAI", "Agents", "LangGraph"]
-tech: ["Python", "FastAPI", "OpenAI"]
-role: "Lead Engineer"
-cover: { src: "/og/proyecto.png", alt: "Vista del agente" }
+title: 'Agentes LLM para soporte de producto'
+summary: 'Orquestación multi-agente con LangGraph.'
+date: '2025-09-01'
+lang: 'es'
+translationKey: 'agente-llm-proyecto'
+tags: ['GenAI', 'Agents', 'LangGraph']
+tech: ['Python', 'FastAPI', 'OpenAI']
+role: 'Lead Engineer'
+cover: { src: '/og/proyecto.png', alt: 'Vista del agente' }
 ---
 
 # Sistema de Agentes LLM
@@ -75,15 +76,15 @@ Contenido del proyecto en español...
 
 ```mdx
 ---
-title: "LLM Agents for product support"
-summary: "Multi-agent orchestration with LangGraph."
-date: "2025-09-01"
-lang: "en"
-translationKey: "agente-llm-proyecto" # ¡MISMA CLAVE!
-tags: ["GenAI", "Agents", "LangGraph"]
-tech: ["Python", "FastAPI", "OpenAI"]
-role: "Lead Engineer"
-cover: { src: "/og/project.png", alt: "Agent system view" }
+title: 'LLM Agents for product support'
+summary: 'Multi-agent orchestration with LangGraph.'
+date: '2025-09-01'
+lang: 'en'
+translationKey: 'agente-llm-proyecto' # ¡MISMA CLAVE!
+tags: ['GenAI', 'Agents', 'LangGraph']
+tech: ['Python', 'FastAPI', 'OpenAI']
+role: 'Lead Engineer'
+cover: { src: '/og/project.png', alt: 'Agent system view' }
 ---
 
 # LLM Agent System
@@ -94,9 +95,11 @@ Project content in English...
 ## 🔑 Campo translationKey
 
 ### Propósito
+
 Vincular versiones del mismo proyecto en diferentes idiomas.
 
 ### Reglas
+
 1. **Debe ser idéntico** en ambas versiones
 2. **Único** por proyecto (no reutilizar)
 3. **Formato**: kebab-case recomendado
@@ -106,29 +109,30 @@ Vincular versiones del mismo proyecto en diferentes idiomas.
 
 ```yaml
 # Español
-lang: "es"
-translationKey: "mi-proyecto"
+lang: 'es'
+translationKey: 'mi-proyecto'
 
-# Inglés  
-lang: "en"
-translationKey: "mi-proyecto"
+# Inglés
+lang: 'en'
+translationKey: 'mi-proyecto'
 ```
 
 ### Ejemplo Incorrecto ❌
 
 ```yaml
 # Español
-lang: "es"
-translationKey: "mi-proyecto"
+lang: 'es'
+translationKey: 'mi-proyecto'
 
 # Inglés
-lang: "en"
-translationKey: "my-project" # ❌ Diferente
+lang: 'en'
+translationKey: 'my-project' # ❌ Diferente
 ```
 
 ## 📁 Convenciones de Nombres
 
 ### Archivos en Español
+
 - **Formato**: `nombre-proyecto.mdx`
 - **Convención**: kebab-case
 - **Ejemplos**:
@@ -137,6 +141,7 @@ translationKey: "my-project" # ❌ Diferente
   - `app-reconocimiento-voz.mdx`
 
 ### Archivos en Inglés
+
 - **Formato**: `project-name.mdx`
 - **Convención**: kebab-case
 - **Ejemplos**:
@@ -152,15 +157,16 @@ Si no planeas traducir inmediatamente:
 
 ```yaml
 ---
-title: "Mi Proyecto Local"
-summary: "Descripción"
-date: "2025-01-15"
-lang: "es"
+title: 'Mi Proyecto Local'
+summary: 'Descripción'
+date: '2025-01-15'
+lang: 'es'
 # translationKey no necesario si no hay traducción
 ---
 ```
 
-**Resultado**: 
+**Resultado**:
+
 - Aparece en `/work` y `/es/work`
 - No aparece en `/en/work`
 - Fallback mostrará español en `/en` si se accede directamente
@@ -170,18 +176,21 @@ lang: "es"
 Para proyectos importantes con ambas versiones:
 
 **Español**: `mi-proyecto.mdx`
+
 ```yaml
-lang: "es"
-translationKey: "mi-proyecto"
+lang: 'es'
+translationKey: 'mi-proyecto'
 ```
 
 **Inglés**: `my-project.mdx`
+
 ```yaml
-lang: "en"
-translationKey: "mi-proyecto"
+lang: 'en'
+translationKey: 'mi-proyecto'
 ```
 
 **Resultado**:
+
 - Español aparece en `/work` y `/es/work`
 - Inglés aparece en `/en/work`
 - URLs diferentes pero contenido vinculado
@@ -206,9 +215,9 @@ Las páginas de trabajo filtran automáticamente por idioma:
 ```astro
 ---
 // src/pages/es/work/index.astro
-import { getProjectsByLang } from "@/lib/i18n-content";
+import { getProjectsByLang } from '@/lib/i18n-content';
 
-const projects = await getProjectsByLang("es");
+const projects = await getProjectsByLang('es');
 ---
 ```
 
@@ -221,42 +230,47 @@ const projects = await getProjectsByLang("es");
 
 ```typescript
 // Obtener proyectos por idioma
-const esProjects = await getProjectsByLang("es");
-const enProjects = await getProjectsByLang("en");
+const esProjects = await getProjectsByLang('es');
+const enProjects = await getProjectsByLang('en');
 
 // Obtener proyecto con su traducción
-const { project, translation } = await getProjectWithTranslation("slug", "es");
+const { project, translation } = await getProjectWithTranslation('slug', 'es');
 
 // Verificar si existe traducción
-const hasEnglish = await hasTranslation("slug", "es");
+const hasEnglish = await hasTranslation('slug', 'es');
 ```
 
 ## 📊 Flujo de Trabajo Recomendado
 
 ### 1. Planificación
+
 - [ ] Decidir qué proyectos traducir
 - [ ] Priorizar proyectos más importantes
 - [ ] Asignar `translationKey` únicos
 
 ### 2. Creación Español
+
 - [ ] Crear proyecto en español
 - [ ] Definir `lang: "es"`
 - [ ] Asignar `translationKey`
 - [ ] Añadir todo el contenido
 
 ### 3. Verificación Español
+
 - [ ] Build sin errores
 - [ ] Aparece en `/work`
 - [ ] URLs correctas
 - [ ] Contenido visible
 
 ### 4. Traducción Inglés
+
 - [ ] Crear archivo con nombre en inglés
 - [ ] Definir `lang: "en"`
 - [ ] Usar **mismo** `translationKey`
 - [ ] Traducir todo el contenido
 
 ### 5. Verificación Inglés
+
 - [ ] Build sin errores
 - [ ] Aparece en `/en/work`
 - [ ] URLs correctas
@@ -273,7 +287,7 @@ projects: defineCollection({
     title: z.string(),
     summary: z.string(),
     date: z.string(),
-    lang: z.enum(["es", "en"]).default("es"),
+    lang: z.enum(['es', 'en']).default('es'),
     translationKey: z.string().optional(),
     // ... más campos
   }),
@@ -285,7 +299,7 @@ projects: defineCollection({
 ```typescript
 // src/lib/i18n-content.ts
 export async function getProjectsByLang(lang: Language) {
-  const allProjects = await getCollection("projects");
+  const allProjects = await getCollection('projects');
   return allProjects.filter((p) => p.data.lang === lang);
 }
 ```
@@ -293,48 +307,60 @@ export async function getProjectsByLang(lang: Language) {
 ## 🎯 Tips y Mejores Prácticas
 
 ### 1. Consistencia en translationKey
+
 Usa siempre el slug del proyecto original en español:
+
 ```yaml
 # Español: agente-llm-proyecto.mdx
-translationKey: "agente-llm-proyecto"
+translationKey: 'agente-llm-proyecto'
 
-# Inglés: llm-agent-project.mdx  
-translationKey: "agente-llm-proyecto"
+# Inglés: llm-agent-project.mdx
+translationKey: 'agente-llm-proyecto'
 ```
 
 ### 2. Contenido Equivalente
+
 Ambas versiones deben tener contenido similar:
+
 - Misma estructura
 - Mismas secciones
 - Imágenes equivalentes
 - Enlaces traducidos
 
 ### 3. Metadatos Consistentes
+
 Tags y tech pueden variar, pero mantén coherencia:
+
 ```yaml
 # Español
-tags: ["GenAI", "Agentes"]
-tech: ["Python", "FastAPI"]
+tags: ['GenAI', 'Agentes']
+tech: ['Python', 'FastAPI']
 
 # Inglés
-tags: ["GenAI", "Agents"] # Traducido
-tech: ["Python", "FastAPI"] # Igual
+tags: ['GenAI', 'Agents'] # Traducido
+tech: ['Python', 'FastAPI'] # Igual
 ```
 
 ### 4. URLs y Links Internos
+
 Actualiza links según el idioma:
+
 ```markdown
 # Español
+
 [Ver demo](/es/work/otro-proyecto)
 
 # Inglés
+
 [View demo](/en/work/other-project)
 ```
 
 ### 5. Imágenes y Assets
+
 Usa paths relativos que funcionen en ambos idiomas:
+
 ```yaml
-cover: { src: "/og/project.png", alt: "Descripción" }
+cover: { src: '/og/project.png', alt: 'Descripción' }
 ```
 
 ## 🐛 Troubleshooting
@@ -344,6 +370,7 @@ cover: { src: "/og/project.png", alt: "Descripción" }
 **Problema**: Proyecto no visible en lista
 
 **Solución**:
+
 1. Verificar campo `lang` existe
 2. Verificar valor es `"es"` o `"en"`
 3. Verificar sintaxis YAML correcta
@@ -354,6 +381,7 @@ cover: { src: "/og/project.png", alt: "Descripción" }
 **Problema**: Versiones no se vinculan
 
 **Solución**:
+
 1. Verificar `translationKey` es **idéntico**
 2. Verificar no tiene typos
 3. Verificar ambos archivos tienen el campo
@@ -363,6 +391,7 @@ cover: { src: "/og/project.png", alt: "Descripción" }
 **Problema**: Error al compilar
 
 **Solución**:
+
 1. Verificar schema en `content.config.ts`
 2. Verificar todos campos obligatorios
 3. Verificar sintaxis frontmatter

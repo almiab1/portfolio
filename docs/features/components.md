@@ -1,10 +1,15 @@
 ---
-title: "Componentes UI - Astro + React"
-category: "features"
-tags: ["components", "astro", "react", "shadcn", "ui", "blocks"]
-related: ["../architecture/project-structure.md", "../architecture/tech-stack.md", "../i18n/i18n-api-reference.md"]
-version: "1.0.0"
-lastUpdated: "2026-02-02"
+title: 'Componentes UI - Astro + React'
+category: 'features'
+tags: ['components', 'astro', 'react', 'shadcn', 'ui', 'blocks']
+related:
+  [
+    '../architecture/project-structure.md',
+    '../architecture/tech-stack.md',
+    '../i18n/i18n-api-reference.md',
+  ]
+version: '1.0.0'
+lastUpdated: '2026-02-02'
 ---
 
 # Componentes UI - Arquitectura Astro + React
@@ -42,6 +47,7 @@ src/components/
 ### Cuándo Usar Astro Components (.astro)
 
 Usar `.astro` cuando:
+
 - El componente es principalmente estático
 - Necesitas acceso directo a colecciones de contenido
 - Requieres renderizado en build time
@@ -50,15 +56,21 @@ Usar `.astro` cuando:
 ```astro
 ---
 // ProjectGrid.astro - Static rendering with content collections
-import { getCollection } from "astro:content";
-const projects = await getCollection("projects");
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
 ---
-<div class="grid">{projects.map(p => <Card />)}</div>
+
+<div class="grid">
+  {projects.map((p) => (
+    <Card />
+  ))}
+</div>
 ```
 
 ### Cuándo Usar React Components (.tsx)
 
 Usar `.tsx` cuando:
+
 - Necesitas interactividad (state, events)
 - Requieres hooks (useState, useEffect)
 - El componente tiene lógica compleja del lado del cliente
@@ -81,10 +93,10 @@ export default function ProjectFilter() {
 Configurados en `tsconfig.json`, funcionan en ambos tipos:
 
 ```typescript
-import Header from "@/components/core/Header";
-import { Button } from "@/components/ui/button";
-import { useTranslations } from "@/i18n/utils";
-import { t } from "@/i18n/translations";
+import Header from '@/components/core/Header';
+import { Button } from '@/components/ui/button';
+import { useTranslations } from '@/i18n/utils';
+import { t } from '@/i18n/translations';
 ```
 
 ## Integración con i18n
@@ -93,26 +105,27 @@ import { t } from "@/i18n/translations";
 
 ```astro
 ---
-import { useTranslations, type Language } from "@/i18n/utils";
+import { useTranslations, type Language } from '@/i18n/utils';
 
-const lang: Language = (Astro.currentLocale as Language) || "es";
+const lang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(lang);
 ---
-<h1>{t("hero.title")}</h1>
+
+<h1>{t('hero.title')}</h1>
 ```
 
 ### En React Components
 
 ```tsx
-import { t, type Language } from "@/i18n/translations";
+import { t, type Language } from '@/i18n/translations';
 
 interface Props {
   currentLocale?: string;
 }
 
-export default function Component({ currentLocale = "es" }: Props) {
+export default function Component({ currentLocale = 'es' }: Props) {
   const translate = t(currentLocale as Language);
-  return <h1>{translate("hero.title")}</h1>;
+  return <h1>{translate('hero.title')}</h1>;
 }
 ```
 
@@ -124,7 +137,7 @@ Para incluir React components en páginas Astro:
 
 ```astro
 ---
-import Header from "@/components/core/Header";
+import Header from '@/components/core/Header';
 ---
 
 <!-- Carga inmediata -->
@@ -138,6 +151,7 @@ import Header from "@/components/core/Header";
 ```
 
 **Opciones comunes**:
+
 - `client:load` - Carga JS inmediatamente
 - `client:visible` - Carga cuando entra en viewport
 - `client:idle` - Carga cuando browser está idle
@@ -158,15 +172,16 @@ npx shadcn@latest add card
 
 ```astro
 ---
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 ---
+
 <Button variant="default">Click</Button>
 ```
 
 ### Uso en React
 
 ```tsx
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 export default function MyComponent() {
   return <Button onClick={() => {}}>Click</Button>;
@@ -198,22 +213,24 @@ Sección de página con contenido estático y i18n:
 
 ```astro
 ---
-import { useTranslations, type Language } from "@/i18n/utils";
+import { useTranslations, type Language } from '@/i18n/utils';
 
 export interface Props {
   showTitle?: boolean;
 }
 const { showTitle = true } = Astro.props;
-const lang: Language = (Astro.currentLocale as Language) || "es";
+const lang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(lang);
 ---
+
 <section class="py-12">
-  {showTitle && <h2>{t("section.title")}</h2>}
+  {showTitle && <h2>{t('section.title')}</h2>}
   <slot />
 </section>
 ```
 
 **Características**:
+
 - Props tipadas con interfaz exportada
 - Destructuring con defaults
 - i18n integrado
@@ -224,8 +241,8 @@ const t = useTranslations(lang);
 Componente con estado y eventos:
 
 ```tsx
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
 interface Props {
   translations: { label: string };
@@ -234,15 +251,12 @@ interface Props {
 export default function Filter({ translations }: Props) {
   const [active, setActive] = useState(false);
 
-  return (
-    <button onClick={() => setActive(!active)}>
-      {translations.label}
-    </button>
-  );
+  return <button onClick={() => setActive(!active)}>{translations.label}</button>;
 }
 ```
 
 **Características**:
+
 - Directiva `"use client"` arriba
 - Props tipadas con interface
 - Estado local con useState
@@ -254,24 +268,20 @@ Astro component que incluye React component:
 
 ```astro
 ---
-import ProjectFilter from "./ProjectFilter.tsx";
-import { useTranslations, type Language } from "@/i18n/utils";
+import ProjectFilter from './ProjectFilter.tsx';
+import { useTranslations, type Language } from '@/i18n/utils';
 
-const lang: Language = (Astro.currentLocale as Language) || "es";
+const lang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(lang);
 
 const translations = {
-  filterBy: t("work.filterBy"),
-  clearFilters: t("work.clearFilters"),
+  filterBy: t('work.filterBy'),
+  clearFilters: t('work.clearFilters'),
 };
 ---
 
 <div>
-  <ProjectFilter
-    client:load
-    translations={translations}
-    allTags={["AI", "Web"]}
-  />
+  <ProjectFilter client:load translations={translations} allTags={['AI', 'Web']} />
 </div>
 ```
 
@@ -288,7 +298,7 @@ export interface Props {
   description?: string;
   featured?: boolean;
 }
-const { title, description = "", featured = false } = Astro.props;
+const { title, description = '', featured = false } = Astro.props;
 ---
 ```
 
@@ -301,16 +311,13 @@ interface Props {
   featured?: boolean;
 }
 
-export default function Component({
-  title,
-  description = "",
-  featured = false
-}: Props) {
+export default function Component({ title, description = '', featured = false }: Props) {
   return <div>{title}</div>;
 }
 ```
 
 **Convenciones**:
+
 - Interface siempre llamada `Props`
 - Exportar interface en Astro para reuso
 - Props opcionales con `?` y defaults en destructuring
@@ -328,6 +335,7 @@ Usar variables CSS definidas en `src/index.css`:
 ```
 
 **Variables disponibles**:
+
 - `primary`, `primary-foreground`
 - `secondary`, `secondary-foreground`
 - `background`, `foreground`
@@ -343,6 +351,7 @@ Usar variables CSS definidas en `src/index.css`:
 ```
 
 Breakpoints Tailwind:
+
 - `sm:` - 640px
 - `md:` - 768px
 - `lg:` - 1024px
@@ -353,20 +362,20 @@ Breakpoints Tailwind:
 
 ```tsx
 // Spacing
-"px-4 py-2"           // Padding horizontal/vertical
-"mb-8"                // Margin bottom
+'px-4 py-2'; // Padding horizontal/vertical
+'mb-8'; // Margin bottom
 
 // Layout
-"flex items-center justify-between"
-"grid gap-6 md:grid-cols-2"
+'flex items-center justify-between';
+'grid gap-6 md:grid-cols-2';
 
 // Typography
-"text-lg font-semibold"
-"text-muted-foreground"
+'text-lg font-semibold';
+'text-muted-foreground';
 
 // Transitions
-"transition-colors hover:bg-primary/90"
-"transition-all duration-300"
+'transition-colors hover:bg-primary/90';
+'transition-all duration-300';
 ```
 
 ## Component Communication
@@ -378,6 +387,7 @@ Breakpoints Tailwind:
 const data = await fetchData();
 const serializedData = JSON.stringify(data);
 ---
+
 <ReactComponent client:load data={serializedData} />
 ```
 
@@ -389,7 +399,7 @@ const serializedData = JSON.stringify(data);
 // ProjectFilter manipula DOM directamente para filtrar
 useEffect(() => {
   const cards = document.querySelectorAll('[data-project-tags]');
-  cards.forEach(card => {
+  cards.forEach((card) => {
     const shouldShow = matchesFilter(card);
     (card as HTMLElement).style.display = shouldShow ? '' : 'none';
   });
@@ -405,16 +415,17 @@ useEffect(() => {
 ```astro
 ---
 // Hero.astro
-import { Button } from "@/components/ui/button";
-import { useTranslations, type Language } from "@/i18n/utils";
+import { Button } from '@/components/ui/button';
+import { useTranslations, type Language } from '@/i18n/utils';
 
-const lang: Language = (Astro.currentLocale as Language) || "es";
+const lang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(lang);
 ---
+
 <section>
-  <h1>{t("hero.title")}</h1>
+  <h1>{t('hero.title')}</h1>
   <a href="/work">
-    <Button variant="default">{t("hero.cta")}</Button>
+    <Button variant="default">{t('hero.cta')}</Button>
   </a>
 </section>
 ```
@@ -442,19 +453,19 @@ export default function ProjectFilter({ allTags }: Props) {
 
 ```tsx
 // Header.tsx
-"use client";
-import { useState, useEffect } from "react";
+'use client';
+import { useState, useEffect } from 'react';
 
 export default function Header({ currentLocale }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return <header className={isScrolled ? "scrolled" : ""}>...</header>;
+  return <header className={isScrolled ? 'scrolled' : ''}>...</header>;
 }
 ```
 
@@ -476,11 +487,11 @@ Cada React component con `client:*` es una isla independiente:
 
 ```typescript
 // Astro: useTranslations
-import { useTranslations } from "@/i18n/utils";
+import { useTranslations } from '@/i18n/utils';
 const t = useTranslations(lang);
 
 // React: t helper
-import { t } from "@/i18n/translations";
+import { t } from '@/i18n/translations';
 const translate = t(lang);
 ```
 
@@ -504,6 +515,7 @@ const translate = t(lang);
 ---
 const data = { fn: () => {} }; // ❌ No serializable
 ---
+
 <ReactComponent client:load data={data} />
 ```
 
@@ -526,6 +538,7 @@ import styled from 'styled-components';
 ### Astro Components
 
 No hay tests unitarios tradicionales - usar:
+
 - Visual testing en navegador
 - Build time errors catch issues
 - Type checking con TypeScript
@@ -566,12 +579,9 @@ test('renders filter', () => {
 ### 3. Memoization en React
 
 ```tsx
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback } from 'react';
 
-const filtered = useMemo(() =>
-  projects.filter(p => matches(p)),
-  [projects, filters]
-);
+const filtered = useMemo(() => projects.filter((p) => matches(p)), [projects, filters]);
 
 const handleClick = useCallback(() => {
   // handler
@@ -599,16 +609,15 @@ const handleClick = useCallback(() => {
 
 ```astro
 <!-- Before: Static Astro -->
----
-const items = ["A", "B"];
----
-<div>{items.map(i => <span>{i}</span>)}</div>
-
+--- const items = ["A", "B"]; ---
+<div>
+  {items.map((i) => (
+    <span>{i}</span>
+  ))}
+</div>
 <!-- After: Interactive React -->
----
-import FilterComponent from "./Filter.tsx";
----
-<FilterComponent client:load items={["A", "B"]} />
+--- import FilterComponent from "./Filter.tsx"; ---
+<FilterComponent client:load items={['A', 'B']} />
 ```
 
 ## Quick Reference
@@ -617,51 +626,51 @@ import FilterComponent from "./Filter.tsx";
 
 ```typescript
 // shadcn/ui
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 // Custom components
-import Hero from "@/components/blocks/Hero.astro";
-import Header from "@/components/core/Header";
+import Hero from '@/components/blocks/Hero.astro';
+import Header from '@/components/core/Header';
 
 // i18n
-import { useTranslations } from "@/i18n/utils";      // Astro
-import { t } from "@/i18n/translations";             // React
+import { useTranslations } from '@/i18n/utils'; // Astro
+import { t } from '@/i18n/translations'; // React
 
 // Utils
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 ```
 
 ### Component Template
 
 **Astro**:
+
 ```astro
 ---
-import { useTranslations, type Language } from "@/i18n/utils";
+import { useTranslations, type Language } from '@/i18n/utils';
 
 export interface Props {
   title: string;
 }
 const { title } = Astro.props;
-const lang: Language = (Astro.currentLocale as Language) || "es";
+const lang: Language = (Astro.currentLocale as Language) || 'es';
 const t = useTranslations(lang);
 ---
+
 <section>{title}</section>
 ```
 
 **React**:
+
 ```tsx
-"use client";
-import { t, type Language } from "@/i18n/translations";
+'use client';
+import { t, type Language } from '@/i18n/translations';
 
 interface Props {
   currentLocale?: string;
   title: string;
 }
 
-export default function Component({
-  currentLocale = "es",
-  title
-}: Props) {
+export default function Component({ currentLocale = 'es', title }: Props) {
   const translate = t(currentLocale as Language);
   return <section>{title}</section>;
 }
@@ -670,6 +679,7 @@ export default function Component({
 ---
 
 **Ver también**:
+
 - [Estructura del Proyecto](../architecture/project-structure.md)
 - [Stack Tecnológico](../architecture/tech-stack.md)
 - [API Reference i18n](../i18n/i18n-api-reference.md)
