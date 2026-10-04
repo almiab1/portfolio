@@ -1,5 +1,7 @@
 ---
-import { ArrowDown, Github, Linkedin, Mail, Brain, Code2, Sparkles } from 'lucide-react';
+import { ArrowDown, Mail, Brain, Code2, Sparkles } from 'lucide-react';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
+import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
@@ -96,7 +98,7 @@ const specializationText = interpolate(t('hero.specialization'), {
               class="text-muted-foreground transition-colors duration-200 hover:text-primary"
               aria-label="GitHub"
             >
-              <Github size={24} />
+              <GithubIcon size={24} />
             </a>
             <a
               href="https://www.linkedin.com/in/alejandro-mira/"
@@ -105,7 +107,7 @@ const specializationText = interpolate(t('hero.specialization'), {
               class="text-muted-foreground transition-colors duration-200 hover:text-primary"
               aria-label="LinkedIn"
             >
-              <Linkedin size={24} />
+              <LinkedinIcon size={24} />
             </a>
             <a
               href={contactUrl}

@@ -4,7 +4,8 @@ import { ldSoftwareProject } from '@/lib/schema';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { render } from 'astro:content';
 import { useTranslations } from '@/i18n/utils';
-import { ExternalLink, Github, ChevronLeft, Star, Cpu } from 'lucide-react';
+import { ExternalLink, ChevronLeft, Star, Cpu } from 'lucide-react';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
 
 export async function getStaticPaths() {
   const projects = await getProjectsByLang('en');
@@ -249,7 +250,7 @@ const t = useTranslations('en');
                         rel="noopener noreferrer"
                         class="border-border bg-background hover:bg-accent inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold transition-colors"
                       >
-                        <Github size={14} />
+                        <GithubIcon size={14} />
                         {t('project.repo')}
                       </a>
                     )}
