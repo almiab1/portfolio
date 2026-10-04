@@ -2,7 +2,7 @@
  * Utilidades para contenido traducido en colecciones
  */
 
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 export type Language = 'es' | 'en';
 
@@ -77,9 +77,8 @@ export async function hasTranslation(slug: string, fromLang: Language): Promise<
 export async function getPostsByLang(lang: Language) {
   const allPosts = await getCollection('posts');
   return allPosts.filter((post) => {
-    // Si el post tiene campo lang, úsalo; si no, asume español
-    const postLang = (post.data as any).lang || 'es';
-    return postLang === lang;
+    // `lang` defaults to Spanish in the collection schema
+    return post.data.lang === lang;
   });
 }
 
@@ -89,7 +88,6 @@ export async function getPostsByLang(lang: Language) {
 export async function getTalksByLang(lang: Language) {
   const allTalks = await getCollection('talks');
   return allTalks.filter((talk) => {
-    const talkLang = (talk.data as any).lang || 'es';
-    return talkLang === lang;
+    return talk.data.lang === lang;
   });
 }

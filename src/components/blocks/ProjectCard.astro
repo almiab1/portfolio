@@ -44,9 +44,7 @@ const TypeIcon = typeIcons[project.data.type || 'other'];
 
 <a
   href={href}
-  data-project-tags={project.data.tags?.join(',') || ''}
-  data-project-title={project.data.title}
-  data-project-summary={project.data.summary}
+  data-project-id={project.id}
   class="group relative block overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:z-10 hover:scale-105 hover:border-primary hover:shadow-lg"
 >
   <div class="p-6">
