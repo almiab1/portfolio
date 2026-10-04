@@ -64,6 +64,7 @@ Usar `.tsx` cuando:
 - El componente tiene lógica compleja del lado del cliente
 - Usas librerías React-specific
 
+<!-- prettier-ignore -->
 ```tsx
 // ProjectFilter.tsx - Client-side filtering
 "use client";
@@ -420,6 +421,7 @@ const t = useTranslations(lang);
 
 ### 2. Interactive Filter
 
+<!-- prettier-ignore -->
 ```tsx
 // ProjectFilter.tsx
 "use client";

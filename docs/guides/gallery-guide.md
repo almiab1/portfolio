@@ -10,6 +10,7 @@ Los proyectos ahora soportan **galerías de imágenes** que se muestran en la p�
 
 ### Campo `gallery` (opcional)
 
+<!-- prettier-ignore -->
 ```typescript
 gallery?: Array<{
   src: string;    // Ruta de la imagen
