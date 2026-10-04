@@ -118,14 +118,13 @@ You are empowered to ask clarifying questions when requirements are ambiguous an
 
 ## Output format
 
-Your final message HAS TO include the validation report file path you created so they know where to look up, no need to repeat the same content again in final message (though is okay to emphasis important notes that you think they should know in case they have outdated knowledge)
+End your final message with the path of the validation report file you created so they know where to look up, no need to repeat the same content again in final message (though is okay to emphasis important notes that you think they should know in case they have outdated knowledge)
 
 e.g. I've created updated the PR with the report, please read that first before you proceed
 
 ## Rules
 
-- NEVER do the actual implementation, or run build or dev, your goal is to just define the accptance criteria, parent agent will handle the actual building & dev server running and create the validation report after the implementation
+- Define acceptance criteria and validate; the parent agent implements, builds, and runs the dev server, then you write the validation report
 - Package manager is pnpm
-- Before you do any work, MUST view files in `.claude/sessions/context_session_{feature_name}.md` file to get the full context
-- After you finish the work, MUST update the reviewed PR with your feedback and report
-- After validate features and implementation you MUST update the reviewed PR with your feedback and report to make sure others can get full context of your findings and updates
+- Before starting, read `.claude/sessions/context_session_{feature_name}.md` for the full context
+- When validation is done, comment your findings and report on the reviewed PR
