@@ -25,7 +25,7 @@ export async function getProjectWithTranslation(slug: string, lang: Language) {
   const slugBase = slug.replace(/^(es|en)\//, '');
   const fullSlug = `${lang}/${slugBase}`;
 
-  const project = allProjects.find((p) => p.slug === fullSlug);
+  const project = allProjects.find((p) => p.id === fullSlug);
 
   if (!project) {
     return { project: null, translation: null };
@@ -36,7 +36,7 @@ export async function getProjectWithTranslation(slug: string, lang: Language) {
   const otherLang = lang === 'es' ? 'en' : 'es';
 
   const translation = allProjects.find((p) => {
-    const pSlugBase = p.slug.replace(/^(es|en)\//, '');
+    const pSlugBase = p.id.replace(/^(es|en)\//, '');
     return (
       (p.data.translationKey === translationKey || pSlugBase === slugBase) &&
       p.data.lang === otherLang
@@ -56,7 +56,7 @@ export async function hasTranslation(slug: string, fromLang: Language): Promise<
   const slugBase = slug.replace(/^(es|en)\//, '');
   const fullSlug = `${fromLang}/${slugBase}`;
 
-  const project = allProjects.find((p) => p.slug === fullSlug);
+  const project = allProjects.find((p) => p.id === fullSlug);
 
   if (!project) return false;
 
@@ -64,7 +64,7 @@ export async function hasTranslation(slug: string, fromLang: Language): Promise<
   const toLang = fromLang === 'es' ? 'en' : 'es';
 
   return allProjects.some((p) => {
-    const pSlugBase = p.slug.replace(/^(es|en)\//, '');
+    const pSlugBase = p.id.replace(/^(es|en)\//, '');
     return (
       (p.data.translationKey === translationKey || pSlugBase === slugBase) && p.data.lang === toLang
     );

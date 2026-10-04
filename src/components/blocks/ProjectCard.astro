@@ -22,7 +22,7 @@ const { project, currentLang } = Astro.props;
 const t = useTranslations(currentLang);
 
 // Extraer slug base sin el prefijo de idioma (es/cookobot -> cookobot)
-const slugBase = project.slug.replace(/^(es|en)\//, '');
+const slugBase = project.id.replace(/^(es|en)\//, '');
 
 // Determinar URL según idioma
 const href = currentLang === 'es' ? `/work/${slugBase}` : `/${currentLang}/work/${slugBase}`;

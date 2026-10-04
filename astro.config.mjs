@@ -13,6 +13,8 @@ export default defineConfig({
   },
   integrations: [react(), mdx(), sitemap()],
   prefetch: true,
+  // Keep whitespace between inline elements (Astro 7 defaults to 'jsx', which strips it)
+  compressHTML: true,
   i18n: {
     locales: ['es', 'en'],
     defaultLocale: 'es',

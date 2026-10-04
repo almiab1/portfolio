@@ -1,7 +1,7 @@
 ---
 import Header from '@/components/core/Header';
 import Analytics from '@vercel/analytics/astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
@@ -58,7 +58,7 @@ const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="min-h-screen bg-background text-foreground" transition:animate="fade">
     <Header client:load currentLocale={currentLang} currentPath={currentPath} transition:persist />
