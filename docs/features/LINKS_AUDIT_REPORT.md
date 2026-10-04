@@ -17,6 +17,7 @@ Se realizó una auditoría completa de todos los enlaces y rutas del portfolio, 
 ### 1. **Estructura de páginas incorrecta (CRÍTICO)**
 
 **Problema**:
+
 - Existía el directorio `/src/pages/es/` que **no debería existir** según la configuración i18n
 - La configuración tiene `prefixDefaultLocale: false`, lo que significa que el español (idioma por defecto) NO debe tener el prefijo `/es/` en las URLs
 - Esto causaba rutas duplicadas como `/en/es/work/index.html`
@@ -35,10 +36,12 @@ i18n: {
 ```
 
 **URLs esperadas**:
+
 - Español (default): `/`, `/work`, `/work/slug`
 - Inglés: `/en`, `/en/work`, `/en/work/slug`
 
 **Corrección**:
+
 1. ✅ Eliminado directorio `/src/pages/es/` completo
 2. ✅ Creadas páginas en español en `/src/pages/work/` (raíz)
 3. ✅ Estructura final correcta:
@@ -56,6 +59,7 @@ i18n: {
    ```
 
 **Resultado del Build**:
+
 ```
 ✅ /index.html
 ✅ /work/index.html
@@ -73,12 +77,14 @@ i18n: {
 Múltiples enlaces apuntaban a `/es/work` cuando deberían apuntar a `/work` (español sin prefijo).
 
 **Archivos afectados**:
+
 - `/src/pages/index.astro` - línea 17
 - `/src/pages/es/index.astro` (eliminado)
 - `/src/pages/es/work/index.astro` (eliminado)
 - `/src/pages/es/work/[slug].astro` (eliminado)
 
 **Corrección**:
+
 ```diff
 # src/pages/index.astro
 - <ProjectGrid limit={6} moreHref="/es/work" showTitle={true} />
@@ -103,6 +109,7 @@ Los botones principales del Hero no tenían enlaces, eran solo elementos `<Butto
 **Ubicación**: `src/components/blocks/Hero.astro` líneas 88-100
 
 **Corrección**:
+
 1. ✅ Convertidos de `<Button>` a elementos `<a>` con clases de botón
 2. ✅ Agregado `href="#work"` al botón "Ver mis proyectos"
 3. ✅ Agregado `href="#contact"` al botón "Contactar"
@@ -111,16 +118,16 @@ Los botones principales del Hero no tenían enlaces, eran solo elementos `<Butto
    - `hero.contact`: "Contactar" / "Contact me"
 
 **Antes**:
+
 ```astro
-<Button size="lg">
-  Ver mis proyectos  <!-- ❌ Sin href, texto hardcodeado -->
-</Button>
+<Button size="lg">Ver mis proyectos <!-- ❌ Sin href, texto hardcodeado --></Button>
 ```
 
 **Después**:
+
 ```astro
 <a href="#work" class="...">
-  {t('hero.viewProjects')}  <!-- ✅ Con href y traducción -->
+  {t('hero.viewProjects')} <!-- ✅ Con href y traducción -->
 </a>
 ```
 
@@ -132,13 +139,14 @@ Los botones principales del Hero no tenían enlaces, eran solo elementos `<Butto
 Los botones del Hero tenían texto en español hardcodeado, violando la política de i18n del proyecto.
 
 **Corrección**:
+
 1. ✅ Importado `useTranslations` en `Hero.astro`
 2. ✅ Agregadas traducciones en `src/i18n/ui.ts`:
    ```typescript
    // Español
    'hero.viewProjects': 'Ver mis proyectos',
    'hero.contact': 'Contactar',
-   
+
    // Inglés
    'hero.viewProjects': 'View my projects',
    'hero.contact': 'Contact me',
@@ -150,12 +158,14 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 ### 5. **Falta sección de contacto**
 
 **Problema**:
+
 - Los enlaces apuntaban a `#contact` pero la sección no existía
 - El Header tiene enlace "Contacto" que no funcionaba
 - El Hero tiene botón "Contactar" que no funcionaba
 - El ícono de Mail en redes sociales no tenía acción
 
 **Corrección**:
+
 1. ✅ Creado componente `src/components/blocks/Contact.astro`
 2. ✅ Sección con email, LinkedIn y GitHub
 3. ✅ Enlace directo a `mailto:hello@alejandromira.com`
@@ -163,6 +173,7 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 5. ✅ Usa i18n para el título y texto
 
 **Características**:
+
 - Diseño responsive y accesible
 - Enlaces verificados:
   - ✅ Email: `hello@alejandromira.com`
@@ -176,39 +187,39 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 
 ### Enlaces Internos
 
-| Enlace | Ubicación | Estado |
-|--------|-----------|--------|
-| `/` | Raíz español | ✅ Funciona |
-| `/en` | Raíz inglés | ✅ Funciona |
-| `/work` | Proyectos ES | ✅ Funciona |
-| `/en/work` | Proyectos EN | ✅ Funciona |
-| `/work/agente-llm-proyecto` | Proyecto ES | ✅ Funciona |
-| `/en/work/llm-agent-project` | Proyecto EN | ✅ Funciona |
-| `#work` | Ancla sección proyectos | ✅ Funciona |
-| `#contact` | Ancla sección contacto | ✅ Funciona |
+| Enlace                       | Ubicación               | Estado      |
+| ---------------------------- | ----------------------- | ----------- |
+| `/`                          | Raíz español            | ✅ Funciona |
+| `/en`                        | Raíz inglés             | ✅ Funciona |
+| `/work`                      | Proyectos ES            | ✅ Funciona |
+| `/en/work`                   | Proyectos EN            | ✅ Funciona |
+| `/work/agente-llm-proyecto`  | Proyecto ES             | ✅ Funciona |
+| `/en/work/llm-agent-project` | Proyecto EN             | ✅ Funciona |
+| `#work`                      | Ancla sección proyectos | ✅ Funciona |
+| `#contact`                   | Ancla sección contacto  | ✅ Funciona |
 
 ### Enlaces de Navegación (Header)
 
-| Enlace | Estado | Nota |
-|--------|--------|------|
-| `#about` | ✅ Funciona | Sección creada (Issue #3) |
-| `#skills` | ⚠️ Sección no existe | Ancla para futura implementación |
-| `#projects` | ⚠️ Usar `#work` | Redirigir o cambiar a `#work` |
-| `#contact` | ✅ Funciona | Sección creada |
+| Enlace      | Estado               | Nota                             |
+| ----------- | -------------------- | -------------------------------- |
+| `#about`    | ✅ Funciona          | Sección creada (Issue #3)        |
+| `#skills`   | ⚠️ Sección no existe | Ancla para futura implementación |
+| `#projects` | ⚠️ Usar `#work`      | Redirigir o cambiar a `#work`    |
+| `#contact`  | ✅ Funciona          | Sección creada                   |
 
 ### Enlaces Externos
 
-| Enlace | Ubicación | Estado |
-|--------|-----------|--------|
-| `https://github.com/almiab1` | Hero, Contact | ✅ Verificado |
+| Enlace                                        | Ubicación     | Estado        |
+| --------------------------------------------- | ------------- | ------------- |
+| `https://github.com/almiab1`                  | Hero, Contact | ✅ Verificado |
 | `https://www.linkedin.com/in/alejandro-mira/` | Hero, Contact | ✅ Verificado |
-| `mailto:hello@alejandromira.com` | Contact | ✅ Funciona |
+| `mailto:hello@alejandromira.com`              | Contact       | ✅ Funciona   |
 
 ### Enlaces de Proyectos
 
-| Enlace | Estado | Nota |
-|--------|--------|------|
-| Demo: `https://demo.ejemplo.com` | ⚠️ Ejemplo | Reemplazar con URL real |
+| Enlace                                      | Estado     | Nota                    |
+| ------------------------------------------- | ---------- | ----------------------- |
+| Demo: `https://demo.ejemplo.com`            | ⚠️ Ejemplo | Reemplazar con URL real |
 | Repo: `https://github.com/usuario/proyecto` | ⚠️ Ejemplo | Reemplazar con URL real |
 
 ---
@@ -218,6 +229,7 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 ### Cambio de Idioma
 
 ✅ **Funcionamiento correcto**:
+
 - Selector de idioma en Header funciona
 - Mantiene la ruta actual al cambiar idioma:
   - `/` ↔️ `/en`
@@ -226,12 +238,12 @@ Los botones del Hero tenían texto en español hardcodeado, violando la polític
 
 ### Componentes con i18n
 
-| Componente | Estado |
-|------------|--------|
-| `Header.tsx` | ✅ Usa traducciones |
-| `Hero.astro` | ✅ Usa traducciones |
-| `ProjectGrid.astro` | ✅ Usa traducciones |
-| `Contact.astro` | ✅ Usa traducciones |
+| Componente             | Estado                    |
+| ---------------------- | ------------------------- |
+| `Header.tsx`           | ✅ Usa traducciones       |
+| `Hero.astro`           | ✅ Usa traducciones       |
+| `ProjectGrid.astro`    | ✅ Usa traducciones       |
+| `Contact.astro`        | ✅ Usa traducciones       |
 | `LanguageSwitcher.tsx` | ✅ Funciona correctamente |
 
 ---
@@ -304,22 +316,26 @@ dist/
 ## 📊 Resumen de Cambios
 
 ### Archivos Eliminados
+
 - ❌ `/src/pages/es/index.astro`
 - ❌ `/src/pages/es/work/index.astro`
 - ❌ `/src/pages/es/work/[slug].astro`
 
 ### Archivos Creados
+
 - ✅ `/src/pages/work/index.astro`
 - ✅ `/src/pages/work/[slug].astro`
 - ✅ `/src/components/blocks/Contact.astro`
 
 ### Archivos Modificados
+
 - ✅ `/src/pages/index.astro`
 - ✅ `/src/pages/en/index.astro`
 - ✅ `/src/components/blocks/Hero.astro`
 - ✅ `/src/i18n/ui.ts`
 
 ### Traducciones Añadidas
+
 - ✅ `hero.viewProjects` (ES/EN)
 - ✅ `hero.contact` (ES/EN)
 

@@ -34,10 +34,5 @@
     ],
     "deny": []
   },
-  "enabledMcpjsonServers": [
-    "context7",
-    "sequentialthinking",
-    "playwright",
-    "shadcn"
-  ]
+  "enabledMcpjsonServers": ["context7", "sequentialthinking", "playwright", "shadcn"]
 }

@@ -357,7 +357,9 @@ type Language = 'es' | 'en';
 const projects = await getProjectsByLang('es');
 ---
 
-{projects.map((p) => <div>{p.data.title}</div>)}
+{projects.map((p) => (
+  <div>{p.data.title}</div>
+))}
 ```
 
 ---
@@ -512,14 +514,12 @@ const projects = await getProjectsByLang(lang);
 <BaseLayout title={t('work.title')}>
   <h1>{t('work.featured')}</h1>
 
-  {
-    projects.map((p) => (
-      <article>
-        <h2>{p.data.title}</h2>
-        <p>{p.data.summary}</p>
-      </article>
-    ))
-  }
+  {projects.map((p) => (
+    <article>
+      <h2>{p.data.title}</h2>
+      <p>{p.data.summary}</p>
+    </article>
+  ))}
 </BaseLayout>
 ```
 
