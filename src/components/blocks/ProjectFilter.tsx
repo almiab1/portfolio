@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { Filter, X, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { filterProjects, type FilterableProject } from '@/lib/project-filter';
 
 interface Props {
   allTags: string[];
@@ -13,59 +14,29 @@ interface Props {
     searchPlaceholder: string;
     searchLabel: string;
   };
-  totalProjects: number;
+  projects: FilterableProject[];
 }
 
-export default function ProjectFilter({ allTags, translations, totalProjects }: Props) {
+export default function ProjectFilter({ allTags, translations, projects }: Props) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [visibleCount, setVisibleCount] = useState(totalProjects);
-  const [availableTags, setAvailableTags] = useState<string[]>(allTags);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+  const totalProjects = projects.length;
+  const { visibleIds, availableTags } = useMemo(
+    () => filterProjects(projects, { selectedTags, query: searchQuery }, allTags),
+    [projects, selectedTags, searchQuery, allTags],
+  );
+  const visibleCount = visibleIds.size;
+
   useEffect(() => {
     // Aplicar filtro a las tarjetas del DOM
-    const projectCards = document.querySelectorAll('[data-project-tags]');
-    let count = 0;
-    const tagsInFilteredProjects = new Set<string>();
-    const query = searchQuery.toLowerCase().trim();
-
-    projectCards.forEach((card) => {
-      const projectTags = (card.getAttribute('data-project-tags') || '').split(',').filter(Boolean);
-      const projectTitle = (card.getAttribute('data-project-title') || '').toLowerCase();
-      const projectSummary = (card.getAttribute('data-project-summary') || '').toLowerCase();
-
-      // Verificar si coincide con la búsqueda de texto
-      const matchesSearch =
-        query === '' ||
-        projectTitle.includes(query) ||
-        projectSummary.includes(query) ||
-        projectTags.some((tag) => tag.toLowerCase().includes(query));
-
-      // Verificar si coincide con los tags seleccionados
-      const matchesTags =
-        selectedTags.length === 0 || selectedTags.some((tag) => projectTags.includes(tag));
-
-      // Mostrar solo si coincide con ambos filtros
-      const shouldShow = matchesSearch && matchesTags;
-
-      (card as HTMLElement).style.display = shouldShow ? '' : 'none';
-
-      if (shouldShow) {
-        count++;
-        // Agregar tags de proyectos visibles
-        projectTags.forEach((tag) => tagsInFilteredProjects.add(tag));
-      }
+    document.querySelectorAll<HTMLElement>('[data-project-id]').forEach((card) => {
+      card.style.display = visibleIds.has(card.dataset.projectId ?? '') ? '' : 'none';
     });
-
-    setVisibleCount(count);
-
-    // Actualizar tags disponibles basándose en proyectos filtrados
-    const newAvailableTags = allTags.filter((tag) => tagsInFilteredProjects.has(tag));
-    setAvailableTags(newAvailableTags);
-  }, [selectedTags, searchQuery, allTags]);
+  }, [visibleIds]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>

@@ -41,6 +41,7 @@ export const collections = {
   posts: defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
     schema: z.object({
+      lang: z.enum(['es', 'en']).default('es'),
       title: z.string(),
       excerpt: z.string().optional(),
       date: z.string(),
@@ -52,6 +53,7 @@ export const collections = {
   talks: defineCollection({
     loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/talks' }),
     schema: z.object({
+      lang: z.enum(['es', 'en']).default('es'),
       title: z.string(),
       event: z.string(),
       date: z.string(),
