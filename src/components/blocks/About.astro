@@ -64,9 +64,7 @@ const transitionText = interpolate(t('about.transition.description'), {
 
         <!-- Key Points with Icons -->
         <div class="space-y-6">
-          <div
-            class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50"
-          >
+          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
             <div class="mt-1 flex-shrink-0 rounded-lg bg-secondary/20 p-2">
               <Target className="h-5 w-5 text-secondary" />
             </div>
@@ -78,9 +76,7 @@ const transitionText = interpolate(t('about.transition.description'), {
             </div>
           </div>
 
-          <div
-            class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50"
-          >
+          <div class="flex items-start gap-4 rounded-lg bg-muted/30 p-6 transition-colors hover:bg-muted/50">
             <div class="mt-1 flex-shrink-0 rounded-lg bg-primary/20 p-2">
               <Lightbulb className="h-5 w-5 text-primary" />
             </div>
@@ -100,26 +96,22 @@ const transitionText = interpolate(t('about.transition.description'), {
         <div class="rounded-xl border border-border bg-card p-6 shadow-sm">
           <h3 class="mb-4 text-lg font-semibold text-foreground">{t('about.specialization')}</h3>
           <div class="flex flex-wrap gap-2">
-            {
-              specializations.map((spec) => (
-                <span
-                  class={`rounded-full px-4 py-2 text-sm font-medium transition-transform hover:scale-105 ${
-                    spec.color === 'primary'
-                      ? 'bg-primary/20 text-primary'
-                      : 'bg-secondary/50 text-primary'
-                  }`}
-                >
-                  {spec.label}
-                </span>
-              ))
-            }
+            {specializations.map((spec) => (
+              <span
+                class={`rounded-full px-4 py-2 text-sm font-medium transition-transform hover:scale-105 ${
+                  spec.color === 'primary'
+                    ? 'bg-primary/20 text-primary'
+                    : 'bg-secondary/50 text-primary'
+                }`}
+              >
+                {spec.label}
+              </span>
+            ))}
           </div>
         </div>
 
         <!-- Mission Statement -->
-        <div
-          class="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5 p-6"
-        >
+        <div class="rounded-xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5 p-6">
           <div class="mb-3 flex items-center gap-2">
             <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></div>
             <p class="text-sm font-medium tracking-wider text-muted-foreground uppercase">

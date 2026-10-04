@@ -59,23 +59,21 @@ const specializationText = interpolate(t('hero.specialization'), {
           />
 
           <div class="mb-8 flex flex-wrap justify-center gap-3 lg:justify-start">
-            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary"
-              >{agents}</span
-            >
+            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary">
+              {agents}
+            </span>
             <span class="rounded-full bg-secondary/50 px-3 py-1 text-sm font-medium text-primary">
               {ai}
             </span>
-            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary"
-              >{genai}</span
-            >
+            <span class="rounded-full bg-primary/20 px-3 py-1 text-sm font-medium text-primary">
+              {genai}
+            </span>
             <span class="rounded-full bg-secondary/50 px-3 py-1 text-sm font-medium text-primary">
               {emergingTechnologies}
             </span>
           </div>
 
-          <div
-            class="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
-          >
+          <div class="mb-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
             <a
               href={workUrl}
               class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/70 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
@@ -124,17 +122,9 @@ const specializationText = interpolate(t('hero.specialization'), {
         <div class="order-1 flex justify-center lg:order-2 lg:justify-end">
           <div class="relative">
             <div class="relative h-80 w-80 md:h-96 md:w-96">
-              <div
-                class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-primary via-secondary to-primary opacity-20"
-              >
-              </div>
-              <div
-                class="absolute inset-2 rounded-full bg-gradient-to-br from-primary/30 to-secondary/30"
-              >
-              </div>
-              <div
-                class="absolute inset-4 flex items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-card"
-              >
+              <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br from-primary via-secondary to-primary opacity-20"></div>
+              <div class="absolute inset-2 rounded-full bg-gradient-to-br from-primary/30 to-secondary/30"></div>
+              <div class="absolute inset-4 flex items-center justify-center overflow-hidden rounded-full border-2 border-primary/30 bg-card">
                 {/* Foto de perfil optimizada con Astro */}
                 <Image
                   src={profileImage}
@@ -149,19 +139,13 @@ const specializationText = interpolate(t('hero.specialization'), {
               </div>
             </div>
 
-            <div
-              class="absolute -top-4 -right-4 animate-bounce rounded-full bg-primary/20 p-3 backdrop-blur-sm"
-            >
+            <div class="absolute -top-4 -right-4 animate-bounce rounded-full bg-primary/20 p-3 backdrop-blur-sm">
               <Brain className="h-6 w-6 text-primary" />
             </div>
-            <div
-              class="absolute -bottom-4 -left-4 animate-pulse rounded-full bg-secondary/20 p-3 backdrop-blur-sm"
-            >
+            <div class="absolute -bottom-4 -left-4 animate-pulse rounded-full bg-secondary/20 p-3 backdrop-blur-sm">
               <Code2 className="h-6 w-6 text-secondary" />
             </div>
-            <div
-              class="absolute top-1/2 -right-8 animate-bounce rounded-full bg-primary/15 p-2 backdrop-blur-sm delay-300"
-            >
+            <div class="absolute top-1/2 -right-8 animate-bounce rounded-full bg-primary/15 p-2 backdrop-blur-sm delay-300">
               <Sparkles className="h-5 w-5 text-primary" />
             </div>
           </div>

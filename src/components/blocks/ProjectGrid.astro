@@ -37,38 +37,34 @@ const projects = allProjects
 ---
 
 <div class="mx-auto max-w-6xl px-6 py-12">
-  {
-    showTitle && (
-      <div class="mb-12 text-center">
-        <h2 class="mb-4 text-3xl font-bold text-foreground md:text-4xl">{t('work.featured')}</h2>
-        <p class="mx-auto max-w-2xl text-lg text-muted-foreground">{t('hero.description')}</p>
+  {showTitle && (
+    <div class="mb-12 text-center">
+      <h2 class="mb-4 text-3xl font-bold text-foreground md:text-4xl">{t('work.featured')}</h2>
+      <p class="mx-auto max-w-2xl text-lg text-muted-foreground">{t('hero.description')}</p>
+    </div>
+  )}
+
+  {projects.length > 0 ? (
+    <>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <ProjectCard project={project} currentLang={currentLang} />
+        ))}
       </div>
-    )
-  }
 
-  {
-    projects.length > 0 ? (
-      <>
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard project={project} currentLang={currentLang} />
-          ))}
+      {moreHref && (
+        <div class="mt-12 text-center">
+          <a
+            href={moreHref}
+            class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            {t('work.viewAll')}
+            <ArrowRight size={16} />
+          </a>
         </div>
-
-        {moreHref && (
-          <div class="mt-12 text-center">
-            <a
-              href={moreHref}
-              class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              {t('work.viewAll')}
-              <ArrowRight size={16} />
-            </a>
-          </div>
-        )}
-      </>
-    ) : (
-      <p class="text-center text-muted-foreground">{t('work.noProjects')}</p>
-    )
-  }
+      )}
+    </>
+  ) : (
+    <p class="text-center text-muted-foreground">{t('work.noProjects')}</p>
+  )}
 </div>
