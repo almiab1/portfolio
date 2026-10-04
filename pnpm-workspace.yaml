@@ -1,0 +1,5 @@
+ignoredBuiltDependencies:
+  - '@tsparticles/engine'
+  - esbuild
+  - msw
+  - sharp
