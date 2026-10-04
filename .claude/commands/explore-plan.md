@@ -1,6 +1,6 @@
 <user_request>
 #$ARGUMENTS
-<user_request>
+</user_request>
 
 At the end of this message, I will ask you to do something. Please follow the "Explore, Team Selection, Plan, Advice, Update, Clarification and Iterate" workflow when you start over the user_request.
 
