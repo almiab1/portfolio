@@ -1,12 +1,16 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
+import Particles, { ParticlesProvider } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import type { Container, ISourceOptions } from '@tsparticles/engine';
+import type { Engine, ISourceOptions } from '@tsparticles/engine';
+
+// Must stay referentially stable: ParticlesProvider rejects a changing init callback
+const initEngine = async (engine: Engine) => {
+  await loadSlim(engine);
+};
 
 const NeuralBackground = () => {
-  const [init, setInit] = useState(false);
   // Estado para el color actual
   const [colors, setColors] = useState({
     particles: '#ad5837',
@@ -44,15 +48,6 @@ const NeuralBackground = () => {
     });
 
     return () => observer.disconnect();
-  }, []);
-
-  // Inicializar motor de partículas
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
   }, []);
 
   const options: ISourceOptions = useMemo(
@@ -123,11 +118,11 @@ const NeuralBackground = () => {
     [colors], // Recalcular cuando cambien los colores
   );
 
-  if (!init) {
-    return null;
-  }
-
-  return <Particles id="tsparticles" className="fixed inset-0 -z-10" options={options} />;
+  return (
+    <ParticlesProvider init={initEngine}>
+      <Particles id="tsparticles" className="fixed inset-0 -z-10" options={options} />
+    </ParticlesProvider>
+  );
 };
 
 export default NeuralBackground;
