@@ -1,7 +1,7 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import eslintPluginAstro from 'eslint-plugin-astro';
-import reactPlugin from 'eslint-plugin-react';
+import eslintReact from '@eslint-react/eslint-plugin';
 import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
@@ -11,21 +11,18 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
-  reactPlugin.configs.flat.recommended,
-  reactPlugin.configs.flat['jsx-runtime'],
   {
-    plugins: { 'react-hooks': reactHooks },
-    rules: reactHooks.configs.recommended.rules,
-    settings: {
-      react: { version: 'detect' },
+    files: ['**/*.{jsx,tsx}'],
+    ...eslintReact.configs['recommended-typescript'],
+    rules: {
+      ...eslintReact.configs['recommended-typescript'].rules,
+      // Covered by react-hooks/set-state-in-effect
+      '@eslint-react/set-state-in-effect': 'off',
     },
   },
   {
-    files: ['**/*.astro'],
-    rules: {
-      'react/no-unknown-property': 'off',
-      'react/jsx-key': 'off',
-      'react-hooks/rules-of-hooks': 'off',
-    },
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: reactHooks.configs.recommended.rules,
   },
 ];
