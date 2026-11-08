@@ -3,7 +3,7 @@
 import { expect, test } from '@playwright/test';
 
 for (const locale of [
-  { path: '/', experience: 'Experiencia' },
+  { path: '/', experience: 'Trayectoria' },
   { path: '/en/', experience: 'Experience' },
 ]) {
   test(`keeps navigation visible and share imagery available on ${locale.path}`, async ({
@@ -17,7 +17,6 @@ for (const locale of [
     const brand = header.getByRole('link', { name: 'Alejandro Mira', exact: true });
     await expect(brand).toBeFocused();
     await expect(brand).toHaveCSS('outline-style', 'solid');
-    await expect(brand).toHaveCSS('transition-property', 'color');
 
     for (const name of ['Español', 'English']) {
       const link = header.getByRole('link', { name, exact: true });
@@ -29,8 +28,11 @@ for (const locale of [
       await expect(link).toHaveCSS('transition-duration', '0s');
     }
 
-    await header.getByRole('link', { name: locale.experience, exact: true }).click();
-    await expect(page).toHaveURL(/#about$/);
+    await page
+      .locator('.desktop-dock')
+      .getByRole('link', { name: locale.experience, exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/experience\/?$/);
     await expect(page.locator('#experience-title')).toBeInViewport();
 
     const image = page.locator('meta[property="og:image"]');
@@ -46,29 +48,28 @@ for (const locale of [
 test.describe('compact mobile navigation', () => {
   test.use({ viewport: { width: 320, height: 400 }, hasTouch: true, isMobile: true });
 
-  test('keeps menu controls large and the last link reachable on a short viewport', async ({
-    page,
-  }) => {
+  test('keeps the dock reachable and returns focus after minimizing', async ({ page }) => {
     await page.goto('/');
-    const toggle = page.getByRole('button', { name: /^(Abrir|Cerrar) menú$/ });
-    const box = await toggle.boundingBox();
-    expect(box?.width).toBeGreaterThanOrEqual(44);
-    expect(box?.height).toBeGreaterThanOrEqual(44);
+    const dock = page.locator('.desktop-dock');
+    const toggle = dock.getByRole('button', { name: 'Asistente' });
+    for (const item of await dock.locator(':is(a, button)').all()) {
+      const box = await item.boundingBox();
+      expect(box?.width).toBeGreaterThanOrEqual(44);
+      expect(box?.height).toBeGreaterThanOrEqual(44);
+      await expect(item).toBeInViewport();
+    }
 
     await toggle.press('Enter');
-    await expect(toggle).toHaveCSS('outline-width', '3px');
-    const panel = page.locator('#mobile-nav');
-    await expect(panel).toBeVisible();
-    const dimensions = await panel.evaluate(({ clientHeight, scrollHeight }) => ({
-      clientHeight,
-      scrollHeight,
-    }));
-    expect(dimensions.scrollHeight).toBeGreaterThan(dimensions.clientHeight);
+    const minimize = page.getByRole('button', { name: 'Minimizar asistente' });
+    await expect(minimize).toBeFocused();
+    await expect(page.locator('#main-content')).toBeHidden();
+    await minimize.press('Enter');
+    await expect(toggle).toBeFocused();
+    await expect(page.locator('#main-content')).toBeVisible();
 
-    const cv = panel.getByRole('link', { name: /Descargar CV/ });
-    await cv.focus();
-    await expect(cv).toBeInViewport({ ratio: 0.95 });
-    await expect(cv).toHaveCSS('outline-width', '3px');
+    const cv = dock.getByRole('link', { name: 'CV', exact: true });
+    await cv.press('Enter');
+    await expect(page.getByRole('heading', { name: 'Currículum' })).toBeVisible();
   });
 });
 
@@ -77,11 +78,7 @@ test('aligns the paired profile sections and keeps their subheadings consistent'
 }) => {
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto('/');
-  const columns = [
-    '.profile-distribution',
-    '.credentials-grid > section:nth-child(2)',
-    '.personal-grid > li:nth-child(2)',
-  ];
+  const columns = ['.profile-distribution', '.personal-grid > li:nth-child(2)'];
   const positions = await Promise.all(
     columns.map(async (selector) => (await page.locator(selector).boundingBox())!.x),
   );
@@ -99,7 +96,16 @@ test('aligns the paired profile sections and keeps their subheadings consistent'
 test('loads Inter for both languages and fits the main routes at 320 pixels', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 });
 
-  for (const route of ['/', '/en/', '/work', '/en/work', '/work/glio-ia', '/en/work/glio-ia']) {
+  for (const route of [
+    '/',
+    '/en/',
+    '/work',
+    '/en/work',
+    '/work/glio-ia',
+    '/en/work/glio-ia',
+    '/experience',
+    '/en/cv',
+  ]) {
     await page.goto(route);
     await expect(page.getByRole('heading', { level: 1 })).toHaveCSS(
       'font-family',

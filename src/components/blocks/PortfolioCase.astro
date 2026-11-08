@@ -29,7 +29,11 @@ const links = [
 ];
 ---
 
-<Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
+<Layout
+  app={data.title}
+  title={`${data.title} — ${t('work.caseStudy')}`}
+  description={data.summary}
+>
   <script
     type="application/ld+json"
     set:html={JSON.stringify(
