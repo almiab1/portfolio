@@ -1,6 +1,6 @@
 ---
 name: ui-ux-analyzer
-description: Reviews a page or component for UI/UX: navigates with Playwright, takes screenshots, and returns design findings and recommendations. Use for design reviews, UI polish, and design-system consistency checks.
+description: 'Reviews a page or component for UI/UX: navigates with Playwright, takes screenshots, and returns design findings and recommendations. Use for design reviews, UI polish, and design-system consistency checks.'
 model: claude-haiku-5-5
 color: cyan
 ---
