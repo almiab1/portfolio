@@ -1,10 +1,33 @@
+/* ABOUTME: Defines the shared typography and color tokens for the portfolio. */
+/* ABOUTME: Maps those tokens to the Tailwind theme. */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/inter-4.1/InterVariable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/inter-4.1/InterVariable-Italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
+  --portfolio-font-sans: 'Inter Variable', system-ui, sans-serif;
+  --portfolio-font-mono: ui-monospace, monospace;
+  font-family: var(--portfolio-font-sans);
+  font-optical-sizing: auto;
+
   /* Warm pastel palette with soft contrasts for depth effects */
   --background: #f8efe5;
   --foreground: #322017;
@@ -78,8 +101,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--portfolio-font-sans);
+  --font-mono: var(--portfolio-font-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

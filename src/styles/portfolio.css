@@ -9,7 +9,6 @@
   --portfolio-sage: #dce4d6;
   --portfolio-sage-ink: #263e32;
   --portfolio-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  font-family: system-ui, sans-serif;
 }
 
 .portfolio-wrap {
@@ -140,9 +139,7 @@
 }
 .portfolio-kicker {
   color: var(--muted-foreground);
-  font:
-    650 0.75rem/1.5 ui-monospace,
-    monospace;
+  font: 650 0.75rem/1.5 var(--portfolio-font-mono);
   text-transform: uppercase;
   letter-spacing: 0.07em;
 }
@@ -200,7 +197,7 @@
   font-size: clamp(2.7rem, 19cqw, 8rem);
   font-weight: 760;
   line-height: 0.88;
-  letter-spacing: -0.082em;
+  letter-spacing: -0.05em;
 }
 
 .profile-hero h1 span {
@@ -570,7 +567,7 @@
   font-size: clamp(2.65rem, 7vw, 6rem);
   font-weight: 760;
   line-height: 0.98;
-  letter-spacing: -0.075em;
+  letter-spacing: -0.05em;
   text-wrap: balance;
   overflow-wrap: anywhere;
 }
@@ -634,9 +631,7 @@ project-catalog {
   color: var(--muted-foreground);
 }
 .catalogue-meta [role='status'] {
-  font:
-    650 0.82rem/1.4 ui-monospace,
-    monospace;
+  font: 650 0.82rem/1.4 var(--portfolio-font-mono);
 }
 .catalogue-empty {
   padding: 1.25rem;
@@ -881,7 +876,7 @@ project-catalog {
 .case-heading h1 {
   max-width: 20ch;
   font-size: clamp(2.25rem, 6vw, 4.9rem);
-  letter-spacing: -0.063em;
+  letter-spacing: -0.05em;
 }
 
 .case-heading .profile-lead {

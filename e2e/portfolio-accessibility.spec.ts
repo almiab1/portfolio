@@ -95,3 +95,29 @@ test('aligns the paired profile sections and keeps their subheadings consistent'
     'rgb(255, 247, 238)',
   );
 });
+
+test('loads Inter for both languages and fits the main routes at 320 pixels', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+
+  for (const route of ['/', '/en/', '/work', '/en/work', '/work/glio-ia', '/en/work/glio-ia']) {
+    await page.goto(route);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCSS(
+      'font-family',
+      /Inter Variable/,
+    );
+    const metrics = await page.evaluate(async () => {
+      const faces = await document.fonts.load('760 36px "Inter Variable"', 'Formación e imágenes');
+      return {
+        fontLoaded: faces.some((face) => face.status === 'loaded'),
+        width: document.documentElement.scrollWidth,
+      };
+    });
+    expect(metrics, route).toEqual({ fontLoaded: true, width: 320 });
+  }
+
+  const italicLoaded = await page.evaluate(async () => {
+    const faces = await document.fonts.load('italic 400 16px "Inter Variable"', 'Análisis');
+    return faces.some((face) => face.status === 'loaded' && face.style === 'italic');
+  });
+  expect(italicLoaded).toBe(true);
+});
