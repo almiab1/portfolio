@@ -19,6 +19,7 @@ import Contact from '@/components/blocks/Contact.astro';
 import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
 import portrait from '@/assets/me.png';
 import healthArt from '@/assets/projects/health-dashboard.svg?url';
+import { catalogSearch } from '@/lib/catalog-filters';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { ldPerson, ldWebsite } from '@/lib/schema';
 import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
@@ -165,11 +166,13 @@ const degrees = [
                 <ul class="distribution-bars" role="list">
                   {projectTypes.map(({ type, count, label }) => (
                     <li data-project-type={type}>
-                      <span>{label}</span>
-                      <span class="distribution-track" aria-hidden="true">
-                        <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
-                      </span>
-                      <strong>{count}</strong>
+                      <a href={workUrl + catalogSearch({ query: '', type })}>
+                        <span class="distribution-label">{label}</span>
+                        <span class="distribution-track" aria-hidden="true">
+                          <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
+                        </span>
+                        <strong>{count}</strong>
+                      </a>
                     </li>
                   ))}
                 </ul>

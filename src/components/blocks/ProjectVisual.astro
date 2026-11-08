@@ -15,7 +15,6 @@ import {
 import cookobotArt from '@/assets/projects/cookobot.svg?url';
 import cropArt from '@/assets/projects/crop-monitoring.svg?url';
 import glioArt from '@/assets/projects/glio-ia.svg?url';
-import glioMarkup from '@/assets/projects/glio-ia.svg?raw';
 import scoutArt from '@/assets/projects/lost-scout.svg?url';
 import neuroArt from '@/assets/projects/neuroevolutionary-ai.svg?url';
 
@@ -54,9 +53,7 @@ const isCover = variant === 'cover';
   data-project-type={type}
   aria-hidden="true"
 >
-  {isCover && translationKey === 'glio-ia' ? (
-    <Fragment set:html={glioMarkup} />
-  ) : art ? (
+  {art ? (
     <img
       src={art}
       width="640"
