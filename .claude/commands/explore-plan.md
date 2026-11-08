@@ -1,3 +1,7 @@
+---
+description: Explore, pick subagents, and write a plan to .claude/sessions/context_session_{feature_name}.md before implementing.
+---
+
 <user_request>
 #$ARGUMENTS
 </user_request>
