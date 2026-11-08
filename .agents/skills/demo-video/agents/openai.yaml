@@ -1,0 +1,4 @@
+interface:
+  display_name: "Demo Video"
+  short_description: "Record a narrated Portfolio walkthrough"
+  default_prompt: "Use $demo-video to record a narrated walkthrough of this Portfolio change and deliver a reviewed MP4 with subtitles and a Markdown result."
