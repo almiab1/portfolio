@@ -2,6 +2,20 @@
 // ABOUTME: Spanish and English keys are shared by the Astro pages and interactive islands.
 export const ui = {
   es: {
+    'desktop.more': 'Más',
+    'desktop.skills': 'Habilidades',
+    'desktop.skillsIntro': 'Las tecnologías que uso y ejemplos de cómo las aplico.',
+    'desktop.profileBio':
+      'Diseño y despliego agentes de IA. En GuruSup conecto modelos, datos y herramientas para resolver tareas de atención al cliente en producción. Antes desarrollé software de IA para empresas e investigación.',
+    'desktop.profileFocus': 'Agentes de IA · Ingeniería de software',
+    'desktop.viewExperience': 'Ver trayectoria',
+    'desktop.viewSkills': 'Ver habilidades',
+    'desktop.skillAgentsExample': 'Agentes de atención al cliente en GuruSup',
+    'desktop.skillMlExample': 'GLIO-IA · investigación de tumores cerebrales',
+    'desktop.skillSoftwareExample': 'HealthDashboard · aplicación web',
+    'desktop.assistantPreview': 'Vista previa del asistente',
+    'desktop.replySkills':
+      'En Habilidades puedes ver las tecnologías que usa Alex, ejemplos de proyectos y su formación.',
     'desktop.assistant': 'Asistente',
     'desktop.assistantDemo': 'Modo de prueba',
     'desktop.assistantClose': 'Minimizar asistente',
@@ -228,6 +242,20 @@ export const ui = {
     'project.context.academic': 'Académico',
   },
   en: {
+    'desktop.more': 'More',
+    'desktop.skills': 'Skills',
+    'desktop.skillsIntro': 'The technologies I use and examples of how I apply them.',
+    'desktop.profileBio':
+      'I design and deploy AI agents. At GuruSup, I connect models, data and tools to handle customer support tasks in production. Previously, I built AI software for businesses and research.',
+    'desktop.profileFocus': 'AI agents · Software engineering',
+    'desktop.viewExperience': 'View experience',
+    'desktop.viewSkills': 'View skills',
+    'desktop.skillAgentsExample': 'Customer support agents at GuruSup',
+    'desktop.skillMlExample': 'GLIO-IA · brain tumour research',
+    'desktop.skillSoftwareExample': 'HealthDashboard · web application',
+    'desktop.assistantPreview': 'Assistant preview',
+    'desktop.replySkills':
+      'Skills covers the technologies Alex uses, examples of his work and his education.',
     'desktop.assistant': 'Assistant',
     'desktop.assistantDemo': 'Demo mode',
     'desktop.assistantClose': 'Minimize assistant',

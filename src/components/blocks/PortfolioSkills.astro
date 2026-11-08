@@ -1,0 +1,75 @@
+---
+// ABOUTME: Presents professional skills, evidence, education, and contact information.
+// ABOUTME: Provides a separate bilingual app inside the workspace.
+import { ArrowUpRight, BrainCircuit, CodeXml, GraduationCap, Sparkles } from 'lucide-react';
+import Base from '@/layouts/BaseLayout.astro';
+import Contact from '@/components/blocks/Contact.astro';
+import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const skills = [
+  { key: 'agents', icon: Sparkles, path: '/experience', example: 'desktop.skillAgentsExample' },
+  { key: 'ml', icon: BrainCircuit, path: '/work/glio-ia', example: 'desktop.skillMlExample' },
+  {
+    key: 'software',
+    icon: CodeXml,
+    path: '/work#personal-projects-title',
+    example: 'desktop.skillSoftwareExample',
+  },
+] as const;
+const degrees = [
+  { key: 'master', school: 'Universidad Internacional Menéndez Pelayo', period: '2022–2024' },
+  { key: 'bachelor', school: 'Universitat Politècnica de València', period: '2017–2021' },
+] as const;
+---
+
+<Base app={t('desktop.skills')} title={t('profile.skills')} description={t('desktop.skillsIntro')}>
+  <main id="main-content" tabindex="-1">
+    <div class="portfolio-wrap desktop-sheet">
+      <header class="desktop-sheet-heading">
+        <h1>{t('profile.skills')}</h1>
+        <p class="profile-lead">{t('desktop.skillsIntro')}</p>
+      </header>
+      <ul class="skill-app-grid" role="list">
+        {skills.map(({ key, icon: Icon, path, example }) => {
+          const [route, anchor] = path.split('#');
+          const href = getLocalizedUrl(route, lang) + (anchor ? '#' + anchor : '');
+          return (
+            <li>
+              <span class="portfolio-icon">
+                <Icon size={22} aria-hidden="true" />
+              </span>
+              <h2>{t(`profile.skill.${key}.title`)}</h2>
+              <p class="portfolio-muted">{t(`profile.skill.${key}.tools`)}</p>
+              <a class="portfolio-link" href={href}>
+                {t(example)} <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <section class="skill-app-education" aria-labelledby="education-title">
+        <div class="portfolio-heading">
+          <span class="portfolio-icon">
+            <GraduationCap size={24} aria-hidden="true" />
+          </span>
+          <h2 id="education-title">{t('profile.education')}</h2>
+        </div>
+        <ul class="credentials-list" role="list">
+          {degrees.map(({ key, school, period }) => (
+            <li>
+              <p class="portfolio-kicker">{period}</p>
+              <h3>{t(`profile.degree.${key}`)}</h3>
+              <p class="portfolio-muted">{school}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+    <Contact />
+  </main>
+</Base>
