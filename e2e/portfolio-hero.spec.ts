@@ -1,68 +1,77 @@
-// ABOUTME: Checks that the opening identifies Alex and his work at mobile and desktop sizes.
-// ABOUTME: Verifies that the hero links lead to the localized catalogue and featured case.
+// ABOUTME: Checks the compact professional profile on phone and desktop viewports.
+// ABOUTME: Verifies that profile navigation leads to the distinct bilingual apps.
 import { expect, test } from '@playwright/test';
 
 for (const locale of [
   {
     home: '/',
-    work: '/work',
+    prefix: '',
     role: 'Ingeniero de IA y software',
-    specialty: 'Desarrollo agentes de IA para atención al cliente.',
     portrait: 'Retrato de Alejandro Mira',
-    projects: 'Ver proyectos',
+    experience: 'Ver trayectoria',
+    skills: 'Ver habilidades',
+    cv: 'Ver currículum',
   },
   {
     home: '/en/',
-    work: '/en/work',
+    prefix: '/en',
     role: 'AI and software engineer',
-    specialty: 'I build AI agents for customer support.',
     portrait: 'Portrait of Alejandro Mira',
-    projects: 'View projects',
+    experience: 'View experience',
+    skills: 'View skills',
+    cv: 'View résumé',
   },
 ]) {
-  test(`presents a complete professional introduction on ${locale.home}`, async ({ page }) => {
+  test(`presents a compact professional introduction on ${locale.home}`, async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 740 });
     await page.goto(locale.home);
-    const hero = page.getByRole('region', { name: 'Alejandro Mira.', exact: true });
-    const projects = hero.getByRole('link', { name: locale.projects, exact: true });
-
+    const profile = page.getByRole('region', { name: 'Alejandro Mira.', exact: true });
+    const experience = profile.getByRole('link', { name: locale.experience });
+    const skills = profile.getByRole('link', { name: locale.skills });
+    const cv = profile.getByRole('link', { name: locale.cv });
+    const portrait = profile.getByRole('img', { name: locale.portrait });
     for (const item of [
-      hero.getByRole('heading', { level: 1 }),
-      hero.getByText(locale.role, { exact: true }),
-      hero.getByText(locale.specialty, { exact: true }),
-      hero.getByText(/GuruSup.*(?:producción|production)/),
-      projects,
+      profile.getByRole('heading', { level: 1 }),
+      profile.getByText(locale.role, { exact: true }),
+      profile.locator('.profile-card-bio'),
+      profile.locator('.desktop-current-role'),
+      portrait,
+      experience,
+      skills,
+      cv,
     ]) {
-      await expect(item).toBeInViewport({ ratio: 1 });
+      await expect(item).toBeInViewport({ ratio: 0.98 });
     }
-    const portrait = hero.getByRole('img', { name: locale.portrait });
-    await expect(portrait).toBeInViewport({ ratio: 0.99 });
+    await expect(profile.locator('.desktop-current-role')).toContainText('GuruSup');
     await expect
       .poll(() => portrait.evaluate((image: HTMLImageElement) => image.naturalWidth))
       .toBeGreaterThan(0);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+    await expect(page.getByRole('main').locator('section')).toHaveCount(1);
 
-    const experience = hero.getByRole('link', { name: /GuruSup.*CONVOTIS Iberia.*AIJU/ });
-    const featured = hero.getByRole('link', { name: /GLIO-IA/ });
-    await page.setViewportSize({ width: 390, height: 844 });
-    await expect(projects).toBeInViewport({ ratio: 1 });
-    await experience.scrollIntoViewIfNeeded();
-    await expect(experience).toBeInViewport({ ratio: 1 });
-    await featured.scrollIntoViewIfNeeded();
-    await expect(featured).toBeInViewport({ ratio: 0.99 });
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 1440, height: 900 },
+      { width: 1920, height: 1000 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await expect(profile).toBeInViewport({ ratio: 0.98 });
+    }
 
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await page.locator('[data-desktop-content]').evaluate((element) => element.scrollTo(0, 0));
-    await expect(experience).toBeInViewport({ ratio: 1 });
-    await expect(featured).toBeInViewport({ ratio: 1 });
-    await expect(experience).toHaveAttribute('href', /\/experience\/?$/);
-
-    await featured.click();
-    await expect(page).toHaveURL(`${locale.work}/glio-ia`);
-    await expect(page.getByRole('heading', { name: 'GLIO-IA', level: 1 })).toBeVisible();
+    await experience.click();
+    await expect(page).toHaveURL(
+      (url) => url.pathname.replace(/\/$/, '') === locale.prefix + '/experience',
+    );
+    await expect(page.locator('.desktop-timeline')).toBeVisible();
+    await expect(page.locator('.skill-app-grid')).toHaveCount(0);
     await page.goBack();
-    await projects.click();
-    await expect(page).toHaveURL(locale.work);
-    await expect(page.locator('project-catalog')).toBeVisible();
+    await skills.click();
+    await expect(page.locator('.skill-app-grid > li')).toHaveCount(3);
+    await expect(page.locator('#education-title')).toBeVisible();
+    await expect(
+      page.locator('.skill-app-grid').getByRole('link', { name: /GLIO-IA/ }),
+    ).toHaveAttribute('href', /\/work\/glio-ia\/?$/);
+    await page.goBack();
+    await cv.click();
+    await expect(page.locator('.desktop-cv')).toBeVisible();
   });
 }
