@@ -18,6 +18,9 @@ for (const lang of ['es', 'en'] as const) {
     const type = page.getByRole('combobox');
     await search.fill('PyTorch');
     await type.selectOption('ai');
+    await expect(page).toHaveURL(
+      (url) => url.searchParams.get('q') === 'PyTorch' && url.searchParams.get('type') === 'ai',
+    );
     await page
       .locator('project-catalog')
       .getByRole('link', { name: /GLIO-IA/ })
