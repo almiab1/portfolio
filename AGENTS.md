@@ -6,14 +6,13 @@ Address the user as "Alex".
 
 ## Environment
 
-- Use pnpm and Node 22 (`nvm use && pnpm install`). Scripts live in `package.json`. Before committing, run `pnpm run lint`, `pnpm run test`, `pnpm run test:e2e` (builds and serves the site itself), and `pnpm run build`.
-- Path aliases (`@/*` → `src/*`) live in `tsconfig.json`. Lint and format rules live in `eslint.config.js` and `.prettierrc`.
+- Use pnpm and Node 22 (`nvm use && pnpm install`). Before committing, run `pnpm run lint`, `pnpm run test`, `pnpm run test:e2e` (builds and serves the site itself), and `pnpm run build`.
 
 ## Architecture
 
 - Static content belongs in `.astro` components. Use React only for interactive islands (`client:load` / `client:only`). Keep island logic in custom hooks, and have components receive props.
 - Structured data (JSON-LD) helpers live in `src/lib/schema.ts`.
-- Tailwind v4 doesn't support `@apply`, so style with inline utility classes and CSS variables (`src/styles/global.css`).
+- Don't use `@apply`; style with inline utility classes and CSS variables (`src/styles/global.css`).
 
 ## i18n
 
