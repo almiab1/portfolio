@@ -1,0 +1,71 @@
+---
+// ABOUTME: Shares project artwork between the catalogue, profile, and case studies.
+// ABOUTME: Uses the project's category icon when it has no dedicated illustration.
+import type { CollectionEntry } from 'astro:content';
+import {
+  BrainCircuit,
+  CircuitBoard,
+  Database,
+  Globe,
+  Layers,
+  Monitor,
+  Server,
+  Smartphone,
+} from 'lucide-react';
+import cookobotArt from '@/assets/projects/cookobot.svg?url';
+import cropArt from '@/assets/projects/crop-monitoring.svg?url';
+import glioArt from '@/assets/projects/glio-ia.svg?url';
+import glioMarkup from '@/assets/projects/glio-ia.svg?raw';
+import scoutArt from '@/assets/projects/lost-scout.svg?url';
+import neuroArt from '@/assets/projects/neuroevolutionary-ai.svg?url';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  variant?: 'cover' | 'thumbnail';
+}
+
+const { project, variant = 'thumbnail' } = Astro.props;
+const ILLUSTRATIONS: Record<string, string> = {
+  cookobot: cookobotArt,
+  'crop-monitoring': cropArt,
+  'glio-ia': glioArt,
+  'lost-scout': scoutArt,
+  'neuroevolutionary-ai': neuroArt,
+};
+const TYPE_ICONS = {
+  ai: BrainCircuit,
+  api: Server,
+  data: Database,
+  desktop: Monitor,
+  iot: CircuitBoard,
+  mobile: Smartphone,
+  other: Layers,
+  web: Globe,
+};
+const { translationKey, type } = project.data;
+const art = translationKey ? ILLUSTRATIONS[translationKey] : undefined;
+const Icon = TYPE_ICONS[type];
+const isCover = variant === 'cover';
+---
+
+<span
+  class:list={['project-visual', { 'project-visual-category': !art }]}
+  data-visual-kind={art ? 'illustration' : 'category'}
+  data-project-type={type}
+  aria-hidden="true"
+>
+  {isCover && translationKey === 'glio-ia' ? (
+    <Fragment set:html={glioMarkup} />
+  ) : art ? (
+    <img
+      src={art}
+      width="640"
+      height="360"
+      alt=""
+      loading={isCover ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  ) : (
+    <Icon strokeWidth={1.5} />
+  )}
+</span>

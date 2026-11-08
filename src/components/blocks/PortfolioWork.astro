@@ -1,24 +1,9 @@
 ---
 // ABOUTME: Renders the bilingual project archive with indexed search and type controls.
 // ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  BrainCircuit,
-  CircuitBoard,
-  Database,
-  Globe,
-  Layers,
-  Monitor,
-  Search,
-  Server,
-  Smartphone,
-  SlidersHorizontal,
-  X,
-} from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal, X } from 'lucide-react';
 import Layout from '@/layouts/BaseLayout.astro';
-import glioArt from '@/assets/projects/glio-ia.svg?url';
-import scoutArt from '@/assets/projects/lost-scout.svg?url';
+import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
 
@@ -38,16 +23,6 @@ const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
 const types = [...new Set(projects.map(({ data }) => data.type))]
   .map((type) => ({ type, label: t(`project.type.${type}`) }))
   .sort((a, b) => a.label.localeCompare(b.label, lang));
-const typeIcons = {
-  ai: BrainCircuit,
-  api: Server,
-  data: Database,
-  desktop: Monitor,
-  iot: CircuitBoard,
-  mobile: Smartphone,
-  other: Layers,
-  web: Globe,
-};
 const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' });
 ---
 
@@ -104,16 +79,10 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         {t('work.noResults')}
       </p>
       <ul class="catalogue-list" role="list">
-        {projects.map(({ id, data }) => {
+        {projects.map((project) => {
+          const { id, data } = project;
           const label = t(`project.type.${data.type}`);
-          const Icon = typeIcons[data.type];
           const slug = id.replace(/^(es|en)\//, '');
-          const art =
-            data.translationKey === 'glio-ia'
-              ? glioArt
-              : data.translationKey === 'lost-scout'
-                ? scoutArt
-                : undefined;
           const href = `${workUrl}/${slug}`;
           return (
             <li
@@ -127,20 +96,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
               })}
             >
               <a class="catalogue-row" href={href} data-case-path={href}>
-                <span class="catalogue-mark" aria-hidden="true">
-                  {art ? (
-                    <img
-                      src={art}
-                      width="640"
-                      height="360"
-                      loading="lazy"
-                      decoding="async"
-                      alt=""
-                    />
-                  ) : (
-                    <Icon size={23} />
-                  )}
-                </span>
+                <ProjectVisual project={project} />
                 <span class="catalogue-description">
                   <span class="portfolio-kicker">
                     {yearFormat.format(new Date(data.date))} · {label}

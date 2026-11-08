@@ -1,0 +1,164 @@
+---
+// ABOUTME: Renders the centered case study and metadata for either locale.
+// ABOUTME: Links the article outline and preserves the catalogue return path.
+import { render, type CollectionEntry } from 'astro:content';
+import { ArrowUpRight, Cpu, ListTree, Star } from 'lucide-react';
+import Layout from '@/layouts/BaseLayout.astro';
+import ProjectBackLink from '@/components/blocks/ProjectBackLink.astro';
+import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
+import { useTranslations, type Language } from '@/i18n/utils';
+import { ldSoftwareProject } from '@/lib/schema';
+
+interface Props {
+  lang: Language;
+  project: CollectionEntry<'projects'>;
+}
+
+const { lang, project } = Astro.props;
+const { data } = project;
+const t = useTranslations(lang);
+const { Content, headings } = await render(project);
+const outline = headings.filter(({ depth }) => depth === 3);
+const links = [
+  { href: data.links?.demo, label: t('project.demo'), icon: ArrowUpRight },
+  { href: data.links?.repo, label: t('project.repo'), icon: GithubIcon },
+  { href: data.links?.external, label: t('project.external'), icon: ArrowUpRight },
+];
+---
+
+<Layout title={`${data.title} — ${t('work.caseStudy')}`} description={data.summary}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(
+      ldSoftwareProject({
+        title: data.title,
+        description: data.summary,
+        date: data.date,
+        url: Astro.url.href,
+        repo: data.links?.repo,
+        technologies: data.tech,
+        keywords: data.tags,
+        image: data.cover?.src,
+      }),
+    )}
+  />
+  <div class="case-progress" aria-hidden="true"></div>
+  <main class="portfolio-wrap case-study" id="main-content" tabindex="-1">
+    <header class="case-heading">
+      <ProjectBackLink lang={lang} />
+      <p class="portfolio-kicker case-kind">
+        {data.featured && <Star size={15} aria-hidden="true" />}
+        {data.featured && `${t('work.featuredLabel')} · `}
+        {t(`project.type.${data.type}`)}
+      </p>
+      <h1 transition:name={`project-title-${Astro.params.slug}`}>{data.title}</h1>
+      <p class="profile-lead">{data.summary}</p>
+    </header>
+
+    <div class="case-cover">
+      <ProjectVisual project={project} variant="cover" />
+    </div>
+
+    <div class="case-details">
+      <dl class="case-metadata">
+        {data.role && (
+          <div>
+            <dt>{t('project.role')}</dt>
+            <dd>{data.role}</dd>
+          </div>
+        )}
+        {data.duration && (
+          <div>
+            <dt>{t('project.duration')}</dt>
+            <dd>{data.duration}</dd>
+          </div>
+        )}
+        {data.context && (
+          <div>
+            <dt>{t('project.context')}</dt>
+            <dd>{t(`project.context.${data.context}`)}</dd>
+          </div>
+        )}
+        {data.tech.length > 0 && (
+          <div class="case-stack">
+            <dt>
+              <Cpu size={16} aria-hidden="true" /> {t('project.tech')}
+            </dt>
+            <dd>
+              <ul class="case-pills" role="list">
+                {data.tech.map((tech) => (
+                  <li>{tech}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
+        {data.tags.length > 0 && (
+          <div class="case-stack">
+            <dt>{t('project.tags')}</dt>
+            <dd>
+              <ul class="case-pills" role="list">
+                {data.tags.map((tag) => (
+                  <li>{tag}</li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )}
+      </dl>
+      {links.some(({ href }) => href) && (
+        <div class="case-links">
+          {links.map(
+            ({ href, label, icon: Icon }) =>
+              href && (
+                <a class="portfolio-link" href={href} target="_blank" rel="noopener noreferrer">
+                  <span aria-hidden="true">
+                    <Icon size={17} />
+                  </span>{' '}
+                  {label}
+                </a>
+              ),
+          )}
+        </div>
+      )}
+    </div>
+
+    {data.gallery && data.gallery.length > 0 && (
+      <section class="case-gallery" aria-labelledby="case-gallery-title">
+        <div class="portfolio-heading">
+          <h2 id="case-gallery-title">
+            {t(data.gallery.length === 1 ? 'project.galleryView' : 'project.galleryMultiple')}
+          </h2>
+        </div>
+        <div
+          class:list={['case-gallery-grid', { 'case-gallery-single': data.gallery.length === 1 }]}
+        >
+          {data.gallery.map((image) => (
+            <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class:list={['case-reading', { 'case-reading-indexed': outline.length > 0 }]}>
+      {outline.length > 0 && (
+        <nav class="case-outline" aria-labelledby="case-outline-title">
+          <h2 class="portfolio-kicker" id="case-outline-title">
+            <ListTree size={17} aria-hidden="true" /> {t('project.onThisPage')}
+          </h2>
+          <ul role="list">
+            {outline.map(({ slug, text }) => (
+              <li>
+                <a href={`#${slug}`}>{text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+      <article class="case-article prose dark:prose-invert">
+        <Content />
+      </article>
+    </div>
+  </main>
+</Layout>

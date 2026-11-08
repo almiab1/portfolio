@@ -5,6 +5,7 @@ import { Image } from 'astro:assets';
 import {
   ArrowDown,
   ArrowUpRight,
+  BarChart3,
   BriefcaseBusiness,
   Download,
   GraduationCap,
@@ -15,10 +16,9 @@ import {
 } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import Contact from '@/components/blocks/Contact.astro';
+import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
 import portrait from '@/assets/me.png';
 import healthArt from '@/assets/projects/health-dashboard.svg?url';
-import scoutArt from '@/assets/projects/lost-scout.svg?url';
-import glioArt from '@/assets/projects/glio-ia.svg?url';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { ldPerson, ldWebsite } from '@/lib/schema';
 import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
@@ -33,6 +33,18 @@ const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
 const projects = await getProjectsByLang(lang);
 const glio = projects.find(({ data }) => data.translationKey === 'glio-ia');
 const lostScout = projects.find(({ data }) => data.translationKey === 'lost-scout');
+const projectCounts = new Map<(typeof projects)[number]['data']['type'], number>();
+for (const { data } of projects) {
+  projectCounts.set(data.type, (projectCounts.get(data.type) ?? 0) + 1);
+}
+const projectTypes = [...projectCounts]
+  .map(([type, count]) => ({
+    type,
+    count,
+    label: t(`project.type.${type}`),
+  }))
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, lang));
+const maxProjectCount = projectTypes[0]?.count ?? 1;
 const caseUrl = (id: string) => `${workUrl}/${id.replace(/^(es|en)\//, '')}`;
 const jobs = [
   { key: 'gurusup', company: 'GuruSup', period: t('profile.currentPeriod') },
@@ -125,25 +137,49 @@ const degrees = [
                     {t('profile.announcement')} <ArrowUpRight size={16} aria-hidden="true" />
                   </a>
                 )}
-                {key === 'aiju' && glio && (
-                  <a class="career-proof" href={caseUrl(glio.id)}>
-                    <img
-                      src={glioArt}
-                      width="640"
-                      height="360"
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <span>
-                      {t('profile.readGlio')} <ArrowUpRight size={16} aria-hidden="true" />
-                    </span>
-                  </a>
-                )}
               </div>
             </li>
           ))}
         </ol>
+        {(glio || projectTypes.length > 0) && (
+          <div class="profile-evidence">
+            {glio && (
+              <a class="personal-card profile-feature" href={caseUrl(glio.id)}>
+                <ProjectVisual project={glio} />
+                <div class="profile-feature-copy">
+                  <p class="portfolio-kicker">AIJU</p>
+                  <h3>GLIO-IA</h3>
+                  <p class="portfolio-muted">{glio.data.summary}</p>
+                  <span class="personal-action">
+                    {t('profile.readGlio')} <ArrowUpRight size={19} aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
+            )}
+            {projectTypes.length > 0 && (
+              <section class="profile-distribution" aria-labelledby="project-distribution-title">
+                <div class="portfolio-icon">
+                  <BarChart3 size={21} aria-hidden="true" />
+                </div>
+                <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
+                <ul class="distribution-bars" role="list">
+                  {projectTypes.map(({ type, count, label }) => (
+                    <li data-project-type={type}>
+                      <span>{label}</span>
+                      <span class="distribution-track" aria-hidden="true">
+                        <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
+                      </span>
+                      <strong>{count}</strong>
+                    </li>
+                  ))}
+                </ul>
+                <a class="portfolio-link" href={workUrl}>
+                  {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              </section>
+            )}
+          </div>
+        )}
       </div>
     </section>
 
@@ -224,14 +260,7 @@ const degrees = [
             <li>
               <a class="personal-card card" href={caseUrl(lostScout.id)}>
                 <div class="personal-image">
-                  <img
-                    src={scoutArt}
-                    width="640"
-                    height="360"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
+                  <ProjectVisual project={lostScout} />
                 </div>
                 <div class="personal-content">
                   <p class="portfolio-kicker">{t('profile.soloProject')}</p>

@@ -9,7 +9,9 @@
     <rect x="96" y="229" width="98" height="58" rx="8"/>
   </g>
   <g fill="none" stroke="#88ae94" stroke-width="3">
-    <path d="M195 102h65l66 78h45M195 180h176m-176 78h65l66-78"/>
+    <path data-flow="" pathLength="1" d="M195 102h65l66 78h45"/>
+    <path data-flow="" pathLength="1" d="M195 180h176"/>
+    <path data-flow="" pathLength="1" d="M195 258h65l66-78h45"/>
     <circle cx="326" cy="180" r="9" fill="#324b42"/>
   </g>
   <g fill="none" stroke="#466457" stroke-width="3" stroke-linecap="round">

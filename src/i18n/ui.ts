@@ -20,6 +20,7 @@ export const ui = {
     'profile.announcement': 'Leer mi anuncio en LinkedIn',
     'profile.currentPeriod': '2026–actualidad',
     'profile.readGlio': 'Leer el caso GLIO-IA',
+    'profile.projectDistribution': 'Proyectos por tipo',
     'profile.job.gurusup.role': 'Software Engineer · LLM e IA generativa',
     'profile.job.gurusup.summary':
       'Desarrollo sistemas de agentes y trabajo en cómo recuperan el contexto que necesitan para resolver tareas de atención al cliente.',
@@ -70,7 +71,7 @@ export const ui = {
     // Proyectos
     'work.title': 'Proyectos — GenAI & Agentes',
     'work.viewAll': 'Ver todos los proyectos',
-    'work.caseStudy': 'Case Study',
+    'work.caseStudy': 'Caso de estudio',
     'work.backToProjects': 'Volver a proyectos',
     'work.noProjects': 'No hay proyectos disponibles.',
     'work.featured': 'Proyectos Destacados',
@@ -134,6 +135,7 @@ export const ui = {
 
     // Etiquetas de proyecto
     'project.role': 'Rol',
+    'project.onThisPage': 'En esta ficha',
     'project.tech': 'Tecnologías',
     'project.tags': 'Etiquetas',
     'project.links': 'Enlaces',
@@ -189,6 +191,7 @@ export const ui = {
     'profile.announcement': 'Read my LinkedIn announcement',
     'profile.currentPeriod': '2026–present',
     'profile.readGlio': 'Read the GLIO-IA case study',
+    'profile.projectDistribution': 'Projects by type',
     'profile.job.gurusup.role': 'Software Engineer · LLMs and generative AI',
     'profile.job.gurusup.summary':
       'I build agent systems and work on how they retrieve the context they need to handle customer support tasks.',
@@ -302,6 +305,7 @@ export const ui = {
 
     // Project labels
     'project.role': 'Role',
+    'project.onThisPage': 'On this page',
     'project.tech': 'Technologies',
     'project.tags': 'Tags',
     'project.links': 'Links',
