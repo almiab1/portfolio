@@ -1,0 +1,12 @@
+<!-- ABOUTME: Abstract project art for Lost Scout, a 3D puzzle exploration game. -->
+<!-- ABOUTME: Uses a top-down terrain motif instead of a gameplay screenshot. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#2d4840"/>
+  <circle cx="462" cy="92" r="47" fill="#f1d3a0"/>
+  <path d="M0 252 142 92l116 131 98-115 178 205 106-51v98H0z" fill="#426653"/>
+  <path d="m0 280 110-62 66 29 83-43 69 40 102-18 83 40 127-29v123H0z" fill="#6d8d63"/>
+  <path d="m0 315 132-38 82 27 103-29 85 18 73-25 165 31v61H0z" fill="#9dab77"/>
+  <path d="m122 345 40-38 90 7 59-57 69 6 42-39" fill="none" stroke="#f5deaa" stroke-width="4" stroke-dasharray="7 8" stroke-linecap="round"/>
+  <path d="m422 199 18 25-18 19-18-19z" fill="#f6dfac" stroke="#2d4840" stroke-width="3"/>
+  <path d="M60 0v360m520-360v360M0 62h640M0 300h640" fill="none" stroke="#eee1af" opacity=".19"/>
+</svg>

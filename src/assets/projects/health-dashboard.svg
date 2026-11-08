@@ -1,0 +1,16 @@
+<!-- ABOUTME: Abstract project art for the HealthDashboard personal project. -->
+<!-- ABOUTME: Depicts time-series tracking without sample personal measurements. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#efd7bd"/>
+  <circle cx="500" cy="43" r="156" fill="#f8e9d7"/>
+  <path d="M0 295h640M0 66h640M61 0v360m518-360v360" fill="none" stroke="#a16851" opacity=".34"/>
+  <g transform="translate(119 76)">
+    <rect x="12" y="15" width="389" height="207" rx="15" fill="#b57457"/>
+    <rect width="389" height="207" rx="15" fill="#fff7eb" stroke="#7d442f" stroke-width="2"/>
+    <path d="M31 153h326M31 113h326M31 73h326" fill="none" stroke="#d6b7a3" stroke-dasharray="4 5"/>
+    <path d="M36 162l52-23 50 6 49-32 51 14 48-38 66-14v99H36z" fill="#ebbd9e"/>
+    <path d="M36 162l52-23 50 6 49-32 51 14 48-38 66-14" fill="none" stroke="#8c3924" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#8c3924"><circle cx="88" cy="139" r="5"/><circle cx="187" cy="113" r="5"/><circle cx="286" cy="89" r="5"/><circle cx="352" cy="75" r="5"/></g>
+    <path d="M32 35h88m-88 12h57" stroke="#98634f" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

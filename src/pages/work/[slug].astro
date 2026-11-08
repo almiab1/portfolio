@@ -1,10 +1,13 @@
 ---
+// ABOUTME: Renders a localized project case study from the content collection.
+// ABOUTME: Provides project evidence, metadata, and a filter-aware catalogue return.
 import Layout from '@/layouts/BaseLayout.astro';
 import { ldSoftwareProject } from '@/lib/schema';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { render } from 'astro:content';
 import { useTranslations } from '@/i18n/utils';
-import { ExternalLink, ChevronLeft, Star, Cpu } from 'lucide-react';
+import { ExternalLink, Star, Cpu } from 'lucide-react';
+import ProjectBackLink from '@/components/blocks/ProjectBackLink.astro';
 import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
 
 export async function getStaticPaths() {
@@ -43,14 +46,7 @@ const t = useTranslations('es');
     <!-- Back Navigation Bar -->
     <div class="border-b border-border bg-card/30 backdrop-blur-sm px-6 py-5 lg:py-4 shadow-sm">
       <div class="max-w-7xl mx-auto">
-        <a
-          href="/work"
-          class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors group"
-          aria-label={t('work.backToProjects')}
-        >
-          <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span>{t('work.backToProjects')}</span>
-        </a>
+        <ProjectBackLink lang="es" />
       </div>
     </div>
 
@@ -67,7 +63,7 @@ const t = useTranslations('es');
                 {data.featured && (
                   <span class="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm font-semibold flex items-center gap-2">
                     <Star size={16} />
-                    Featured
+                    {t('work.featuredLabel')}
                   </span>
                 )}
                 <span class="bg-accent text-accent-foreground rounded-full px-3 py-1 text-sm font-medium">
@@ -319,7 +315,11 @@ const t = useTranslations('es');
       </aside>
 
       <!-- Columna derecha: Contenido MDX (con scroll interno en desktop) -->
-      <main class="lg:overflow-y-auto bg-background px-6 py-10 lg:px-12 lg:py-12">
+      <main
+        id="main-content"
+        tabindex="-1"
+        class="lg:overflow-y-auto bg-background px-6 py-10 lg:px-12 lg:py-12"
+      >
         <div class="prose dark:prose-invert prose-lg mx-auto max-w-3xl w-full">
           <Content />
         </div>
