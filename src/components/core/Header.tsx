@@ -3,7 +3,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { t, type Language } from '@/i18n/translations';
@@ -74,7 +73,7 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
         <div className="flex min-h-11 items-center justify-between gap-3">
           <a
             href={locale === 'es' ? '/' : '/en'}
-            className="inline-flex min-h-11 items-center gap-2 text-base font-bold text-foreground transition-colors hover:text-primary"
+            className="inline-flex min-h-11 items-center gap-2 text-base font-bold text-foreground transition-[color] hover:text-primary"
           >
             <span className="portfolio-monogram" aria-hidden="true">
               AM
@@ -121,10 +120,9 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
             </div>
           )}
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden"
+          <button
+            type="button"
+            className="grid size-11 shrink-0 place-items-center rounded-md hover:bg-accent lg:hidden"
             onClick={(event) => {
               const entry = event.detail > 0 ? 'pointer' : 'keyboard';
               setMobileMenu((current) => (current === 'closed' ? entry : 'closed'));
@@ -133,8 +131,12 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
             aria-controls="mobile-nav"
             aria-label={translate(isMobileMenuOpen ? 'nav.closeMenu' : 'nav.openMenu')}
           >
-            {isMobileMenuOpen ? <X /> : <Menu />}
-          </Button>
+            {isMobileMenuOpen ? (
+              <X size={18} aria-hidden="true" />
+            ) : (
+              <Menu size={18} aria-hidden="true" />
+            )}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
@@ -142,7 +144,7 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
           <div
             id="mobile-nav"
             data-menu-entry={mobileMenu}
-            className="mt-4 border-t border-border bg-background pb-4 shadow-lg lg:hidden"
+            className="portfolio-mobile-nav mt-4 border-t border-border bg-background pb-4 shadow-lg lg:hidden"
           >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => (
