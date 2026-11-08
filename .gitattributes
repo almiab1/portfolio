@@ -60,6 +60,9 @@ tsconfig.json     linguist-language=JSON-with-Comments
 *.woff            binary
 *.woff2           binary
 
+# Documents
+*.pdf             binary
+
 # Archives
 *.gz              binary
 *.zip             binary

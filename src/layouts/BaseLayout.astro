@@ -3,19 +3,23 @@
 // ABOUTME: Keeps page navigation and language alternatives consistent across routes.
 import { getImage } from 'astro:assets';
 import portrait from '@/assets/me.png';
-import Header from '@/components/core/Header';
+import DesktopFrame from '@/components/blocks/DesktopFrame.astro';
 import Analytics from '@vercel/analytics/astro';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import '../styles/portfolio.css';
+import '../styles/desktop.css';
+import '../styles/assistant.css';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 export interface Props {
+  app: string;
   title?: string;
   description?: string;
 }
 const {
+  app,
   title = 'Alejandro Mira — GenAI & AI Engineer',
   description = 'Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.',
 } = Astro.props;
@@ -35,7 +39,7 @@ const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
 const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' });
 ---
 
-<html lang={currentLang} data-type="service">
+<html lang={currentLang} data-type="service" transition:animate="none">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -77,8 +81,9 @@ const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' }
     <a class="portfolio-skip" href="#main-content">
       {t('common.skip')}
     </a>
-    <Header client:load currentLocale={currentLang} currentPath={currentPath} transition:persist />
-    <slot />
+    <DesktopFrame lang={currentLang} app={app}>
+      <slot />
+    </DesktopFrame>
     {process.env.VERCEL === '1' && <Analytics />}
   </body>
 </html>

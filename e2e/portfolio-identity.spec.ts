@@ -77,7 +77,9 @@ for (const locale of [
     await expect(outline.locator('..')).toHaveCSS('position', 'sticky');
     await expect(outline).toBeInViewport();
 
-    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await page
+      .locator('[data-desktop-content]')
+      .evaluate((element) => element.scrollTo(0, element.scrollHeight));
     await expect(outline.getByRole('link').last()).toHaveAttribute('aria-current', 'location');
     await expect(outline.locator('[aria-current="location"]')).toHaveCount(1);
     await expect.poll(() => decodeURIComponent(new URL(page.url()).hash)).toBe(target);
@@ -113,7 +115,7 @@ test('draws the project flow and tracks reading progress only with motion enable
   await expect(flow).toHaveCSS('animation-name', 'project-flow-draw');
   await expect(flow).toHaveAttribute('data-starts', '1');
   await expect(flow).toHaveCSS('stroke-dashoffset', '0px');
-  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.locator('[data-desktop-content]').evaluate((element) => element.scrollTo(0, 0));
   await expect(diagram).not.toBeInViewport();
   await diagram.scrollIntoViewIfNeeded();
   await expect(flow).toHaveCSS('stroke-dashoffset', '0px');
