@@ -56,7 +56,7 @@ export const ui = {
     // Navegación
     'nav.home': 'Inicio',
     'nav.work': 'Proyectos',
-    'nav.about': 'Sobre mí',
+    'nav.about': 'Experiencia',
     'nav.projects': 'Proyectos',
     'nav.contact': 'Contacto',
     'nav.downloadCV': 'Descargar CV',
@@ -226,7 +226,7 @@ export const ui = {
     // Navigation
     'nav.home': 'Home',
     'nav.work': 'Projects',
-    'nav.about': 'About',
+    'nav.about': 'Experience',
     'nav.projects': 'Projects',
     'nav.contact': 'Contact',
     'nav.downloadCV': 'Download CV',

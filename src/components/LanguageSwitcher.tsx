@@ -3,7 +3,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { CATALOG_FILTERS_CHANGE, catalogSearch, readCatalogFilters } from '@/lib/catalog-filters';
 import { Globe } from 'lucide-react';
 
@@ -67,34 +66,28 @@ export default function LanguageSwitcher({
 
   return (
     <div className="flex items-center gap-1">
-      <Globe className="mr-1 h-4 w-4 text-muted-foreground" />
+      <Globe className="mr-1 size-4 text-muted-foreground" aria-hidden="true" />
       {languages.map((lang) => {
         const isActive = currentLocale === lang.code;
         const href = getLocalizedPath(lang.code) + filterSearch;
 
         return (
-          <Button
+          <a
             key={lang.code}
-            variant={isActive ? 'default' : 'ghost'}
-            size="sm"
-            className={`h-8 px-3 text-xs font-medium ${
+            href={href}
+            title={lang.fullName}
+            aria-label={lang.fullName}
+            hrefLang={lang.code}
+            lang={lang.code}
+            aria-current={isActive ? 'page' : undefined}
+            className={`inline-grid min-h-11 min-w-11 place-items-center rounded-md text-xs font-medium ${
               isActive
                 ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground'
+                : 'text-muted-foreground hover:bg-accent hover:text-foreground'
             }`}
-            asChild
           >
-            <a
-              href={href}
-              title={lang.fullName}
-              aria-label={lang.fullName}
-              hrefLang={lang.code}
-              lang={lang.code}
-              aria-current={isActive ? 'page' : undefined}
-            >
-              {lang.label}
-            </a>
-          </Button>
+            {lang.label}
+          </a>
         );
       })}
     </div>

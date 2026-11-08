@@ -1,6 +1,8 @@
 ---
 // ABOUTME: Supplies navigation, metadata, and shared site styles.
 // ABOUTME: Keeps page navigation and language alternatives consistent across routes.
+import { getImage } from 'astro:assets';
+import portrait from '@/assets/me.png';
 import Header from '@/components/core/Header';
 import Analytics from '@vercel/analytics/astro';
 import { ClientRouter } from 'astro:transitions';
@@ -30,6 +32,7 @@ const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, '/');
 const esUrl = new URL(getRelativeLocaleUrl('es', pathWithoutLang), Astro.site);
 const enUrl = new URL(getRelativeLocaleUrl('en', pathWithoutLang), Astro.site);
 const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
+const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' });
 ---
 
 <html lang={currentLang} data-type="service">
@@ -53,6 +56,9 @@ const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(socialImage.src, Astro.site)} />
+    <meta property="og:image:alt" content={t('hero.profileAlt')} />
+    <meta name="twitter:card" content="summary" />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
     <script is:inline>
