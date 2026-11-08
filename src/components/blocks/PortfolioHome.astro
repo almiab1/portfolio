@@ -79,14 +79,20 @@ const degrees = [
           <h1 id="profile-title">
             Alejandro <span>Mira.</span>
           </h1>
+          <p class="profile-specialty">{t('profile.specialty')}</p>
           <p class="profile-lead">{t('profile.intro')}</p>
           <div class="portfolio-actions">
-            <a class="portfolio-button" href="#about">
-              {t('profile.seeExperience')} <ArrowDown size={18} aria-hidden="true" />
+            <a class="portfolio-button" href={workUrl}>
+              {t('profile.exploreWork')} <ArrowUpRight size={18} aria-hidden="true" />
             </a>
-            <a class="portfolio-link" href="/cv/eng/CV_MiraAbad_Alejandro.pdf" download>
+            <a
+              class="portfolio-link"
+              href="/cv/eng/CV_MiraAbad_Alejandro.pdf"
+              aria-label={t('profile.cv')}
+              download
+            >
               <Download size={17} aria-hidden="true" />
-              {t('profile.cv')}
+              {t('profile.heroCv')}
             </a>
           </div>
         </div>
@@ -102,16 +108,28 @@ const degrees = [
             />
           </div>
         </div>
-        <a class="career-summary" href="#about">
-          <span class="portfolio-icon">
-            <BriefcaseBusiness size={22} aria-hidden="true" />
-          </span>
-          <span>
-            <span class="portfolio-kicker">{t('profile.experience')}</span>
-            <strong>{jobs.map(({ company }) => company).join(' · ')}</strong>
-          </span>
-          <ArrowDown size={20} aria-hidden="true" />
-        </a>
+        <div class="profile-proof">
+          <a class="career-summary" href="#about">
+            <span class="portfolio-icon">
+              <BriefcaseBusiness size={22} aria-hidden="true" />
+            </span>
+            <span>
+              <span class="portfolio-kicker">{t('profile.experience')}</span>
+              <strong>{jobs.map(({ company }) => company).join(' · ')}</strong>
+            </span>
+            <ArrowDown size={20} aria-hidden="true" />
+          </a>
+          {glio && (
+            <a class="profile-case-proof" href={caseUrl(glio.id)}>
+              <ProjectVisual project={glio} />
+              <span>
+                <span class="portfolio-kicker">{t('profile.heroCase')}</span>
+                <strong>{t('profile.heroGlio')}</strong>
+              </span>
+              <ArrowUpRight size={20} aria-hidden="true" />
+            </a>
+          )}
+        </div>
       </div>
     </section>
 
