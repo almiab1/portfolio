@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Personal portfolio for Alex (alejandromira.com): a static Astro 5 site with React 19 islands, Tailwind CSS v4 + shadcn/ui, MDX content collections, custom es/en i18n, deployed on Vercel. There is no backend.
+Personal portfolio for Alex (alejandromira.com): a static Astro site with React islands and custom es/en i18n, deployed on Vercel. There is no backend.
 
 Address the user as "Alex".
 
