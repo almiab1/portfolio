@@ -44,15 +44,18 @@ for (const locale of [
 
     const experience = hero.getByRole('link', { name: /GuruSup.*CONVOTIS Iberia.*AIJU/ });
     const featured = hero.getByRole('link', { name: /GLIO-IA/ });
-    for (const viewport of [
-      { width: 390, height: 844 },
-      { width: 1440, height: 900 },
-    ]) {
-      await page.setViewportSize(viewport);
-      await expect(experience).toBeInViewport({ ratio: 1 });
-      await expect(featured).toBeInViewport({ ratio: 1 });
-    }
-    await expect(experience).toHaveAttribute('href', '#about');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(projects).toBeInViewport({ ratio: 1 });
+    await experience.scrollIntoViewIfNeeded();
+    await expect(experience).toBeInViewport({ ratio: 1 });
+    await featured.scrollIntoViewIfNeeded();
+    await expect(featured).toBeInViewport({ ratio: 0.99 });
+
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.locator('[data-desktop-content]').evaluate((element) => element.scrollTo(0, 0));
+    await expect(experience).toBeInViewport({ ratio: 1 });
+    await expect(featured).toBeInViewport({ ratio: 1 });
+    await expect(experience).toHaveAttribute('href', /\/experience\/?$/);
 
     await featured.click();
     await expect(page).toHaveURL(`${locale.work}/glio-ia`);

@@ -1,0 +1,76 @@
+---
+// ABOUTME: Shows the two downloadable CV editions in the desktop.
+// ABOUTME: Offers a document preview and a direct link for PDF viewers.
+import { ArrowUpRight, Download } from 'lucide-react';
+import Base from '@/layouts/BaseLayout.astro';
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const editions = [
+  {
+    code: 'es',
+    folder: 'esp',
+    year: 2023,
+    title: t('desktop.cvEs'),
+    download: t('desktop.cvDownloadEs'),
+  },
+  {
+    code: 'en',
+    folder: 'eng',
+    year: 2025,
+    title: t('desktop.cvEn'),
+    download: t('desktop.cvDownloadEn'),
+  },
+] as const;
+const pdf = (folder: string) => `/cv/${folder}/CV_MiraAbad_Alejandro.pdf`;
+---
+
+<Base app="CV" title={t('desktop.cvTitle')}>
+  <main id="main-content" class="portfolio-wrap desktop-sheet desktop-cv" tabindex="-1">
+    <header class="desktop-sheet-heading">
+      <h1>{t('desktop.cvTitle')}</h1>
+    </header>
+    <div class="desktop-cv-downloads">
+      {editions.map((edition) => (
+        <a class="portfolio-link" href={pdf(edition.folder)} download>
+          <Download size={18} aria-hidden="true" /> {edition.download}
+        </a>
+      ))}
+    </div>
+    <div class="desktop-cv-viewer">
+      {editions.map((edition) => (
+        <Fragment>
+          <input
+            type="radio"
+            id={`cv-${edition.code}`}
+            name="cv-edition"
+            checked={edition.code === lang}
+          />
+          <label for={`cv-${edition.code}`}>
+            {edition.title} · {edition.year}
+          </label>
+        </Fragment>
+      ))}
+      {editions.map((edition) => (
+        <section class="desktop-cv-preview" data-edition={edition.code} aria-label={edition.title}>
+          <img
+            src={`/cv/${edition.folder}/preview.webp`}
+            alt={edition.title}
+            width="1320"
+            height="1867"
+            loading="lazy"
+            decoding="async"
+          />
+          <a class="portfolio-link" href={pdf(edition.folder)} target="_blank" rel="noopener">
+            {t('desktop.cvExternal')} <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+        </section>
+      ))}
+    </div>
+  </main>
+</Base>

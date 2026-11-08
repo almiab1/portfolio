@@ -39,9 +39,9 @@ for (const config of [
   }) => {
     await page.goto(config.home);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Alejandro Mira.');
-    await expect(page.getByRole('heading', { name: 'GuruSup', exact: true })).toBeVisible();
+    await expect(page.locator('.desktop-current-role')).toContainText('GuruSup');
     await page
-      .getByRole('navigation')
+      .locator('.desktop-dock')
       .getByRole('link', { name: config.projects, exact: true })
       .filter({ visible: true })
       .click();
@@ -61,7 +61,7 @@ for (const config of [
     const filteredUrl = `${config.catalogue}?q=PyTorch&type=ai`;
     await expect(page).toHaveURL((url) => url.pathname + url.search === filteredUrl);
 
-    const caseLink = page.getByRole('link', { name: /GLIO-IA/ });
+    const caseLink = page.locator('project-catalog').getByRole('link', { name: /GLIO-IA/ });
     await caseLink.click();
     await expect(page).toHaveURL(
       (url) => url.pathname + url.search === `${config.detail}?q=PyTorch&type=ai`,

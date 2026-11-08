@@ -40,13 +40,15 @@ const t = useTranslations(lang);
       this.listeners = new AbortController();
       const options = { signal: this.listeners.signal };
       const links = [...this.querySelectorAll<HTMLAnchorElement>('a[data-heading]')];
+      const scroller = this.closest<HTMLElement>('[data-desktop-content]')!;
       let active: HTMLAnchorElement | undefined;
 
       const update = () => {
         this.frame = 0;
-        const atPageEnd =
-          window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
-        const readingLine = atPageEnd ? window.innerHeight : Math.min(120, window.innerHeight / 3);
+        const atPageEnd = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 1;
+        const top = scroller.getBoundingClientRect().top;
+        const readingLine =
+          top + (atPageEnd ? scroller.clientHeight : Math.min(100, scroller.clientHeight / 3));
         let next: HTMLAnchorElement | undefined;
         for (const link of links) {
           const heading = document.getElementById(link.dataset.heading!);
@@ -62,7 +64,7 @@ const t = useTranslations(lang);
         if (!this.frame) this.frame = requestAnimationFrame(update);
       };
 
-      window.addEventListener('scroll', schedule, { ...options, passive: true });
+      scroller.addEventListener('scroll', schedule, { ...options, passive: true });
       window.addEventListener('resize', schedule, options);
       window.addEventListener('hashchange', schedule, options);
       document.addEventListener('astro:page-load', schedule, options);

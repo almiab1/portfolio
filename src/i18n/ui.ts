@@ -2,6 +2,50 @@
 // ABOUTME: Spanish and English keys are shared by the Astro pages and interactive islands.
 export const ui = {
   es: {
+    'desktop.assistant': 'Asistente',
+    'desktop.assistantDemo': 'Modo de prueba',
+    'desktop.assistantClose': 'Minimizar asistente',
+    'desktop.assistantAvatar': 'Personalizar avatar',
+    'desktop.avatarOrbit': 'Órbita',
+    'desktop.avatarPixel': 'Píxel',
+    'desktop.avatarPulse': 'Pulso',
+    'desktop.assistantLog': 'Conversación con el asistente',
+    'desktop.assistantWelcome':
+      'Hola, soy el asistente del portfolio. Puedo enseñarte proyectos de Alex, su trayectoria o su CV.',
+    'desktop.assistantYou': 'Tú',
+    'desktop.assistantInput': 'Escribe una pregunta',
+    'desktop.assistantSend': 'Enviar mensaje',
+    'desktop.assistantError': 'No se pudo enviar el mensaje. Vuelve a intentarlo.',
+    'desktop.askGlio': '¿Qué ha hecho en IA médica?',
+    'desktop.askCareer': '¿Dónde ha trabajado?',
+    'desktop.askCv': '¿Puedo ver su CV?',
+    'desktop.replyGlio':
+      'En AIJU, Alex diseñó GLIO-IA, una plataforma que combina imágenes médicas, datos clínicos y datos ómicos para investigar tumores cerebrales.',
+    'desktop.replyCareer':
+      'Alex desarrolla agentes de IA en GuruSup. Antes trabajó como ingeniero de IA en CONVOTIS Iberia y desarrolló software de investigación en AIJU.',
+    'desktop.replyCv':
+      'Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV.',
+    'desktop.replyProjects':
+      'En Proyectos puedes explorar trabajos de IA, robótica e ingeniería de software, con filtros por tipo y búsqueda por tecnología.',
+    'desktop.replyProfile':
+      'Alex es ingeniero de IA y software. En Perfil puedes conocer su trabajo actual, ver proyectos destacados y encontrar sus datos de contacto.',
+    'desktop.replyFallback':
+      'Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo.',
+    'desktop.profile': 'Perfil',
+    'desktop.experience': 'Trayectoria',
+    'desktop.title': 'Portfolio / Escritorio',
+    'desktop.apps': 'Aplicaciones del portfolio',
+    'desktop.tabs': 'Pestañas abiertas',
+    'desktop.close': 'Cerrar pestaña activa',
+    'desktop.cvOpen': 'Ver currículum',
+    'desktop.cvTitle': 'Currículum',
+    'desktop.cvEs': 'CV en español',
+    'desktop.cvEn': 'CV en inglés',
+    'desktop.cvDownloadEs': 'Descargar CV en español',
+    'desktop.cvDownloadEn': 'Descargar CV en inglés',
+    'desktop.cvExternal': 'Abrir PDF en otra pestaña',
+    'desktop.careerIntro': 'Del software de investigación a los agentes de IA en producción.',
+    'desktop.currentRole': 'Puesto actual',
     'profile.role': 'Ingeniero de IA y software',
     'profile.specialty': 'Desarrollo agentes de IA para atención al cliente.',
     'profile.intro':
@@ -182,6 +226,50 @@ export const ui = {
     'project.context.academic': 'Académico',
   },
   en: {
+    'desktop.assistant': 'Assistant',
+    'desktop.assistantDemo': 'Demo mode',
+    'desktop.assistantClose': 'Minimize assistant',
+    'desktop.assistantAvatar': 'Customize avatar',
+    'desktop.avatarOrbit': 'Orbit',
+    'desktop.avatarPixel': 'Pixel',
+    'desktop.avatarPulse': 'Pulse',
+    'desktop.assistantLog': 'Conversation with the assistant',
+    'desktop.assistantWelcome':
+      'Hi, I’m the portfolio assistant. I can show you Alex’s projects, experience or résumé.',
+    'desktop.assistantYou': 'You',
+    'desktop.assistantInput': 'Type a question',
+    'desktop.assistantSend': 'Send message',
+    'desktop.assistantError': 'The message could not be sent. Try again.',
+    'desktop.askGlio': 'What has Alex built in medical AI?',
+    'desktop.askCareer': 'Where has Alex worked?',
+    'desktop.askCv': 'Can I see his résumé?',
+    'desktop.replyGlio':
+      'At AIJU, Alex designed GLIO-IA, a platform that brings medical images, clinical records and omics data together for brain tumour research.',
+    'desktop.replyCareer':
+      'Alex builds AI agents at GuruSup. He previously worked as an AI engineer at CONVOTIS Iberia and built research software at AIJU.',
+    'desktop.replyCv':
+      'You can preview and download the Spanish and English PDFs from the résumé app.',
+    'desktop.replyProjects':
+      'In Projects you can explore work in AI, robotics and software engineering, filter by type and search by technology.',
+    'desktop.replyProfile':
+      'Alex is an AI and software engineer. Profile introduces his current work, featured projects and contact details.',
+    'desktop.replyFallback':
+      'This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start.',
+    'desktop.profile': 'Profile',
+    'desktop.experience': 'Experience',
+    'desktop.title': 'Portfolio / Desktop',
+    'desktop.apps': 'Portfolio apps',
+    'desktop.tabs': 'Open tabs',
+    'desktop.close': 'Close active tab',
+    'desktop.cvOpen': 'View résumé',
+    'desktop.cvTitle': 'Résumé',
+    'desktop.cvEs': 'Spanish résumé',
+    'desktop.cvEn': 'English résumé',
+    'desktop.cvDownloadEs': 'Download Spanish résumé',
+    'desktop.cvDownloadEn': 'Download English résumé',
+    'desktop.cvExternal': 'Open PDF in a new tab',
+    'desktop.careerIntro': 'From research software to AI agents in production.',
+    'desktop.currentRole': 'Current role',
     'profile.role': 'AI and software engineer',
     'profile.specialty': 'I build AI agents for customer support.',
     'profile.intro': 'At GuruSup, I connect the data and tools agents need to run in production.',

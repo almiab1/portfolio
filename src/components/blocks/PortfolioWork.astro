@@ -26,7 +26,7 @@ const types = [...new Set(projects.map(({ data }) => data.type))]
 const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' });
 ---
 
-<Layout title={t('work.title')} description={t('work.catalogIntro')}>
+<Layout app={t('nav.work')} title={t('work.title')} description={t('work.catalogIntro')}>
   <main class="portfolio-wrap catalogue" id="main-content" tabindex="-1">
     <header class="catalogue-heading">
       <div>

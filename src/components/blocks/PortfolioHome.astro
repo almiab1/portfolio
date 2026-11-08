@@ -2,18 +2,7 @@
 // ABOUTME: Builds the professional home page from career data and project evidence.
 // ABOUTME: Shares the approved portrait-led profile between the two locales.
 import { Image } from 'astro:assets';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  BarChart3,
-  BriefcaseBusiness,
-  Download,
-  GraduationCap,
-  Sparkles,
-  BrainCircuit,
-  Layers,
-  CodeXml,
-} from 'lucide-react';
+import { ArrowUpRight, BarChart3, BriefcaseBusiness, FileText, Sparkles } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import Contact from '@/components/blocks/Contact.astro';
 import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
@@ -47,32 +36,18 @@ const projectTypes = [...projectCounts]
   .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, lang));
 const maxProjectCount = projectTypes[0]?.count ?? 1;
 const caseUrl = (id: string) => `${workUrl}/${id.replace(/^(es|en)\//, '')}`;
-const jobs = [
-  { key: 'gurusup', company: 'GuruSup', period: t('profile.currentPeriod') },
-  { key: 'convotis', company: 'CONVOTIS Iberia', period: '2025–2026' },
-  { key: 'aiju', company: 'AIJU', period: '2021–2025' },
-] as const;
-const skills = [
-  { key: 'agents', icon: Sparkles },
-  { key: 'ml', icon: BrainCircuit },
-  { key: 'software', icon: CodeXml },
-] as const;
-const degrees = [
-  { key: 'master', school: 'Universidad Internacional Menéndez Pelayo', period: '2022–2024' },
-  { key: 'bachelor', school: 'Universitat Politècnica de València', period: '2017–2021' },
-] as const;
 ---
 
-<Base title={t('home.title')} description={t('profile.intro')}>
+<Base app={t('desktop.profile')} title={t('home.title')} description={t('profile.intro')}>
   {[ldPerson(), ldWebsite()].map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
 
   <main id="main-content" tabindex="-1">
     <section class="profile-hero hero" aria-labelledby="profile-title" data-enter>
-      <div class="wrap portfolio-wrap profile-hero-inner">
+      <div class="desktop-profile-cover">
         <div class="profile-intro">
-          <p class="portfolio-kicker role-kicker">
+          <p class="portfolio-kicker desktop-profile-role">
             <Sparkles size={17} aria-hidden="true" />
             {t('profile.role')}
           </p>
@@ -81,22 +56,24 @@ const degrees = [
           </h1>
           <p class="profile-specialty">{t('profile.specialty')}</p>
           <p class="profile-lead">{t('profile.intro')}</p>
+          <a class="desktop-current-role" href={getLocalizedUrl('/experience', lang)}>
+            <span aria-hidden="true"></span>
+            <span>
+              {t('desktop.currentRole')} · <strong>GuruSup</strong>
+            </span>
+            <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
           <div class="portfolio-actions">
             <a class="portfolio-button" href={workUrl}>
               {t('profile.exploreWork')} <ArrowUpRight size={18} aria-hidden="true" />
             </a>
-            <a
-              class="portfolio-link"
-              href="/cv/eng/CV_MiraAbad_Alejandro.pdf"
-              aria-label={t('profile.cv')}
-              download
-            >
-              <Download size={17} aria-hidden="true" />
-              {t('profile.heroCv')}
+            <a class="portfolio-link" href={getLocalizedUrl('/cv', lang)}>
+              <FileText size={17} aria-hidden="true" />
+              {t('desktop.cvOpen')}
             </a>
           </div>
         </div>
-        <div class="portrait-composition" data-enter-media>
+        <div class="desktop-portrait" data-enter-media>
           <div class="portrait-frame">
             <Image
               src={portrait}
@@ -108,58 +85,33 @@ const degrees = [
             />
           </div>
         </div>
-        <div class="profile-proof">
-          <a class="career-summary" href="#about">
-            <span class="portfolio-icon">
-              <BriefcaseBusiness size={22} aria-hidden="true" />
-            </span>
+      </div>
+      <div class="portfolio-wrap profile-proof desktop-profile-links">
+        <a class="career-summary" href={getLocalizedUrl('/experience', lang)}>
+          <span class="portfolio-icon">
+            <BriefcaseBusiness size={22} aria-hidden="true" />
+          </span>
+          <span>
+            <span class="portfolio-kicker">{t('profile.experience')}</span>
+            <strong>GuruSup · CONVOTIS Iberia · AIJU</strong>
+          </span>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+        {glio && (
+          <a class="profile-case-proof" href={caseUrl(glio.id)}>
+            <ProjectVisual project={glio} />
             <span>
-              <span class="portfolio-kicker">{t('profile.experience')}</span>
-              <strong>{jobs.map(({ company }) => company).join(' · ')}</strong>
+              <span class="portfolio-kicker">{t('profile.heroCase')}</span>
+              <strong>{t('profile.heroGlio')}</strong>
             </span>
-            <ArrowDown size={20} aria-hidden="true" />
+            <ArrowUpRight size={20} aria-hidden="true" />
           </a>
-          {glio && (
-            <a class="profile-case-proof" href={caseUrl(glio.id)}>
-              <ProjectVisual project={glio} />
-              <span>
-                <span class="portfolio-kicker">{t('profile.heroCase')}</span>
-                <strong>{t('profile.heroGlio')}</strong>
-              </span>
-              <ArrowUpRight size={20} aria-hidden="true" />
-            </a>
-          )}
-        </div>
+        )}
       </div>
     </section>
 
-    <section class="portfolio-section" id="about" aria-labelledby="experience-title">
+    <section class="portfolio-section">
       <div class="wrap portfolio-wrap">
-        <div class="portfolio-heading">
-          <h2 id="experience-title">{t('profile.experience')}</h2>
-        </div>
-        <ol class="career-list" role="list">
-          {jobs.map(({ key, company, period }) => (
-            <li>
-              <p class="portfolio-kicker">{period}</p>
-              <div>
-                <h3>{company}</h3>
-                <p class="portfolio-muted">{t(`profile.job.${key}.role`)}</p>
-              </div>
-              <div class="career-copy">
-                <p>{t(`profile.job.${key}.summary`)}</p>
-                {key === 'gurusup' && (
-                  <a
-                    class="portfolio-link"
-                    href="https://es.linkedin.com/posts/alejandro-mira_genai-llms-agenticai-activity-7450075945643855872-YF95"
-                  >
-                    {t('profile.announcement')} <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
-                )}
-              </div>
-            </li>
-          ))}
-        </ol>
         {(glio || projectTypes.length > 0) && (
           <div class="profile-evidence">
             {glio && (
@@ -201,47 +153,6 @@ const degrees = [
             )}
           </div>
         )}
-      </div>
-    </section>
-
-    <section class="credentials-band" aria-labelledby="skills-title education-title">
-      <div class="wrap portfolio-wrap portfolio-section credentials-grid">
-        <section aria-labelledby="skills-title">
-          <div class="portfolio-heading">
-            <span class="portfolio-icon">
-              <Layers size={23} aria-hidden="true" />
-            </span>
-            <h2 id="skills-title">{t('profile.skills')}</h2>
-          </div>
-          <dl class="credentials-list">
-            {skills.map(({ key, icon: Icon }) => (
-              <div>
-                <dt>
-                  <Icon size={18} aria-hidden="true" />
-                  {t(`profile.skill.${key}.title`)}
-                </dt>
-                <dd>{t(`profile.skill.${key}.tools`)}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-        <section aria-labelledby="education-title">
-          <div class="portfolio-heading">
-            <span class="portfolio-icon">
-              <GraduationCap size={24} aria-hidden="true" />
-            </span>
-            <h2 id="education-title">{t('profile.education')}</h2>
-          </div>
-          <ul class="credentials-list" role="list">
-            {degrees.map(({ key, school, period }) => (
-              <li>
-                <p class="portfolio-kicker">{period}</p>
-                <h3>{t(`profile.degree.${key}`)}</h3>
-                <p class="portfolio-muted">{school}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
     </section>
 
