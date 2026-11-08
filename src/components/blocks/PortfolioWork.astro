@@ -50,6 +50,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
               name="q"
               placeholder={t('work.searchPlaceholder')}
               autocomplete="off"
+              disabled
             />
           </span>
         </label>
@@ -57,7 +58,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
           <span>{t('work.typeLabel')}</span>
           <span class="catalogue-field">
             <SlidersHorizontal size={18} aria-hidden="true" />
-            <select name="type">
+            <select name="type" disabled>
               <option value="">{t('work.allTypes')}</option>
               {types.map(({ type, label }) => (
                 <option value={type}>{label}</option>
@@ -193,10 +194,12 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         },
         options,
       );
-      document.addEventListener('astro:page-load', restore, options);
+      document.addEventListener('astro:after-swap', restore, options);
       window.addEventListener('pageshow', restore, options);
       window.addEventListener('popstate', restore, options);
       restore();
+      query.disabled = false;
+      type.disabled = false;
     }
 
     disconnectedCallback() {

@@ -49,7 +49,9 @@ const profile = getLocalizedUrl('/', lang);
       <strong>Alejandro Mira</strong>
     </a>
     <p class="portfolio-kicker desktop-menu-label">{t('desktop.title')}</p>
-    <LanguageSwitcher client:load currentLocale={lang} initialPath={Astro.url.pathname} />
+    <div class="desktop-languages">
+      <LanguageSwitcher client:load currentLocale={lang} initialPath={Astro.url.pathname} />
+    </div>
   </header>
   <div class="desktop-workspace">
     <nav class="desktop-dock" aria-label={t('desktop.apps')}>

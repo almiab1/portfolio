@@ -24,7 +24,7 @@
   background: var(--desktop-panel);
 }
 
-.desktop-menu > astro-island {
+.desktop-languages {
   justify-self: end;
 }
 
@@ -183,6 +183,7 @@
 }
 
 .desktop-profile-cover .profile-intro {
+  container-type: normal;
   align-self: center;
   padding: clamp(1rem, 5cqw, 4.2rem) clamp(0.8rem, 3.7cqw, 3rem);
 }

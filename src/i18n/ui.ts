@@ -39,6 +39,8 @@ export const ui = {
     'desktop.close': 'Cerrar pestaña activa',
     'desktop.cvOpen': 'Ver currículum',
     'desktop.cvTitle': 'Currículum',
+    'desktop.cvIntro':
+      'Previsualiza y descarga el currículum de Alejandro Mira en español o en inglés.',
     'desktop.cvEs': 'CV en español',
     'desktop.cvEn': 'CV en inglés',
     'desktop.cvDownloadEs': 'Descargar CV en español',
@@ -263,6 +265,7 @@ export const ui = {
     'desktop.close': 'Close active tab',
     'desktop.cvOpen': 'View résumé',
     'desktop.cvTitle': 'Résumé',
+    'desktop.cvIntro': 'Preview and download Alejandro Mira’s résumé in Spanish or English.',
     'desktop.cvEs': 'Spanish résumé',
     'desktop.cvEn': 'English résumé',
     'desktop.cvDownloadEs': 'Download Spanish résumé',
