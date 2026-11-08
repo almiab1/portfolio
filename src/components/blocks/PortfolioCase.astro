@@ -2,8 +2,10 @@
 // ABOUTME: Renders the centered case study and metadata for either locale.
 // ABOUTME: Links the article outline and preserves the catalogue return path.
 import { render, type CollectionEntry } from 'astro:content';
-import { ArrowUpRight, Cpu, ListTree, Star } from 'lucide-react';
+import { ArrowUpRight, Cpu, Star } from 'lucide-react';
 import Layout from '@/layouts/BaseLayout.astro';
+import CaseOutline from '@/components/blocks/CaseOutline.astro';
+import GlioFlow from '@/components/blocks/GlioFlow.astro';
 import ProjectBackLink from '@/components/blocks/ProjectBackLink.astro';
 import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
 import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
@@ -57,7 +59,11 @@ const links = [
     </header>
 
     <div class="case-cover">
-      <ProjectVisual project={project} variant="cover" />
+      {data.translationKey === 'glio-ia' ? (
+        <GlioFlow lang={lang} />
+      ) : (
+        <ProjectVisual project={project} variant="cover" />
+      )}
     </div>
 
     <div class="case-details">
@@ -142,20 +148,7 @@ const links = [
     )}
 
     <div class:list={['case-reading', { 'case-reading-indexed': outline.length > 0 }]}>
-      {outline.length > 0 && (
-        <nav class="case-outline" aria-labelledby="case-outline-title">
-          <h2 class="portfolio-kicker" id="case-outline-title">
-            <ListTree size={17} aria-hidden="true" /> {t('project.onThisPage')}
-          </h2>
-          <ul role="list">
-            {outline.map(({ slug, text }) => (
-              <li>
-                <a href={`#${slug}`}>{text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      {outline.length > 0 && <CaseOutline headings={outline} lang={lang} />}
       <article class="case-article prose dark:prose-invert">
         <Content />
       </article>

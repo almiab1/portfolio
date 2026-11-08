@@ -1,0 +1,74 @@
+---
+// ABOUTME: Explains GLIO-IA's three data inputs in the reader's language.
+// ABOUTME: Reveals the connecting paths once the diagram enters the viewport.
+import { Activity, Dna, FileText, ScanLine } from 'lucide-react';
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const inputs = [
+  { icon: FileText, label: t('project.glio.clinical') },
+  { icon: ScanLine, label: t('project.glio.imaging') },
+  { icon: Dna, label: t('project.glio.omics') },
+];
+---
+
+<glio-flow class="glio-flow" data-visual-kind="illustration">
+  <figure aria-label={t('project.glio.flow')}>
+    <ul role="list">
+      {inputs.map(({ icon: Icon, label }) => (
+        <li>
+          <Icon size={22} aria-hidden="true" />
+          <span>{label}</span>
+        </li>
+      ))}
+    </ul>
+    <svg viewBox="0 0 100 120" preserveAspectRatio="none" fill="none" aria-hidden="true">
+      <path data-flow pathLength="1" d="M0 20C48 20 47 60 76 60H100" />
+      <path data-flow pathLength="1" d="M0 60H100" />
+      <path data-flow pathLength="1" d="M0 100C48 100 47 60 76 60H100" />
+    </svg>
+    <div class="glio-result">
+      <Activity size={32} aria-hidden="true" />
+      <span>{t('project.glio.analysis')}</span>
+    </div>
+  </figure>
+</glio-flow>
+
+<script>
+  class GlioFlow extends HTMLElement {
+    private observer?: IntersectionObserver;
+
+    connectedCallback() {
+      if (
+        this.hasAttribute('data-draw') ||
+        !('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      )
+        return;
+
+      this.setAttribute('data-awaiting', '');
+      this.observer = new IntersectionObserver(
+        ([entry], observer) => {
+          if (entry.intersectionRatio < 0.35) return;
+          this.removeAttribute('data-awaiting');
+          this.setAttribute('data-draw', '');
+          observer.disconnect();
+        },
+        { threshold: 0.35 },
+      );
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+      this.removeAttribute('data-awaiting');
+    }
+  }
+
+  customElements.define('glio-flow', GlioFlow);
+</script>
