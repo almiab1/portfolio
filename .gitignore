@@ -37,3 +37,7 @@ pnpm-debug.log*
 
 # worktrees
 .trees/
+
+# Playwright artifacts
+/.playwright-cli/
+/test-results/
