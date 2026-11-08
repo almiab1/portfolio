@@ -1,0 +1,80 @@
+---
+// ABOUTME: Shows native section links alongside a project case study.
+// ABOUTME: Marks the heading nearest the reading position without changing the URL.
+import { ListTree } from 'lucide-react';
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+  headings: { slug: string; text: string }[];
+}
+
+const { lang, headings } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<case-outline class="case-outline">
+  <nav aria-labelledby="case-outline-title">
+    <h2 class="portfolio-kicker" id="case-outline-title">
+      <ListTree size={17} aria-hidden="true" /> {t('project.onThisPage')}
+    </h2>
+    <ul role="list">
+      {headings.map(({ slug, text }) => (
+        <li>
+          <a href={`#${slug}`} data-heading={slug}>
+            {text}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</case-outline>
+
+<script>
+  class CaseOutline extends HTMLElement {
+    private listeners?: AbortController;
+    private frame = 0;
+
+    connectedCallback() {
+      this.listeners?.abort();
+      this.listeners = new AbortController();
+      const options = { signal: this.listeners.signal };
+      const links = [...this.querySelectorAll<HTMLAnchorElement>('a[data-heading]')];
+      let active: HTMLAnchorElement | undefined;
+
+      const update = () => {
+        this.frame = 0;
+        const atPageEnd =
+          window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1;
+        const readingLine = atPageEnd ? window.innerHeight : Math.min(120, window.innerHeight / 3);
+        let next: HTMLAnchorElement | undefined;
+        for (const link of links) {
+          const heading = document.getElementById(link.dataset.heading!);
+          if (heading && heading.getBoundingClientRect().top <= readingLine) next = link;
+        }
+        if (next === active) return;
+        active?.removeAttribute('aria-current');
+        next?.setAttribute('aria-current', 'location');
+        active = next;
+      };
+
+      const schedule = () => {
+        if (!this.frame) this.frame = requestAnimationFrame(update);
+      };
+
+      window.addEventListener('scroll', schedule, { ...options, passive: true });
+      window.addEventListener('resize', schedule, options);
+      window.addEventListener('hashchange', schedule, options);
+      document.addEventListener('astro:page-load', schedule, options);
+      schedule();
+    }
+
+    disconnectedCallback() {
+      this.listeners?.abort();
+      cancelAnimationFrame(this.frame);
+      this.frame = 0;
+    }
+  }
+
+  customElements.define('case-outline', CaseOutline);
+</script>

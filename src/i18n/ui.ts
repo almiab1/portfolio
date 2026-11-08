@@ -136,6 +136,11 @@ export const ui = {
     // Etiquetas de proyecto
     'project.role': 'Rol',
     'project.onThisPage': 'En esta ficha',
+    'project.glio.flow': 'Flujo de datos de GLIO-IA',
+    'project.glio.clinical': 'Datos clínicos',
+    'project.glio.imaging': 'Imágenes médicas',
+    'project.glio.omics': 'Datos ómicos',
+    'project.glio.analysis': 'Análisis con IA',
     'project.tech': 'Tecnologías',
     'project.tags': 'Etiquetas',
     'project.links': 'Enlaces',
@@ -306,6 +311,11 @@ export const ui = {
     // Project labels
     'project.role': 'Role',
     'project.onThisPage': 'On this page',
+    'project.glio.flow': 'GLIO-IA data flow',
+    'project.glio.clinical': 'Clinical data',
+    'project.glio.imaging': 'Medical images',
+    'project.glio.omics': 'Omics data',
+    'project.glio.analysis': 'AI analysis',
     'project.tech': 'Technologies',
     'project.tags': 'Tags',
     'project.links': 'Links',
