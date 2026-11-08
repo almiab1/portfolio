@@ -243,7 +243,7 @@ describe('Header', () => {
 
     expect(menuButton).toHaveAttribute('aria-expanded', 'false');
     expect(menuButton).toHaveAttribute('aria-controls', 'mobile-nav');
-    expect(menuButton).toHaveAttribute('aria-label', 'Open menu');
+    expect(menuButton).toHaveAttribute('aria-label', 'Abrir menú');
   });
 
   it('hamburger button has correct ARIA attributes when open', async () => {
@@ -258,7 +258,7 @@ describe('Header', () => {
     const closeButton = within(header).getByTestId('x-icon').closest('button')!;
     expect(closeButton).toHaveAttribute('aria-expanded', 'true');
     expect(closeButton).toHaveAttribute('aria-controls', 'mobile-nav');
-    expect(closeButton).toHaveAttribute('aria-label', 'Close menu');
+    expect(closeButton).toHaveAttribute('aria-label', 'Cerrar menú');
   });
 
   it('anchor links update from home to non-home after astro:after-swap', () => {
