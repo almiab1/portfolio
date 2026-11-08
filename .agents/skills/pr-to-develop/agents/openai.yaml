@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR to Develop"
+  short_description: "Prepare and publish a clean PR to develop"
+  default_prompt: "Use $pr-to-develop to prepare this branch and open a concise pull request against develop."

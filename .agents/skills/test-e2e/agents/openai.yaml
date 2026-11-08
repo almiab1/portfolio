@@ -1,0 +1,6 @@
+interface:
+  display_name: "Test E2E"
+  short_description: "Verify Portfolio routes in a real browser"
+  default_prompt: "Use $test-e2e to verify this Portfolio change on the local site or its Vercel preview. Report the revision, tested routes, cases, and observed results."
+policy:
+  allow_implicit_invocation: false

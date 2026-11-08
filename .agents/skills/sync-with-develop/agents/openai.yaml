@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync with Develop"
+  short_description: "Rebase safely onto remote develop"
+  default_prompt: "Use $sync-with-develop to synchronize the current branch with the latest remote develop branch."
