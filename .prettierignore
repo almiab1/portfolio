@@ -1,2 +1,4 @@
+.agents/skills/
 .claude/skills/
+docs/design/references/
 pnpm-lock.yaml

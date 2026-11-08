@@ -43,6 +43,9 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 
 - Unit and integration tests use Vitest + React Testing Library, colocated as `*.test.tsx`.
 - End-to-end flows (navigation, language switching, project pages) use Playwright.
+- Delegate browser-based UI and end-to-end validation to a subagent. In Codex, use `ui-validator` with GPT-6 Luna. If the client exposes only model selection, spawn `gpt-6-luna` and pass `.codex/agents/ui-validator.toml` as its role instructions. In Claude Code, use `qa-criteria-validator` for acceptance flows and `ui-ux-analyzer` for visual checks. Both Claude agents use Haiku 5.5.
+- Give the subagent the working directory, local URL, affected routes, and acceptance criteria. Use Playwright MCP when available or `pnpm exec playwright-cli` with a unique session. Review the reported checks and evidence before handing off the work.
+- Install Chromium for the CLI with `pnpm exec playwright-cli install-browser chromium` when the browser is missing.
 - Every change ships with tests that cover it. Only Alex can waive this, by explicitly saying "I AUTHORIZE YOU TO SKIP WRITING TESTS THIS TIME."
 - Treat test output as part of the result: a run passes only when it is clean, with no warnings or stray logs. Logs that are supposed to contain errors get captured and asserted.
 
@@ -55,6 +58,10 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 - Worktrees go in `.trees/`. Run `git worktree remove` before deleting the branch.
 
 ## Agent skills
+
+### Design
+
+Project design skills live in `.agents/skills/` and are shared with Claude Code through `.claude/skills/`. Use `docs/design/references/` to look up an Awesome DESIGN.md reference when a task calls for an external design pattern.
 
 ### Issue tracker
 
