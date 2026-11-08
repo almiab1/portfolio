@@ -56,7 +56,8 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 - Use Conventional Commits (`feat|fix|chore|refactor|test|docs: …`) and commit often.
 - If uncommitted changes exist when you start, ask Alex how to handle them. Work on a branch, never directly on `develop` or `main`.
 - Use Worktrunk (`wt`) for feature worktrees. In WSL, configure `worktree-path = "/home/pica/dev/projects/worktrees/{{ repo }}/{{ branch | sanitize }}"` in `~/.config/worktrunk/config.toml` so new Portfolio worktrees go under `/home/pica/dev/projects/worktrees/Portfolio/`.
-- Create a worktree with `wt switch --create codex/<feature> --base origin/develop`. Use `wt list` to list worktrees and `wt switch <branch>` to open one.
+- For WSL checkouts on a Linux filesystem, run `git config --local core.symlinks true` once in the repository so new worktrees check out the shared skills in `.claude/skills/` as symbolic links.
+- Run `git fetch origin develop` before creating a worktree with `wt switch --create codex/<feature> --base origin/develop`. Use `wt list` to list worktrees and `wt switch <branch>` to open one.
 - After the PR is integrated into `develop`, remove the worktree with `wt remove --no-delete-branch <branch>` before deleting the branch.
 
 ## Agent skills
