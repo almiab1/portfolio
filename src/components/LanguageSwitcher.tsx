@@ -4,25 +4,42 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { CATALOG_FILTERS_CHANGE, catalogSearch, readCatalogFilters } from '@/lib/catalog-filters';
 import { Globe } from 'lucide-react';
 
 interface LanguageSwitcherProps {
   currentLocale?: string;
+  initialPath?: string;
 }
 
-export default function LanguageSwitcher({ currentLocale = 'es' }: LanguageSwitcherProps) {
-  const [currentPath, setCurrentPath] = useState(() =>
-    typeof window !== 'undefined' ? window.location.pathname : '',
+export default function LanguageSwitcher({
+  currentLocale = 'es',
+  initialPath,
+}: LanguageSwitcherProps) {
+  const [currentPath, setCurrentPath] = useState(
+    () => initialPath ?? (typeof window !== 'undefined' ? window.location.pathname : '/'),
   );
+
+  const [filterSearch, setFilterSearch] = useState('');
 
   // Sync path from window.location after view transition swaps the DOM.
   // This keeps the switcher links correct when transition:persist prevents re-mounting.
   useEffect(() => {
     const handleSwap = () => {
-      setCurrentPath(window.location.pathname);
+      const { pathname, search } = window.location;
+      setCurrentPath(pathname);
+      const isProjectPath = /^\/(en\/)?work(\/|$)/.test(pathname);
+      setFilterSearch(isProjectPath ? catalogSearch(readCatalogFilters(search)) : '');
     };
+    handleSwap();
     document.addEventListener('astro:after-swap', handleSwap);
-    return () => document.removeEventListener('astro:after-swap', handleSwap);
+    document.addEventListener(CATALOG_FILTERS_CHANGE, handleSwap);
+    window.addEventListener('popstate', handleSwap);
+    return () => {
+      document.removeEventListener('astro:after-swap', handleSwap);
+      document.removeEventListener(CATALOG_FILTERS_CHANGE, handleSwap);
+      window.removeEventListener('popstate', handleSwap);
+    };
   }, []);
 
   const languages = [
@@ -53,7 +70,7 @@ export default function LanguageSwitcher({ currentLocale = 'es' }: LanguageSwitc
       <Globe className="mr-1 h-4 w-4 text-muted-foreground" />
       {languages.map((lang) => {
         const isActive = currentLocale === lang.code;
-        const href = getLocalizedPath(lang.code);
+        const href = getLocalizedPath(lang.code) + filterSearch;
 
         return (
           <Button
@@ -67,7 +84,14 @@ export default function LanguageSwitcher({ currentLocale = 'es' }: LanguageSwitc
             }`}
             asChild
           >
-            <a href={href} title={lang.fullName}>
+            <a
+              href={href}
+              title={lang.fullName}
+              aria-label={lang.fullName}
+              hrefLang={lang.code}
+              lang={lang.code}
+              aria-current={isActive ? 'page' : undefined}
+            >
               {lang.label}
             </a>
           </Button>

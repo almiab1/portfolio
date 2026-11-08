@@ -1,5 +1,57 @@
+// ABOUTME: Localized interface and profile content for the portfolio.
+// ABOUTME: Spanish and English keys are shared by the Astro pages and interactive islands.
 export const ui = {
   es: {
+    'profile.role': 'Ingeniero de IA y software',
+    'profile.intro':
+      'En GuruSup desarrollo sistemas con LLM y agentes para atención al cliente. Mi trabajo abarca desde integrar datos y herramientas hasta llevar los agentes a producción.',
+    'profile.experience': 'Experiencia profesional',
+    'profile.seeExperience': 'Ver mi experiencia',
+    'profile.cv': 'Descargar CV (inglés)',
+    'profile.skills': 'Habilidades técnicas',
+    'profile.education': 'Formación',
+    'profile.personal': 'Proyectos personales',
+    'profile.repository': 'Ver código en GitHub',
+    'profile.readProject': 'Leer el proyecto',
+    'profile.healthType': 'Aplicación web',
+    'profile.healthSummary':
+      'Panel para registrar medidas de composición corporal y seguir su evolución con gráficos y un historial filtrable.',
+    'profile.soloProject': 'Proyecto académico individual',
+    'profile.announcement': 'Leer mi anuncio en LinkedIn',
+    'profile.currentPeriod': '2026–actualidad',
+    'profile.readGlio': 'Leer el caso GLIO-IA',
+    'profile.job.gurusup.role': 'Software Engineer · LLM e IA generativa',
+    'profile.job.gurusup.summary':
+      'Desarrollo sistemas de agentes y trabajo en cómo recuperan el contexto que necesitan para resolver tareas de atención al cliente.',
+    'profile.job.convotis.role': 'AI Engineer',
+    'profile.job.convotis.summary':
+      'Diseñé y desplegué soluciones de IA generativa para procesos empresariales. Trabajé en la orquestación de agentes, la recuperación de datos internos y externos y el desarrollo de asistentes con memoria contextual.',
+    'profile.job.aiju.role': 'Desarrollador de IA y software',
+    'profile.job.aiju.summary':
+      'Desarrollé software para proyectos de IA e Industria 4.0, desde la captura de datos con IoT hasta su análisis. En GLIO-IA diseñé una plataforma que integra datos clínicos, imágenes médicas y datos ómicos.',
+    'profile.skill.agents.title': 'IA generativa',
+    'profile.skill.agents.tools':
+      'LLM, sistemas multiagente, recuperación de información y memoria contextual',
+    'profile.skill.ml.title': 'Aprendizaje automático',
+    'profile.skill.ml.tools': 'Python, PyTorch, visión por computador y entrenamiento distribuido',
+    'profile.skill.software.title': 'Ingeniería de software',
+    'profile.skill.software.tools':
+      'APIs con FastAPI, interfaces con React, PostgreSQL y despliegue en la nube',
+    'profile.degree.master': 'Máster en Investigación en Inteligencia Artificial',
+    'profile.degree.bachelor': 'Grado en Ingeniería de Tecnologías Interactivas',
+    'work.backToProfile': 'Volver al perfil',
+    'work.catalogIntro':
+      'Busca por nombre, tecnología o tema. Cada ficha explica mi aportación al proyecto.',
+    'work.typeLabel': 'Tipo de proyecto',
+    'work.allTypes': 'Todos los tipos',
+    'work.resultOne': 'proyecto',
+    'work.resultMany': 'proyectos',
+    'work.featuredLabel': 'Destacado',
+    'common.skip': 'Saltar al contenido',
+    'nav.label': 'Navegación principal',
+    'nav.openMenu': 'Abrir menú',
+    'nav.closeMenu': 'Cerrar menú',
+
     // Navegación
     'nav.home': 'Inicio',
     'nav.work': 'Proyectos',
@@ -26,8 +78,8 @@ export const ui = {
     'work.allProjects': 'Todos los proyectos',
     'work.clearFilters': 'Limpiar filtros',
     'work.noResults': 'No se encontraron proyectos con los filtros seleccionados',
-    'work.searchPlaceholder': 'Buscar proyectos...',
-    'work.searchLabel': 'Búsqueda',
+    'work.searchPlaceholder': 'Ej. robótica, PyTorch, GLIO-IA…',
+    'work.searchLabel': 'Buscar proyectos',
 
     // Hero
     'hero.greeting': 'Hola, soy',
@@ -119,6 +171,55 @@ export const ui = {
     'project.context.academic': 'Académico',
   },
   en: {
+    'profile.role': 'AI and software engineer',
+    'profile.intro':
+      'At GuruSup I build LLM-powered systems and agents for customer support. My work spans connecting data and tools through to running agents in production.',
+    'profile.experience': 'Professional experience',
+    'profile.seeExperience': 'View my experience',
+    'profile.cv': 'Download CV',
+    'profile.skills': 'Technical skills',
+    'profile.education': 'Education',
+    'profile.personal': 'Personal projects',
+    'profile.repository': 'View code on GitHub',
+    'profile.readProject': 'Read the project',
+    'profile.healthType': 'Web application',
+    'profile.healthSummary':
+      'A dashboard for recording body composition measurements and tracking changes with charts and a filterable history.',
+    'profile.soloProject': 'Individual academic project',
+    'profile.announcement': 'Read my LinkedIn announcement',
+    'profile.currentPeriod': '2026–present',
+    'profile.readGlio': 'Read the GLIO-IA case study',
+    'profile.job.gurusup.role': 'Software Engineer · LLMs and generative AI',
+    'profile.job.gurusup.summary':
+      'I build agent systems and work on how they retrieve the context they need to handle customer support tasks.',
+    'profile.job.convotis.role': 'AI Engineer',
+    'profile.job.convotis.summary':
+      'I designed and deployed generative AI for business processes, working on agent orchestration, retrieval across internal and external data, and assistants with contextual memory.',
+    'profile.job.aiju.role': 'AI & Software Developer',
+    'profile.job.aiju.summary':
+      'I developed software for AI and Industry 4.0 projects, from IoT data collection to analysis. For GLIO-IA, I designed a platform that brings together clinical data, medical images and omics data.',
+    'profile.skill.agents.title': 'Generative AI',
+    'profile.skill.agents.tools':
+      'LLMs, multi-agent systems, information retrieval and contextual memory',
+    'profile.skill.ml.title': 'Machine learning',
+    'profile.skill.ml.tools': 'Python, PyTorch, computer vision and distributed training',
+    'profile.skill.software.title': 'Software engineering',
+    'profile.skill.software.tools': 'FastAPI, React, PostgreSQL and cloud deployment',
+    'profile.degree.master': 'Master’s in Artificial Intelligence Research',
+    'profile.degree.bachelor': 'Bachelor’s in Interactive Technologies Engineering',
+    'work.backToProfile': 'Back to profile',
+    'work.catalogIntro':
+      'Search by name, technology or topic. Each case study explains what I contributed.',
+    'work.typeLabel': 'Project type',
+    'work.allTypes': 'All types',
+    'work.resultOne': 'project',
+    'work.resultMany': 'projects',
+    'work.featuredLabel': 'Featured',
+    'common.skip': 'Skip to content',
+    'nav.label': 'Main navigation',
+    'nav.openMenu': 'Open menu',
+    'nav.closeMenu': 'Close menu',
+
     // Navigation
     'nav.home': 'Home',
     'nav.work': 'Projects',
@@ -145,8 +246,8 @@ export const ui = {
     'work.allProjects': 'All projects',
     'work.clearFilters': 'Clear filters',
     'work.noResults': 'No projects found with the selected filters',
-    'work.searchPlaceholder': 'Search projects...',
-    'work.searchLabel': 'Search',
+    'work.searchPlaceholder': 'E.g. robotics, PyTorch, GLIO-IA…',
+    'work.searchLabel': 'Search projects',
 
     // Hero
     'hero.greeting': "Hi, I'm",

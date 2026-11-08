@@ -1,0 +1,252 @@
+---
+// ABOUTME: Renders the bilingual project archive with indexed search and type controls.
+// ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  BrainCircuit,
+  CircuitBoard,
+  Database,
+  Globe,
+  Layers,
+  Monitor,
+  Search,
+  Server,
+  Smartphone,
+  SlidersHorizontal,
+  X,
+} from 'lucide-react';
+import Layout from '@/layouts/BaseLayout.astro';
+import glioArt from '@/assets/projects/glio-ia.svg?url';
+import scoutArt from '@/assets/projects/lost-scout.svg?url';
+import { getProjectsByLang } from '@/lib/i18n-content';
+import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = (await getProjectsByLang(lang)).sort(
+  (a, b) =>
+    Number(b.data.featured) - Number(a.data.featured) ||
+    b.data.priority - a.data.priority ||
+    b.data.date.localeCompare(a.data.date),
+);
+const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
+const types = [...new Set(projects.map(({ data }) => data.type))]
+  .map((type) => ({ type, label: t(`project.type.${type}`) }))
+  .sort((a, b) => a.label.localeCompare(b.label, lang));
+const typeIcons = {
+  ai: BrainCircuit,
+  api: Server,
+  data: Database,
+  desktop: Monitor,
+  iot: CircuitBoard,
+  mobile: Smartphone,
+  other: Layers,
+  web: Globe,
+};
+const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' });
+---
+
+<Layout title={t('work.title')} description={t('work.catalogIntro')}>
+  <main class="portfolio-wrap catalogue" id="main-content" tabindex="-1">
+    <header class="catalogue-heading">
+      <div>
+        <a class="portfolio-link" href={getLocalizedUrl('/', lang)}>
+          <ArrowLeft size={17} aria-hidden="true" />
+          {t('work.backToProfile')}
+        </a>
+        <h1>{t('nav.work')}</h1>
+      </div>
+      <p class="profile-lead">{t('work.catalogIntro')}</p>
+    </header>
+
+    <project-catalog>
+      <div class="catalogue-controls" role="search" aria-label={t('work.searchLabel')}>
+        <label>
+          <span>{t('work.searchLabel')}</span>
+          <span class="catalogue-field">
+            <Search size={18} aria-hidden="true" />
+            <input
+              type="search"
+              name="q"
+              placeholder={t('work.searchPlaceholder')}
+              autocomplete="off"
+            />
+          </span>
+        </label>
+        <label>
+          <span>{t('work.typeLabel')}</span>
+          <span class="catalogue-field">
+            <SlidersHorizontal size={18} aria-hidden="true" />
+            <select name="type">
+              <option value="">{t('work.allTypes')}</option>
+              {types.map(({ type, label }) => (
+                <option value={type}>{label}</option>
+              ))}
+            </select>
+          </span>
+        </label>
+      </div>
+      <div class="catalogue-meta">
+        <p role="status" data-one={t('work.resultOne')} data-many={t('work.resultMany')}>
+          {projects.length} {t('work.resultMany')}
+        </p>
+        <button class="portfolio-link" type="button" data-clear hidden>
+          <X size={16} aria-hidden="true" />
+          {t('work.clearFilters')}
+        </button>
+      </div>
+      <p class="catalogue-empty" data-empty hidden>
+        {t('work.noResults')}
+      </p>
+      <ul class="catalogue-list" role="list">
+        {projects.map(({ id, data }) => {
+          const label = t(`project.type.${data.type}`);
+          const Icon = typeIcons[data.type];
+          const slug = id.replace(/^(es|en)\//, '');
+          const art =
+            data.translationKey === 'glio-ia'
+              ? glioArt
+              : data.translationKey === 'lost-scout'
+                ? scoutArt
+                : undefined;
+          const href = `${workUrl}/${slug}`;
+          return (
+            <li
+              data-project-id={id}
+              data-type={data.type}
+              data-search={JSON.stringify({
+                id,
+                title: data.title,
+                summary: data.summary,
+                tags: [...data.tags, ...data.tech, data.role ?? '', label],
+              })}
+            >
+              <a class="catalogue-row" href={href} data-case-path={href}>
+                <span class="catalogue-mark" aria-hidden="true">
+                  {art ? (
+                    <img
+                      src={art}
+                      width="640"
+                      height="360"
+                      loading="lazy"
+                      decoding="async"
+                      alt=""
+                    />
+                  ) : (
+                    <Icon size={23} />
+                  )}
+                </span>
+                <span class="catalogue-description">
+                  <span class="portfolio-kicker">
+                    {yearFormat.format(new Date(data.date))} · {label}
+                  </span>
+                  <strong>{data.title}</strong>
+                  <span>{data.summary}</span>
+                </span>
+                <span class="catalogue-role">{data.role}</span>
+                <ArrowUpRight className="catalogue-arrow" size={21} aria-hidden="true" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </project-catalog>
+  </main>
+</Layout>
+
+<script>
+  import {
+    catalogSearch,
+    CATALOG_FILTERS_CHANGE,
+    readCatalogFilters,
+    setCatalogFilters,
+  } from '@/lib/catalog-filters';
+  import { filterProjects, type FilterableProject } from '@/lib/project-filter';
+
+  class ProjectCatalog extends HTMLElement {
+    private listeners?: AbortController;
+
+    connectedCallback() {
+      this.listeners?.abort();
+      this.listeners = new AbortController();
+      const options = { signal: this.listeners.signal };
+      const query = this.querySelector<HTMLInputElement>('input[name="q"]')!;
+      const type = this.querySelector<HTMLSelectElement>('select[name="type"]')!;
+      const clear = this.querySelector<HTMLButtonElement>('[data-clear]')!;
+      const count = this.querySelector<HTMLElement>('[role="status"]')!;
+      const empty = this.querySelector<HTMLElement>('[data-empty]')!;
+      const rows = [...this.querySelectorAll<HTMLElement>('[data-project-id]')].map((row) => ({
+        row,
+        project: JSON.parse(row.dataset.search!) as FilterableProject,
+        link: row.querySelector<HTMLAnchorElement>('[data-case-path]')!,
+      }));
+
+      const refresh = (updateUrl: boolean) => {
+        const filters = { query: query.value, type: type.value };
+        const eligible = rows.filter(
+          ({ row }) => !filters.type || row.dataset.type === filters.type,
+        );
+        const { visibleIds } = filterProjects(
+          eligible.map(({ project }) => project),
+          { query: filters.query, selectedTags: [] },
+        );
+        const search = catalogSearch(filters);
+        for (const { row, project, link } of rows) {
+          row.hidden = !visibleIds.has(project.id);
+          link.href = link.dataset.casePath + search;
+        }
+
+        const size = visibleIds.size;
+        const resultText = `${size} ${size === 1 ? count.dataset.one : count.dataset.many}`;
+        if (count.textContent?.trim() !== resultText) count.textContent = resultText;
+        clear.hidden = !filters.query && !filters.type;
+        empty.hidden = size > 0;
+
+        if (updateUrl) {
+          const url = new URL(location.href);
+          setCatalogFilters(url.searchParams, filters);
+          if (url.href !== location.href) {
+            history.replaceState(history.state, '', url);
+            document.dispatchEvent(new Event(CATALOG_FILTERS_CHANGE));
+          }
+        }
+      };
+
+      const restore = () => {
+        const filters = readCatalogFilters(location.search);
+        query.value = filters.query;
+        type.value = filters.type;
+        if (type.selectedIndex < 0) type.selectedIndex = 0;
+        refresh(false);
+      };
+
+      query.addEventListener('input', () => refresh(true), options);
+      type.addEventListener('change', () => refresh(true), options);
+      clear.addEventListener(
+        'click',
+        () => {
+          query.value = '';
+          type.value = '';
+          query.focus();
+          refresh(true);
+        },
+        options,
+      );
+      document.addEventListener('astro:page-load', restore, options);
+      window.addEventListener('pageshow', restore, options);
+      window.addEventListener('popstate', restore, options);
+      restore();
+    }
+
+    disconnectedCallback() {
+      this.listeners?.abort();
+    }
+  }
+
+  customElements.define('project-catalog', ProjectCatalog);
+</script>

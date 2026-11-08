@@ -15,7 +15,8 @@ interface HeaderProps {
 
 function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState<'closed' | 'pointer' | 'keyboard'>('closed');
+  const isMobileMenuOpen = mobileMenu !== 'closed';
 
   // Internal state for locale/path — updated on astro:after-swap when
   // the Header is kept alive across navigations via transition:persist.
@@ -41,7 +42,7 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
       const newLocale = newPath.startsWith('/en') ? 'en' : 'es';
       setPath(newPath);
       setLocale(newLocale);
-      setIsMobileMenuOpen(false);
+      setMobileMenu('closed');
     };
     document.addEventListener('astro:after-swap', handleSwap);
     return () => document.removeEventListener('astro:after-swap', handleSwap);
@@ -65,61 +66,72 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? 'border-b border-border bg-background/95 backdrop-blur-sm'
-          : 'bg-transparent'
+      className={`portfolio-header fixed top-0 z-50 w-full transition-colors duration-150 ${
+        isScrolled || isMobileMenuOpen ? 'bg-background/95 backdrop-blur-sm' : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <nav className="portfolio-wrap py-2.5" aria-label={translate('nav.label')}>
+        <div className="flex min-h-11 items-center justify-between gap-3">
           <a
             href={locale === 'es' ? '/' : '/en'}
-            className="text-xl font-bold text-foreground transition-colors hover:text-primary"
+            className="inline-flex min-h-11 items-center gap-2 text-base font-bold text-foreground transition-colors hover:text-primary"
           >
-            Alejandro Mira
+            <span className="portfolio-monogram" aria-hidden="true">
+              AM
+            </span>
+            <span>Alejandro Mira</span>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center space-x-6 md:flex">
+          <div className="hidden items-center space-x-4 lg:flex xl:space-x-6">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-muted-foreground transition-colors duration-200 hover:text-primary"
+                aria-current={
+                  item.isPage && path.replace(/\/$/, '') === item.href.replace(/\/$/, '')
+                    ? 'page'
+                    : undefined
+                }
+                className="portfolio-nav-link"
               >
                 {item.label}
               </a>
             ))}
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageSwitcher currentLocale={locale} initialPath={path} />
             <a
-              href={
-                locale === 'es'
-                  ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
-                  : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
-              }
+              href="/cv/eng/CV_MiraAbad_Alejandro.pdf"
               download
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Button
-                variant="default"
-                className="bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                {translate('nav.downloadCV')}
-              </Button>
+              <span className="portfolio-button">{translate('profile.cv')}</span>
             </a>
           </div>
 
+          {!isMobileMenuOpen && (
+            <div className="ml-auto lg:hidden">
+              <a
+                href={`${basePrefix}/work`}
+                className="portfolio-nav-link"
+                aria-current={path.replace(/\/$/, '') === `${basePrefix}/work` ? 'page' : undefined}
+              >
+                {translate('nav.work')}
+              </a>
+            </div>
+          )}
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden"
+            onClick={(event) => {
+              const entry = event.detail > 0 ? 'pointer' : 'keyboard';
+              setMobileMenu((current) => (current === 'closed' ? entry : 'closed'));
+            }}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-nav"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={translate(isMobileMenuOpen ? 'nav.closeMenu' : 'nav.openMenu')}
           >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </Button>
@@ -129,38 +141,35 @@ function Header({ currentLocale = 'es', currentPath = '/' }: HeaderProps) {
         {isMobileMenuOpen && (
           <div
             id="mobile-nav"
-            className="mt-4 border-t border-border bg-background pb-4 shadow-lg md:hidden"
+            data-menu-entry={mobileMenu}
+            className="mt-4 border-t border-border bg-background pb-4 shadow-lg lg:hidden"
           >
             <div className="flex flex-col space-y-4 pt-4">
               {navItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={
+                    item.isPage && path.replace(/\/$/, '') === item.href.replace(/\/$/, '')
+                      ? 'page'
+                      : undefined
+                  }
+                  className="portfolio-nav-link"
+                  onClick={() => setMobileMenu('closed')}
                 >
                   {item.label}
                 </a>
               ))}
               <div className="pt-2">
-                <LanguageSwitcher currentLocale={locale} />
+                <LanguageSwitcher currentLocale={locale} initialPath={path} />
               </div>
               <a
-                href={
-                  locale === 'es'
-                    ? '/cv/esp/CV_MiraAbad_Alejandro.pdf'
-                    : '/cv/eng/CV_MiraAbad_Alejandro.pdf'
-                }
+                href="/cv/eng/CV_MiraAbad_Alejandro.pdf"
                 download
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button
-                  variant="default"
-                  className="w-fit bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  {translate('nav.downloadCV')}
-                </Button>
+                <span className="portfolio-button">{translate('profile.cv')}</span>
               </a>
             </div>
           </div>

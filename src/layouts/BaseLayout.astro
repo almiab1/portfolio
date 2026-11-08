@@ -1,8 +1,12 @@
 ---
+// ABOUTME: Supplies navigation, metadata, and shared site styles.
+// ABOUTME: Keeps page navigation and language alternatives consistent across routes.
 import Header from '@/components/core/Header';
 import Analytics from '@vercel/analytics/astro';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
+import '../styles/portfolio.css';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
 export interface Props {
@@ -15,23 +19,12 @@ const {
 } = Astro.props;
 
 // Detectar el idioma actual de la URL
-const currentLang = Astro.currentLocale || 'es';
+const currentLang = getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
 
-// Obtener la ruta sin el prefijo de idioma para generar alternativas
+// Use the same path in both languages, including the unprefixed home.
 const currentPath = Astro.url.pathname;
-let pathWithoutLang = currentPath;
-
-// Eliminar el prefijo /es o /en
-if (currentPath.startsWith('/en/')) {
-  pathWithoutLang = currentPath.substring(3);
-} else if (currentPath.startsWith('/es/')) {
-  pathWithoutLang = currentPath.substring(3);
-}
-
-// Asegurar que pathWithoutLang siempre comience con /
-if (!pathWithoutLang.startsWith('/')) {
-  pathWithoutLang = '/' + pathWithoutLang;
-}
+const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, '/');
 
 // Generar URLs completas para hreflang
 const esUrl = new URL(getRelativeLocaleUrl('es', pathWithoutLang), Astro.site);
@@ -39,10 +32,14 @@ const enUrl = new URL(getRelativeLocaleUrl('en', pathWithoutLang), Astro.site);
 const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
 ---
 
-<html lang={currentLang}>
+<html lang={currentLang} data-type="service">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="page-type" content="service" />
+    <meta name="site-kind" content="other" />
+    <meta name="theme-color" content="#f8efe5" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -58,11 +55,17 @@ const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
+    <script is:inline>
+      document.documentElement.classList.add('m-enter');
+    </script>
     <ClientRouter />
   </head>
-  <body class="min-h-screen bg-background text-foreground" transition:animate="fade">
+  <body class="min-h-screen bg-background text-foreground">
+    <a class="portfolio-skip" href="#main-content">
+      {t('common.skip')}
+    </a>
     <Header client:load currentLocale={currentLang} currentPath={currentPath} transition:persist />
     <slot />
-    <Analytics />
+    {process.env.VERCEL === '1' && <Analytics />}
   </body>
 </html>
