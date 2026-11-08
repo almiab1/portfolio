@@ -1,7 +1,7 @@
 ---
-// ABOUTME: Presents Alex’s career as a dated timeline with skills and education.
+// ABOUTME: Presents Alex’s career as a dated timeline and links to the original announcement.
 // ABOUTME: Shares the experience app between the Spanish and English routes.
-import { ArrowUpRight, BrainCircuit, CodeXml, GraduationCap, Layers, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
 
@@ -15,15 +15,6 @@ const jobs = [
   { key: 'gurusup', company: 'GuruSup', year: '2026', period: t('profile.currentPeriod') },
   { key: 'convotis', company: 'CONVOTIS Iberia', year: '2025', period: '2025–2026' },
   { key: 'aiju', company: 'AIJU', year: '2021', period: '2021–2025' },
-] as const;
-const skills = [
-  { key: 'agents', icon: Sparkles },
-  { key: 'ml', icon: BrainCircuit },
-  { key: 'software', icon: CodeXml },
-] as const;
-const degrees = [
-  { key: 'master', school: 'Universidad Internacional Menéndez Pelayo', period: '2022–2024' },
-  { key: 'bachelor', school: 'Universitat Politècnica de València', period: '2017–2021' },
 ] as const;
 ---
 
@@ -59,46 +50,6 @@ const degrees = [
           </li>
         ))}
       </ol>
-    </section>
-    <section class="credentials-band" aria-labelledby="skills-title education-title">
-      <div class="wrap portfolio-wrap portfolio-section credentials-grid">
-        <section aria-labelledby="skills-title">
-          <div class="portfolio-heading">
-            <span class="portfolio-icon">
-              <Layers size={23} aria-hidden="true" />
-            </span>
-            <h2 id="skills-title">{t('profile.skills')}</h2>
-          </div>
-          <dl class="credentials-list">
-            {skills.map(({ key, icon: Icon }) => (
-              <div>
-                <dt>
-                  <Icon size={18} aria-hidden="true" />
-                  {t(`profile.skill.${key}.title`)}
-                </dt>
-                <dd>{t(`profile.skill.${key}.tools`)}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-        <section aria-labelledby="education-title">
-          <div class="portfolio-heading">
-            <span class="portfolio-icon">
-              <GraduationCap size={24} aria-hidden="true" />
-            </span>
-            <h2 id="education-title">{t('profile.education')}</h2>
-          </div>
-          <ul class="credentials-list" role="list">
-            {degrees.map(({ key, school, period }) => (
-              <li>
-                <p class="portfolio-kicker">{period}</p>
-                <h3>{t(`profile.degree.${key}`)}</h3>
-                <p class="portfolio-muted">{school}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
     </section>
   </main>
 </Base>

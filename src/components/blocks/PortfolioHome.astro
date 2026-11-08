@@ -1,215 +1,79 @@
 ---
-// ABOUTME: Builds the professional home page from career data and project evidence.
-// ABOUTME: Shares the approved portrait-led profile between the two locales.
+// ABOUTME: Introduces Alex in a compact professional profile.
+// ABOUTME: Links the profile to the desktop apps and emits shared structured data.
 import { Image } from 'astro:assets';
-import { ArrowUpRight, BarChart3, BriefcaseBusiness, FileText, Sparkles } from 'lucide-react';
+import { ArrowUpRight, FileText, Layers } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
-import Contact from '@/components/blocks/Contact.astro';
-import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
+import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
 import portrait from '@/assets/me.png';
-import healthArt from '@/assets/projects/health-dashboard.svg?url';
-import { catalogSearch } from '@/lib/catalog-filters';
-import { getProjectsByLang } from '@/lib/i18n-content';
 import { ldPerson, ldWebsite } from '@/lib/schema';
 import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
 
 interface Props {
   lang: Language;
 }
-
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
-const projects = await getProjectsByLang(lang);
-const glio = projects.find(({ data }) => data.translationKey === 'glio-ia');
-const lostScout = projects.find(({ data }) => data.translationKey === 'lost-scout');
-const projectCounts = new Map<(typeof projects)[number]['data']['type'], number>();
-for (const { data } of projects) {
-  projectCounts.set(data.type, (projectCounts.get(data.type) ?? 0) + 1);
-}
-const projectTypes = [...projectCounts]
-  .map(([type, count]) => ({
-    type,
-    count,
-    label: t(`project.type.${type}`),
-  }))
-  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, lang));
-const maxProjectCount = projectTypes[0]?.count ?? 1;
-const caseUrl = (id: string) => `${workUrl}/${id.replace(/^(es|en)\//, '')}`;
 ---
 
-<Base app={t('desktop.profile')} title={t('home.title')} description={t('profile.intro')}>
+<Base app={t('desktop.profile')} title={t('home.title')} description={t('desktop.profileBio')}>
   {[ldPerson(), ldWebsite()].map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
-
-  <main id="main-content" tabindex="-1">
-    <section class="profile-hero hero" aria-labelledby="profile-title" data-enter>
-      <div class="desktop-profile-cover">
-        <div class="profile-intro">
-          <p class="portfolio-kicker desktop-profile-role">
-            <Sparkles size={17} aria-hidden="true" />
-            {t('profile.role')}
-          </p>
+  <main id="main-content" class="profile-app" tabindex="-1">
+    <section class="profile-card" aria-labelledby="profile-title">
+      <div class="profile-card-photo">
+        <Image
+          src={portrait}
+          width={680}
+          format="webp"
+          alt={t('hero.profileAlt')}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="profile-card-body">
+        <header>
+          <p class="portfolio-kicker">{t('profile.role')}</p>
           <h1 id="profile-title">
             Alejandro <span>Mira.</span>
           </h1>
-          <p class="profile-specialty">{t('profile.specialty')}</p>
-          <p class="profile-lead">{t('profile.intro')}</p>
-          <a class="desktop-current-role" href={getLocalizedUrl('/experience', lang)}>
-            <span aria-hidden="true"></span>
-            <span>
-              {t('desktop.currentRole')} · <strong>GuruSup</strong>
-            </span>
-            <ArrowUpRight size={14} aria-hidden="true" />
-          </a>
-          <div class="portfolio-actions">
-            <a class="portfolio-button" href={workUrl}>
-              {t('profile.exploreWork')} <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-            <a class="portfolio-link" href={getLocalizedUrl('/cv', lang)}>
-              <FileText size={17} aria-hidden="true" />
-              {t('desktop.cvOpen')}
-            </a>
-          </div>
-        </div>
-        <div class="desktop-portrait" data-enter-media>
-          <div class="portrait-frame">
-            <Image
-              src={portrait}
-              width={840}
-              format="webp"
-              alt={t('hero.profileAlt')}
-              loading="eager"
-              fetchpriority="high"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="portfolio-wrap profile-proof desktop-profile-links">
-        <a class="career-summary" href={getLocalizedUrl('/experience', lang)}>
-          <span class="portfolio-icon">
-            <BriefcaseBusiness size={22} aria-hidden="true" />
-          </span>
+        </header>
+        <p class="profile-card-bio">{t('desktop.profileBio')}</p>
+        <div class="desktop-current-role">
+          <span aria-hidden="true"></span>
           <span>
-            <span class="portfolio-kicker">{t('profile.experience')}</span>
-            <strong>GuruSup · CONVOTIS Iberia · AIJU</strong>
+            {t('desktop.currentRole')} · <strong>GuruSup</strong>
           </span>
-          <ArrowUpRight size={20} aria-hidden="true" />
-        </a>
-        {glio && (
-          <a class="profile-case-proof" href={caseUrl(glio.id)}>
-            <ProjectVisual project={glio} />
-            <span>
-              <span class="portfolio-kicker">{t('profile.heroCase')}</span>
-              <strong>{t('profile.heroGlio')}</strong>
-            </span>
-            <ArrowUpRight size={20} aria-hidden="true" />
+        </div>
+        <div class="profile-card-actions">
+          <a class="portfolio-button" href={getLocalizedUrl('/experience', lang)}>
+            {t('desktop.viewExperience')} <ArrowUpRight size={17} aria-hidden="true" />
           </a>
-        )}
-      </div>
-    </section>
-
-    <section class="portfolio-section">
-      <div class="wrap portfolio-wrap">
-        {(glio || projectTypes.length > 0) && (
-          <div class="profile-evidence">
-            {glio && (
-              <a class="personal-card profile-feature" href={caseUrl(glio.id)}>
-                <ProjectVisual project={glio} />
-                <div class="profile-feature-copy">
-                  <p class="portfolio-kicker">AIJU</p>
-                  <h3>GLIO-IA</h3>
-                  <p class="portfolio-muted">{glio.data.summary}</p>
-                  <span class="personal-action">
-                    {t('profile.readGlio')} <ArrowUpRight size={19} aria-hidden="true" />
-                  </span>
-                </div>
-              </a>
-            )}
-            {projectTypes.length > 0 && (
-              <section class="profile-distribution" aria-labelledby="project-distribution-title">
-                <div class="portfolio-icon">
-                  <BarChart3 size={21} aria-hidden="true" />
-                </div>
-                <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
-                <ul class="distribution-bars" role="list">
-                  {projectTypes.map(({ type, count, label }) => (
-                    <li data-project-type={type}>
-                      <a href={workUrl + catalogSearch({ query: '', type })}>
-                        <span class="distribution-label">{label}</span>
-                        <span class="distribution-track" aria-hidden="true">
-                          <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
-                        </span>
-                        <strong>{count}</strong>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <a class="portfolio-link" href={workUrl}>
-                  {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
-                </a>
-              </section>
-            )}
-          </div>
-        )}
-      </div>
-    </section>
-
-    <section class="portfolio-section" id="work" aria-labelledby="personal-title">
-      <div class="wrap portfolio-wrap">
-        <div class="portfolio-heading portfolio-heading-split">
-          <h2 id="personal-title">{t('profile.personal')}</h2>
-          <a class="portfolio-link" href={workUrl}>
-            {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
+          <a class="portfolio-link" href={getLocalizedUrl('/skills', lang)}>
+            <Layers size={17} aria-hidden="true" /> {t('desktop.viewSkills')}
+          </a>
+          <a class="portfolio-link" href={getLocalizedUrl('/cv', lang)}>
+            <FileText size={17} aria-hidden="true" /> {t('desktop.cvOpen')}
           </a>
         </div>
-        <ul class="personal-grid" role="list">
-          <li>
-            <a class="personal-card card" href="https://github.com/almiab1/HealthDashboard">
-              <div class="personal-image">
-                <img
-                  src={healthArt}
-                  width="640"
-                  height="360"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="personal-content">
-                <p class="portfolio-kicker">{t('profile.healthType')}</p>
-                <h3>HealthDashboard</h3>
-                <p>{t('profile.healthSummary')}</p>
-                <span class="portfolio-muted">Astro · React · MySQL</span>
-                <span class="personal-action">
-                  {t('profile.repository')} <ArrowUpRight size={19} aria-hidden="true" />
-                </span>
-              </div>
-            </a>
-          </li>
-          {lostScout && (
-            <li>
-              <a class="personal-card card" href={caseUrl(lostScout.id)}>
-                <div class="personal-image">
-                  <ProjectVisual project={lostScout} />
-                </div>
-                <div class="personal-content">
-                  <p class="portfolio-kicker">{t('profile.soloProject')}</p>
-                  <h3>{lostScout.data.title}</h3>
-                  <p>{lostScout.data.summary}</p>
-                  <span class="portfolio-muted">{lostScout.data.tech.join(' · ')}</span>
-                  <span class="personal-action">
-                    {t('profile.readProject')} <ArrowUpRight size={19} aria-hidden="true" />
-                  </span>
-                </div>
-              </a>
-            </li>
-          )}
-        </ul>
       </div>
+      <footer class="profile-card-footer">
+        <span class="portfolio-kicker">{t('desktop.profileFocus')}</span>
+        <div class="profile-card-social">
+          <a class="portfolio-contact-social" href="https://github.com/almiab1" aria-label="GitHub">
+            <GithubIcon size={19} />
+          </a>
+          <a
+            class="portfolio-contact-social"
+            href="https://www.linkedin.com/in/alejandro-mira/"
+            aria-label="LinkedIn"
+          >
+            <LinkedinIcon size={19} />
+          </a>
+        </div>
+      </footer>
     </section>
-
-    <Contact />
   </main>
 </Base>

@@ -7,6 +7,7 @@ export const DESTINATIONS = {
   glio: { path: '/work/glio-ia', label: 'profile.readGlio' },
   work: { path: '/work', label: 'profile.exploreWork' },
   experience: { path: '/experience', label: 'desktop.experience' },
+  skills: { path: '/skills', label: 'desktop.viewSkills' },
   cv: { path: '/cv', label: 'desktop.cvOpen' },
   profile: { path: '/', label: 'desktop.profile' },
 } as const;
@@ -30,6 +31,11 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
       /\b(trabaj\w*|career|experience|experiencia|trayectoria|worked|gurusup|convotis|aiju)\b/,
     destination: 'experience',
     reply: 'desktop.replyCareer',
+  },
+  {
+    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education)\b/,
+    destination: 'skills',
+    reply: 'desktop.replySkills',
   },
   {
     pattern: /\b(proyecto\w*|project\w*|robot\w*|catalog\w*|portfolio)\b/,

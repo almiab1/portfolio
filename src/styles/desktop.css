@@ -43,12 +43,14 @@
 }
 
 .desktop-workspace {
-  width: min(100%, 108rem);
+  width: min(100%, 120rem);
   margin-inline: auto;
   display: grid;
   grid-template-columns: 5.25rem minmax(0, 1fr);
   gap: var(--desktop-gap);
   padding: var(--desktop-gap);
+  padding-inline: max(var(--desktop-gap), env(safe-area-inset-left))
+    max(var(--desktop-gap), env(safe-area-inset-right));
   min-height: 0;
 }
 
@@ -58,7 +60,8 @@
   gap: 0.35rem;
 }
 
-.desktop-dock > :is(a, button) {
+.desktop-dock > :is(a, button),
+.desktop-more > summary {
   display: grid;
   justify-items: center;
   align-content: center;
@@ -167,104 +170,6 @@
 
 .desktop-content .case-study {
   padding-block-start: clamp(1.2rem, 4cqw, 3.5rem);
-}
-
-.desktop-content .profile-hero {
-  margin: 0;
-  background: var(--desktop-panel);
-}
-
-.desktop-profile-cover {
-  display: grid;
-  grid-template-columns: minmax(0, 1.13fr) minmax(0, 0.87fr);
-  min-height: clamp(22rem, 61dvh, 41rem);
-  background: radial-gradient(ellipse at 8% 0%, #3d5946, transparent 70%), var(--desktop-forest);
-  color: var(--portfolio-light);
-}
-
-.desktop-profile-cover .profile-intro {
-  container-type: normal;
-  align-self: center;
-  padding: clamp(1rem, 5cqw, 4.2rem) clamp(0.8rem, 3.7cqw, 3rem);
-}
-
-.desktop-profile-cover .desktop-profile-role {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  color: #d7e8cf;
-}
-
-.desktop-profile-cover h1 {
-  margin-block: 0.65rem 0.95rem;
-  font-size: clamp(2.45rem, 8.7cqw, 7rem);
-}
-
-.desktop-profile-cover h1 span {
-  display: block;
-  color: #efb99a;
-}
-
-.desktop-profile-cover .profile-specialty {
-  font-size: clamp(1.17rem, 3cqw, 1.75rem);
-}
-
-.desktop-profile-cover .profile-lead {
-  color: #e3eadd;
-}
-
-.desktop-profile-cover .portfolio-button {
-  background: var(--portfolio-light);
-  color: var(--desktop-forest);
-}
-
-.desktop-profile-cover .portfolio-link {
-  color: var(--portfolio-light);
-}
-
-.desktop-profile-cover :focus-visible {
-  outline-color: var(--portfolio-light);
-}
-
-.desktop-current-role {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-block-start: 0.95rem;
-  min-height: 32px;
-  color: #e5eedc;
-  font-size: 0.83rem;
-}
-
-.desktop-current-role > span:first-child {
-  width: 0.48rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #b9d5a8;
-}
-
-.desktop-portrait {
-  display: grid;
-  min-height: 0;
-  padding: clamp(0.6rem, 1.4cqw, 1.25rem);
-}
-
-.desktop-portrait .portrait-frame {
-  position: relative;
-  border: 1px solid #ffffff35;
-  border-radius: calc(var(--radius) - 0.15rem);
-  aspect-ratio: auto;
-}
-
-.desktop-portrait img {
-  position: absolute;
-  inset: 0;
-  object-position: 52% 37%;
-}
-
-.desktop-profile-links {
-  padding-block: clamp(0.9rem, 2.5cqw, 1.75rem);
 }
 
 .desktop-sheet {
@@ -408,32 +313,6 @@
   }
 }
 
-@container (max-width: 34rem) {
-  .desktop-profile-cover {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .desktop-profile-cover h1 span {
-    display: inline;
-  }
-
-  .desktop-portrait {
-    grid-row: 1;
-    height: clamp(9.5rem, 24dvh, 16rem);
-  }
-
-  .desktop-profile-cover .profile-intro {
-    padding-block: 0.8rem 1.25rem;
-  }
-
-  .desktop-profile-links,
-  .desktop-content .profile-evidence,
-  .desktop-content .credentials-grid,
-  .desktop-content .personal-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media (max-width: 49rem) {
   .desktop-menu {
     grid-template-columns: 1fr auto;
@@ -456,9 +335,18 @@
     grid-auto-columns: minmax(0, 1fr);
   }
 
-  .desktop-dock > :is(a, button) {
+  .desktop-dock > :is(a, button),
+  .desktop-more > summary {
     min-height: 52px;
     font-size: clamp(0.62rem, 2.25vw, 0.73rem);
+  }
+
+  .desktop-dock > a.desktop-secondary-app {
+    display: none;
+  }
+
+  .desktop-dock .desktop-more {
+    display: block;
   }
 
   .desktop-dock svg {
@@ -475,14 +363,120 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .desktop-content > main {
-    animation: desktop-app-enter 180ms var(--portfolio-ease) both;
+  .desktop-content:has(.case-study) {
+    scroll-behavior: smooth;
+  }
+
+  .desktop-dock > :is(a, button),
+  .desktop-more > summary {
+    transition: transform 140ms var(--portfolio-ease);
+  }
+
+  .desktop-dock > :is(a, button):active,
+  .desktop-more > summary:active {
+    transform: scale(0.97);
+  }
+
+  ::view-transition-group(portfolio-app) {
+    animation-duration: 220ms;
+    animation-timing-function: var(--portfolio-ease);
+  }
+
+  ::view-transition-old(portfolio-app) {
+    animation: desktop-app-exit 130ms ease-out both;
+  }
+
+  ::view-transition-new(portfolio-app) {
+    animation: desktop-app-enter 220ms var(--portfolio-ease) both;
+  }
+
+  .desktop-more[open] .desktop-more-panel {
+    animation: desktop-pop-in 180ms var(--portfolio-ease) both;
+  }
+
+  @supports not (view-transition-name: portfolio-app) {
+    .desktop-content > main {
+      animation: desktop-app-enter 180ms var(--portfolio-ease) both;
+    }
+  }
+
+  @keyframes desktop-app-exit {
+    to {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes desktop-pop-in {
+    from {
+      opacity: 0;
+      transform: translateY(5px) scale(0.98);
+    }
   }
 
   @keyframes desktop-app-enter {
     from {
-      opacity: 0.65;
-      transform: translateY(3px);
+      opacity: 0;
+      transform: translateY(7px);
     }
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(portfolio-app),
+  ::view-transition-old(portfolio-app),
+  ::view-transition-new(portfolio-app) {
+    animation: none !important;
+  }
+}
+
+.desktop-more {
+  display: none;
+  position: relative;
+  z-index: 2;
+}
+
+.desktop-more > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.desktop-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.desktop-more > summary.desktop-more-current,
+.desktop-more[open] > summary {
+  background: var(--desktop-forest);
+  border-color: var(--desktop-forest);
+  color: var(--portfolio-light);
+}
+
+.desktop-more-panel {
+  position: absolute;
+  inset: auto 0 calc(100% + 0.45rem) auto;
+  display: grid;
+  min-width: 10.5rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 8px 25px #30231c25;
+  transform-origin: right bottom;
+}
+
+.desktop-more-panel a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding-inline: 0.65rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.desktop-more-panel a[aria-current] {
+  background: var(--accent);
+  color: var(--primary);
 }

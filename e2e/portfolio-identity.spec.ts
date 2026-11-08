@@ -21,7 +21,7 @@ for (const locale of [
   test(`shares the artwork and published project counts in ${locale.prefix ? 'English' : 'Spanish'}`, async ({
     page,
   }) => {
-    await page.goto(`${locale.prefix}/`);
+    await page.goto(`${locale.prefix}/work`);
     const chart = page.getByRole('region', { name: locale.chart });
     await expect(chart).toBeVisible();
     const chartCounts = await chart
@@ -35,7 +35,6 @@ for (const locale of [
         ),
       );
 
-    await page.goto(`${locale.prefix}/work`);
     const rows = page.locator('[data-project-id]');
     const types = await rows.evaluateAll((items) =>
       items.map((item) => item.getAttribute('data-type')!),
@@ -46,7 +45,7 @@ for (const locale of [
     }, {});
     expect(chartCounts).toEqual(catalogueCounts);
 
-    await page.goBack();
+    await expect(page.getByRole('link', { name: /HealthDashboard/ })).toBeVisible();
     await chart.locator('[data-project-type="ai"] a').click();
     await expect(page).toHaveURL(/\/work\?type=ai$/);
     await expect(page.locator('select[name="type"]')).toHaveValue('ai');

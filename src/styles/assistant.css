@@ -200,7 +200,7 @@
 
 @media (min-width: 49.001rem) {
   .desktop:not([data-assistant='minimized']) .desktop-workspace {
-    grid-template-columns: 5.25rem minmax(0, 1fr) minmax(17.5rem, 27%);
+    grid-template-columns: 5.25rem minmax(0, 1fr) clamp(17.5rem, 24vw, 24rem);
   }
 
   .desktop[data-assistant='minimized'] .desktop-assistant-island {
@@ -222,7 +222,8 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .desktop[data-assistant='open'] .desktop-assistant {
-    animation: desktop-app-enter 180ms var(--portfolio-ease) both;
+  .desktop[data-assistant='open'] .desktop-assistant,
+  .assistant-settings[open] .assistant-presets {
+    animation: desktop-pop-in 180ms var(--portfolio-ease) both;
   }
 }

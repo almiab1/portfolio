@@ -10,6 +10,7 @@ import '../styles/global.css';
 import '../styles/portfolio.css';
 import '../styles/desktop.css';
 import '../styles/assistant.css';
+import '../styles/profile-app.css';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 
@@ -42,7 +43,7 @@ const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' }
 <html lang={currentLang} data-type="service" transition:animate="none">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="page-type" content="service" />
     <meta name="site-kind" content="other" />
     <meta name="theme-color" content="#f8efe5" />

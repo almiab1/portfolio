@@ -4,6 +4,8 @@
 import {
   BriefcaseBusiness,
   FileText,
+  Ellipsis,
+  Layers,
   FolderKanban,
   UserRound,
   X,
@@ -19,6 +21,9 @@ interface Props {
 }
 
 const { lang, app } = Astro.props;
+const assistantPreview =
+  import.meta.env.PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW === '1' &&
+  process.env.VERCEL_ENV !== 'production';
 const t = useTranslations(lang);
 const apps = [
   { id: 'profile', path: '/', label: t('desktop.profile'), icon: UserRound },
@@ -29,9 +34,14 @@ const apps = [
     label: t('desktop.experience'),
     icon: BriefcaseBusiness,
   },
+  { id: 'skills', path: '/skills', label: t('desktop.skills'), icon: Layers },
   { id: 'cv', path: '/cv', label: 'CV', icon: FileText },
 ];
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isSecondary = (id: string) => id === 'skills' || id === 'cv';
+const secondaryActive = apps.some(
+  ({ id, path }) => isSecondary(id) && getLocalizedUrl(path, lang).replace(/\/$/, '') === current,
+);
 const profile = getLocalizedUrl('/', lang);
 ---
 
@@ -65,6 +75,7 @@ const profile = getLocalizedUrl('/', lang);
           <a
             href={href}
             aria-current={active ? (current === normalized ? 'page' : 'location') : undefined}
+            class:list={{ 'desktop-secondary-app': isSecondary(id) }}
             data-desktop-launch={normalized}
             data-app={id}
           >
@@ -82,6 +93,34 @@ const profile = getLocalizedUrl('/', lang);
         <MessageCircleMore size={22} aria-hidden="true" />
         <span>{t('desktop.assistant')}</span>
       </button>
+      <details class="desktop-more" data-desktop-more>
+        <summary class:list={{ 'desktop-more-current': secondaryActive }}>
+          <Ellipsis size={22} aria-hidden="true" />
+          <span>{t('desktop.more')}</span>
+        </summary>
+        <div class="desktop-more-panel">
+          {apps
+            .filter(({ id }) => isSecondary(id))
+            .map(({ id, path, label, icon: Icon }) => {
+              const localized = getLocalizedUrl(path, lang);
+              const normalized = localized.replace(/\/$/, '') || '/';
+              const href = id === 'profile' ? localized : normalized;
+              const active =
+                normalized === current || (id === 'work' && current.startsWith(normalized + '/'));
+              return (
+                <a
+                  href={href}
+                  aria-current={active ? (current === normalized ? 'page' : 'location') : undefined}
+                  data-desktop-launch={normalized}
+                  data-app={id}
+                >
+                  <Icon size={22} aria-hidden="true" />
+                  <span>{label}</span>
+                </a>
+              );
+            })}
+        </div>
+      </details>
     </nav>
     <div class="desktop-window">
       <div class="desktop-titlebar">
@@ -100,13 +139,14 @@ const profile = getLocalizedUrl('/', lang);
           <X size={18} aria-hidden="true" />
         </button>
       </div>
-      <div class="desktop-content" data-desktop-content>
+      <div class="desktop-content" data-desktop-content style="view-transition-name: portfolio-app">
         <slot />
       </div>
     </div>
     <div class="desktop-assistant-island">
       <PortfolioAssistant
         lang={lang}
+        preview={assistantPreview}
         client:load
         transition:persist={`portfolio-assistant-${lang}`}
       />

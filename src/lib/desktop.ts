@@ -29,6 +29,24 @@ class PortfolioDesktop extends HTMLElement {
     const dock = [...this.querySelectorAll<HTMLAnchorElement>('[data-desktop-launch]')];
     const toggle = this.querySelector<HTMLButtonElement>('[data-assistant-toggle]')!;
     const mobile = matchMedia(MOBILE_QUERY);
+    const more = this.querySelector<HTMLDetailsElement>('[data-desktop-more]')!;
+    const moreSummary = more.querySelector('summary')!;
+    document.addEventListener(
+      'pointerdown',
+      (event) => {
+        if (event.target instanceof Node && !more.contains(event.target)) more.open = false;
+      },
+      options,
+    );
+    more.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key !== 'Escape' || !more.open) return;
+        more.open = false;
+        moreSummary.focus();
+      },
+      options,
+    );
     const updateAssistant = () => {
       const open = mobile.matches ? mobileOpen : !desktopMinimized;
       this.dataset.assistant = open ? 'open' : 'minimized';
@@ -37,6 +55,7 @@ class PortfolioDesktop extends HTMLElement {
     toggle.addEventListener(
       'click',
       () => {
+        more.open = false;
         if (mobile.matches) mobileOpen = !mobileOpen;
         else desktopMinimized = !desktopMinimized;
         updateAssistant();
@@ -50,6 +69,7 @@ class PortfolioDesktop extends HTMLElement {
       'click',
       (event) => {
         if (!(event.target instanceof Element)) return;
+        if (event.target.closest('[data-desktop-launch]')) more.open = false;
         if (event.target.closest('[data-assistant-minimize]')) {
           if (mobile.matches) mobileOpen = false;
           else desktopMinimized = true;

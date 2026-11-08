@@ -11,6 +11,7 @@ import { t, type Language } from '@/i18n/translations';
 
 interface Props {
   lang: Language;
+  preview?: boolean;
 }
 
 const AVATAR_LABELS = {
@@ -19,10 +20,10 @@ const AVATAR_LABELS = {
   pulse: 'desktop.avatarPulse',
 } as const;
 
-export default function PortfolioAssistant({ lang }: Props) {
+export default function PortfolioAssistant({ lang, preview = false }: Props) {
   const translate = t(lang);
   const { messages, input, setInput, send, busy, error, avatar, selectAvatar, log, trackScroll } =
-    usePortfolioAssistant(lang);
+    usePortfolioAssistant(lang, preview);
 
   return (
     <aside className="desktop-assistant" id="desktop-assistant" aria-labelledby="assistant-title">
@@ -31,7 +32,9 @@ export default function PortfolioAssistant({ lang }: Props) {
           <AssistantAvatar avatar={avatar} />
         </span>
         <div className="assistant-title">
-          <p className="portfolio-kicker">{translate('desktop.assistantDemo')}</p>
+          <p className="portfolio-kicker">
+            {translate(preview ? 'desktop.assistantPreview' : 'desktop.assistantDemo')}
+          </p>
           <h2 id="assistant-title">{translate('desktop.assistant')}</h2>
         </div>
         <details className="assistant-settings">

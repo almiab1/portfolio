@@ -1,0 +1,5 @@
+# ABOUTME: Pins the Python runtime for the preview assistant.
+# ABOUTME: Installs the Vercel AI protocol adapter and Gemini provider.
+fastapi==0.162.2
+pydantic-ai-slim[google,ui]==2.66.0
+PyYAML==6.0.3

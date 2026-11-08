@@ -52,7 +52,7 @@ test.describe('compact mobile navigation', () => {
     await page.goto('/');
     const dock = page.locator('.desktop-dock');
     const toggle = dock.getByRole('button', { name: 'Asistente' });
-    for (const item of await dock.locator(':is(a, button)').all()) {
+    for (const item of await dock.locator(':is(a, button, summary):visible').all()) {
       const box = await item.boundingBox();
       expect(box?.width).toBeGreaterThanOrEqual(44);
       expect(box?.height).toBeGreaterThanOrEqual(44);
@@ -67,26 +67,38 @@ test.describe('compact mobile navigation', () => {
     await expect(toggle).toBeFocused();
     await expect(page.locator('#main-content')).toBeVisible();
 
+    const more = dock.getByText('Más', { exact: true }).locator('..');
     const cv = dock.getByRole('link', { name: 'CV', exact: true });
+    await expect(cv).toBeHidden();
+    await more.press('Enter');
+    await expect(cv).toBeInViewport();
+    await cv.focus();
+    await cv.press('Escape');
+    await expect(more).toBeFocused();
+    await expect(cv).toBeHidden();
+    await more.press('Enter');
+    await dock.getByRole('link', { name: 'Habilidades', exact: true }).click();
+    await expect(
+      page.getByRole('heading', { name: 'Habilidades técnicas', level: 1 }),
+    ).toBeVisible();
+    await more.press('Enter');
     await cv.press('Enter');
     await expect(page.getByRole('heading', { name: 'Currículum' })).toBeVisible();
   });
 });
 
-test('aligns the paired profile sections and keeps their subheadings consistent', async ({
+test('uses wide workspace space while keeping the profile and assistant bounded', async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('/');
-  const columns = ['.profile-distribution', '.personal-grid > li:nth-child(2)'];
-  const positions = await Promise.all(
-    columns.map(async (selector) => (await page.locator(selector).boundingBox())!.x),
-  );
-  expect(new Set(positions).size).toBe(1);
-  const sizes = await page
-    .locator('.portfolio-section h3')
-    .evaluateAll((headings) => headings.map((heading) => getComputedStyle(heading).fontSize));
-  expect(new Set(sizes).size).toBe(1);
+  const workspace = (await page.locator('.desktop-workspace').boundingBox())!;
+  const profile = (await page.locator('.profile-card').boundingBox())!;
+  const assistant = (await page.locator('.desktop-assistant').boundingBox())!;
+  expect(workspace.width).toBeGreaterThan(1800);
+  expect(profile.width).toBeLessThan(workspace.width);
+  expect(assistant.width).toBeLessThanOrEqual(384);
+  await page.goto('/skills');
   await expect(page.locator('a.portfolio-contact-email')).toHaveCSS(
     'background-color',
     'rgb(255, 247, 238)',
@@ -104,6 +116,8 @@ test('loads Inter for both languages and fits the main routes at 320 pixels', as
     '/work/glio-ia',
     '/en/work/glio-ia',
     '/experience',
+    '/skills',
+    '/en/skills',
     '/en/cv',
   ]) {
     await page.goto(route);
@@ -116,9 +130,12 @@ test('loads Inter for both languages and fits the main routes at 320 pixels', as
       return {
         fontLoaded: faces.some((face) => face.status === 'loaded'),
         width: document.documentElement.scrollWidth,
+        panelFits: [...document.querySelectorAll('[data-desktop-content]')].every(
+          (panel) => panel.scrollWidth <= panel.clientWidth + 1,
+        ),
       };
     });
-    expect(metrics, route).toEqual({ fontLoaded: true, width: 320 });
+    expect(metrics, route).toEqual({ fontLoaded: true, width: 320, panelFits: true });
   }
 
   const italicLoaded = await page.evaluate(async () => {

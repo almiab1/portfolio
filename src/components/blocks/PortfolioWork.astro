@@ -1,8 +1,10 @@
 ---
 // ABOUTME: Renders the bilingual project archive with indexed search and type controls.
 // ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
-import { ArrowLeft, ArrowUpRight, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
 import Layout from '@/layouts/BaseLayout.astro';
+import healthArt from '@/assets/projects/health-dashboard.svg?url';
+import { catalogSearch } from '@/lib/catalog-filters';
 import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
 import { getProjectsByLang } from '@/lib/i18n-content';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
@@ -23,6 +25,14 @@ const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
 const types = [...new Set(projects.map(({ data }) => data.type))]
   .map((type) => ({ type, label: t(`project.type.${type}`) }))
   .sort((a, b) => a.label.localeCompare(b.label, lang));
+const projectTypes = types
+  .map(({ type, label }) => ({
+    type,
+    label,
+    count: projects.filter(({ data }) => data.type === type).length,
+  }))
+  .sort((a, b) => b.count - a.count);
+const maxProjectCount = projectTypes[0]?.count ?? 1;
 const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' });
 ---
 
@@ -113,6 +123,60 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         })}
       </ul>
     </project-catalog>
+    <div class="catalogue-extras">
+      {projectTypes.length > 0 && (
+        <section class="profile-distribution" aria-labelledby="project-distribution-title">
+          <div class="portfolio-icon">
+            <BarChart3 size={21} aria-hidden="true" />
+          </div>
+          <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
+          <ul class="distribution-bars" role="list">
+            {projectTypes.map(({ type, count, label }) => (
+              <li data-project-type={type}>
+                <a href={workUrl + catalogSearch({ query: '', type })}>
+                  <span class="distribution-label">{label}</span>
+                  <span class="distribution-track" aria-hidden="true">
+                    <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
+                  </span>
+                  <strong>{count}</strong>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a class="portfolio-link" href={workUrl}>
+            {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+        </section>
+      )}
+      <section aria-labelledby="personal-projects-title">
+        <h2 id="personal-projects-title">{t('profile.personal')}</h2>
+        <ul class="personal-grid" role="list">
+          <li>
+            <a class="personal-card card" href="https://github.com/almiab1/HealthDashboard">
+              <div class="personal-image">
+                <img
+                  src={healthArt}
+                  width="640"
+                  height="360"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="personal-content">
+                <p class="portfolio-kicker">{t('profile.healthType')}</p>
+                <h3>HealthDashboard</h3>
+                <p>{t('profile.healthSummary')}</p>
+                <span class="portfolio-muted">Astro · React · MySQL</span>
+                <span class="personal-action">
+                  {t('profile.repository')} <ArrowUpRight size={19} aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
   </main>
 </Layout>
 

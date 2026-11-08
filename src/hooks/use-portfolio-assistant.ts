@@ -1,5 +1,6 @@
 // ABOUTME: Owns assistant chat, input, and avatar preferences.
 // ABOUTME: Preserves the visible thread while the assistant panel is hidden or restored.
+import { DefaultChatTransport } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortfolioTransport, type PortfolioMessage } from '@/lib/assistant-transport';
@@ -28,8 +29,14 @@ function subscribeAvatar(update: () => void) {
   };
 }
 
-export function usePortfolioAssistant(lang: Language) {
-  const transport = useMemo(() => createPortfolioTransport(lang), [lang]);
+export function usePortfolioAssistant(lang: Language, preview: boolean) {
+  const transport = useMemo(
+    () =>
+      preview
+        ? new DefaultChatTransport<PortfolioMessage>({ api: '/api/chat', body: { lang } })
+        : createPortfolioTransport(lang),
+    [lang, preview],
+  );
   const { messages, sendMessage, status, error } = useChat<PortfolioMessage>({
     transport,
     messages: [
