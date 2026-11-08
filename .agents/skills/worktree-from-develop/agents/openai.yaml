@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worktree from Develop"
+  short_description: "Start isolated work from remote develop"
+  default_prompt: "Use $worktree-from-develop to start a Portfolio worktree from the latest origin/develop and continue there."
