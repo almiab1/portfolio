@@ -53,6 +53,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
     ],
   });
   const [input, setInput] = useState('');
+  const [expanded, setExpanded] = useState(false);
   const avatar = useSyncExternalStore<Avatar>(subscribeAvatar, readAvatar, () => 'orbit');
   const log = useRef<HTMLDivElement>(null);
   const followThread = useRef(true);
@@ -63,7 +64,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
     if (panel && followThread.current && panel.clientHeight) {
       panel.scrollTop = panel.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, expanded]);
 
   function trackScroll() {
     const panel = log.current;
@@ -90,5 +91,22 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
     void sendMessage({ text: clean });
   }
 
-  return { messages, input, setInput, send, busy, error, avatar, selectAvatar, log, trackScroll };
+  function toggleReadingMode() {
+    setExpanded((current) => !current);
+  }
+
+  return {
+    messages,
+    input,
+    setInput,
+    send,
+    busy,
+    error,
+    avatar,
+    selectAvatar,
+    log,
+    trackScroll,
+    expanded,
+    toggleReadingMode,
+  };
 }

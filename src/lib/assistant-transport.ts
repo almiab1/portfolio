@@ -13,7 +13,7 @@ export const DESTINATIONS = {
   profile: { path: '/', label: 'desktop.profile' },
 } as const;
 
-type Destination = keyof typeof DESTINATIONS;
+export type Destination = keyof typeof DESTINATIONS;
 export type PortfolioMessage = UIMessage<unknown, { destination: Destination }>;
 
 const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey }[] = [

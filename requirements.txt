@@ -1,5 +1,5 @@
 # ABOUTME: Pins the Python runtime for the preview assistant.
-# ABOUTME: Installs the Vercel AI protocol adapter and Gemini provider.
+# ABOUTME: Installs the Vercel AI protocol adapter and OpenAI-compatible NVIDIA NIM client.
 fastapi==0.162.2
-pydantic-ai-slim[google,ui]==2.66.0
+pydantic-ai-slim[openai,ui]==2.66.0
 PyYAML==6.0.3
