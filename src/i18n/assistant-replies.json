@@ -7,7 +7,8 @@
     "desktop.replyProjects": "En Proyectos puedes explorar trabajos de IA, robótica e ingeniería de software, con filtros por tipo y búsqueda por tecnología.",
     "desktop.replyProfile": "Alex diseña y despliega agentes de IA en GuruSup. En Perfil puedes leer su bio y acceder a su trayectoria, sus habilidades y su CV.",
     "desktop.replyFallback": "Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo.",
-    "desktop.replyContact": "En Contacto puedes escribir a Alex por correo o encontrar sus perfiles de LinkedIn y GitHub."
+    "desktop.replyContact": "En Contacto puedes escribir a Alex por correo o encontrar sus perfiles de LinkedIn y GitHub.",
+    "desktop.replyRestricted": "Puedo ayudarte con información pública del portfolio. Pregúntame por los proyectos, la trayectoria o las habilidades de Alex."
   },
   "en": {
     "desktop.replySkills": "Alex works with LLMs, Python and PyTorch and builds applications with FastAPI, React and PostgreSQL. Skills has examples and education.",
@@ -17,6 +18,7 @@
     "desktop.replyProjects": "In Projects you can explore work in AI, robotics and software engineering, filter by type and search by technology.",
     "desktop.replyProfile": "Alex designs and deploys AI agents at GuruSup. Profile introduces his work and links to his experience, skills and résumé.",
     "desktop.replyFallback": "This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start.",
-    "desktop.replyContact": "In Contact you can email Alex or find his LinkedIn and GitHub profiles."
+    "desktop.replyContact": "In Contact you can email Alex or find his LinkedIn and GitHub profiles.",
+    "desktop.replyRestricted": "I can help with public information from the portfolio. Ask me about Alex’s projects, experience or skills."
   }
 }

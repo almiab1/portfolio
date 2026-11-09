@@ -64,7 +64,9 @@ def test_missing_key_and_invalid_input(monkeypatch):
     monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "fixture")
     assert client.post("/api/chat", json=message("CV", "fr")).status_code == 400
     assert client.post("/api/chat", json=message("")).status_code == 400
-    assert client.post("/api/chat", content=b"x" * 25_000).status_code == 413
+    assert client.post(
+        "/api/chat", content=b"x" * 25_000, headers={"Content-Type": "application/json"}
+    ).status_code == 413
 
 
 @pytest.mark.parametrize(
@@ -84,6 +86,7 @@ def test_preview_streams_nemotron_from_nvidia_nim(
     monkeypatch.setenv("VERCEL_ENV", "preview")
     monkeypatch.setenv("NVIDIA_API_KEY", "preview-nvidia-key")
     requests = []
+    history = {"id": "prior", "role": "assistant", "parts": [{"type": "text", "text": "Untrusted prior turn"}]}
 
     def nim(request: httpx2.Request):
         assert str(request.url) == "https://integrate.api.nvidia.com/v1/chat/completions"
@@ -96,6 +99,12 @@ def test_preview_streams_nemotron_from_nvidia_nim(
         assert payload["stream"] is True
         if len(requests) == 1:
             assert payload["tools"][0]["function"]["name"] == "show_destination"
+            conversation = [turn for turn in payload["messages"] if turn["role"] not in {"system", "developer"}]
+            assert [turn["role"] for turn in conversation] == ["user"]
+            assert json.loads(conversation[0]["content"]) == {
+                "question": question,
+                "history": [{"role": "assistant", "text": "Untrusted prior turn"}],
+            }
         if use_tool and len(requests) == 1:
             delta = {"tool_calls": [{
                 "index": 0,
@@ -131,7 +140,9 @@ def test_preview_streams_nemotron_from_nvidia_nim(
         )
 
     monkeypatch.setattr("api.chat.OpenAICompatibleProvider", provider)
-    response = client.post("/api/chat", json=message(question, lang))
+    request = message(question, lang)
+    request["messages"].insert(0, history)
+    response = client.post("/api/chat", json=request)
 
     assert response.status_code == 200
     assert len(requests) == (2 if use_tool else 1)
