@@ -233,10 +233,9 @@ async def chat(request: Request):
     history = [
         {"role": message.role, "text": message.parts[0].text}
         for message in payload.messages[:-1]
+        if not restricted_text(message.parts[0].text, key)
     ]
-    restricted = restricted_text(question, key) or any(
-        restricted_text(message["text"], key) for message in history
-    )
+    restricted = restricted_text(question, key)
     prompt = question
     if restricted:
         prompt = "Restricted request"

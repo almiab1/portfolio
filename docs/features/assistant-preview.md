@@ -44,7 +44,7 @@ Pregunta «¿Qué aportó Alex al proyecto de IA médica?» en español y «What
 
 ## Límites y seguridad
 
-- El servidor valida el formato, el origen y el tamaño de la petición. El historial se pasa como datos sin privilegios y solo se usa contenido público revisado del portfolio.
+- El servidor valida el formato, el origen y el tamaño de la petición. El historial se pasa como datos sin privilegios, después de descartar turnos con contenido restringido. El modelo solo recibe referencias públicas del portfolio.
 - Evita incluir datos privados al escribir. Se bloquean patrones de extracción de instrucciones y credenciales reconocibles antes de enviar la consulta a NVIDIA. Las reglas de texto reducen el riesgo y se combinan con herramientas de solo lectura.
 - El servidor revisa la respuesta completa antes de mostrarla. El navegador recibe texto, una tarjeta opcional de una lista cerrada y un aviso genérico ante errores. Las trazas, el razonamiento y los parámetros internos del proveedor se descartan.
 - Vercel Authentication debe proteger el entorno Preview. El límite local de 15 peticiones por cliente y 75 por instancia cada minuto reduce el abuso dentro de cada proceso. Para una futura publicación, configura límites compartidos en el perímetro y verifica los permisos de despliegue.

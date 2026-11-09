@@ -64,7 +64,10 @@
   "pnpm": {
     "overrides": {
       "vite": "8.3.7",
-      "unifont>undici": "8.12.4"
+      "unifont>undici": "8.12.4",
+      "jsdom>undici": "8.12.4",
+      "@tailwindcss/typography>postcss-selector-parser": "6.1.5",
+      "minimatch": "11.0.1"
     }
   },
   "packageManager": "pnpm@10.29.3+sha512.498e1fb4cca5aa06c1dcf2611e6fafc50972ffe7189998c409e90de74566444298ffe43e6cd2acdc775ba1aa7cc5e092a8b7054c811ba8c5770f84693d33d2dc"
