@@ -1,9 +1,8 @@
 ---
-// ABOUTME: Presents professional skills, evidence, education, and contact information.
+// ABOUTME: Presents professional skills, evidence, and education.
 // ABOUTME: Provides a separate bilingual app inside the workspace.
 import { ArrowUpRight, BrainCircuit, CodeXml, GraduationCap, Sparkles } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
-import Contact from '@/components/blocks/Contact.astro';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
 
 interface Props {
@@ -70,6 +69,5 @@ const degrees = [
         </ul>
       </section>
     </div>
-    <Contact />
   </main>
 </Base>
