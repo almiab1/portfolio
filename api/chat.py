@@ -7,6 +7,7 @@ import unicodedata
 from collections.abc import AsyncIterator
 from functools import lru_cache
 from pathlib import Path
+from textwrap import shorten
 from typing import Literal
 
 import yaml
@@ -25,7 +26,13 @@ from pydantic_ai.usage import UsageLimits
 Language = Literal["es", "en"]
 Destination = Literal["profile", "work", "experience", "skills", "cv", "glio"]
 MODEL_NAME = "gemini-3.5-flash-lite"
-PROJECTS = Path(__file__).resolve().parents[1] / "src" / "content" / "projects"
+SOURCE = Path(__file__).resolve().parents[1] / "src"
+PROJECTS = SOURCE / "content" / "projects"
+REPLIES_PATH = SOURCE / "i18n" / "assistant-replies.json"
+CONTRIBUTION = re.compile(
+    r"^### (?:Mi Rol|My Role)[ \t]*\n(.*?)(?=^#{1,3} |\Z)",
+    re.MULTILINE | re.DOTALL | re.IGNORECASE,
+)
 MAX_REQUEST_BYTES = 24_000
 MAX_HISTORY_MESSAGES = 9
 MAX_MESSAGE_CHARS = 1_200
@@ -53,40 +60,32 @@ app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 def portfolio_context(lang: Language) -> str:
     projects = []
     for path in sorted((PROJECTS / lang).glob("*.mdx")):
-        _, frontmatter, _ = path.read_text(encoding="utf-8").split("---", 2)
+        _, frontmatter, body = path.read_text(encoding="utf-8").split("---", 2)
         project = yaml.safe_load(frontmatter)
         title, summary = project["title"], project["summary"]
         technologies = ", ".join(project.get("tech", []))
-        projects.append(f"- {title}. {summary} Technologies: {technologies}.")
+        facts = [f"- {title}. {summary}", f"Technologies: {technologies}."]
+        if role := project.get("role"):
+            facts.append(f"Alex's role: {role}.")
+        if contribution := CONTRIBUTION.search(body):
+            facts.append(shorten(contribution[1], width=480, placeholder=" …"))
+        projects.append(" ".join(facts))
     return PUBLIC_FACTS + "\nPublished project catalogue:\n" + "\n".join(projects)
 
 
-FIXTURE_REPLIES: dict[Destination, tuple[str, str]] = {
-    "glio": (
-        "En AIJU, Alex diseñó GLIO-IA, una plataforma que combina datos clínicos, imágenes médicas y datos ómicos para investigar tumores cerebrales.",
-        "At AIJU, Alex designed GLIO-IA, a platform that combines clinical records, medical images and omics data for brain tumour research.",
-    ),
-    "experience": (
-        "Alex desarrolla agentes de IA en GuruSup. Antes trabajó en CONVOTIS Iberia y AIJU.",
-        "Alex builds AI agents at GuruSup. He previously worked at CONVOTIS Iberia and AIJU.",
-    ),
-    "skills": (
-        "Alex trabaja con LLM, Python y PyTorch, y desarrolla aplicaciones con FastAPI, React y PostgreSQL.",
-        "Alex works with LLMs, Python and PyTorch and builds applications with FastAPI, React and PostgreSQL.",
-    ),
-    "cv": (
-        "En CV puedes previsualizar y descargar las ediciones en español e inglés.",
-        "In the CV app, you can preview and download the Spanish and English editions.",
-    ),
-    "work": (
-        "El catálogo reúne los proyectos de Alex y permite buscarlos por tema o tecnología.",
-        "The catalogue brings together Alex’s projects and lets you search by topic or technology.",
-    ),
-    "profile": (
-        "Alex es ingeniero de IA y software. En GuruSup desarrolla agentes para atención al cliente.",
-        "Alex is an AI and software engineer. He builds customer support agents at GuruSup.",
-    ),
+FIXTURE_REPLY_KEYS: dict[Destination, str] = {
+    "glio": "desktop.replyGlio",
+    "experience": "desktop.replyCareer",
+    "skills": "desktop.replySkills",
+    "cv": "desktop.replyCv",
+    "work": "desktop.replyProjects",
+    "profile": "desktop.replyProfile",
 }
+
+
+@lru_cache(maxsize=1)
+def fixture_replies() -> dict[Language, dict[str, str]]:
+    return json.loads(REPLIES_PATH.read_text(encoding="utf-8"))
 
 
 def fixture_model(lang: Language) -> FunctionModel:
@@ -94,7 +93,7 @@ def fixture_model(lang: Language) -> FunctionModel:
         request = next(message for message in reversed(messages) if isinstance(message, ModelRequest))
         result = next((part for part in request.parts if isinstance(part, ToolReturnPart)), None)
         if result:
-            yield FIXTURE_REPLIES[result.content][lang == "en"]
+            yield fixture_replies()[lang][FIXTURE_REPLY_KEYS[result.content]]
             return
 
         prompt = next((part.content for part in request.parts if isinstance(part, UserPromptPart)), "")
@@ -105,7 +104,7 @@ def fixture_model(lang: Language) -> FunctionModel:
         topics: tuple[tuple[str, Destination], ...] = (
             (r"glio|tumor|medic", "glio"),
             (r"\bcv\b|resume|curriculum", "cv"),
-            (r"skill|habilidad|tecnolog|pytorch", "skills"),
+            (r"skill|habilidad|tecnolog|pytorch|contact", "skills"),
             (r"trabaj|worked|experience|trayectoria|career", "experience"),
             (r"proyect|project|catalog", "work"),
         )

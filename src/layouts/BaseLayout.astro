@@ -73,9 +73,6 @@ const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' }
     <meta name="twitter:card" content="summary" />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
-    <script is:inline>
-      document.documentElement.classList.add('m-enter');
-    </script>
     <ClientRouter />
   </head>
   <body class="min-h-screen bg-background text-foreground">
