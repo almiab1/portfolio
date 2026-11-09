@@ -23,16 +23,6 @@ const t = useTranslations(lang);
   ))}
   <main id="main-content" class="profile-app" tabindex="-1">
     <section class="profile-card" aria-labelledby="profile-title">
-      <div class="profile-card-photo">
-        <Image
-          src={portrait}
-          width={680}
-          format="webp"
-          alt={t('hero.profileAlt')}
-          loading="eager"
-          fetchpriority="high"
-        />
-      </div>
       <div class="profile-card-body">
         <header>
           <p class="portfolio-kicker">{t('profile.role')}</p>
@@ -59,16 +49,32 @@ const t = useTranslations(lang);
           </a>
         </div>
       </div>
+      <div class="profile-card-photo">
+        <Image
+          src={portrait}
+          width={680}
+          format="webp"
+          alt={t('hero.profileAlt')}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
       <footer class="profile-card-footer">
         <span class="portfolio-kicker">{t('desktop.profileFocus')}</span>
         <div class="profile-card-social">
-          <a class="portfolio-contact-social" href="https://github.com/almiab1" aria-label="GitHub">
+          <a
+            class="portfolio-contact-social"
+            href="https://github.com/almiab1"
+            aria-label="GitHub"
+            title="GitHub"
+          >
             <GithubIcon size={19} />
           </a>
           <a
             class="portfolio-contact-social"
             href="https://www.linkedin.com/in/alejandro-mira/"
             aria-label="LinkedIn"
+            title="LinkedIn"
           >
             <LinkedinIcon size={19} />
           </a>
