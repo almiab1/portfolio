@@ -2,6 +2,7 @@
 /* ABOUTME: Shares the desktop chrome and adapts the panel to the mobile dock. */
 .desktop-assistant {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto auto;
   height: 100%;
   min-height: 0;
@@ -45,10 +46,14 @@
 
 .assistant-title {
   flex: 1;
+  min-width: 0;
 }
 
 .assistant-title .portfolio-kicker {
+  overflow: hidden;
   font-size: 0.64rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .assistant-title h2 {
@@ -200,11 +205,26 @@
 
 @media (min-width: 49.001rem) {
   .desktop:not([data-assistant='minimized']) .desktop-workspace {
-    grid-template-columns: 5.25rem minmax(0, 1fr) clamp(17.5rem, 24vw, 24rem);
+    grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr) clamp(17.25rem, 21.5vw, 22rem);
   }
 
   .desktop[data-assistant='minimized'] .desktop-assistant-island {
     display: none;
+  }
+}
+
+@media (min-width: 49.001rem) and (max-height: 800px) {
+  .assistant-header {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .assistant-log {
+    padding: 0.6rem;
+  }
+
+  .assistant-composer,
+  .assistant-suggestions {
+    padding: 0.45rem 0.6rem;
   }
 }
 

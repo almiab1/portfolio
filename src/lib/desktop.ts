@@ -113,7 +113,10 @@ class PortfolioDesktop extends HTMLElement {
         ...[...workspace.values()].map(({ path, href, label }) => {
           const link = document.createElement('a');
           link.href = href;
-          link.textContent = label;
+          const caption = document.createElement('span');
+          caption.textContent = label;
+          link.append(caption);
+          link.title = label;
           if (path === current) link.setAttribute('aria-current', 'page');
           return link;
         }),

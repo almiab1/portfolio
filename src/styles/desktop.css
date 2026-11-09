@@ -4,6 +4,7 @@
   --desktop-gap: clamp(0.45rem, 1.05vw, 1rem);
   --desktop-forest: #263e32;
   --desktop-panel: var(--card);
+  --desktop-dock-width: 5rem;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   height: 100dvh;
@@ -46,7 +47,7 @@
   width: min(100%, 120rem);
   margin-inline: auto;
   display: grid;
-  grid-template-columns: 5.25rem minmax(0, 1fr);
+  grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr);
   gap: var(--desktop-gap);
   padding: var(--desktop-gap);
   padding-inline: max(var(--desktop-gap), env(safe-area-inset-left))
@@ -116,10 +117,17 @@
   align-items: center;
   min-width: 44px;
   min-height: 44px;
-  padding-inline: 0.8rem;
+  padding-inline: 0.75rem;
   color: var(--muted-foreground);
   font-size: 0.83rem;
   font-weight: 650;
+}
+
+.desktop-tabs a span {
+  max-inline-size: min(24ch, 53vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .desktop-tabs a[aria-current] {
@@ -147,7 +155,7 @@
   overflow: auto;
   overscroll-behavior: contain;
   container-type: inline-size;
-  --portfolio-gutter: clamp(0.85rem, 4cqw, 3.5rem);
+  --portfolio-gutter: clamp(0.85rem, 3.6cqw, 3rem);
 }
 
 .desktop-content :where(#about, #contact, #work, #main-content, .case-article [id]) {
@@ -165,11 +173,11 @@
 }
 
 .desktop-content .catalogue {
-  padding-block: clamp(1.2rem, 4cqw, 3.5rem) 3rem;
+  padding-block: clamp(0.85rem, 2.8cqw, 2.35rem) 3rem;
 }
 
 .desktop-content .case-study {
-  padding-block-start: clamp(1.2rem, 4cqw, 3.5rem);
+  padding-block-start: clamp(0.85rem, 2.8cqw, 2.35rem);
 }
 
 .desktop-sheet {
@@ -313,6 +321,27 @@
   }
 }
 
+@media (min-width: 49.001rem) and (max-height: 800px) {
+  .desktop {
+    --desktop-gap: clamp(0.45rem, 0.8vw, 0.75rem);
+    --desktop-dock-width: 4.65rem;
+  }
+
+  .desktop-menu {
+    padding-block: 0.18rem;
+  }
+
+  .desktop-dock > :is(a, button) {
+    min-height: 52px;
+    font-size: 0.68rem;
+  }
+
+  .desktop-dock svg {
+    width: 19px;
+    height: 19px;
+  }
+}
+
 @media (max-width: 49rem) {
   .desktop-menu {
     grid-template-columns: 1fr auto;
@@ -416,7 +445,7 @@
 
   @keyframes desktop-app-enter {
     from {
-      opacity: 0;
+      opacity: 0.72;
       transform: translateY(7px);
     }
   }

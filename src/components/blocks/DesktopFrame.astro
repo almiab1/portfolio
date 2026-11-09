@@ -76,6 +76,7 @@ const profile = getLocalizedUrl('/', lang);
             href={href}
             aria-current={active ? (current === normalized ? 'page' : 'location') : undefined}
             class:list={{ 'desktop-secondary-app': isSecondary(id) }}
+            title={label}
             data-desktop-launch={normalized}
             data-app={id}
           >
@@ -87,6 +88,7 @@ const profile = getLocalizedUrl('/', lang);
       <button
         type="button"
         data-assistant-toggle
+        title={t('desktop.assistant')}
         aria-expanded="false"
         aria-controls="desktop-assistant"
       >
@@ -125,8 +127,8 @@ const profile = getLocalizedUrl('/', lang);
     <div class="desktop-window">
       <div class="desktop-titlebar">
         <nav class="desktop-tabs" data-desktop-tabs aria-label={t('desktop.tabs')}>
-          <a href={Astro.url.pathname} aria-current="page">
-            {app}
+          <a href={Astro.url.pathname} aria-current="page" title={app}>
+            <span>{app}</span>
           </a>
         </nav>
         <button
