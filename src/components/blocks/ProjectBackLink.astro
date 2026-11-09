@@ -33,7 +33,7 @@ const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
       const sync = () => {
         link.href = link.dataset.workPath + catalogSearch(readCatalogFilters(location.search));
       };
-      document.addEventListener('astro:page-load', sync, options);
+      document.addEventListener('astro:after-swap', sync, options);
       window.addEventListener('pageshow', sync, options);
       sync();
     }

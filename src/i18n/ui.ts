@@ -1,7 +1,10 @@
 // ABOUTME: Localized interface and profile content for the portfolio.
 // ABOUTME: Spanish and English keys are shared by the Astro pages and interactive islands.
+import assistantReplies from './assistant-replies.json';
+
 export const ui = {
   es: {
+    ...assistantReplies.es,
     'desktop.more': 'Más',
     'desktop.skills': 'Habilidades',
     'desktop.skillsIntro': 'Las tecnologías que uso y ejemplos de cómo las aplico.',
@@ -14,8 +17,6 @@ export const ui = {
     'desktop.skillMlExample': 'GLIO-IA · investigación de tumores cerebrales',
     'desktop.skillSoftwareExample': 'HealthDashboard · aplicación web',
     'desktop.assistantPreview': 'Vista previa del asistente',
-    'desktop.replySkills':
-      'En Habilidades puedes ver las tecnologías que usa Alex, ejemplos de proyectos y su formación.',
     'desktop.assistant': 'Asistente',
     'desktop.assistantDemo': 'Modo de prueba',
     'desktop.assistantClose': 'Minimizar asistente',
@@ -33,18 +34,6 @@ export const ui = {
     'desktop.askGlio': '¿Qué ha hecho en IA médica?',
     'desktop.askCareer': '¿Dónde ha trabajado?',
     'desktop.askCv': '¿Puedo ver su CV?',
-    'desktop.replyGlio':
-      'En AIJU, Alex diseñó GLIO-IA, una plataforma que combina imágenes médicas, datos clínicos y datos ómicos para investigar tumores cerebrales.',
-    'desktop.replyCareer':
-      'Alex desarrolla agentes de IA en GuruSup. Antes trabajó como ingeniero de IA en CONVOTIS Iberia y desarrolló software de investigación en AIJU.',
-    'desktop.replyCv':
-      'Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV.',
-    'desktop.replyProjects':
-      'En Proyectos puedes explorar trabajos de IA, robótica e ingeniería de software, con filtros por tipo y búsqueda por tecnología.',
-    'desktop.replyProfile':
-      'Alex es ingeniero de IA y software. En Perfil puedes conocer su trabajo actual, ver proyectos destacados y encontrar sus datos de contacto.',
-    'desktop.replyFallback':
-      'Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo.',
     'desktop.profile': 'Perfil',
     'desktop.experience': 'Trayectoria',
     'desktop.title': 'Portfolio / Escritorio',
@@ -242,6 +231,7 @@ export const ui = {
     'project.context.academic': 'Académico',
   },
   en: {
+    ...assistantReplies.en,
     'desktop.more': 'More',
     'desktop.skills': 'Skills',
     'desktop.skillsIntro': 'The technologies I use and examples of how I apply them.',
@@ -254,8 +244,6 @@ export const ui = {
     'desktop.skillMlExample': 'GLIO-IA · brain tumour research',
     'desktop.skillSoftwareExample': 'HealthDashboard · web application',
     'desktop.assistantPreview': 'Assistant preview',
-    'desktop.replySkills':
-      'Skills covers the technologies Alex uses, examples of his work and his education.',
     'desktop.assistant': 'Assistant',
     'desktop.assistantDemo': 'Demo mode',
     'desktop.assistantClose': 'Minimize assistant',
@@ -273,18 +261,6 @@ export const ui = {
     'desktop.askGlio': 'What has Alex built in medical AI?',
     'desktop.askCareer': 'Where has Alex worked?',
     'desktop.askCv': 'Can I see his résumé?',
-    'desktop.replyGlio':
-      'At AIJU, Alex designed GLIO-IA, a platform that brings medical images, clinical records and omics data together for brain tumour research.',
-    'desktop.replyCareer':
-      'Alex builds AI agents at GuruSup. He previously worked as an AI engineer at CONVOTIS Iberia and built research software at AIJU.',
-    'desktop.replyCv':
-      'You can preview and download the Spanish and English PDFs from the résumé app.',
-    'desktop.replyProjects':
-      'In Projects you can explore work in AI, robotics and software engineering, filter by type and search by technology.',
-    'desktop.replyProfile':
-      'Alex is an AI and software engineer. Profile introduces his current work, featured projects and contact details.',
-    'desktop.replyFallback':
-      'This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start.',
     'desktop.profile': 'Profile',
     'desktop.experience': 'Experience',
     'desktop.title': 'Portfolio / Desktop',

@@ -11,6 +11,7 @@ import {
   X,
   MessageCircleMore,
 } from 'lucide-react';
+import DesktopLauncher from '@/components/blocks/DesktopLauncher.astro';
 import PortfolioAssistant from '@/components/PortfolioAssistant';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
@@ -25,6 +26,7 @@ const assistantPreview =
   import.meta.env.PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW === '1' &&
   process.env.VERCEL_ENV !== 'production';
 const t = useTranslations(lang);
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const apps = [
   { id: 'profile', path: '/', label: t('desktop.profile'), icon: UserRound },
   { id: 'work', path: '/work', label: t('nav.work'), icon: FolderKanban },
@@ -36,12 +38,24 @@ const apps = [
   },
   { id: 'skills', path: '/skills', label: t('desktop.skills'), icon: Layers },
   { id: 'cv', path: '/cv', label: 'CV', icon: FileText },
-];
-const current = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isSecondary = (id: string) => id === 'skills' || id === 'cv';
-const secondaryActive = apps.some(
-  ({ id, path }) => isSecondary(id) && getLocalizedUrl(path, lang).replace(/\/$/, '') === current,
-);
+].map(({ id, path, label, icon }) => {
+  const localized = getLocalizedUrl(path, lang);
+  const normalized = localized.replace(/\/$/, '') || '/';
+  const active = normalized === current ? 'page' : undefined;
+  const activeAncestor =
+    id === 'work' && current.startsWith(normalized + '/') ? 'location' : undefined;
+  return {
+    id,
+    href: id === 'profile' ? localized : normalized,
+    path: normalized,
+    label,
+    icon,
+    current: active ?? activeAncestor,
+    secondary: id === 'skills' || id === 'cv',
+  };
+});
+const secondaryApps = apps.filter(({ secondary }) => secondary);
+const secondaryActive = secondaryApps.some(({ current }) => current === 'page');
 const profile = getLocalizedUrl('/', lang);
 ---
 
@@ -65,26 +79,9 @@ const profile = getLocalizedUrl('/', lang);
   </header>
   <div class="desktop-workspace">
     <nav class="desktop-dock" aria-label={t('desktop.apps')}>
-      {apps.map(({ id, path, label, icon: Icon }) => {
-        const localized = getLocalizedUrl(path, lang);
-        const normalized = localized.replace(/\/$/, '') || '/';
-        const href = id === 'profile' ? localized : normalized;
-        const active =
-          normalized === current || (id === 'work' && current.startsWith(normalized + '/'));
-        return (
-          <a
-            href={href}
-            aria-current={active ? (current === normalized ? 'page' : 'location') : undefined}
-            class:list={{ 'desktop-secondary-app': isSecondary(id) }}
-            title={label}
-            data-desktop-launch={normalized}
-            data-app={id}
-          >
-            <Icon size={22} aria-hidden="true" />
-            <span>{label}</span>
-          </a>
-        );
-      })}
+      {apps.map((launcher) => (
+        <DesktopLauncher {...launcher} />
+      ))}
       <button
         type="button"
         data-assistant-toggle
@@ -101,26 +98,9 @@ const profile = getLocalizedUrl('/', lang);
           <span>{t('desktop.more')}</span>
         </summary>
         <div class="desktop-more-panel">
-          {apps
-            .filter(({ id }) => isSecondary(id))
-            .map(({ id, path, label, icon: Icon }) => {
-              const localized = getLocalizedUrl(path, lang);
-              const normalized = localized.replace(/\/$/, '') || '/';
-              const href = id === 'profile' ? localized : normalized;
-              const active =
-                normalized === current || (id === 'work' && current.startsWith(normalized + '/'));
-              return (
-                <a
-                  href={href}
-                  aria-current={active ? (current === normalized ? 'page' : 'location') : undefined}
-                  data-desktop-launch={normalized}
-                  data-app={id}
-                >
-                  <Icon size={22} aria-hidden="true" />
-                  <span>{label}</span>
-                </a>
-              );
-            })}
+          {secondaryApps.map((launcher) => (
+            <DesktopLauncher {...launcher} secondary={false} />
+          ))}
         </div>
       </details>
     </nav>

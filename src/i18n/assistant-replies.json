@@ -1,0 +1,20 @@
+{
+  "es": {
+    "desktop.replySkills": "Alex trabaja con LLM, Python y PyTorch, y desarrolla aplicaciones con FastAPI, React y PostgreSQL. En Habilidades encontrarás ejemplos, formación y contacto.",
+    "desktop.replyGlio": "En AIJU, Alex diseñó GLIO-IA, una plataforma que combina imágenes médicas, datos clínicos y datos ómicos para investigar tumores cerebrales.",
+    "desktop.replyCareer": "Alex desarrolla agentes de IA en GuruSup. Antes trabajó como ingeniero de IA en CONVOTIS Iberia y desarrolló software de investigación en AIJU.",
+    "desktop.replyCv": "Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV.",
+    "desktop.replyProjects": "En Proyectos puedes explorar trabajos de IA, robótica e ingeniería de software, con filtros por tipo y búsqueda por tecnología.",
+    "desktop.replyProfile": "Alex diseña y despliega agentes de IA en GuruSup. En Perfil puedes leer su bio y acceder a su trayectoria, sus habilidades y su CV.",
+    "desktop.replyFallback": "Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo."
+  },
+  "en": {
+    "desktop.replySkills": "Alex works with LLMs, Python and PyTorch and builds applications with FastAPI, React and PostgreSQL. Skills has examples, education and contact details.",
+    "desktop.replyGlio": "At AIJU, Alex designed GLIO-IA, a platform that brings medical images, clinical records and omics data together for brain tumour research.",
+    "desktop.replyCareer": "Alex builds AI agents at GuruSup. He previously worked as an AI engineer at CONVOTIS Iberia and built research software at AIJU.",
+    "desktop.replyCv": "You can preview and download the Spanish and English PDFs from the résumé app.",
+    "desktop.replyProjects": "In Projects you can explore work in AI, robotics and software engineering, filter by type and search by technology.",
+    "desktop.replyProfile": "Alex designs and deploys AI agents at GuruSup. Profile introduces his work and links to his experience, skills and résumé.",
+    "desktop.replyFallback": "This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start."
+  }
+}

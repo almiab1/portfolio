@@ -5,7 +5,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
-from api.chat import app, portfolio_context
+from api.chat import app, fixture_replies, portfolio_context
 
 client = TestClient(app)
 
@@ -68,3 +68,22 @@ def test_public_project_context_is_localized():
     assert "medicina de precisión" in portfolio_context("es")
     assert "precision medicine" in portfolio_context("en").lower()
     assert "Cookobot" in portfolio_context("en")
+
+
+@pytest.mark.parametrize(
+    ("lang", "role", "work"),
+    [
+        ("es", "Desarrollador Full Stack y Robótica", "control remoto del robot"),
+        ("en", "Full Stack and Robotics Developer", "remote robot control"),
+    ],
+)
+def test_context_contains_cookobot_contribution(lang, role, work):
+    cookobot = next(line for line in portfolio_context(lang).splitlines() if line.startswith("- Cookobot."))
+    assert role in cookobot
+    assert work in cookobot
+
+
+def test_preview_and_demo_share_replies():
+    for messages in fixture_replies().values():
+        assert "GuruSup" in messages["desktop.replyProfile"]
+    assert "proyectos destacados" not in fixture_replies()["es"]["desktop.replyProfile"]

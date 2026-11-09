@@ -33,7 +33,7 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
     reply: 'desktop.replyCareer',
   },
   {
-    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education)\b/,
+    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education|contact\w*)\b/,
     destination: 'skills',
     reply: 'desktop.replySkills',
   },
@@ -43,7 +43,7 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
     reply: 'desktop.replyProjects',
   },
   {
-    pattern: /\b(perfil|profile|quien|who|contact\w*|alex|alejandro)\b/,
+    pattern: /\b(perfil|profile|quien|who|alex|alejandro)\b/,
     destination: 'profile',
     reply: 'desktop.replyProfile',
   },
