@@ -10,6 +10,7 @@ import {
   UserRound,
   X,
   MessageCircleMore,
+  Mail,
 } from 'lucide-react';
 import DesktopLauncher from '@/components/blocks/DesktopLauncher.astro';
 import PortfolioAssistant from '@/components/PortfolioAssistant';
@@ -57,6 +58,7 @@ const apps = [
 const secondaryApps = apps.filter(({ secondary }) => secondary);
 const secondaryActive = secondaryApps.some(({ current }) => current === 'page');
 const profile = getLocalizedUrl('/', lang);
+const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
 ---
 
 <portfolio-desktop class="desktop" data-locale={lang} data-app={app} data-path={current}>
@@ -73,7 +75,18 @@ const profile = getLocalizedUrl('/', lang);
       <strong>Alejandro Mira</strong>
     </a>
     <p class="portfolio-kicker desktop-menu-label">{t('desktop.title')}</p>
-    <div class="desktop-languages">
+    <div class="desktop-menu-actions">
+      <a
+        class="desktop-contact-link"
+        href={contact}
+        data-desktop-launch={contact}
+        aria-current={current === contact ? 'page' : undefined}
+        aria-label={t('nav.contact')}
+        title={t('nav.contact')}
+      >
+        <Mail size={18} aria-hidden="true" />
+        <span>{t('nav.contact')}</span>
+      </a>
       <LanguageSwitcher client:load currentLocale={lang} initialPath={Astro.url.pathname} />
     </div>
   </header>

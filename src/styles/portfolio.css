@@ -297,6 +297,9 @@
 }
 
 .portfolio-contact {
+  display: grid;
+  align-items: center;
+  min-height: 100%;
   background: var(--portfolio-ink-dark);
   color: var(--portfolio-light);
   padding-block: clamp(3rem, 8vw, 7rem);
@@ -310,6 +313,13 @@
   display: grid;
   margin: 0;
 }
+.contact-grid h1 {
+  font-size: clamp(2.2rem, 7cqw, 4.75rem);
+  font-weight: 740;
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+
 .contact-grid .portfolio-heading p {
   color: #e8cdbb;
 }

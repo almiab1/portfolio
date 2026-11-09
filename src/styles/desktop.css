@@ -25,8 +25,30 @@
   background: var(--desktop-panel);
 }
 
-.desktop-languages {
+.desktop-menu-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.15rem, 0.9vw, 0.65rem);
   justify-self: end;
+}
+
+.desktop-contact-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding-inline: 0.55rem;
+  border-radius: 0.4rem;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.desktop-contact-link:hover,
+.desktop-contact-link[aria-current] {
+  background: var(--accent);
 }
 
 .desktop-brand {
@@ -347,7 +369,8 @@
     grid-template-columns: 1fr auto;
   }
 
-  .desktop-menu-label {
+  .desktop-menu-label,
+  .desktop-contact-link span {
     display: none;
   }
 

@@ -8,6 +8,7 @@ export const DESTINATIONS = {
   work: { path: '/work', label: 'profile.exploreWork' },
   experience: { path: '/experience', label: 'desktop.experience' },
   skills: { path: '/skills', label: 'desktop.viewSkills' },
+  contact: { path: '/contact', label: 'nav.contact' },
   cv: { path: '/cv', label: 'desktop.cvOpen' },
   profile: { path: '/', label: 'desktop.profile' },
 } as const;
@@ -16,6 +17,11 @@ type Destination = keyof typeof DESTINATIONS;
 export type PortfolioMessage = UIMessage<unknown, { destination: Destination }>;
 
 const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey }[] = [
+  {
+    pattern: /\b(contact\w*|correo|e-?mail|linkedin)\b/,
+    destination: 'contact',
+    reply: 'desktop.replyContact',
+  },
   {
     pattern: /\b(glio|tumor\w*|medical|medica|medico|oncolog\w*)\b/,
     destination: 'glio',
@@ -33,7 +39,7 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
     reply: 'desktop.replyCareer',
   },
   {
-    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education|contact\w*)\b/,
+    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education)\b/,
     destination: 'skills',
     reply: 'desktop.replySkills',
   },
