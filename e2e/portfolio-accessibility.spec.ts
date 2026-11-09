@@ -98,7 +98,7 @@ test('uses wide workspace space while keeping the profile and assistant bounded'
   expect(workspace.width).toBeGreaterThan(1800);
   expect(profile.width).toBeLessThan(workspace.width);
   expect(assistant.width).toBeLessThanOrEqual(384);
-  await page.goto('/skills');
+  await page.goto('/contact');
   await expect(page.locator('a.portfolio-contact-email')).toHaveCSS(
     'background-color',
     'rgb(255, 247, 238)',
@@ -118,6 +118,8 @@ test('loads Inter for both languages and fits the main routes at 320 pixels', as
     '/experience',
     '/skills',
     '/en/skills',
+    '/contact',
+    '/en/contact',
     '/en/cv',
   ]) {
     await page.goto(route);

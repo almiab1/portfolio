@@ -24,7 +24,7 @@ from pydantic_ai.ui.vercel_ai.response_types import DataChunk
 from pydantic_ai.usage import UsageLimits
 
 Language = Literal["es", "en"]
-Destination = Literal["profile", "work", "experience", "skills", "cv", "glio"]
+Destination = Literal["profile", "work", "experience", "skills", "contact", "cv", "glio"]
 MODEL_NAME = "gemini-3.5-flash-lite"
 SOURCE = Path(__file__).resolve().parents[1] / "src"
 PROJECTS = SOURCE / "content" / "projects"
@@ -51,6 +51,7 @@ Skills: LLMs, multi-agent systems, retrieval and contextual memory; Python, PyTo
 computer vision and distributed training; FastAPI, React, PostgreSQL and cloud deployment.
 HealthDashboard is a personal web app for tracking body composition measurements,
 built with Astro, React and MySQL. The Spanish CV is from 2023 and the English CV from 2025.
+The Contact app lists the public email address and social profiles.
 """
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
@@ -77,6 +78,7 @@ FIXTURE_REPLY_KEYS: dict[Destination, str] = {
     "glio": "desktop.replyGlio",
     "experience": "desktop.replyCareer",
     "skills": "desktop.replySkills",
+    "contact": "desktop.replyContact",
     "cv": "desktop.replyCv",
     "work": "desktop.replyProjects",
     "profile": "desktop.replyProfile",
@@ -102,9 +104,10 @@ def fixture_model(lang: Language) -> FunctionModel:
             if not unicodedata.combining(char)
         )
         topics: tuple[tuple[str, Destination], ...] = (
+            (r"\b(contact\w*|correo|e-?mail|linkedin)\b", "contact"),
             (r"glio|tumor|medic", "glio"),
             (r"\bcv\b|resume|curriculum", "cv"),
-            (r"skill|habilidad|tecnolog|pytorch|contact", "skills"),
+            (r"skill|habilidad|tecnolog|pytorch", "skills"),
             (r"trabaj|worked|experience|trayectoria|career", "experience"),
             (r"proyect|project|catalog", "work"),
         )

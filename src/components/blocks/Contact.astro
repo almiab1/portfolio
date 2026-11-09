@@ -1,46 +1,56 @@
 ---
-// ABOUTME: Provides the email and social links at the close of the home page.
+// ABOUTME: Provides the email and social links in a dedicated portfolio app.
 // ABOUTME: Keeps direct contact available in both portfolio languages.
 import { Mail } from 'lucide-react';
+import Base from '@/layouts/BaseLayout.astro';
 import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
 import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
 
-const currentLang: Language = (Astro.currentLocale as Language) || 'es';
-const t = useTranslations(currentLang);
+interface Props {
+  lang: Language;
+}
 
-// Información de contacto
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const email = 'miraabad.alejandro@gmail.com';
 const linkedin = 'https://www.linkedin.com/in/alejandro-mira/';
 const github = 'https://github.com/almiab1';
 ---
 
-<section id="contact" class="portfolio-contact">
-  <div class="wrap portfolio-wrap contact-grid">
-    <div class="portfolio-heading">
-      <h2>{t('nav.contact')}</h2>
-      <p>{t('contact.cta')}</p>
-    </div>
-    <div class="contact-actions">
-      <a href={`mailto:${email}`} class="portfolio-contact-email">
-        <Mail size={21} aria-hidden="true" />
-        <span>{email}</span>
-      </a>
-      <div class="flex flex-wrap gap-x-5 gap-y-2">
-        <a
-          href={linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="portfolio-contact-social"
-        >
-          <LinkedinIcon size={20} />
-          <span>LinkedIn</span>
+<Base app={t('nav.contact')} title={t('nav.contact')} description={t('contact.cta')}>
+  <main id="main-content" class="portfolio-contact" tabindex="-1">
+    <div class="wrap portfolio-wrap contact-grid">
+      <div class="portfolio-heading">
+        <h1>{t('nav.contact')}</h1>
+        <p>{t('contact.cta')}</p>
+      </div>
+      <div class="contact-actions">
+        <a href={`mailto:${email}`} class="portfolio-contact-email">
+          <Mail size={21} aria-hidden="true" />
+          <span>{email}</span>
         </a>
-        <a href={github} target="_blank" rel="noopener noreferrer" class="portfolio-contact-social">
-          <GithubIcon size={20} />
-          <span>GitHub</span>
-        </a>
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+          <a
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="portfolio-contact-social"
+          >
+            <LinkedinIcon size={20} />
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="portfolio-contact-social"
+          >
+            <GithubIcon size={20} />
+            <span>GitHub</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </main>
+</Base>
