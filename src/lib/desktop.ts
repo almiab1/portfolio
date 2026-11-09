@@ -1,7 +1,11 @@
 // ABOUTME: Tracks open portfolio apps across Astro navigations.
 // ABOUTME: Keeps project filters attached to the open catalogue tab.
 import { navigate } from 'astro:transitions/client';
-import { CATALOG_FILTERS_CHANGE } from '@/lib/catalog-filters';
+import {
+  CATALOG_FILTERS_CHANGE,
+  readCatalogFilters,
+  setCatalogFilters,
+} from '@/lib/catalog-filters';
 
 interface WindowTab {
   path: string;
@@ -27,6 +31,7 @@ class PortfolioDesktop extends HTMLElement {
     const close = this.querySelector<HTMLButtonElement>('[data-desktop-close]')!;
     const profile = this.querySelector<HTMLAnchorElement>('[data-desktop-brand]')!;
     const dock = [...this.querySelectorAll<HTMLAnchorElement>('[data-desktop-launch]')];
+    const workPath = dock.find((link) => link.dataset.app === 'work')!.dataset.desktopLaunch!;
     const toggle = this.querySelector<HTMLButtonElement>('[data-assistant-toggle]')!;
     const mobile = matchMedia(MOBILE_QUERY);
     const more = this.querySelector<HTMLDetailsElement>('[data-desktop-more]')!;
@@ -65,10 +70,33 @@ class PortfolioDesktop extends HTMLElement {
       },
       options,
     );
+    const locale = this.dataset.locale!;
+    const home = pathKey(profile.pathname);
+    const current = this.dataset.path!;
+    const workspace = tabsByLocale.get(locale) ?? new Map<string, WindowTab>();
+    tabsByLocale.set(locale, workspace);
+
+    if (!workspace.has(home)) {
+      workspace.set(home, { path: home, href: profile.pathname, label: profile.dataset.tabLabel! });
+    }
+
     this.addEventListener(
       'click',
       (event) => {
         if (!(event.target instanceof Element)) return;
+        const action = event.target.closest<HTMLAnchorElement>('[data-assistant-destination]');
+        const catalogue = workspace.get(workPath);
+        if (action && catalogue) {
+          const target = new URL(action.href);
+          if (
+            target.origin === location.origin &&
+            (pathKey(target.pathname) === workPath || target.pathname.startsWith(workPath + '/'))
+          ) {
+            const source = new URL(catalogue.href, location.origin);
+            setCatalogFilters(target.searchParams, readCatalogFilters(source.search));
+            action.href = target.href;
+          }
+        }
         if (event.target.closest('[data-desktop-launch]')) more.open = false;
         if (event.target.closest('[data-assistant-minimize]')) {
           if (mobile.matches) mobileOpen = false;
@@ -90,16 +118,6 @@ class PortfolioDesktop extends HTMLElement {
     );
     mobile.addEventListener('change', updateAssistant, options);
     updateAssistant();
-
-    const locale = this.dataset.locale!;
-    const home = pathKey(profile.pathname);
-    const current = this.dataset.path!;
-    const workspace = tabsByLocale.get(locale) ?? new Map<string, WindowTab>();
-    tabsByLocale.set(locale, workspace);
-
-    if (!workspace.has(home)) {
-      workspace.set(home, { path: home, href: profile.pathname, label: profile.dataset.tabLabel! });
-    }
 
     const sync = () => {
       if (pathKey(location.pathname) !== current) return;
@@ -140,11 +158,7 @@ class PortfolioDesktop extends HTMLElement {
       async () => {
         const currentTab = workspace.get(current);
         workspace.delete(current);
-        const work = dock.find((link) => link.dataset.app === 'work');
-        const parent =
-          work && current.startsWith(work.dataset.desktopLaunch + '/')
-            ? workspace.get(work.dataset.desktopLaunch!)
-            : undefined;
+        const parent = current.startsWith(workPath + '/') ? workspace.get(workPath) : undefined;
         const fallback = parent ?? [...workspace.values()].at(-1);
         if (!fallback) return;
         close.disabled = true;

@@ -3,6 +3,7 @@
 import { DefaultChatTransport } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { prepareAssistantRequest } from '@/lib/assistant-request';
 import { createPortfolioTransport, type PortfolioMessage } from '@/lib/assistant-transport';
 import { t, type Language } from '@/i18n/translations';
 
@@ -33,7 +34,11 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
   const transport = useMemo(
     () =>
       preview
-        ? new DefaultChatTransport<PortfolioMessage>({ api: '/api/chat', body: { lang } })
+        ? new DefaultChatTransport<PortfolioMessage>({
+            api: '/api/chat',
+            body: { lang },
+            prepareSendMessagesRequest: prepareAssistantRequest,
+          })
         : createPortfolioTransport(lang),
     [lang, preview],
   );

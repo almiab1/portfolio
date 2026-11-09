@@ -16,7 +16,7 @@ PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW=1 PORTFOLIO_ASSISTANT_LOCAL_URL=http://127.0.
   pnpm dev --host 127.0.0.1 --port 4328
 ```
 
-El modo `fixture` usa un modelo de prueba local para verificar las respuestas y las acciones de navegación. Para probar Gemini, usa `PORTFOLIO_ASSISTANT_MODE=live` y configura `GEMINI_API_KEY` como secreto del proceso de Python. Pregunta por IA médica y sigue el enlace de GLIO-IA. En inglés, pregunta por las habilidades y abre Skills.
+El modo `fixture` usa un modelo de prueba local con las mismas respuestas bilingües que la demo del navegador. Ambas las leen de `src/i18n/assistant-replies.json`, integrado en el diccionario `src/i18n/ui.ts`. Para probar Gemini, usa `PORTFOLIO_ASSISTANT_MODE=live` y configura `GEMINI_API_KEY` como secreto del proceso de Python. Pregunta por IA médica y sigue el enlace de GLIO-IA. En inglés, pregunta por las habilidades y abre Skills.
 
 ## Vista previa de Vercel
 

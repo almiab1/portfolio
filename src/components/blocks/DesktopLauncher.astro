@@ -1,0 +1,29 @@
+---
+// ABOUTME: Renders a localized workspace launcher in the dock or the More menu.
+// ABOUTME: Shares active-state semantics and route data between both layouts.
+import type { LucideIcon } from 'lucide-react';
+
+interface Props {
+  id: string;
+  href: string;
+  path: string;
+  label: string;
+  icon: LucideIcon;
+  current?: 'page' | 'location';
+  secondary: boolean;
+}
+
+const { id, href, path, label, icon: Icon, current, secondary } = Astro.props;
+---
+
+<a
+  href={href}
+  aria-current={current}
+  class:list={{ 'desktop-secondary-app': secondary }}
+  title={label}
+  data-desktop-launch={path}
+  data-app={id}
+>
+  <Icon size={22} aria-hidden="true" />
+  <span>{label}</span>
+</a>

@@ -6,7 +6,7 @@
   "outputDirectory": "dist",
   "functions": {
     "api/chat.py": {
-      "includeFiles": "src/content/projects/**"
+      "includeFiles": "src/{content/projects/**,i18n/assistant-replies.json}"
     }
   }
 }
