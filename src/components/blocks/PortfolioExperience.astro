@@ -1,0 +1,55 @@
+---
+// ABOUTME: Presents Alex’s career as a dated timeline and links to the original announcement.
+// ABOUTME: Shares the experience app between the Spanish and English routes.
+import { ArrowUpRight } from 'lucide-react';
+import Base from '@/layouts/BaseLayout.astro';
+import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const jobs = [
+  { key: 'gurusup', company: 'GuruSup', year: '2026', period: t('profile.currentPeriod') },
+  { key: 'convotis', company: 'CONVOTIS Iberia', year: '2025', period: '2025–2026' },
+  { key: 'aiju', company: 'AIJU', year: '2021', period: '2021–2025' },
+] as const;
+---
+
+<Base
+  app={t('desktop.experience')}
+  title={t('profile.experience')}
+  description={t('desktop.careerIntro')}
+>
+  <main id="main-content" tabindex="-1">
+    <section class="portfolio-wrap desktop-sheet" aria-labelledby="experience-title">
+      <header class="desktop-sheet-heading">
+        <h1 id="experience-title">{t('profile.experience')}</h1>
+        <p class="profile-lead">{t('desktop.careerIntro')}</p>
+      </header>
+      <ol class="desktop-timeline" role="list">
+        {jobs.map(({ key, company, year, period }) => (
+          <li>
+            <time datetime={year}>{year}</time>
+            <div>
+              <p class="portfolio-kicker">{period}</p>
+              <h2>{company}</h2>
+              <p class="desktop-job-role">{t(`profile.job.${key}.role`)}</p>
+              <p class="portfolio-muted">{t(`profile.job.${key}.summary`)}</p>
+              {key === 'gurusup' && (
+                <a
+                  class="portfolio-link"
+                  href="https://es.linkedin.com/posts/alejandro-mira_genai-llms-agenticai-activity-7450075945643855872-YF95"
+                >
+                  {t('profile.announcement')} <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </main>
+</Base>

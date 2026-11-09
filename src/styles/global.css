@@ -1,30 +1,53 @@
+/* ABOUTME: Defines the shared typography and color tokens for the portfolio. */
+/* ABOUTME: Maps those tokens to the Tailwind theme. */
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/inter-4.1/InterVariable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/inter-4.1/InterVariable-Italic.woff2') format('woff2');
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
+  --portfolio-font-sans: 'Inter Variable', system-ui, sans-serif;
+  --portfolio-font-mono: ui-monospace, monospace;
+  font-family: var(--portfolio-font-sans);
+  font-optical-sizing: auto;
+
   /* Warm pastel palette with soft contrasts for depth effects */
-  --background: oklch(0.94 0.018 67);
-  --foreground: oklch(0.35 0.08 35);
-  --card: oklch(0.97 0.014 58);
-  --card-foreground: oklch(0.38 0.075 40);
+  --background: #f8efe5;
+  --foreground: #322017;
+  --card: #fffaf3;
+  --card-foreground: #322017;
   --popover: oklch(0.99 0.01 60);
   --popover-foreground: oklch(0.35 0.08 35);
-  --primary: oklch(0.68 0.15 45);
-  --primary-foreground: oklch(0.98 0.01 50);
+  --primary: #8c3924;
+  --primary-foreground: #fff7ee;
   --secondary: oklch(0.88 0.06 55);
   --secondary-foreground: oklch(0.42 0.09 38);
-  --muted: oklch(0.92 0.025 58);
-  --muted-foreground: oklch(0.58 0.06 42);
-  --accent: oklch(0.82 0.12 35);
-  --accent-foreground: oklch(0.98 0.01 50);
+  --muted: #f0e1d3;
+  --muted-foreground: #61483d;
+  --accent: #f0dfce;
+  --accent-foreground: #50271c;
   --destructive: oklch(0.65 0.18 25);
   --destructive-foreground: oklch(0.98 0.01 50);
-  --border: oklch(0.88 0.035 52);
+  --border: #d5bfb1;
   --input: oklch(0.9 0.03 55);
-  --ring: oklch(0.72 0.13 48);
+  --ring: #8c3924;
   --chart-1: oklch(0.72 0.14 45);
   --chart-2: oklch(0.68 0.16 35);
   --chart-3: oklch(0.75 0.12 55);
@@ -78,8 +101,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--portfolio-font-sans);
+  --font-mono: var(--portfolio-font-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

@@ -1,0 +1,154 @@
+---
+// ABOUTME: Frames the active Astro page as an app in the portfolio desktop.
+// ABOUTME: Keeps app launchers, open tabs and locale controls separate.
+import {
+  BriefcaseBusiness,
+  FileText,
+  Ellipsis,
+  Layers,
+  FolderKanban,
+  UserRound,
+  X,
+  MessageCircleMore,
+  Mail,
+} from 'lucide-react';
+import DesktopLauncher from '@/components/blocks/DesktopLauncher.astro';
+import PortfolioAssistant from '@/components/PortfolioAssistant';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+  app: string;
+}
+
+const { lang, app } = Astro.props;
+const assistantPreview =
+  import.meta.env.PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW === '1' &&
+  process.env.VERCEL_ENV !== 'production';
+const t = useTranslations(lang);
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const apps = [
+  { id: 'profile', path: '/', label: t('desktop.profile'), icon: UserRound },
+  { id: 'work', path: '/work', label: t('nav.work'), icon: FolderKanban },
+  {
+    id: 'experience',
+    path: '/experience',
+    label: t('desktop.experience'),
+    icon: BriefcaseBusiness,
+  },
+  { id: 'skills', path: '/skills', label: t('desktop.skills'), icon: Layers },
+  { id: 'cv', path: '/cv', label: 'CV', icon: FileText },
+].map(({ id, path, label, icon }) => {
+  const localized = getLocalizedUrl(path, lang);
+  const normalized = localized.replace(/\/$/, '') || '/';
+  const active = normalized === current ? 'page' : undefined;
+  const activeAncestor =
+    id === 'work' && current.startsWith(normalized + '/') ? 'location' : undefined;
+  return {
+    id,
+    href: id === 'profile' ? localized : normalized,
+    path: normalized,
+    label,
+    icon,
+    current: active ?? activeAncestor,
+    secondary: id === 'skills' || id === 'cv',
+  };
+});
+const secondaryApps = apps.filter(({ secondary }) => secondary);
+const secondaryActive = secondaryApps.some(({ current }) => current === 'page');
+const profile = getLocalizedUrl('/', lang);
+const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
+---
+
+<portfolio-desktop class="desktop" data-locale={lang} data-app={app} data-path={current}>
+  <header class="desktop-menu">
+    <a
+      href={profile}
+      class="desktop-brand"
+      data-desktop-brand
+      data-tab-label={t('desktop.profile')}
+    >
+      <span class="portfolio-monogram" aria-hidden="true">
+        AM
+      </span>
+      <strong>Alejandro Mira</strong>
+    </a>
+    <p class="portfolio-kicker desktop-menu-label">{t('desktop.title')}</p>
+    <div class="desktop-menu-actions">
+      <a
+        class="desktop-contact-link"
+        href={contact}
+        data-desktop-launch={contact}
+        aria-current={current === contact ? 'page' : undefined}
+        aria-label={t('nav.contact')}
+        title={t('nav.contact')}
+      >
+        <Mail size={18} aria-hidden="true" />
+        <span>{t('nav.contact')}</span>
+      </a>
+      <LanguageSwitcher client:load currentLocale={lang} initialPath={Astro.url.pathname} />
+    </div>
+  </header>
+  <div class="desktop-workspace">
+    <nav class="desktop-dock" aria-label={t('desktop.apps')}>
+      {apps.map((launcher) => (
+        <DesktopLauncher {...launcher} />
+      ))}
+      <button
+        type="button"
+        data-assistant-toggle
+        title={t('desktop.assistant')}
+        aria-expanded="false"
+        aria-controls="desktop-assistant"
+      >
+        <MessageCircleMore size={22} aria-hidden="true" />
+        <span>{t('desktop.assistant')}</span>
+      </button>
+      <details class="desktop-more" data-desktop-more>
+        <summary class:list={{ 'desktop-more-current': secondaryActive }}>
+          <Ellipsis size={22} aria-hidden="true" />
+          <span>{t('desktop.more')}</span>
+        </summary>
+        <div class="desktop-more-panel">
+          {secondaryApps.map((launcher) => (
+            <DesktopLauncher {...launcher} secondary={false} />
+          ))}
+        </div>
+      </details>
+    </nav>
+    <div class="desktop-window">
+      <div class="desktop-titlebar">
+        <nav class="desktop-tabs" data-desktop-tabs aria-label={t('desktop.tabs')}>
+          <a href={Astro.url.pathname} aria-current="page" title={app}>
+            <span>{app}</span>
+          </a>
+        </nav>
+        <button
+          type="button"
+          data-desktop-close
+          hidden
+          aria-label={t('desktop.close')}
+          title={t('desktop.close')}
+        >
+          <X size={18} aria-hidden="true" />
+        </button>
+      </div>
+      <div class="desktop-content" data-desktop-content style="view-transition-name: portfolio-app">
+        <slot />
+      </div>
+    </div>
+    <div class="desktop-assistant-island">
+      <PortfolioAssistant
+        lang={lang}
+        preview={assistantPreview}
+        client:load
+        transition:persist={`portfolio-assistant-${lang}`}
+      />
+    </div>
+  </div>
+</portfolio-desktop>
+
+<script>
+  import '@/lib/desktop';
+</script>

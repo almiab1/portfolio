@@ -1,0 +1,24 @@
+{
+  "es": {
+    "desktop.replySkills": "Alex trabaja con LLM, Python y PyTorch, y desarrolla aplicaciones con FastAPI, React y PostgreSQL. En Habilidades encontrarás ejemplos y formación.",
+    "desktop.replyGlio": "En AIJU, Alex diseñó GLIO-IA, una plataforma que combina imágenes médicas, datos clínicos y datos ómicos para investigar tumores cerebrales.",
+    "desktop.replyCareer": "Alex ha trabajado en tres equipos:\n\n- **GuruSup** · Desarrolla agentes de IA para atención al cliente.\n- **CONVOTIS Iberia** · Diseñó y desplegó soluciones de IA generativa.\n- **AIJU** · Desarrolló software de investigación e Industria 4.0.",
+    "desktop.replyCv": "Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV.",
+    "desktop.replyProjects": "En Proyectos puedes explorar trabajos de IA, robótica e ingeniería de software, con filtros por tipo y búsqueda por tecnología.",
+    "desktop.replyProfile": "Alex diseña y despliega agentes de IA en GuruSup. En Perfil puedes leer su bio y acceder a su trayectoria, sus habilidades y su CV.",
+    "desktop.replyFallback": "Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo.",
+    "desktop.replyContact": "En Contacto puedes escribir a Alex por correo o encontrar sus perfiles de LinkedIn y GitHub.",
+    "desktop.replyRestricted": "Puedo ayudarte con información pública del portfolio. Pregúntame por los proyectos, la trayectoria o las habilidades de Alex."
+  },
+  "en": {
+    "desktop.replySkills": "Alex works with LLMs, Python and PyTorch and builds applications with FastAPI, React and PostgreSQL. Skills has examples and education.",
+    "desktop.replyGlio": "At AIJU, Alex designed GLIO-IA, a platform that brings medical images, clinical records and omics data together for brain tumour research.",
+    "desktop.replyCareer": "Alex has worked with three teams:\n\n- **GuruSup** · Builds AI agents for customer support.\n- **CONVOTIS Iberia** · Designed and deployed generative AI solutions.\n- **AIJU** · Built research and Industry 4.0 software.",
+    "desktop.replyCv": "You can preview and download the Spanish and English PDFs from the résumé app.",
+    "desktop.replyProjects": "In Projects you can explore work in AI, robotics and software engineering, filter by type and search by technology.",
+    "desktop.replyProfile": "Alex designs and deploys AI agents at GuruSup. Profile introduces his work and links to his experience, skills and résumé.",
+    "desktop.replyFallback": "This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start.",
+    "desktop.replyContact": "In Contact you can email Alex or find his LinkedIn and GitHub profiles.",
+    "desktop.replyRestricted": "I can help with public information from the portfolio. Ask me about Alex’s projects, experience or skills."
+  }
+}

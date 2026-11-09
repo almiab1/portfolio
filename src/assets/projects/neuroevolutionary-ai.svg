@@ -1,0 +1,26 @@
+<!-- ABOUTME: Illustrates candidate networks in the neuroevolution project. -->
+<!-- ABOUTME: Pairs branching network connections with strategy card silhouettes. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#5b372e"/>
+  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#bd9078" opacity=".45"/>
+  <g fill="none" stroke="#c79880" stroke-width="2">
+    <path d="M118 118l92-25m-92 25 92 62m-92 0 92-87m-92 87h92m-92 0 92 87m-92-25 92-62m-92 62 92 25m0-174 99 47m-99 40 99-40m-99 40 99 40m-99 47 99-47"/>
+    <path d="M323 140h31l36 40m-67 40h31l36-40" stroke-dasharray="4 5"/>
+  </g>
+  <path d="M118 242l92-62 99-40" fill="none" stroke="#e5d7aa" stroke-width="3"/>
+  <g fill="#eadac5">
+    <circle cx="118" cy="118" r="10"/>
+    <circle cx="118" cy="180" r="10"/>
+    <circle cx="118" cy="242" r="10"/>
+    <circle cx="210" cy="93" r="10"/>
+    <circle cx="210" cy="180" r="10"/>
+    <circle cx="210" cy="267" r="10"/>
+    <circle cx="309" cy="140" r="10"/>
+    <circle cx="309" cy="220" r="10"/>
+  </g>
+  <rect x="425" y="117" width="95" height="139" rx="8" transform="rotate(-10 472 187)" fill="#8a594a" stroke="#e3c3a8" stroke-width="2"/>
+  <rect x="443" y="111" width="95" height="139" rx="8" transform="rotate(9 490 181)" fill="#ad765e" stroke="#e3c3a8" stroke-width="2"/>
+  <rect x="418" y="110" width="95" height="140" rx="8" fill="#e8d6b9" stroke="#5b372e" stroke-width="3"/>
+  <path d="M465 132l24 32-24 32-24-32z" fill="#536a51"/>
+  <path d="M436 214h59m-59 10h40" stroke="#5b372e" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

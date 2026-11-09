@@ -1,0 +1,308 @@
+---
+// ABOUTME: Renders the bilingual project archive with indexed search and type controls.
+// ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
+import { ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
+import Layout from '@/layouts/BaseLayout.astro';
+import healthArt from '@/assets/projects/health-dashboard.svg?url';
+import { catalogSearch } from '@/lib/catalog-filters';
+import ProjectVisual from '@/components/blocks/ProjectVisual.astro';
+import { getProjectsByLang } from '@/lib/i18n-content';
+import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = (await getProjectsByLang(lang)).sort(
+  (a, b) =>
+    Number(b.data.featured) - Number(a.data.featured) ||
+    b.data.priority - a.data.priority ||
+    b.data.date.localeCompare(a.data.date),
+);
+const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
+const personalProject = {
+  id: 'health-dashboard',
+  title: 'HealthDashboard',
+  summary: t('profile.healthSummary'),
+  tags: ['Astro', 'React', 'MySQL', t('project.type.web')],
+};
+const projectTypesByEntry = [...projects.map(({ data }) => data.type), 'web' as const];
+const types = [...new Set(projectTypesByEntry)]
+  .map((type) => ({ type, label: t(`project.type.${type}`) }))
+  .sort((a, b) => a.label.localeCompare(b.label, lang));
+const projectTypes = types
+  .map(({ type, label }) => ({
+    type,
+    label,
+    count: projectTypesByEntry.filter((entry) => entry === type).length,
+  }))
+  .sort((a, b) => b.count - a.count);
+const maxProjectCount = projectTypes[0]?.count ?? 1;
+const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'UTC' });
+---
+
+<Layout app={t('nav.work')} title={t('work.title')} description={t('work.catalogIntro')}>
+  <main class="portfolio-wrap catalogue" id="main-content" tabindex="-1">
+    <header class="catalogue-heading">
+      <h1>{t('nav.work')}</h1>
+    </header>
+
+    <project-catalog data-work-path={workUrl}>
+      <div class="catalogue-toolbar">
+        <div class="catalogue-controls" role="search" aria-label={t('work.searchLabel')}>
+          <label class="catalogue-field" title={t('work.searchPlaceholder')}>
+            <span class="sr-only">{t('work.searchLabel')}</span>
+            <Search size={17} aria-hidden="true" />
+            <input
+              type="search"
+              name="q"
+              placeholder={t('work.searchLabel')}
+              aria-describedby="catalogue-search-help"
+              autocomplete="off"
+              disabled
+            />
+          </label>
+          <span id="catalogue-search-help" class="sr-only">
+            {t('work.searchPlaceholder')}
+          </span>
+          <label class="catalogue-field catalogue-type" title={t('work.typeLabel')}>
+            <span class="sr-only">{t('work.typeLabel')}</span>
+            <SlidersHorizontal size={17} aria-hidden="true" />
+            <select name="type" disabled>
+              <option value="">{t('work.allTypes')}</option>
+              {types.map(({ type, label }) => (
+                <option value={type}>{label}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div class="catalogue-meta">
+          <p role="status" data-one={t('work.resultOne')} data-many={t('work.resultMany')}>
+            {projectTypesByEntry.length} {t('work.resultMany')}
+          </p>
+          <button
+            class="catalogue-clear"
+            type="button"
+            data-clear
+            aria-label={t('work.clearFilters')}
+            title={t('work.clearFilters')}
+            hidden
+          >
+            <X size={17} aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+      <p class="catalogue-empty" data-empty hidden>
+        {t('work.noResults')}
+      </p>
+      <ul class="catalogue-list" role="list">
+        {projects.map((project) => {
+          const { id, data } = project;
+          const label = t(`project.type.${data.type}`);
+          const slug = id.replace(/^(es|en)\//, '');
+          const href = `${workUrl}/${slug}`;
+          return (
+            <li
+              data-project-id={id}
+              data-type={data.type}
+              data-search={JSON.stringify({
+                id,
+                title: data.title,
+                summary: data.summary,
+                tags: [...data.tags, ...data.tech, data.role ?? '', label],
+              })}
+            >
+              <a class="catalogue-row" href={href} data-case-path={href}>
+                <ProjectVisual project={project} />
+                <span class="catalogue-description">
+                  <span class="portfolio-kicker">
+                    {yearFormat.format(new Date(data.date))} · {label}
+                  </span>
+                  <strong>{data.title}</strong>
+                  <span class="catalogue-summary" title={data.summary}>
+                    {data.summary}
+                  </span>
+                </span>
+                <span class="catalogue-role" title={data.role}>
+                  {data.role}
+                </span>
+                <ArrowUpRight className="catalogue-arrow" size={21} aria-hidden="true" />
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <div class="catalogue-extras">
+        <section aria-labelledby="personal-projects-title" data-personal-projects>
+          <h2 id="personal-projects-title">{t('profile.personal')}</h2>
+          <ul class="personal-grid" role="list">
+            <li
+              data-project-id={personalProject.id}
+              data-type="web"
+              data-search={JSON.stringify(personalProject)}
+            >
+              <a class="personal-card card" href="https://github.com/almiab1/HealthDashboard">
+                <div class="personal-image">
+                  <img
+                    src={healthArt}
+                    width="640"
+                    height="360"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="personal-content">
+                  <p class="portfolio-kicker">{t('profile.healthType')}</p>
+                  <h3>{personalProject.title}</h3>
+                  <p>{personalProject.summary}</p>
+                  <span class="portfolio-muted">Astro · React · MySQL</span>
+                  <span class="personal-action">
+                    {t('profile.repository')} <ArrowUpRight size={19} aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+        {projectTypes.length > 0 && (
+          <section class="profile-distribution" aria-labelledby="project-distribution-title">
+            <div class="portfolio-icon">
+              <BarChart3 size={21} aria-hidden="true" />
+            </div>
+            <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
+            <ul class="distribution-bars" role="list">
+              {projectTypes.map(({ type, count, label }) => (
+                <li data-project-type={type}>
+                  <a href={workUrl + catalogSearch({ query: '', type })}>
+                    <span class="distribution-label">{label}</span>
+                    <span class="distribution-track" aria-hidden="true">
+                      <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
+                    </span>
+                    <strong>{count}</strong>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a class="portfolio-link" href={workUrl}>
+              {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+          </section>
+        )}
+      </div>
+    </project-catalog>
+  </main>
+</Layout>
+
+<script>
+  import {
+    catalogSearch,
+    CATALOG_FILTERS_CHANGE,
+    readCatalogFilters,
+    setCatalogFilters,
+  } from '@/lib/catalog-filters';
+  import { filterProjects, type FilterableProject } from '@/lib/project-filter';
+
+  const scrollPositions = new Map<string, number>();
+
+  class ProjectCatalog extends HTMLElement {
+    private listeners?: AbortController;
+
+    connectedCallback() {
+      this.listeners?.abort();
+      this.listeners = new AbortController();
+      const options = { signal: this.listeners.signal };
+      const pane = this.closest<HTMLElement>('[data-desktop-content]')!;
+      const workPath = this.dataset.workPath!;
+      let scrollKey: string | undefined;
+      const rememberScroll = () => {
+        if (scrollKey && pane.clientHeight) scrollPositions.set(scrollKey, pane.scrollTop);
+      };
+      const personal = this.querySelector<HTMLElement>('[data-personal-projects]')!;
+      const personalRow = personal.querySelector<HTMLElement>('[data-project-id]')!;
+      const query = this.querySelector<HTMLInputElement>('input[name="q"]')!;
+      const type = this.querySelector<HTMLSelectElement>('select[name="type"]')!;
+      const clear = this.querySelector<HTMLButtonElement>('[data-clear]')!;
+      const count = this.querySelector<HTMLElement>('[role="status"]')!;
+      const empty = this.querySelector<HTMLElement>('[data-empty]')!;
+      const rows = [...this.querySelectorAll<HTMLElement>('[data-project-id]')].map((row) => ({
+        row,
+        project: JSON.parse(row.dataset.search!) as FilterableProject,
+        link: row.querySelector<HTMLAnchorElement>('[data-case-path]'),
+      }));
+
+      const refresh = (updateUrl: boolean) => {
+        const filters = { query: query.value, type: type.value };
+        const eligible = rows.filter(
+          ({ row }) => !filters.type || row.dataset.type === filters.type,
+        );
+        const { visibleIds } = filterProjects(
+          eligible.map(({ project }) => project),
+          { query: filters.query, selectedTags: [] },
+        );
+        const search = catalogSearch(filters);
+        for (const { row, project, link } of rows) {
+          row.hidden = !visibleIds.has(project.id);
+          if (link) link.href = link.dataset.casePath + search;
+        }
+
+        personal.hidden = personalRow.hidden;
+        const size = visibleIds.size;
+        const resultText = `${size} ${size === 1 ? count.dataset.one : count.dataset.many}`;
+        if (count.textContent?.trim() !== resultText) count.textContent = resultText;
+        clear.hidden = !filters.query && !filters.type;
+        empty.hidden = size > 0;
+
+        if (updateUrl) {
+          scrollKey = workPath + search;
+          const url = new URL(location.href);
+          setCatalogFilters(url.searchParams, filters);
+          if (url.href !== location.href) {
+            history.replaceState(history.state, '', url);
+            document.dispatchEvent(new Event(CATALOG_FILTERS_CHANGE));
+          }
+        }
+      };
+
+      const restore = () => {
+        if (location.pathname.replace(/\/$/, '') !== workPath) return;
+        const filters = readCatalogFilters(location.search);
+        query.value = filters.query;
+        type.value = filters.type;
+        if (type.selectedIndex < 0) type.selectedIndex = 0;
+        refresh(false);
+        scrollKey = workPath + catalogSearch({ query: query.value, type: type.value });
+        if (!location.hash) pane.scrollTop = scrollPositions.get(scrollKey) ?? 0;
+        query.disabled = false;
+        type.disabled = false;
+      };
+
+      query.addEventListener('input', () => refresh(true), options);
+      type.addEventListener('change', () => refresh(true), options);
+      clear.addEventListener(
+        'click',
+        () => {
+          query.value = '';
+          type.value = '';
+          query.focus();
+          refresh(true);
+        },
+        options,
+      );
+      pane.addEventListener('scroll', rememberScroll, { ...options, passive: true });
+      document.addEventListener('astro:before-swap', rememberScroll, options);
+      document.addEventListener('astro:after-swap', restore, options);
+      window.addEventListener('pageshow', restore, options);
+      window.addEventListener('popstate', restore, options);
+      restore();
+    }
+
+    disconnectedCallback() {
+      this.listeners?.abort();
+    }
+  }
+
+  customElements.define('project-catalog', ProjectCatalog);
+</script>

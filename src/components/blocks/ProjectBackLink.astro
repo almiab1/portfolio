@@ -1,0 +1,47 @@
+---
+// ABOUTME: Links a case study back to the localized project catalogue.
+// ABOUTME: Restores the filters encoded in the case-study URL.
+import { ArrowLeft } from 'lucide-react';
+import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const workUrl = getLocalizedUrl('/work', lang).replace(/\/$/, '');
+---
+
+<project-back-link>
+  <a class="portfolio-link" href={workUrl} data-work-path={workUrl}>
+    <ArrowLeft size={18} aria-hidden="true" />
+    {t('work.backToProjects')}
+  </a>
+</project-back-link>
+
+<script>
+  import { catalogSearch, readCatalogFilters } from '@/lib/catalog-filters';
+
+  class ProjectBackLink extends HTMLElement {
+    private listeners?: AbortController;
+
+    connectedCallback() {
+      this.listeners?.abort();
+      this.listeners = new AbortController();
+      const options = { signal: this.listeners.signal };
+      const link = this.querySelector<HTMLAnchorElement>('a[data-work-path]')!;
+      const sync = () => {
+        link.href = link.dataset.workPath + catalogSearch(readCatalogFilters(location.search));
+      };
+      document.addEventListener('astro:after-swap', sync, options);
+      window.addEventListener('pageshow', sync, options);
+      sync();
+    }
+
+    disconnectedCallback() {
+      this.listeners?.abort();
+    }
+  }
+
+  customElements.define('project-back-link', ProjectBackLink);
+</script>

@@ -1,0 +1,85 @@
+---
+// ABOUTME: Introduces Alex in a compact professional profile.
+// ABOUTME: Links the profile to the desktop apps and emits shared structured data.
+import { Image } from 'astro:assets';
+import { ArrowUpRight, FileText, Layers } from 'lucide-react';
+import Base from '@/layouts/BaseLayout.astro';
+import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
+import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
+import portrait from '@/assets/me.png';
+import { ldPerson, ldWebsite } from '@/lib/schema';
+import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
+
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base app={t('desktop.profile')} title={t('home.title')} description={t('desktop.profileBio')}>
+  {[ldPerson(), ldWebsite()].map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
+  <main id="main-content" class="profile-app" tabindex="-1">
+    <section class="profile-card" aria-labelledby="profile-title">
+      <div class="profile-card-body">
+        <header>
+          <p class="portfolio-kicker">{t('profile.role')}</p>
+          <h1 id="profile-title">
+            Alejandro <span>Mira.</span>
+          </h1>
+        </header>
+        <p class="profile-card-bio">{t('desktop.profileBio')}</p>
+        <div class="desktop-current-role">
+          <span aria-hidden="true"></span>
+          <span>
+            {t('desktop.currentRole')} · <strong>GuruSup</strong>
+          </span>
+        </div>
+        <div class="profile-card-actions">
+          <a class="portfolio-button" href={getLocalizedUrl('/experience', lang)}>
+            {t('desktop.viewExperience')} <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+          <a class="portfolio-link" href={getLocalizedUrl('/skills', lang)}>
+            <Layers size={17} aria-hidden="true" /> {t('desktop.viewSkills')}
+          </a>
+          <a class="portfolio-link" href={getLocalizedUrl('/cv', lang)}>
+            <FileText size={17} aria-hidden="true" /> {t('desktop.cvOpen')}
+          </a>
+        </div>
+      </div>
+      <div class="profile-card-photo">
+        <Image
+          src={portrait}
+          width={680}
+          format="webp"
+          alt={t('hero.profileAlt')}
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <footer class="profile-card-footer">
+        <span class="portfolio-kicker">{t('desktop.profileFocus')}</span>
+        <div class="profile-card-social">
+          <a
+            class="portfolio-contact-social"
+            href="https://github.com/almiab1"
+            aria-label="GitHub"
+            title="GitHub"
+          >
+            <GithubIcon size={19} />
+          </a>
+          <a
+            class="portfolio-contact-social"
+            href="https://www.linkedin.com/in/alejandro-mira/"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <LinkedinIcon size={19} />
+          </a>
+        </div>
+      </footer>
+    </section>
+  </main>
+</Base>

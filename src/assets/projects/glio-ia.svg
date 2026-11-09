@@ -1,0 +1,26 @@
+<!-- ABOUTME: An editorial diagram of the three data inputs used by GLIO-IA. -->
+<!-- ABOUTME: Uses abstract marks for records, medical imaging, and omics. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#324b42"/>
+  <path d="M0 58h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#789183" opacity=".45"/>
+  <g fill="#e8e0c7" stroke="#324b42" stroke-width="3">
+    <rect x="96" y="73" width="98" height="58" rx="8"/>
+    <rect x="96" y="151" width="98" height="58" rx="8"/>
+    <rect x="96" y="229" width="98" height="58" rx="8"/>
+  </g>
+  <g fill="none" stroke="#88ae94" stroke-width="3">
+    <path d="M195 102h65l66 78h45"/>
+    <path d="M195 180h176"/>
+    <path d="M195 258h65l66-78h45"/>
+    <circle cx="326" cy="180" r="9" fill="#324b42"/>
+  </g>
+  <g fill="none" stroke="#466457" stroke-width="3" stroke-linecap="round">
+    <path d="M118 93h55m-55 10h34m-34 10h46"/>
+    <circle cx="145" cy="180" r="16"/><path d="M132 180h26m-13-13v26"/>
+    <path d="M120 246c17 0 29 24 48 24m-48 0c17 0 29-24 48-24m-37 10h25m-22 6h19"/>
+  </g>
+  <rect x="373" y="123" width="167" height="114" rx="12" fill="#b5d0ae"/>
+  <rect x="393" y="142" width="127" height="76" rx="5" fill="#304c3e"/>
+  <path d="M407 188l18-12 17 5 19-17 16 12 26-17" fill="none" stroke="#dce8b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="503" cy="159" r="4" fill="#dce8b8"/>
+</svg>
