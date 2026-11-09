@@ -4,9 +4,19 @@
   "buildCommand": "pnpm run build",
   "installCommand": "pnpm install",
   "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ],
   "functions": {
     "api/chat.py": {
-      "includeFiles": "src/{content/projects/**,i18n/assistant-replies.json}"
+      "includeFiles": "{server/assistant_security.py,src/content/projects/**,src/i18n/assistant-replies.json}"
     }
   }
 }

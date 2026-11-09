@@ -135,6 +135,7 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
             </Message>
           );
         })}
+        {busy && <p role="status">{translate('desktop.assistantPending')}</p>}
         {error && <p role="alert">{translate('desktop.assistantError')}</p>}
       </div>
 
