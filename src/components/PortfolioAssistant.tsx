@@ -1,12 +1,13 @@
 // ABOUTME: Renders the persistent assistant panel with shadcn/ui chat components.
 // ABOUTME: Sends local demo questions and offers links to real portfolio apps.
-import { ArrowUp, ArrowUpRight, Minus, Palette } from 'lucide-react';
+import { ArrowUp, Maximize2, Minimize2, Minus, Palette } from 'lucide-react';
 import AssistantAvatar from '@/components/AssistantAvatar';
+import AssistantDestination from '@/components/AssistantDestination';
+import AssistantReply from '@/components/AssistantReply';
 import { AVATARS, usePortfolioAssistant } from '@/hooks/use-portfolio-assistant';
 import { Button } from '@/components/ui/button';
 import { Bubble, BubbleContent } from '@/components/ui/bubble';
 import { Message, MessageContent } from '@/components/ui/message';
-import { DESTINATIONS } from '@/lib/assistant-transport';
 import { t, type Language } from '@/i18n/translations';
 
 interface Props {
@@ -23,11 +24,29 @@ const AVATAR_LABELS = {
 export default function PortfolioAssistant({ lang, preview = false }: Props) {
   const translate = t(lang);
   const mode = translate(preview ? 'desktop.assistantPreview' : 'desktop.assistantDemo');
-  const { messages, input, setInput, send, busy, error, avatar, selectAvatar, log, trackScroll } =
-    usePortfolioAssistant(lang, preview);
+  const {
+    messages,
+    input,
+    setInput,
+    send,
+    busy,
+    error,
+    avatar,
+    selectAvatar,
+    log,
+    trackScroll,
+    expanded,
+    toggleReadingMode,
+  } = usePortfolioAssistant(lang, preview);
+  const ReadingIcon = expanded ? Minimize2 : Maximize2;
 
   return (
-    <aside className="desktop-assistant" id="desktop-assistant" aria-labelledby="assistant-title">
+    <aside
+      className="desktop-assistant"
+      id="desktop-assistant"
+      aria-labelledby="assistant-title"
+      data-reading-mode={expanded ? 'expanded' : undefined}
+    >
       <header className="assistant-header">
         <span className="assistant-badge">
           <AssistantAvatar avatar={avatar} />
@@ -38,6 +57,18 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
           </p>
           <h2 id="assistant-title">{translate('desktop.assistant')}</h2>
         </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          type="button"
+          data-assistant-reading
+          aria-label={translate('desktop.assistantReading')}
+          aria-pressed={expanded}
+          title={translate('desktop.assistantReading')}
+          onClick={toggleReadingMode}
+        >
+          <ReadingIcon aria-hidden="true" />
+        </Button>
         <details className="assistant-settings">
           <summary
             aria-label={translate('desktop.assistantAvatar')}
@@ -84,12 +115,10 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
         tabIndex={0}
       >
         {messages.map(({ id, role, parts }) => {
-          const text = parts.flatMap((part) => (part.type === 'text' ? [part.text] : [])).join(' ');
+          const content = parts
+            .flatMap((part) => (part.type === 'text' ? [part.text] : []))
+            .join(role === 'assistant' ? '\n\n' : ' ');
           const action = parts.find((part) => part.type === 'data-destination');
-          const destination =
-            action && Object.hasOwn(DESTINATIONS, action.data)
-              ? DESTINATIONS[action.data]
-              : undefined;
           return (
             <Message key={id} align={role === 'user' ? 'end' : 'start'}>
               <MessageContent>
@@ -98,16 +127,8 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
                 </span>
                 <Bubble variant={role === 'user' ? 'muted' : 'outline'}>
                   <BubbleContent>
-                    <p>{text}</p>
-                    {destination && (
-                      <a
-                        className="assistant-destination"
-                        href={lang === 'en' ? '/en' + destination.path : destination.path}
-                        data-assistant-destination
-                      >
-                        {translate(destination.label)} <ArrowUpRight size={16} aria-hidden="true" />
-                      </a>
-                    )}
+                    {role === 'assistant' ? <AssistantReply text={content} /> : <p>{content}</p>}
+                    {action && <AssistantDestination destination={action.data} lang={lang} />}
                   </BubbleContent>
                 </Bubble>
               </MessageContent>

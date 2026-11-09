@@ -8,6 +8,49 @@ for (const lang of ['es', 'en'] as const) {
   const career = lang === 'en' ? 'Experience' : 'Trayectoria';
   const close = lang === 'en' ? 'Close active tab' : 'Cerrar pestaña activa';
 
+  test(lang + ' formats assistant lists and enlarges the reading view', async ({ page }) => {
+    const assistantName = lang === 'en' ? 'Assistant' : 'Asistente';
+    const readingName = lang === 'en' ? 'Reading mode' : 'Modo de lectura';
+    const question = lang === 'en' ? 'Where has Alex worked?' : '¿Dónde ha trabajado?';
+
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto(prefix + '/work');
+    const assistant = page.getByRole('complementary', { name: assistantName });
+    const readingMode = assistant.getByRole('button', { name: readingName });
+    await assistant.getByRole('button', { name: question }).click();
+    const list = assistant.getByRole('list');
+    await expect(list.getByRole('listitem')).toHaveCount(3);
+    await expect(list.locator('strong')).toHaveText(['GuruSup', 'CONVOTIS Iberia', 'AIJU']);
+
+    const width = await assistant.evaluate((panel) => panel.getBoundingClientRect().width);
+    const font = await list.evaluate((element) => parseFloat(getComputedStyle(element).fontSize));
+    await readingMode.click();
+    await expect(readingMode).toHaveAttribute('aria-pressed', 'true');
+    expect(
+      await assistant.evaluate((panel) => panel.getBoundingClientRect().width),
+    ).toBeGreaterThan(width);
+    expect(
+      await list.evaluate((element) => parseFloat(getComputedStyle(element).fontSize)),
+    ).toBeGreaterThan(font);
+
+    await assistant.getByRole('link', { name: career, exact: true }).click();
+    await expect(page).toHaveURL(prefix + '/experience');
+    await expect(readingMode).toHaveAttribute('aria-pressed', 'true');
+    await expect(list.getByRole('listitem')).toHaveCount(3);
+    await readingMode.click();
+    await expect(readingMode).toHaveAttribute('aria-pressed', 'false');
+    expect(await assistant.evaluate((panel) => panel.getBoundingClientRect().width)).toBeCloseTo(
+      width,
+      0,
+    );
+
+    await page.setViewportSize({ width: 320, height: 690 });
+    await page.locator('.desktop-dock').getByRole('button', { name: assistantName }).click();
+    await readingMode.click();
+    await expect(list).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+  });
+
   test(`${lang} closes case tabs and restores the open project catalogue`, async ({ page }) => {
     await page.goto(prefix + '/');
     const dock = page.locator('.desktop-dock');
