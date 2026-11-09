@@ -22,6 +22,7 @@ const AVATAR_LABELS = {
 
 export default function PortfolioAssistant({ lang, preview = false }: Props) {
   const translate = t(lang);
+  const mode = translate(preview ? 'desktop.assistantPreview' : 'desktop.assistantDemo');
   const { messages, input, setInput, send, busy, error, avatar, selectAvatar, log, trackScroll } =
     usePortfolioAssistant(lang, preview);
 
@@ -32,8 +33,8 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
           <AssistantAvatar avatar={avatar} />
         </span>
         <div className="assistant-title">
-          <p className="portfolio-kicker">
-            {translate(preview ? 'desktop.assistantPreview' : 'desktop.assistantDemo')}
+          <p className="portfolio-kicker" title={mode}>
+            {mode}
           </p>
           <h2 id="assistant-title">{translate('desktop.assistant')}</h2>
         </div>

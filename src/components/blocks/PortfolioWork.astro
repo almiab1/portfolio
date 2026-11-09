@@ -1,7 +1,7 @@
 ---
 // ABOUTME: Renders the bilingual project archive with indexed search and type controls.
 // ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
-import { ArrowLeft, ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
 import Layout from '@/layouts/BaseLayout.astro';
 import healthArt from '@/assets/projects/health-dashboard.svg?url';
 import { catalogSearch } from '@/lib/catalog-filters';
@@ -39,52 +39,53 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
 <Layout app={t('nav.work')} title={t('work.title')} description={t('work.catalogIntro')}>
   <main class="portfolio-wrap catalogue" id="main-content" tabindex="-1">
     <header class="catalogue-heading">
-      <div>
-        <a class="portfolio-link" href={getLocalizedUrl('/', lang)}>
-          <ArrowLeft size={17} aria-hidden="true" />
-          {t('work.backToProfile')}
-        </a>
-        <h1>{t('nav.work')}</h1>
-      </div>
-      <p class="profile-lead">{t('work.catalogIntro')}</p>
+      <h1>{t('nav.work')}</h1>
     </header>
 
     <project-catalog>
-      <div class="catalogue-controls" role="search" aria-label={t('work.searchLabel')}>
-        <label>
-          <span>{t('work.searchLabel')}</span>
-          <span class="catalogue-field">
-            <Search size={18} aria-hidden="true" />
+      <div class="catalogue-toolbar">
+        <div class="catalogue-controls" role="search" aria-label={t('work.searchLabel')}>
+          <label class="catalogue-field" title={t('work.searchPlaceholder')}>
+            <span class="sr-only">{t('work.searchLabel')}</span>
+            <Search size={17} aria-hidden="true" />
             <input
               type="search"
               name="q"
-              placeholder={t('work.searchPlaceholder')}
+              placeholder={t('work.searchLabel')}
+              aria-describedby="catalogue-search-help"
               autocomplete="off"
               disabled
             />
+          </label>
+          <span id="catalogue-search-help" class="sr-only">
+            {t('work.searchPlaceholder')}
           </span>
-        </label>
-        <label>
-          <span>{t('work.typeLabel')}</span>
-          <span class="catalogue-field">
-            <SlidersHorizontal size={18} aria-hidden="true" />
+          <label class="catalogue-field catalogue-type" title={t('work.typeLabel')}>
+            <span class="sr-only">{t('work.typeLabel')}</span>
+            <SlidersHorizontal size={17} aria-hidden="true" />
             <select name="type" disabled>
               <option value="">{t('work.allTypes')}</option>
               {types.map(({ type, label }) => (
                 <option value={type}>{label}</option>
               ))}
             </select>
-          </span>
-        </label>
-      </div>
-      <div class="catalogue-meta">
-        <p role="status" data-one={t('work.resultOne')} data-many={t('work.resultMany')}>
-          {projects.length} {t('work.resultMany')}
-        </p>
-        <button class="portfolio-link" type="button" data-clear hidden>
-          <X size={16} aria-hidden="true" />
-          {t('work.clearFilters')}
-        </button>
+          </label>
+        </div>
+        <div class="catalogue-meta">
+          <p role="status" data-one={t('work.resultOne')} data-many={t('work.resultMany')}>
+            {projects.length} {t('work.resultMany')}
+          </p>
+          <button
+            class="catalogue-clear"
+            type="button"
+            data-clear
+            aria-label={t('work.clearFilters')}
+            title={t('work.clearFilters')}
+            hidden
+          >
+            <X size={17} aria-hidden="true" />
+          </button>
+        </div>
       </div>
       <p class="catalogue-empty" data-empty hidden>
         {t('work.noResults')}
@@ -113,9 +114,13 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
                     {yearFormat.format(new Date(data.date))} · {label}
                   </span>
                   <strong>{data.title}</strong>
-                  <span>{data.summary}</span>
+                  <span class="catalogue-summary" title={data.summary}>
+                    {data.summary}
+                  </span>
                 </span>
-                <span class="catalogue-role">{data.role}</span>
+                <span class="catalogue-role" title={data.role}>
+                  {data.role}
+                </span>
                 <ArrowUpRight className="catalogue-arrow" size={21} aria-hidden="true" />
               </a>
             </li>
