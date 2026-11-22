@@ -28,7 +28,7 @@ class PortfolioDesktop extends HTMLElement {
     this.listeners = new AbortController();
     const options = { signal: this.listeners.signal };
     const list = this.querySelector<HTMLElement>('[data-desktop-tabs]')!;
-    const close = this.querySelector<HTMLButtonElement>('[data-desktop-close]')!;
+    const closeTemplate = this.querySelector<HTMLTemplateElement>('[data-tab-close-label]')!;
     const profile = this.querySelector<HTMLAnchorElement>('[data-desktop-brand]')!;
     const dock = [...this.querySelectorAll<HTMLAnchorElement>('[data-desktop-launch]')];
     const workLauncher = dock.find((link) => link.dataset.app === 'work')!;
@@ -77,7 +77,7 @@ class PortfolioDesktop extends HTMLElement {
     const workspace = tabsByLocale.get(locale) ?? new Map<string, WindowTab>();
     tabsByLocale.set(locale, workspace);
 
-    if (!workspace.has(home)) {
+    if (workspace.size === 0) {
       workspace.set(home, { path: home, href: profile.pathname, label: profile.dataset.tabLabel! });
     }
 
@@ -142,35 +142,60 @@ class PortfolioDesktop extends HTMLElement {
           link.append(caption);
           link.title = label;
           if (path === current) link.setAttribute('aria-current', 'page');
-          return link;
+          const item = document.createElement('span');
+          item.className = 'desktop-tab';
+          item.append(link);
+          if (path !== home || workspace.size > 1) {
+            const close = closeTemplate.content
+              .querySelector('button')!
+              .cloneNode(true) as HTMLButtonElement;
+            close.dataset.closePath = path;
+            close.title = closeTemplate.dataset.tabCloseLabel!.replace('{tab}', () => label);
+            close.setAttribute('aria-label', close.title);
+            item.append(close);
+          }
+          return item;
         }),
       );
-      const selected = list.querySelector('[aria-current]');
+      const selected = list.querySelector('[aria-current]')?.parentElement;
       if (selected) {
         const tabBox = selected.getBoundingClientRect();
         const listBox = list.getBoundingClientRect();
         list.scrollLeft +=
           Math.max(0, tabBox.right - listBox.right) + Math.min(0, tabBox.left - listBox.left);
       }
-      close.hidden = current === home;
       for (const link of dock) {
-        const tab = workspace.get(link.dataset.desktopLaunch!);
-        if (tab) link.href = tab.href;
+        const path = link.dataset.desktopLaunch!;
+        link.href = workspace.get(path)?.href ?? path;
       }
     };
 
-    close.addEventListener(
+    let closingCurrent = false;
+    list.addEventListener(
       'click',
-      async () => {
-        const currentTab = workspace.get(current);
+      async (event) => {
+        const close =
+          event.target instanceof Element
+            ? event.target.closest<HTMLButtonElement>('button[data-close-path]')
+            : null;
+        if (!close || closingCurrent) return;
+        const path = close.dataset.closePath!;
+        if (path !== current) {
+          workspace.delete(path);
+          sync();
+          list.querySelector<HTMLAnchorElement>('[aria-current]')?.focus();
+          return;
+        }
+        const currentTab = workspace.get(current)!;
         workspace.delete(current);
         const parent = current.startsWith(workPath + '/') ? workspace.get(workPath) : undefined;
-        const fallback = parent ?? [...workspace.values()].at(-1);
-        if (!fallback) return;
-        close.disabled = true;
+        const fallback = parent?.href ?? [...workspace.values()].at(-1)?.href ?? profile.pathname;
+        closingCurrent = true;
         try {
-          await navigate(fallback.href, { history: 'replace' });
-          if (this.isConnected && currentTab) {
+          await navigate(fallback, { history: 'replace' });
+        } finally {
+          closingCurrent = false;
+          if (this.isConnected) {
             workspace.set(current, currentTab);
             sync();
           } else {
@@ -178,8 +203,6 @@ class PortfolioDesktop extends HTMLElement {
               .querySelector<HTMLAnchorElement>('[data-desktop-tabs] [aria-current]')
               ?.focus();
           }
-        } finally {
-          close.disabled = false;
         }
       },
       options,

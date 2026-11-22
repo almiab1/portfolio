@@ -125,20 +125,18 @@ const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
     <div class="desktop-window">
       <div class="desktop-titlebar">
         <nav class="desktop-tabs" data-desktop-tabs aria-label={t('desktop.tabs')}>
-          <a href={Astro.url.pathname} aria-current="page" title={app}>
-            <CurrentTabIcon size={16} aria-hidden="true" />
-            <span>{app}</span>
-          </a>
+          <span class="desktop-tab">
+            <a href={Astro.url.pathname} aria-current="page" title={app}>
+              <CurrentTabIcon size={16} aria-hidden="true" />
+              <span>{app}</span>
+            </a>
+          </span>
         </nav>
-        <button
-          type="button"
-          data-desktop-close
-          hidden
-          aria-label={t('desktop.close')}
-          title={t('desktop.close')}
-        >
-          <X size={18} aria-hidden="true" />
-        </button>
+        <template data-tab-close-label={t('desktop.close')}>
+          <button type="button" class="desktop-tab-close">
+            <X size={16} aria-hidden="true" />
+          </button>
+        </template>
       </div>
       <div class="desktop-content" data-desktop-content style="view-transition-name: portfolio-app">
         <slot />

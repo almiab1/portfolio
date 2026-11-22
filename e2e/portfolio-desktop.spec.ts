@@ -6,7 +6,7 @@ for (const lang of ['es', 'en'] as const) {
   const prefix = lang === 'en' ? '/en' : '';
   const projects = lang === 'en' ? 'Projects' : 'Proyectos';
   const career = lang === 'en' ? 'Experience' : 'Trayectoria';
-  const close = lang === 'en' ? 'Close active tab' : 'Cerrar pestaña activa';
+  const close = (tab: string) => (lang === 'en' ? `Close ${tab} tab` : `Cerrar pestaña ${tab}`);
 
   test(lang + ' formats assistant lists and enlarges the reading view', async ({ page }) => {
     const assistantName = lang === 'en' ? 'Assistant' : 'Asistente';
@@ -74,7 +74,8 @@ for (const lang of ['es', 'en'] as const) {
       'page',
     );
 
-    await page.getByRole('button', { name: close }).click();
+    await tabs.getByRole('link', { name: 'GLIO-IA', exact: true }).hover();
+    await tabs.getByRole('button', { name: close('GLIO-IA'), exact: true }).click();
     await expect(tabs.getByRole('link', { name: 'GLIO-IA', exact: true })).toHaveCount(0);
     await expect(search).toHaveValue('PyTorch');
     await expect(type).toHaveValue('ai');
@@ -84,11 +85,51 @@ for (const lang of ['es', 'en'] as const) {
     const timeline = page.locator('.desktop-timeline');
     await expect(timeline.locator('time')).toHaveText(['2026', '2025', '2021']);
     await expect(timeline.getByRole('heading')).toHaveText(['GuruSup', 'CONVOTIS Iberia', 'AIJU']);
-    await page.getByRole('button', { name: close }).click();
+    await tabs.getByRole('link', { name: career, exact: true }).focus();
+    await page.keyboard.press('Tab');
+    await expect(tabs.getByRole('button', { name: close(career) })).toBeFocused();
+    await page.keyboard.press('Enter');
     await expect(tabs.getByRole('link', { name: career, exact: true })).toHaveCount(0);
     await expect(dock.getByRole('link', { name: career, exact: true })).toBeVisible();
     await expect(search).toHaveValue('PyTorch');
     await expect(type).toHaveValue('ai');
+  });
+
+  test(`${lang} closes a background tab in place and keeps the current project open`, async ({
+    page,
+  }) => {
+    await page.goto(prefix + '/work');
+    const tabs = page.locator('[data-desktop-tabs]');
+    const catalogueTab = tabs.getByRole('link', { name: projects, exact: true });
+    await page
+      .locator('project-catalog')
+      .getByRole('link', { name: /Lost Scout/ })
+      .click();
+    const projectTab = tabs.getByRole('link', { name: 'Lost Scout', exact: true });
+    await expect(projectTab).toHaveAttribute('aria-current', 'page');
+    const closeCatalogue = tabs.getByRole('button', { name: close(projects), exact: true });
+    await page.mouse.move(0, 0);
+    await expect(closeCatalogue).toHaveCSS('opacity', '0');
+    await catalogueTab.hover();
+    await expect(closeCatalogue).toHaveCSS('opacity', '1');
+    await closeCatalogue.click();
+    await expect(page).toHaveURL(prefix + '/work/lost-scout');
+    await expect(projectTab).toBeFocused();
+    await expect(catalogueTab).toHaveCount(0);
+    await expect(tabs.getByRole('link')).toHaveCount(2);
+    const profileName = lang === 'en' ? 'Profile' : 'Perfil';
+    await tabs.getByRole('link', { name: profileName }).hover();
+    await tabs.getByRole('button', { name: close(profileName) }).click();
+    await expect(tabs.getByRole('link')).toHaveCount(1);
+    await expect(projectTab).toHaveAttribute('aria-current', 'page');
+    await projectTab.hover();
+    await tabs.getByRole('button', { name: close('Lost Scout') }).click();
+    await expect(tabs.getByRole('link')).toHaveCount(1);
+    await expect(tabs.getByRole('link', { name: profileName })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    await expect(tabs.getByRole('button')).toHaveCount(0);
   });
 
   test(`${lang} previews and downloads both distinct CV editions`, async ({ page, request }) => {
