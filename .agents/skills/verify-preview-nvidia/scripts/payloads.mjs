@@ -7,7 +7,7 @@ const VERSION = /^\d+\.\d+\.\d+(?:[-.][A-Za-z0-9.-]+)?$/;
 const TOKEN = /^phc_[A-Za-z0-9_-]{8,}$/;
 const TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 const CV_LOG = 'portfolio CV downloaded';
-const CANONICAL = 'https://alejandromira.com';
+const CANONICAL = 'https://www.alejandromira.com';
 
 export class VerificationError extends Error {}
 

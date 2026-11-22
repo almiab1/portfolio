@@ -101,15 +101,15 @@ dist/
 
 ### Routes
 
-- `https://alejandromira.com/` - Spanish home
-- `https://alejandromira.com/en` - English home
-- `https://alejandromira.com/work` - Spanish projects
-- `https://alejandromira.com/en/work` - English projects
+- `https://www.alejandromira.com/` - Spanish home
+- `https://www.alejandromira.com/en` - English home
+- `https://www.alejandromira.com/work` - Spanish projects
+- `https://www.alejandromira.com/en/work` - English projects
 
 ### SEO Checks
 
 - View page source: verify `<link rel="alternate" hreflang="...">` tags
-- Check `https://alejandromira.com/sitemap-index.xml` resolves
+- Check `https://www.alejandromira.com/sitemap-index.xml` resolves
 - Verify `<link rel="canonical">` on each page
 - Verify Open Graph meta tags present
 

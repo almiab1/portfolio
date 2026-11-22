@@ -63,9 +63,9 @@ const schema = ldCreativeWork({
 Automatically generated in `BaseLayout.astro` for every page:
 
 ```html
-<link rel="alternate" hreflang="es" href="https://alejandromira.com/{path}" />
-<link rel="alternate" hreflang="en" href="https://alejandromira.com/en/{path}" />
-<link rel="alternate" hreflang="x-default" href="https://alejandromira.com/{path}" />
+<link rel="alternate" hreflang="es" href="https://www.alejandromira.com/{path}" />
+<link rel="alternate" hreflang="en" href="https://www.alejandromira.com/en/{path}" />
+<link rel="alternate" hreflang="x-default" href="https://www.alejandromira.com/{path}" />
 ```
 
 - `x-default` always points to the Spanish (default) version
@@ -79,7 +79,7 @@ Generated automatically by `@astrojs/sitemap` (configured in `astro.config.mjs`)
 
 **Requirements**:
 
-- `site` must be set in `astro.config.mjs`: `site: "https://alejandromira.com"`
+- `site` must be set in `astro.config.mjs`: `site: "https://www.alejandromira.com"`
 - Output: `dist/sitemap-*.xml` during build
 
 All static routes including both language variants are included automatically.
@@ -142,8 +142,8 @@ Each page computes its canonical URL:
 const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
 ```
 
-- Spanish pages: `https://alejandromira.com/{path}`
-- English pages: `https://alejandromira.com/en/{path}`
+- Spanish pages: `https://www.alejandromira.com/{path}`
+- English pages: `https://www.alejandromira.com/en/{path}`
 
 ---
 

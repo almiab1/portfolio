@@ -2,14 +2,14 @@ export const ldPerson = () => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Alejandro Mira',
-  url: 'https://alejandromira.com',
+  url: 'https://www.alejandromira.com',
   jobTitle: 'AI/GenAI Engineer',
 });
 export const ldWebsite = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Alejandro Mira',
-  url: 'https://alejandromira.com',
+  url: 'https://www.alejandromira.com',
 });
 export const ldCreativeWork = (p: { title: string; date?: string }) => ({
   '@context': 'https://schema.org',
@@ -40,7 +40,7 @@ export const ldSoftwareProject = (p: {
   author: {
     '@type': 'Person',
     name: 'Alejandro Mira',
-    url: 'https://alejandromira.com',
+    url: 'https://www.alejandromira.com',
   },
 });
 export const ldBlogPosting = (p: { title: string; date: string; description?: string }) => ({

@@ -8,7 +8,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
 
-**Live Site**: [alejandromira.com](https://alejandromira.com)
+**Live Site**: [alejandromira.com](https://www.alejandromira.com)
 
 ---
 
@@ -301,7 +301,7 @@ This project is private and proprietary. The code is available for reference and
 **Alejandro Mira**
 GenAI & LLM Agent Systems Engineer
 
-- Website: [alejandromira.com](https://alejandromira.com)
+- Website: [alejandromira.com](https://www.alejandromira.com)
 - LinkedIn: [linkedin.com/in/alejandro-mira](https://www.linkedin.com/in/alejandro-mira/)
 - GitHub: [@almiab1](https://github.com/almiab1)
 
@@ -322,7 +322,7 @@ Built with:
 <div align="center">
   <p>Made with ❤️ and ☕ by Alejandro Mira</p>
   <p>
-    <a href="https://alejandromira.com">Website</a> •
+    <a href="https://www.alejandromira.com">Website</a> •
     <a href="https://github.com/almiab1">GitHub</a> •
     <a href="https://www.linkedin.com/in/alejandro-mira/">LinkedIn</a>
   </p>

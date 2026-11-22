@@ -10,7 +10,7 @@ const assistantProxy = env.PORTFOLIO_ASSISTANT_LOCAL_URL;
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://alejandromira.com',
+  site: 'https://www.alejandromira.com',
   devToolbar: { enabled: !assistantProxy },
   vite: {
     plugins: [tailwindcss()],
