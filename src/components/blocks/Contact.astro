@@ -1,7 +1,7 @@
 ---
-// ABOUTME: Provides the email and social links in a dedicated portfolio app.
-// ABOUTME: Keeps direct contact available in both portfolio languages.
-import { Mail } from 'lucide-react';
+// ABOUTME: Presents a localized contact page with an email draft and direct profile links.
+// ABOUTME: Keeps message contents in the browser until the visitor opens their email app.
+import { ArrowUpRight, Mail } from 'lucide-react';
 import PortfolioSocialLinks from '@/components/blocks/PortfolioSocialLinks.astro';
 import Base from '@/layouts/BaseLayout.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
@@ -18,17 +18,78 @@ const email = 'miraabad.alejandro@gmail.com';
 <Base app={t('nav.contact')} title={t('nav.contact')} description={t('contact.cta')}>
   <main id="main-content" class="portfolio-contact" tabindex="-1">
     <div class="wrap portfolio-wrap contact-grid">
-      <div class="portfolio-heading">
+      <div class="contact-intro">
         <h1>{t('nav.contact')}</h1>
         <p>{t('contact.cta')}</p>
+        <div class="contact-actions">
+          <a href={`mailto:${email}`} class="portfolio-contact-email" data-contact-method="email">
+            <Mail size={19} aria-hidden="true" />
+            <span>{email}</span>
+          </a>
+          <PortfolioSocialLinks variant="contact" />
+        </div>
       </div>
-      <div class="contact-actions">
-        <a href={`mailto:${email}`} class="portfolio-contact-email" data-contact-method="email">
-          <Mail size={21} aria-hidden="true" />
-          <span>{email}</span>
-        </a>
-        <PortfolioSocialLinks variant="contact" />
-      </div>
+
+      <contact-draft data-email={email} data-required-message={t('contact.draft.required')} hidden>
+        <form class="contact-form" data-analytics-private>
+          <div>
+            <h2>{t('contact.draft.title')}</h2>
+            <p id="contact-draft-help">{t('contact.draft.help')}</p>
+          </div>
+          <div class="contact-field">
+            <label for="contact-subject">{t('contact.draft.subject')}</label>
+            <input id="contact-subject" type="text" maxlength="100" required />
+          </div>
+          <div class="contact-field">
+            <label for="contact-message">{t('contact.draft.message')}</label>
+            <textarea id="contact-message" rows="5" maxlength="1000" required></textarea>
+          </div>
+          <button type="submit" class="portfolio-button" aria-describedby="contact-draft-help">
+            {t('contact.draft.open')}
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </button>
+        </form>
+      </contact-draft>
     </div>
   </main>
 </Base>
+
+<script>
+  class ContactDraft extends HTMLElement {
+    connectedCallback() {
+      const form = this.querySelector('form');
+      const subject = this.querySelector('input');
+      const message = this.querySelector('textarea');
+      const { email, requiredMessage } = this.dataset;
+      if (!form || !subject || !message || !email || !requiredMessage) return;
+
+      for (const field of [subject, message]) {
+        field.oninput = () => field.setCustomValidity('');
+      }
+
+      form.onsubmit = (event) => {
+        event.preventDefault();
+        for (const field of [subject, message]) {
+          if (!field.value.trim()) {
+            field.setCustomValidity(requiredMessage);
+            field.reportValidity();
+            return;
+          }
+        }
+
+        const draft = document.createElement('a');
+        const encodedSubject = encodeURIComponent(subject.value.trim());
+        const encodedBody = encodeURIComponent(message.value.trim().replace(/\n/g, '\r\n'));
+        draft.href = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
+        draft.hidden = true;
+        form.append(draft);
+        draft.click();
+        draft.remove();
+      };
+
+      this.hidden = false;
+    }
+  }
+
+  customElements.define('contact-draft', ContactDraft);
+</script>

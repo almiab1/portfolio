@@ -1,5 +1,5 @@
 // ABOUTME: Verifies that contact has its own localized app and a persistent launcher.
-// ABOUTME: Covers the contact action in the assistant and the mobile menu bar.
+// ABOUTME: Covers contact navigation, input validation, and the email draft in both languages.
 import { expect, test } from '@playwright/test';
 
 const SOCIAL_LINKS = [
@@ -15,6 +15,10 @@ for (const locale of [
     projects: 'Proyectos',
     assistant: 'Asistente',
     question: '¿Cómo puedo contactar con Alex?',
+    subject: 'Asunto',
+    message: 'Mensaje',
+    openDraft: 'Abrir borrador de correo',
+    emptyMessage: 'Escribe algo en este campo.',
   },
   {
     prefix: '/en',
@@ -22,6 +26,10 @@ for (const locale of [
     projects: 'Projects',
     assistant: 'Assistant',
     question: 'How can I email Alex?',
+    subject: 'Subject',
+    message: 'Message',
+    openDraft: 'Open email draft',
+    emptyMessage: 'Enter some text in this field.',
   },
 ]) {
   test(`keeps contact available throughout the workspace in ${locale.prefix || 'es'}`, async ({
@@ -78,4 +86,60 @@ for (const locale of [
     await expect(page).toHaveURL(path);
     await expect(contact.getByRole('heading', { name: locale.contact, exact: true })).toBeVisible();
   });
+
+  test(`opens a validated email draft in ${locale.prefix || 'es'}`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 740 });
+    const path = locale.prefix + '/contact';
+    await page.goto(path);
+
+    const subject = page.getByRole('textbox', { name: locale.subject, exact: true });
+    const message = page.getByRole('textbox', { name: locale.message, exact: true });
+    const openDraft = page.getByRole('button', { name: locale.openDraft });
+    const directEmail = page.getByRole('link', { name: 'miraabad.alejandro@gmail.com' });
+    const drafts: string[] = [];
+    await page.exposeFunction('recordContactDraft', (href: string) => drafts.push(href));
+    await page.evaluate(() => {
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLAnchorElement) || event.target.protocol !== 'mailto:')
+          return;
+        event.preventDefault();
+        const browser = window as Window & { recordContactDraft: (href: string) => void };
+        browser.recordContactDraft(event.target.href);
+      });
+    });
+
+    await expect(directEmail).toHaveAttribute('href', 'mailto:miraabad.alejandro@gmail.com');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+    await openDraft.click();
+    await expect(subject).toBeFocused();
+    expect(drafts).toHaveLength(0);
+
+    await subject.fill('Diseño & desarrollo?');
+    await message.fill('  ');
+    await openDraft.click();
+    await expect(message).toBeFocused();
+    await expect(message).toHaveJSProperty('validationMessage', locale.emptyMessage);
+    expect(drafts).toHaveLength(0);
+
+    const body = 'Hola + gracias!\nSegunda línea.';
+    await message.fill(body);
+    await openDraft.click();
+    await expect
+      .poll(() => drafts)
+      .toEqual([
+        'mailto:miraabad.alejandro@gmail.com?subject=Dise%C3%B1o%20%26%20desarrollo%3F&body=Hola%20%2B%20gracias!%0D%0ASegunda%20l%C3%ADnea.',
+      ]);
+    await expect(page).toHaveURL(path);
+    await expect(message).toHaveValue(body);
+  });
 }
+
+test.describe('contact without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('keeps the direct email link available', async ({ page }) => {
+    await page.goto('/contact');
+    await expect(page.getByRole('link', { name: 'miraabad.alejandro@gmail.com' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Abrir borrador de correo' })).toBeHidden();
+  });
+});

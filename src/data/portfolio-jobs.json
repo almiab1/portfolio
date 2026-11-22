@@ -1,5 +1,31 @@
 [
-  { "key": "gurusup", "company": "GuruSup", "year": "2026" },
-  { "key": "convotis", "company": "CONVOTIS Iberia", "year": "2025", "period": "2025–2026" },
-  { "key": "aiju", "company": "AIJU", "year": "2021", "period": "2021–2025" }
+  {
+    "key": "gurusup",
+    "company": "GuruSup",
+    "year": "2026",
+    "website": {
+      "es": "https://gurusup.com/es",
+      "en": "https://gurusup.com/"
+    }
+  },
+  {
+    "key": "convotis",
+    "company": "CONVOTIS Iberia",
+    "year": "2025",
+    "period": "2025–2026",
+    "website": {
+      "es": "https://www.convotis.com/es/",
+      "en": "https://www.convotis.com/en/"
+    }
+  },
+  {
+    "key": "aiju",
+    "company": "AIJU",
+    "year": "2021",
+    "period": "2021–2025",
+    "website": {
+      "es": "https://www.aiju.es/",
+      "en": "https://www.aiju.es/en/"
+    }
+  }
 ]

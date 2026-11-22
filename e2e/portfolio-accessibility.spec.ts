@@ -97,10 +97,15 @@ test('uses wide workspace space while keeping the profile and assistant bounded'
   expect(profile.width).toBeLessThan(workspace.width);
   expect(assistant.width).toBeLessThanOrEqual(384);
   await page.goto('/contact');
-  await expect(page.locator('a.portfolio-contact-email')).toHaveCSS(
-    'background-color',
-    'rgb(255, 247, 238)',
-  );
+  const contact = page.getByRole('main');
+  await expect(contact).toHaveCSS('background-color', 'rgb(255, 250, 243)');
+  const email = (await contact
+    .getByRole('link', { name: 'miraabad.alejandro@gmail.com' })
+    .boundingBox())!;
+  const subject = (await contact
+    .getByRole('textbox', { name: 'Asunto', exact: true })
+    .boundingBox())!;
+  expect(email.x + email.width).toBeLessThan(subject.x);
 });
 
 test('loads Inter for both languages and fits the main routes at 320 pixels', async ({ page }) => {

@@ -119,6 +119,8 @@ for (const locale of [
       'wotics',
       'simdat-4-0',
       'crop-monitoring',
+      'cookobot',
+      'glio-ia',
       'neuroevolutionary-ai',
     ]) {
       await page.goto(`${locale.prefix}/work`);
@@ -126,7 +128,14 @@ for (const locale of [
         `[data-case-path="${locale.prefix}/work/${slug}"] [data-visual-source="${slug}"] img`,
       );
       const sourceUrl = await source.getAttribute('src');
-      expect(sourceUrl).toMatch(/^\/images\/projects\//);
+      const illustrated = slug === 'glio-ia' || slug === 'neuroevolutionary-ai';
+      if (illustrated) expect(sourceUrl).toBe(`/images/projects/${slug}-cover.webp`);
+      else expect(sourceUrl).toMatch(/^\/images\/projects\//);
+      const frame = await source.locator('..').boundingBox();
+      const image = await source.boundingBox();
+      expect(image!.height).toBeCloseTo(frame!.height, 0);
+      expect(image!.width).toBeCloseTo(frame!.width, 0);
+      expect(image!.y).toBeCloseTo(frame!.y, 0);
       await page.goto(`${locale.prefix}/work/${slug}`);
       const sharedImage = await page.locator('meta[property="og:image"]').getAttribute('content');
       expect(new URL(sharedImage!).pathname).toBe(sourceUrl);
@@ -136,7 +145,7 @@ for (const locale of [
       );
       await expect(page.locator(`.case-cover [data-visual-source="${slug}"] img`)).toHaveCSS(
         'object-fit',
-        'contain',
+        illustrated ? 'cover' : 'contain',
       );
     }
 
