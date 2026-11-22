@@ -2,6 +2,7 @@
 // ABOUTME: Tests path computation, locale switching, and astro:after-swap sync.
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, act, cleanup } from '@testing-library/react';
+import { CATALOG_FILTERS_CHANGE } from '@/lib/catalog-filters';
 import LanguageSwitcher from './LanguageSwitcher';
 
 // Mock lucide-react Globe icon
@@ -98,6 +99,31 @@ describe('LanguageSwitcher', () => {
 
     // EN link should now point to /en/work
     expect(enLink).toHaveAttribute('href', '/en/work');
+  });
+
+  it('keeps only catalogue filters when the current URL changes', () => {
+    window.location.pathname = '/en/work/glio-ia';
+    window.location.search = '?q=PyTorch&type=ai&other=ignored';
+
+    render(<LanguageSwitcher currentLocale="en" initialPath="/en/work/glio-ia" />);
+
+    const esLink = screen.getByRole('link', { name: 'Español' });
+    const enLink = screen.getByRole('link', { name: 'English' });
+    expect(esLink).toHaveAttribute('href', '/work/glio-ia?q=PyTorch&type=ai');
+    expect(enLink).toHaveAttribute('href', '/en/work/glio-ia?q=PyTorch&type=ai');
+
+    window.location.search = '?type=web';
+    act(() => {
+      document.dispatchEvent(new Event(CATALOG_FILTERS_CHANGE));
+    });
+    expect(esLink).toHaveAttribute('href', '/work/glio-ia?type=web');
+
+    window.location.pathname = '/en/experience';
+    act(() => {
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+    expect(esLink).toHaveAttribute('href', '/experience');
+    expect(enLink).toHaveAttribute('href', '/en/experience');
   });
 
   it('cleans up astro:after-swap listener on unmount', () => {

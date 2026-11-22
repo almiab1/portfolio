@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Personal portfolio for Alex (alejandromira.com): a static Astro site with React islands and custom es/en i18n, deployed on Vercel. There is no backend.
+Personal portfolio for Alex (alejandromira.com): a static Astro site with React islands and custom es/en i18n, deployed on Vercel. The preview assistant uses a Python function in `api/chat.py`. See `docs/features/assistant-preview.md` for its local setup and tests.
 
 Address the user as "Alex".
 

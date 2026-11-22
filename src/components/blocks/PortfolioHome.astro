@@ -3,10 +3,8 @@
 // ABOUTME: Links the profile to the desktop apps and emits shared structured data.
 import { Image } from 'astro:assets';
 import { ArrowUpRight, FileText, Layers } from 'lucide-react';
+import PortfolioSocialLinks from '@/components/blocks/PortfolioSocialLinks.astro';
 import Base from '@/layouts/BaseLayout.astro';
-import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
-import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
-import XIcon from '@/components/ui/icons/XIcon.astro';
 import portrait from '@/assets/me.png';
 import { ldPerson, ldWebsite } from '@/lib/schema';
 import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
@@ -62,32 +60,7 @@ const t = useTranslations(lang);
       </div>
       <footer class="profile-card-footer">
         <span class="portfolio-kicker">{t('desktop.profileFocus')}</span>
-        <div class="profile-card-social">
-          <a
-            class="portfolio-contact-social"
-            href="https://github.com/almiab1"
-            aria-label="GitHub"
-            title="GitHub"
-          >
-            <GithubIcon size={19} />
-          </a>
-          <a
-            class="portfolio-contact-social"
-            href="https://www.linkedin.com/in/alejandro-mira/"
-            aria-label="LinkedIn"
-            title="LinkedIn"
-          >
-            <LinkedinIcon size={19} />
-          </a>
-          <a
-            class="portfolio-contact-social"
-            href="https://x.com/alexmiira"
-            aria-label="X · @alexmiira"
-            title="X · @alexmiira"
-          >
-            <XIcon size={19} />
-          </a>
-        </div>
+        <PortfolioSocialLinks variant="profile" />
       </footer>
     </section>
   </main>
