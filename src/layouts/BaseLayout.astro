@@ -85,3 +85,13 @@ const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' }
     {process.env.VERCEL === '1' && <Analytics />}
   </body>
 </html>
+
+<script>
+  const token = import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN;
+  const host = import.meta.env.PUBLIC_POSTHOG_HOST;
+  if (token && host) {
+    void import('@/lib/posthog').then(({ startPostHog }) =>
+      startPostHog(token, host, import.meta.env.MODE),
+    );
+  }
+</script>

@@ -23,9 +23,9 @@ const t = useTranslations(lang);
 const { Content, headings } = await render(project);
 const outline = headings.filter(({ depth }) => depth === 3);
 const links = [
-  { href: data.links?.demo, label: t('project.demo'), icon: ArrowUpRight },
-  { href: data.links?.repo, label: t('project.repo'), icon: GithubIcon },
-  { href: data.links?.external, label: t('project.external'), icon: ArrowUpRight },
+  { href: data.links?.demo, type: 'demo', label: t('project.demo'), icon: ArrowUpRight },
+  { href: data.links?.repo, type: 'repository', label: t('project.repo'), icon: GithubIcon },
+  { href: data.links?.external, type: 'external', label: t('project.external'), icon: ArrowUpRight },
 ];
 ---
 
@@ -120,9 +120,17 @@ const links = [
       {links.some(({ href }) => href) && (
         <div class="case-links">
           {links.map(
-            ({ href, label, icon: Icon }) =>
+            ({ href, type, label, icon: Icon }) =>
               href && (
-                <a class="portfolio-link" href={href} target="_blank" rel="noopener noreferrer">
+                <a
+                  class="portfolio-link"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-project-link
+                  data-project-slug={project.id.replace(/^(es|en)\//, '')}
+                  data-link-type={type}
+                >
                   <span aria-hidden="true">
                     <Icon size={17} />
                   </span>{' '}

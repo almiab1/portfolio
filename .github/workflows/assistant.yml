@@ -23,3 +23,4 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm run test:e2e
       - run: pnpm exec playwright test --config playwright.assistant.config.ts
+      - run: pnpm exec playwright test --config playwright.posthog.config.ts

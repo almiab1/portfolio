@@ -103,6 +103,12 @@ Los informes incluyen el modelo, las versiones de catálogo, skills y casos, y l
 
 En el ensayo local con Nemotron, el flujo ordinario superó los diez casos ES/EN con cuatro peticiones en total. Seis consultas se resolvieron sin inferencia. Al revisar el texto en español se encontró una atribución imprecisa: una respuesta decía que Alex desarrolló los modelos TensorFlow de Cookobot, mientras la ficha documenta su integración y optimización. Los criterios automáticos de esa tanda comprobaban nombres de proyectos, datos concretos, destinos y consumo. El banco de pruebas actual incluye el error observado y su equivalente en inglés. Comprueba la integración y optimización de los modelos y distingue ese trabajo del desarrollo de la interfaz. La candidata con Code Mode superó nueve casos con cinco peticiones. En la recomendación inglesa, dos ensayos dirigidos posteriores produjeron una salida truncada y una llamada a herramienta escrita como texto. El harness descarta ambos resultados. Code Mode queda desactivado en la API de todos los entornos.
 
+## Privacidad en PostHog
+
+El panel del asistente está presente en todo el escritorio. La analítica de PostHog se habilita al configurar `PUBLIC_POSTHOG_PROJECT_TOKEN` y `PUBLIC_POSTHOG_HOST` durante el build. Registra visitas a rutas públicas y cinco interacciones: abrir una ficha, cambiar el tipo de proyecto, abrir un enlace externo de un proyecto, seleccionar un canal de contacto y descargar una edición del CV. El texto del buscador y los parámetros de la URL quedan fuera de los eventos.
+
+La aplicación desactiva la grabación de sesiones, la autocaptura y la recolección automática de excepciones. Los controles del asistente y su historial quedan excluidos también de los eventos manuales. Las pruebas de navegador en español e inglés utilizan conversaciones sintéticas y un colector de prueba para comprobar qué información sale del navegador.
+
 ## Pruebas
 
 Las pruebas de concurrencia y caducidad de la cuota arrancan un Redis temporal con un socket local. Para ejecutarlas se necesitan `redis-server` y `redis-cli` en el PATH. Siteverify y NVIDIA se simulan durante las pruebas automáticas.
