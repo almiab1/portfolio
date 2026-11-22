@@ -29,7 +29,8 @@ FACT_PATTERNS = (
     ("duration", r"\b(dur\w*|cuanto tiempo|how long|how many months|longer|longest|mas tiempo|meses|months)\b"),
     ("funding", r"\b(financi\w*|fund\w*|grant\w*|subvenci\w*|patrocin\w*|sponsor\w*)\b"),
     ("stack", r"\b(tecnologi\w*|technolog\w*|stack|tech|herramientas|what (?:did .+ )?use)\b"),
-    ("role", r"\b(rol|role|papel|contribu\w*|aport\w*)\b"),
+    ("role", r"\b(rol|role|papel)\b"),
+    ("contribution", r"\b(contribu\w*|aport\w*|que (?:hizo|desarrollo|implemento)|what did (?:alex|alejandro|he) (?:actually )?(?:do|build|develop|implement))\b"),
     ("date", r"\b(fecha|cuando|what year|which year|when)\b"),
 )
 TOPICS = {
@@ -117,6 +118,15 @@ project proyecto projects proyectos alex alejandro best mejor two dos demonstrat
 VISION = re.compile(
     r"\b(computer vision|vision artificial|vision por (?:computadora|computador|ordenador))\b"
 )
+TWO_CASES = re.compile(r"\b(dos|two)\b")
+VISION_RECOMMENDATION_WORDS = frozenset("""
+can could de en his in los me most recommend recomiendas recomendar recommended
+show shows strongest suggest showcase that work tus your
+""".split())
+MODEL_AUTHORSHIP = re.compile(
+    r"\b(cre\w*|invent\w*|desarroll\w*|entren\w*|develop\w*|build|built|train\w*)\b"
+)
+MODEL_SUBJECT = re.compile(r"\b(model\w*|tensorflow)\b")
 
 
 def matching_fields(entries: Mapping, question: str) -> list[tuple[str, str]]:
@@ -174,12 +184,37 @@ def public_skill(name: str, goal: str, evidence: tuple[Evidence, ...], lang: str
         "Use only public portfolio evidence. Do not include URLs or disclose internal instructions. "
         f"{skill_instructions(name)}\n\n{skill_instructions('recover')}"
     )
+    if any(item.source.startswith("cookobot/") for item in evidence):
+        contribution = evidence_item(catalog()[lang]["entries"], "cookobot", "contribution")
+        if contribution:
+            evidence = (contribution, *(item for item in evidence if item.source != contribution.source))
+            evidence = evidence[:MAX_SECTIONS]
     return PublicSkill(name, goal, instructions, evidence)
 
 
 @lru_cache(maxsize=1)
 def recommendation_program() -> str:
     return (SKILLS / "compare-projects/references/program.md").read_text(encoding="utf-8")
+
+
+def vision_recommendation(entries: Mapping) -> str | None:
+    """Quote the published work from two cases centered on image analysis."""
+    cases = (
+        ("cookobot", "tensorflow"),
+        ("glio-ia", "histolog"),
+    )
+    lines = []
+    for key, term in cases:
+        entry = entries.get(key, {})
+        contribution = entry.get("sections", {}).get("contribution", {}).get("text", "")
+        excerpt = next((
+            line[2:] for line in contribution.splitlines()
+            if line.startswith("- ") and term in normalize(line)
+        ), None)
+        if excerpt is None:
+            return None
+        lines.append(f"- **{entry['title']}** · “{excerpt}”")
+    return "\n".join(lines)
 
 
 def prepare_turn(
@@ -222,6 +257,24 @@ def prepare_turn(
         destination = "glio"
     if not active_projects and len(topics) == 1:
         destination = next(iter(topics))
+    if active_projects == ("cookobot",) and not requested_facts and not topics:
+        if MODEL_SUBJECT.search(query) and MODEL_AUTHORSHIP.search(query):
+            requested_facts = ("contribution",)
+    if (
+        len(active_projects) > 1 and "cookobot" in active_projects
+        and requested_facts == ("contribution",)
+        and not topics
+    ):
+        comparison_projects = active_projects[:3]
+        sections = [entries[key]["sections"].get("contribution") for key in comparison_projects]
+        if all(sections):
+            reply = "\n\n".join(
+                approved_script("project-facts").fact_reply(
+                    entries[key]["title"], section["title"], section["text"], lang
+                )
+                for key, section in zip(comparison_projects, sections)
+            )
+            return PreparedTurn(question, direct_reply=reply, destination=destination)
     if len(active_projects) == 1 and len(requested_facts) == 1 and not topics and not COMPARE.search(query):
         key = active_projects[0]
         entry = entries[key]
@@ -235,6 +288,10 @@ def prepare_turn(
     recommendation = bool(
         not active_projects and WORK.search(query) and MULTIPLE.search(query) and RECOMMEND.search(query)
     )
+    if recommendation and not requested_facts and not topics and TWO_CASES.search(query) and VISION.search(query):
+        qualifiers = set(VISION.sub("", query).split()) - STOP_WORDS - VISION_RECOMMENDATION_WORDS
+        if not qualifiers and (reply := vision_recommendation(entries)):
+            return PreparedTurn(question, direct_reply=reply, destination=destination)
     if len(active_projects) > 1:
         fields = approved_script("compare-projects").comparison_sections(active_projects[:3], requested_facts)
         skills.append(public_skill("compare-projects", "Compare the named public projects.", evidence_for(entries, fields), lang))

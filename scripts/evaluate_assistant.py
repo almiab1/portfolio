@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import hashlib
 import json
+import re
 import time
 from dataclasses import asdict, replace
 from pathlib import Path
@@ -37,8 +38,11 @@ def regressions(baseline, candidate):
 def matches_answer(case, text):
     answer = text.casefold()
     projects = sum(project.casefold() in answer for project in case.get("projects", []))
-    return bool(text) and projects >= case.get("minimum_projects", 0) and all(
-        term.casefold() in answer for term in case["required"]
+    return (
+        bool(text)
+        and projects >= case.get("minimum_projects", 0)
+        and all(term.casefold() in answer for term in case["required"])
+        and not any(re.search(pattern, answer) for pattern in case.get("forbidden_patterns", []))
     )
 
 

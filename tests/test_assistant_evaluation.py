@@ -26,7 +26,7 @@ def test_release_case_uses_expected_budget(case):
     if case["max_requests"] == 0:
         result = asyncio.run(run_turn(turn))
         assert turn.destination == case["destination"]
-        assert all(term in result.text for term in case["required"])
+        assert matches_answer(case, result.text)
         assert result.trace.model_requests == 0
     else:
         assert turn.direct_reply is None
@@ -34,6 +34,17 @@ def test_release_case_uses_expected_budget(case):
 
 
 def test_selection_needs_evidence_for_two_distinct_cases():
-    case = next(row for row in json.loads(CASES.read_text()) if row["id"] == "selection-es")
+    case = {"required": [], "projects": ["Cookobot", "GLIO-IA"], "minimum_projects": 2}
     assert not matches_answer(case, "Cookobot y Cookobot")
     assert matches_answer(case, "Cookobot y GLIO-IA")
+
+
+@pytest.mark.parametrize(("lang", "unsupported_claim"), [
+    ("es", "Cookobot: Desarrolló modelos TensorFlow para reconocimiento visual de ingredientes y utensilios."),
+    ("en", "Alex trained the TensorFlow models for Cookobot."),
+])
+def test_attribution_gate_rejects_unsupported_claim_even_with_correct_evidence(lang, unsupported_claim):
+    case = next(row for row in json.loads(CASES.read_text()) if row["id"] == f"selection-{lang}")
+    reply = prepare_turn(case["question"], lang, ()).direct_reply
+    assert matches_answer(case, reply)
+    assert not matches_answer(case, f"{reply}\n\n{unsupported_claim}")

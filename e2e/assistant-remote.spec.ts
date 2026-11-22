@@ -24,5 +24,18 @@ for (const lang of ['es', 'en'] as const) {
       .fill(lang === 'es' ? '¿Cuánto duró GLIO-IA?' : 'How long did GLIO-IA last?');
     await page.locator('#assistant-question').press('Enter');
     await expect(log).toContainText(lang === 'es' ? '24 meses' : '24 months');
+    await page
+      .locator('#assistant-question')
+      .fill(lang === 'es' ? 'Describe la arquitectura de GLIO-IA' : 'Describe the GLIO-IA architecture');
+    await page.locator('#assistant-question').press('Enter');
+    await expect(log).toContainText(lang === 'es' ? 'Alex diseñó GLIO-IA' : 'Alex designed GLIO-IA');
+    const projectPath = lang === 'es' ? '/work/glio-ia' : '/en/work/glio-ia';
+    await expect(log.locator(`a[href="${projectPath}"]`)).toHaveCount(2);
+    await page
+      .locator('#assistant-question')
+      .fill(lang === 'es' ? '¿Qué aportó Alex a Cookobot?' : 'What did Alex contribute to Cookobot?');
+    await page.locator('#assistant-question').press('Enter');
+    await expect(log).toContainText(lang === 'es' ? 'Integré modelos TensorFlow' : 'Integrated TensorFlow models');
+    await expect(log).toContainText(lang === 'es' ? 'optimicé' : 'optimized');
   });
 }

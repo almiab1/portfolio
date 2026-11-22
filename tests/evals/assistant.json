@@ -44,46 +44,68 @@
     "lang": "es",
     "question": "Compara las aportaciones de Alex en GLIO-IA y Cookobot",
     "required": [
-      "GLIO",
-      "Cookobot"
+      "Cookobot",
+      "GLIO-IA",
+      "Integré modelos TensorFlow",
+      "optimicé",
+      "VueJS",
+      "Bulma"
     ],
-    "max_requests": 1
+    "forbidden_patterns": [
+      "\\b(?:desarrolló|entrenó|inventó|creó) (?:los |sus )?modelos (?:de )?tensorflow\\b"
+    ],
+    "max_requests": 0,
+    "destination": "work"
   },
   {
     "id": "compare-en",
     "lang": "en",
     "question": "Compare Alex's contributions to GLIO-IA and Cookobot",
     "required": [
-      "GLIO",
-      "Cookobot"
+      "Cookobot",
+      "GLIO-IA",
+      "Integrated TensorFlow models",
+      "optimized",
+      "VueJS",
+      "Bulma"
     ],
-    "max_requests": 1
+    "forbidden_patterns": [
+      "\\b(?:developed|trained|invented|created|built) (?:the |its )?tensorflow models\\b"
+    ],
+    "max_requests": 0,
+    "destination": "work"
   },
   {
     "id": "selection-es",
     "lang": "es",
     "question": "¿Qué dos proyectos demuestran mejor experiencia en visión artificial?",
-    "required": [],
-    "max_requests": 2,
-    "projects": [
-      "GLIO-IA",
+    "required": [
       "Cookobot",
-      "DLT4AITOYS"
+      "GLIO-IA",
+      "Integré modelos TensorFlow",
+      "optimicé"
     ],
-    "minimum_projects": 2
+    "forbidden_patterns": [
+      "\\b(?:desarrolló|entrenó|inventó|creó) (?:los |sus )?modelos (?:de )?tensorflow\\b"
+    ],
+    "max_requests": 0,
+    "destination": "work"
   },
   {
     "id": "selection-en",
     "lang": "en",
     "question": "Which two projects best demonstrate experience in computer vision?",
-    "required": [],
-    "max_requests": 2,
-    "projects": [
-      "GLIO-IA",
+    "required": [
       "Cookobot",
-      "DLT4AITOYS"
+      "GLIO-IA",
+      "Integrated TensorFlow models",
+      "optimized"
     ],
-    "minimum_projects": 2
+    "forbidden_patterns": [
+      "\\b(?:developed|trained|invented|created|built) (?:the |its )?tensorflow models\\b"
+    ],
+    "max_requests": 0,
+    "destination": "work"
   },
   {
     "id": "funding-followup-es",
@@ -110,5 +132,61 @@
     ],
     "max_requests": 0,
     "destination": "work"
+  },
+  {
+    "id": "cookobot-contribution-es",
+    "lang": "es",
+    "question": "¿Qué aportó Alex a Cookobot?",
+    "destination": "work",
+    "required": [
+      "Integré modelos TensorFlow",
+      "optimicé",
+      "Desarrollé la interfaz web",
+      "VueJS",
+      "Bulma"
+    ],
+    "forbidden_patterns": [
+      "\\b(?:desarrolló|entrenó|inventó|creó) (?:los |sus )?modelos (?:de )?tensorflow\\b"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "cookobot-contribution-en",
+    "lang": "en",
+    "question": "What did Alex contribute to Cookobot?",
+    "destination": "work",
+    "required": [
+      "Integrated TensorFlow models",
+      "optimized",
+      "Developed the responsive web interface",
+      "VueJS",
+      "Bulma"
+    ],
+    "forbidden_patterns": [
+      "\\b(?:developed|trained|invented|created|built) (?:the |its )?tensorflow models\\b"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "compare-synthesis-es",
+    "lang": "es",
+    "question": "Compara GLIO-IA con SIMDAT",
+    "destination": "work",
+    "required": [
+      "GLIO-IA",
+      "SIMDAT"
+    ],
+    "max_requests": 1
+  },
+  {
+    "id": "compare-synthesis-en",
+    "lang": "en",
+    "question": "Compare GLIO-IA and SIMDAT",
+    "destination": "work",
+    "required": [
+      "GLIO-IA",
+      "SIMDAT"
+    ],
+    "max_requests": 1
   }
 ]

@@ -92,7 +92,7 @@ def test_missing_key_and_invalid_input(monkeypatch):
     monkeypatch.delenv("VERCEL_ENV", raising=False)
     monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")
     monkeypatch.delenv("NVIDIA_API_KEY", raising=False)
-    assert client.post("/api/chat", json=message("Compare GLIO-IA and Cookobot", "en")).status_code == 503
+    assert client.post("/api/chat", json=message("Compare GLIO-IA and SIMDAT", "en")).status_code == 503
     monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "fixture")
     assert client.post("/api/chat", json=message("CV", "fr")).status_code == 400
     assert client.post("/api/chat", json=message("")).status_code == 400
@@ -101,7 +101,8 @@ def test_missing_key_and_invalid_input(monkeypatch):
     ).status_code == 413
 
 
-def test_hosted_comparison_uses_one_model_turn_after_challenge(hosted_live, monkeypatch):
+def test_hosted_compound_question_uses_one_model_turn_after_challenge(hosted_live, monkeypatch):
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_CODE_MODE", "1")
     order = []
 
     async def verify(token, hostname):
@@ -118,7 +119,7 @@ def test_hosted_comparison_uses_one_model_turn_after_challenge(hosted_live, monk
             await reserve_attempt()
             assert not info.function_tools
             material = repr(messages)
-            assert "Cookobot" in material and "GLIO-IA" in material
+            assert "profile-and-cv" in material and "experience/" in material and "skills/" in material
             assert "visitor@example.test" not in material
             order.append("model")
             return ModelResponse(parts=[TextPart("Two published projects.")], finish_reason="stop")
@@ -127,7 +128,7 @@ def test_hosted_comparison_uses_one_model_turn_after_challenge(hosted_live, monk
     monkeypatch.setattr("api.chat.verify_challenge", verify)
     monkeypatch.setattr("api.chat.reserve_inference_budget", reserve)
     monkeypatch.setattr("api.chat.open_model", provider)
-    payload = message("Compare Alex's contributions to GLIO-IA and Cookobot", "en")
+    payload = message("Summarize the professional experience and skills in this portfolio", "en")
     payload["messages"].insert(0, {"id": "previous", "role": "assistant",
         "parts": [{"type": "text", "text": "visitor@example.test"}]})
     response = post_hosted_chat(hosted_live, payload)
@@ -135,6 +136,15 @@ def test_hosted_comparison_uses_one_model_turn_after_challenge(hosted_live, monk
     assert response.status_code == 200
     assert "Two published projects." in response.text
     assert response.text.strip().endswith("data: [DONE]")
+
+
+def test_invalid_origin_does_not_charge_the_request_window(hosted_live, monkeypatch):
+    monkeypatch.setattr("api.chat.limiter.check", lambda _: pytest.fail("Unexpected rate limit charge"))
+    response = client.post(
+        f"https://{hosted_live}/api/chat", json=message("CV"),
+        headers={"Origin": "https://unrelated.example"},
+    )
+    assert response.status_code == 403
 
 
 def test_verified_preset_uses_no_inference_or_quota(hosted_live, monkeypatch):
@@ -204,7 +214,7 @@ def test_hosted_denial_preserves_http_status(hosted_live, monkeypatch, status):
 
     monkeypatch.setattr("api.chat.verify_challenge", verify)
     monkeypatch.setattr("api.chat.reserve_inference_budget", reserve)
-    response = post_hosted_chat(hosted_live, message("Compare GLIO-IA and Cookobot", "en"))
+    response = post_hosted_chat(hosted_live, message("Compare GLIO-IA and SIMDAT", "en"))
     assert response.status_code == status
     assert "x-vercel-ai-ui-message-stream" not in response.headers
 
@@ -265,6 +275,6 @@ def test_hosted_live_fails_closed_without_budget_configuration(hosted_live, monk
         assert (token, hostname) == (CHALLENGE_TOKEN, hosted_live)
 
     monkeypatch.setattr("api.chat.verify_challenge", verify)
-    response = post_hosted_chat(hosted_live, message("Compare GLIO-IA and Cookobot", "en"))
+    response = post_hosted_chat(hosted_live, message("Compare GLIO-IA and SIMDAT", "en"))
     assert response.status_code == 503
     assert "x-vercel-ai-ui-message-stream" not in response.headers
