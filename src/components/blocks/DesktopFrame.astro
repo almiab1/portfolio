@@ -38,7 +38,7 @@ const apps = [
     icon: BriefcaseBusiness,
   },
   { id: 'skills', path: '/skills', label: t('desktop.skills'), icon: Layers },
-  { id: 'cv', path: '/cv', label: 'CV', icon: FileText },
+  { id: 'cv', path: '/cv', label: t('desktop.cvShort'), icon: FileText },
 ].map(({ id, path, label, icon }) => {
   const localized = getLocalizedUrl(path, lang);
   const normalized = localized.replace(/\/$/, '') || '/';

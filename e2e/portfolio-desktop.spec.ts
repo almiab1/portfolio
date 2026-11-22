@@ -92,6 +92,7 @@ for (const lang of ['es', 'en'] as const) {
 
   test(`${lang} previews and downloads both distinct CV editions`, async ({ page, request }) => {
     await page.goto(prefix + '/cv');
+    await expect(page.locator('[data-desktop-tabs] a[aria-current="page"]')).toHaveText('CV');
     const cv = page.locator('.desktop-cv');
     const bytes = [];
     for (const folder of ['esp', 'eng']) {

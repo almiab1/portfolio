@@ -42,6 +42,7 @@ export const ui = {
     'desktop.apps': 'Aplicaciones del portfolio',
     'desktop.tabs': 'Pestañas abiertas',
     'desktop.close': 'Cerrar pestaña activa',
+    'desktop.cvShort': 'CV',
     'desktop.cvOpen': 'Ver currículum',
     'desktop.cvTitle': 'Currículum',
     'desktop.cvIntro':
@@ -271,6 +272,7 @@ export const ui = {
     'desktop.apps': 'Portfolio apps',
     'desktop.tabs': 'Open tabs',
     'desktop.close': 'Close active tab',
+    'desktop.cvShort': 'CV',
     'desktop.cvOpen': 'View résumé',
     'desktop.cvTitle': 'Résumé',
     'desktop.cvIntro': 'Preview and download Alejandro Mira’s résumé in Spanish or English.',

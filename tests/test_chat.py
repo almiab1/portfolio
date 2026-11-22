@@ -113,15 +113,15 @@ def test_preview_streams_nemotron_from_nvidia_nim(
         if use_tool and len(requests) == 1:
             delta = {"tool_calls": [{
                 "index": 0,
-                "id": "call_glio",
+                "id": "call_destination",
                 "type": "function",
-                "function": {"name": "show_destination", "arguments": '{"destination":"glio"}'},
+                "function": {"name": "show_destination", "arguments": '{"destination":"work"}'},
             }]}
             reason = "tool_calls"
         else:
             if use_tool:
                 assert payload["messages"][-1]["role"] == "tool"
-                assert payload["messages"][-1]["tool_call_id"] == "call_glio"
+                assert payload["messages"][-1]["tool_call_id"] == "call_destination"
             delta = {"content": answer}
             reason = "stop"
         chunk = {

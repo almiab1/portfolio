@@ -184,11 +184,11 @@ def make_agent(
 
 
 async def attach_suggested_destination(
-    result: AgentRunResult[str], *, question: str, destination_hint: Destination | None
+    result: AgentRunResult[str], *, destination_hint: Destination | None
 ) -> AsyncIterator[DataChunk]:
     """Offer a validated destination when a relevant answer has no action."""
     destination = destination_hint
-    if destination is None and (GLIO_TOPIC.search(question) or GLIO_TOPIC.search(result.output)):
+    if destination is None and GLIO_TOPIC.search(result.output):
         destination = "glio"
 
     if destination and not any(
@@ -260,7 +260,11 @@ async def chat(request: Request):
         profile=OpenAIModelProfile(openai_chat_supports_max_completion_tokens=False),
         settings={"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}},
     )
-    destination_hint = "experience" if CAREER_QUESTION.search(question) and not GLIO_TOPIC.search(question) else None
+    destination_hint: Destination | None = None
+    if GLIO_TOPIC.search(question):
+        destination_hint = "glio"
+    elif CAREER_QUESTION.search(question):
+        destination_hint = "experience"
     adapter = VercelAIAdapter(
         agent=make_agent(lang, model, destination_hint), run_input=run_input, sdk_version=7
     )
@@ -273,9 +277,7 @@ async def chat(request: Request):
             output_tokens_limit=800,
         ),
         timeout=20,
-        on_complete=partial(
-            attach_suggested_destination, question=question, destination_hint=destination_hint
-        ),
+        on_complete=partial(attach_suggested_destination, destination_hint=destination_hint),
     )
     response = adapter.streaming_response(guarded_events(stream, secret=key, refusal=refusal))
     response.headers.update({"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
