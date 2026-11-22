@@ -37,7 +37,7 @@ for (const locale of [
 
     const image = page.locator('meta[property="og:image"]');
     const url = new URL((await image.getAttribute('content'))!);
-    expect(url.hostname).toBe('alejandromira.com');
+    expect(url.hostname).toBe('www.alejandromira.com');
     const response = await request.get(new URL(url.pathname, page.url()).href);
     expect(response.ok()).toBe(true);
     expect(response.headers()['content-type']).toContain('image/jpeg');
