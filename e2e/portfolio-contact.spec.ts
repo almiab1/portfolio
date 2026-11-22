@@ -2,6 +2,12 @@
 // ABOUTME: Covers the contact action in the assistant and the mobile menu bar.
 import { expect, test } from '@playwright/test';
 
+const SOCIAL_LINKS = [
+  { name: 'GitHub', href: 'https://github.com/almiab1' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/alejandro-mira/' },
+  { name: 'X · @alexmiira', href: 'https://x.com/alexmiira' },
+];
+
 for (const locale of [
   {
     prefix: '',
@@ -23,10 +29,14 @@ for (const locale of [
   }) => {
     await page.setViewportSize({ width: 1440, height: 780 });
     await page.goto(locale.prefix + '/');
-    await expect(page.getByRole('link', { name: 'X · @alexmiira', exact: true })).toHaveAttribute(
-      'href',
-      'https://x.com/alexmiira',
-    );
+    const profile = page.getByRole('main');
+    for (const { name, href } of SOCIAL_LINKS) {
+      const link = profile.getByRole('link', { name, exact: true });
+      await expect(link).toBeVisible();
+      await expect(link).toHaveAttribute('href', href);
+      await expect(link).toHaveAttribute('title', name);
+      await expect(link).not.toHaveAttribute('target', '_blank');
+    }
     await page.goto(locale.prefix + '/skills');
     const shortcut = page
       .locator('.desktop-menu')
@@ -40,11 +50,13 @@ for (const locale of [
     await expect(page).toHaveURL(path);
     await expect(contact.getByRole('heading', { name: locale.contact, exact: true })).toBeVisible();
     await expect(contact.locator('a[href^="mailto:"]')).toBeVisible();
-    await expect(contact.getByRole('link', { name: 'LinkedIn', exact: true })).toBeVisible();
-    await expect(contact.getByRole('link', { name: 'GitHub', exact: true })).toBeVisible();
-    await expect(
-      contact.getByRole('link', { name: 'X · @alexmiira', exact: true }),
-    ).toHaveAttribute('href', 'https://x.com/alexmiira');
+    for (const { name, href } of SOCIAL_LINKS) {
+      const link = contact.getByRole('link', { name, exact: true });
+      await expect(link).toBeVisible();
+      await expect(link).toHaveText(name);
+      await expect(link).toHaveAttribute('href', href);
+      await expect(link).toHaveAttribute('target', '_blank');
+    }
     await expect(shortcut).toHaveAttribute('aria-current', 'page');
     await expect(page.locator('[data-desktop-tabs] a[aria-current="page"]')).toHaveText(
       locale.contact,
