@@ -40,14 +40,14 @@ const isCover = variant === 'cover';
   data-fit={project.data.cover.fit ?? 'contain'}
   data-project-type={type}
   data-visual-source={art ? translationKey : undefined}
-  aria-hidden="true"
+  aria-hidden={isCover && art ? undefined : true}
 >
   {art ? (
     <img
       src={art}
       width="640"
       height="360"
-      alt=""
+      alt={isCover ? project.data.cover.alt ?? '' : ''}
       loading={isCover ? 'eager' : 'lazy'}
       decoding="async"
     />

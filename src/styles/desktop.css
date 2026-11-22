@@ -6,7 +6,7 @@
   --desktop-panel: var(--card);
   --desktop-dock-width: 5rem;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template: auto minmax(0, 1fr) / minmax(0, 1fr);
   height: 100dvh;
   min-height: 20rem;
   position: relative;
@@ -392,6 +392,56 @@
   }
 }
 
+@container (max-width: 12rem) {
+  .desktop-content > main {
+    overflow-wrap: anywhere;
+  }
+
+  .desktop-timeline li,
+  .capabilities .capability,
+  .catalogue-extras,
+  .personal-content,
+  .catalogue-controls,
+  .desktop-content .catalogue-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .desktop-timeline::before,
+  .desktop-timeline time::after {
+    display: none;
+  }
+
+  .desktop-timeline .employer-link {
+    grid-template-columns: clamp(2.5rem, 8cqw, 4.5rem) minmax(0, 1fr) auto;
+  }
+
+  .distribution-bars a {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 2ch;
+  }
+
+  .catalogue-list .personal-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .catalogue-list .personal-image {
+    max-width: none;
+  }
+
+  .catalogue-row .project-visual {
+    grid-row: auto;
+  }
+
+  .desktop-content .catalogue-action {
+    grid-column: auto;
+    white-space: normal;
+  }
+
+  .catalogue-summary {
+    display: block;
+  }
+}
+
 @media (min-width: 49.001rem) and (max-height: 800px) {
   .desktop {
     --desktop-gap: clamp(0.45rem, 0.8vw, 0.75rem);
@@ -415,7 +465,16 @@
 
 @media (max-width: 49rem) {
   .desktop-menu {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+    container-type: inline-size;
+  }
+
+  .desktop-contact-link {
+    padding-inline: 0;
+  }
+
+  .desktop-brand {
+    overflow-wrap: anywhere;
   }
 
   .desktop-menu-label,
@@ -431,9 +490,13 @@
 
   .desktop-dock {
     grid-row: 2;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .desktop-dock > * {
+    flex: 1;
+    min-width: min-content;
   }
 
   .desktop-dock > :is(a, button),
@@ -453,6 +516,13 @@
   .desktop-dock svg {
     width: 19px;
     height: 19px;
+  }
+}
+
+@container (max-width: 9rem) {
+  .desktop-brand,
+  .desktop-menu-actions {
+    grid-column: 1 / -1;
   }
 }
 
