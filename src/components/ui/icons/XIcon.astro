@@ -1,0 +1,20 @@
+---
+// ABOUTME: Draws the X brand mark with the current text color.
+// ABOUTME: Shares the same size prop as the other social icons.
+interface Props {
+  size?: number;
+}
+
+const { size = 24 } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  aria-hidden="true"
+>
+  <path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-7.4L5.6 22H2.4l7.3-8.4L2 2h6.4l4.4 6.7L18.9 2Zm-1.1 18h1.7L7.4 3.9H5.5L17.8 20Z"></path>
+</svg>

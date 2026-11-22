@@ -6,6 +6,7 @@ import { ArrowUpRight, FileText, Layers } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
 import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
+import XIcon from '@/components/ui/icons/XIcon.astro';
 import portrait from '@/assets/me.png';
 import { ldPerson, ldWebsite } from '@/lib/schema';
 import { useTranslations, getLocalizedUrl, type Language } from '@/i18n/utils';
@@ -77,6 +78,14 @@ const t = useTranslations(lang);
             title="LinkedIn"
           >
             <LinkedinIcon size={19} />
+          </a>
+          <a
+            class="portfolio-contact-social"
+            href="https://x.com/alexmiira"
+            aria-label="X · @alexmiira"
+            title="X · @alexmiira"
+          >
+            <XIcon size={19} />
           </a>
         </div>
       </footer>
