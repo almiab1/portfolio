@@ -83,9 +83,10 @@ function publicList(values) {
 export async function buildCatalog(sourceRoot = REPO_ROOT) {
   const read = (path) => readFile(new URL(path, sourceRoot), 'utf8');
   const readJson = async (path) => JSON.parse(await read(path));
-  const [profile, jobs, replies] = await Promise.all([
+  const [profile, jobs, schools, replies] = await Promise.all([
     readJson('src/i18n/profile-content.json'),
     readJson('src/data/portfolio-jobs.json'),
+    readJson('src/data/portfolio-schools.json'),
     readJson('src/i18n/assistant-replies.json'),
   ]);
 
@@ -148,17 +149,15 @@ export async function buildCatalog(sourceRoot = REPO_ROOT) {
     };
     entries.skills = {
       title: labels.skills, url: `${prefix}/skills`, kind: 'page',
-      sections: {
-        ...Object.fromEntries(['agents', 'ml', 'software'].map((key) => [key, {
-          title: ui[`profile.skill.${key}.title`], text: ui[`profile.skill.${key}.tools`],
-        }])),
-      },
+      sections: Object.fromEntries(['agents', 'ml', 'software'].map((key) => [key, {
+        title: ui[`profile.skill.${key}.title`], text: ui[`profile.skill.${key}.tools`],
+      }])),
     };
     entries.education = {
       title: labels.education, url: `${prefix}/experience`, kind: 'page',
       sections: { overview: {
         title: labels.education,
-        text: [ui['profile.degree.master'], ui['profile.degree.bachelor']].join('\n'),
+        text: Object.entries(schools).map(([key, school]) => `${ui[`profile.degree.${key}`]} · ${school}`).join('\n'),
       } },
     };
     entries.cv = {

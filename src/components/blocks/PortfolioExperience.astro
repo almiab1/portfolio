@@ -9,6 +9,7 @@ import uimpMark from '@/assets/organizations/uimp.webp?url';
 import upvMark from '@/assets/organizations/upv.png?url';
 import Base from '@/layouts/BaseLayout.astro';
 import jobs from '@/data/portfolio-jobs.json';
+import schools from '@/data/portfolio-schools.json';
 import { useTranslations, type Language } from '@/i18n/utils';
 
 interface Job {
@@ -34,7 +35,7 @@ const employerMarks = {
 const degrees = [
   {
     key: 'master',
-    school: 'Universidad Internacional Menéndez Pelayo',
+    school: schools.master,
     period: '2022–2024',
     mark: { src: uimpMark, width: 244, height: 146 },
     // The university's programme sheet is indexed by academic year and locale.
@@ -42,7 +43,7 @@ const degrees = [
   },
   {
     key: 'bachelor',
-    school: 'Universitat Politècnica de València',
+    school: schools.bachelor,
     period: '2017–2021',
     mark: { src: upvMark, width: 804, height: 284 },
     href:

@@ -40,7 +40,7 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
   },
   {
     pattern:
-      /\b(formacion|education|degree\w*|estudio\w*|estudi\w*|(?:what|where) did (?:he|alex|alejandro) study)\b/,
+      /\b(formacion|education|degrees?|universidad(?:es)?|universit(?:y|ies)|estudi\w*|(?:what|where) did (?:he|you|alex|alejandro) study)\b/,
     destination: 'experience',
     reply: 'desktop.replyEducation',
   },
@@ -50,7 +50,7 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
     reply: 'desktop.replySkills',
   },
   {
-    pattern: /\b(proyecto\w*|project\w*|robot\w*|catalog\w*|portfolio)\b/,
+    pattern: /\b(proyecto\w*|project\w*|case stud(?:y|ies)|robot\w*|catalog\w*|portfolio)\b/,
     destination: 'work',
     reply: 'desktop.replyProjects',
   },
@@ -73,7 +73,8 @@ export function createPortfolioTransport(lang: Language): ChatTransport<Portfoli
           .join(' ')
           .normalize('NFD')
           .replace(/\p{Diacritic}/gu, '')
-          .toLowerCase() ?? '';
+          .toLowerCase()
+          .replace(/\b(?:casos? de estudio|estudios? de caso)\b/g, 'proyectos') ?? '';
       const topic = TOPICS.find(({ pattern }) => pattern.test(input));
       const reply = translate(topic?.reply ?? 'desktop.replyFallback');
 
