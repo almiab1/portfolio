@@ -1,7 +1,0 @@
-<!-- ABOUTME: Illustrates connected smart toy services and a distributed record. -->
-<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#ead6c2"/>
-  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
-  <g fill="#f7ebd9" stroke="#713e2d" stroke-width="5"><rect x="227" y="93" width="186" height="159" rx="39"/><circle cx="267" cy="80" r="19"/><circle cx="373" cy="80" r="19"/></g><circle cx="280" cy="155" r="9" fill="#304b40"/><circle cx="360" cy="155" r="9" fill="#304b40"/><path d="M288 195q32 20 64 0" fill="none" stroke="#713e2d" stroke-width="5" stroke-linecap="round"/><g fill="#c4d6a5" stroke="#304b40" stroke-width="4"><rect x="76" y="100" width="62" height="62" rx="9"/><rect x="72" y="219" width="62" height="62" rx="9"/><rect x="502" y="99" width="62" height="62" rx="9"/><rect x="506" y="218" width="62" height="62" rx="9"/></g><path d="M138 131h82m-86 119h86m193-119h89m-89 119h93" stroke="#a9785d" stroke-width="4" stroke-dasharray="7 6"/>
-</svg>

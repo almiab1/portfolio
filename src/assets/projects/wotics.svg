@@ -1,7 +1,0 @@
-<!-- ABOUTME: Illustrates supported learning and pathways toward work. -->
-<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#ead6c2"/>
-  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
-  <path d="M93 267h454" stroke="#713e2d" stroke-width="4"/><path d="M133 234h91v-44h91v-44h91v-44h91" fill="none" stroke="#c07555" stroke-width="13" stroke-linejoin="round"/><g fill="#f7ebd9" stroke="#304b40" stroke-width="4"><circle cx="178" cy="166" r="27"/><path d="M132 244q2-47 46-47t46 47z"/><rect x="364" y="64" width="97" height="62" rx="14"/></g><path d="M383 85h59m-59 17h35" stroke="#71917d" stroke-width="4" stroke-linecap="round"/><path d="M430 126l-12 13v-13" fill="#f7ebd9" stroke="#304b40" stroke-width="4" stroke-linejoin="round"/><circle cx="497" cy="102" r="12" fill="#304b40"/>
-</svg>

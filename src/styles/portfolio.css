@@ -298,6 +298,8 @@
 }
 .contact-grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
   gap: clamp(2rem, 5vw, 5rem);
   max-width: 61rem;
   align-items: start;
@@ -353,6 +355,7 @@
 }
 .contact-form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
   padding: clamp(1rem, 3vw, 2rem);
   border: 1px solid var(--border);
@@ -371,6 +374,7 @@
 }
 .contact-field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.4rem;
   min-width: 0;
 }
@@ -392,6 +396,7 @@
 }
 .contact-form button {
   justify-self: start;
+  max-width: 100%;
   cursor: pointer;
 }
 .portfolio-contact textarea:focus-visible {

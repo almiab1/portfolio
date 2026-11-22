@@ -9,12 +9,12 @@ Las fichas en español e inglés usan los mismos archivos de `public/images/proj
 | SIMDAT 4.0 | Logotipo | [AIJU Informa n.º 135, página impresa 13](https://www.aiju.es/wp-content/uploads/2023/05/Informa_135_DEF_INTERACTIVO.pdf#page=7). |
 | DLT4AITOYS | Logotipo | [Original de AIJU](https://www.aiju.es/wp-content/uploads/2022/12/Logo-DLT4AITOYS-v2_Jose-Carlos-Sola-1024x345.png). |
 | AIPASSPORTGUARDNET | Logotipo extraído de la lámina del proyecto | [Original de AIJU](https://www.aiju.es/wp-content/uploads/2024/06/proyecto-AIPASSPORTGUARDNET-web.jpg). |
-| GLIO-IA | Diagrama del flujo de trabajo del proyecto | [Lámina de AIJU](https://www.aiju.es/wp-content/uploads/2024/05/proyecto-glioia.jpg). |
+| GLIO-IA | Portada de cerebro de vidrio generada con ImageGen. El diagrama original se muestra en la galería | [Lámina de AIJU](https://www.aiju.es/wp-content/uploads/2024/05/proyecto-glioia.jpg). |
 | Cookobot | Portada con el logotipo del robot | [Portada del portfolio original](https://github.com/almiab1/portfolio/blob/d33a197d873197d23e0d921883fc26d23baa49c2/src/img/cookobot.png) y memoria del equipo. |
 | Senet | Portada del juego de Real Delusion | [Portada del portfolio original](https://github.com/almiab1/portfolio/blob/d33a197d873197d23e0d921883fc26d23baa49c2/src/img/senet.png). |
 | Smart Scale | Portada original de la báscula y su aplicación | [Portada del portfolio original](https://github.com/almiab1/portfolio/blob/d33a197d873197d23e0d921883fc26d23baa49c2/src/img/smartScale.png). |
 | iPollution | Logotipo de la aplicación | [Proyecto3A-Webapp](https://github.com/almiab1/Proyecto3A-Webapp/blob/94caea6b75b7a59c7f44bfb2d5b0fa218384a093/iPollution/src/assets/icon/logo.svg), GPL-3.0. |
-| IA neuroevolutiva para MTG | Gráfico de población de una ejecución de entrenamiento | [AI_Neuroevolution_MTG](https://github.com/almiab1/AI_Neuroevolution_MTG/blob/5e621b4321d5c2300881f977e3869dbc94454e55/Trainings/trainingResults_1/plots/all_pop.jpg), GPL-3.0. |
+| IA neuroevolutiva para MTG | Portada de cartas y red neuronal generada con ImageGen. El gráfico de entrenamiento se muestra en la galería | [AI_Neuroevolution_MTG](https://github.com/almiab1/AI_Neuroevolution_MTG/blob/5e621b4321d5c2300881f977e3869dbc94454e55/Trainings/trainingResults_1/plots/all_pop.jpg), GPL-3.0. |
 
 La [copia de la licencia GPL-3.0](../../../public/licenses/project-media-gpl-3.0.txt) acompaña al logo de iPollution y al gráfico de entrenamiento. La tarjeta de HealthDashboard conserva su ilustración editorial.
 

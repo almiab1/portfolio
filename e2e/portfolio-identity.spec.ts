@@ -127,6 +127,7 @@ for (const locale of [
       const source = page.locator(
         `[data-case-path="${locale.prefix}/work/${slug}"] [data-visual-source="${slug}"] img`,
       );
+      await expect(source).toHaveAttribute('alt', '');
       const sourceUrl = await source.getAttribute('src');
       const illustrated = slug === 'glio-ia' || slug === 'neuroevolutionary-ai';
       if (illustrated) expect(sourceUrl).toBe(`/images/projects/${slug}-cover.webp`);
@@ -137,6 +138,7 @@ for (const locale of [
       expect(image!.width).toBeCloseTo(frame!.width, 0);
       expect(image!.y).toBeCloseTo(frame!.y, 0);
       await page.goto(`${locale.prefix}/work/${slug}`);
+      await expect(page.locator('.case-cover').getByRole('img', { name: /.+/ })).toBeVisible();
       const sharedImage = await page.locator('meta[property="og:image"]').getAttribute('content');
       expect(new URL(sharedImage!).pathname).toBe(sourceUrl);
       await expect(page.locator(`.case-cover [data-visual-source="${slug}"] img`)).toHaveAttribute(

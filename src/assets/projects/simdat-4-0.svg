@@ -1,7 +1,0 @@
-<!-- ABOUTME: Illustrates an industrial cell and its digital twin. -->
-<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#ead6c2"/>
-  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
-  <path d="M75 270h490" stroke="#713e2d" stroke-width="5"/><path d="M106 270v-85l55-35 55 35v85M424 270v-85l55-35 55 35v85" fill="#f7ebd9" stroke="#713e2d" stroke-width="4"/><path d="M111 185h100m-100 31h100m218-31h100m-100 31h100" stroke="#b48770" stroke-width="3"/><path d="M260 267v-49l-32-33 39-35 45 26" fill="none" stroke="#304b40" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/><circle cx="260" cy="218" r="9" fill="#c4d6a5"/><path d="M363 267v-49l-32-33 39-35 45 26" fill="none" stroke="#c07555" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 8"/><path d="M269 108h102m-12-9 12 9-12 9" fill="none" stroke="#713e2d" stroke-width="3"/>
-</svg>
