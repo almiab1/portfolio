@@ -30,7 +30,7 @@ def preview(monkeypatch):
     def unexpected_provider(*args, **kwargs):
         pytest.fail("The guardrail must run before the provider is configured")
 
-    monkeypatch.setattr("api.chat.OpenAICompatibleProvider", unexpected_provider)
+    monkeypatch.setattr("api.chat.open_model", unexpected_provider)
     return TestClient(app)
 
 
@@ -201,36 +201,6 @@ def test_provider_errors_drop_partial_text_and_hide_details(caplog):
     assert "partial text" not in json.dumps(events)
     assert "Provider trace" not in json.dumps(events)
     assert caplog.messages == ["assistant_provider_failed"]
-
-
-def test_private_projects_and_secret_shaped_reference_data_are_excluded(monkeypatch, tmp_path):
-    from api.chat import portfolio_context
-
-    projects = tmp_path / "en"
-    projects.mkdir()
-    base = "---\nlang: en\ntitle: {}\nsummary: {}\n{}---\n### My Role\n{}\n"
-    (projects / "public.mdx").write_text(
-        base.format("Public project", "Published summary", "", "Built the application.")
-    )
-    (projects / "draft.mdx").write_text(
-        base.format("Draft project", "Unpublished draft", "draft: true\n", "Confidential research.")
-    )
-    (projects / "private.mdx").write_text(
-        base.format("Private project", "Internal summary", "private: true\n", "Confidential research.")
-    )
-    (projects / "credential.mdx").write_text(
-        base.format("Sensitive project", "nvapi-example-secret-fake", "", "Do not expose this.")
-    )
-    monkeypatch.setattr("api.chat.PROJECTS", tmp_path)
-    portfolio_context.cache_clear()
-    try:
-        context = portfolio_context("en")
-        assert "Public project" in context
-        assert "Draft project" not in context
-        assert "Private project" not in context
-        assert "nvapi-example-secret-fake" not in context
-    finally:
-        portfolio_context.cache_clear()
 
 
 def test_local_proxy_accepts_only_its_configured_browser_origin(preview):

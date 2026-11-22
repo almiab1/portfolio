@@ -1,0 +1,1430 @@
+{
+  "es": {
+    "entries": {
+      "aipassportguardnet": {
+        "title": "AIPASSPORTGUARDNET",
+        "url": "/work/aipassportguardnet",
+        "kind": "project",
+        "tags": [
+          "Blockchain",
+          "Product Passport",
+          "Traceability",
+          "Sustainability",
+          "Security",
+          "Toys Industry",
+          "Digital Transformation"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Sistema blockchain para verificación de seguridad y cumplimiento normativo de productos del sector juguetero mediante pasaporte digital.\n\nSistema basado en **tecnología blockchain** para la creación de un **Pasaporte Digital de Producto** en el sector del juguete, centrado en verificación de seguridad del producto, cumplimiento normativo y acceso multi-stakeholder para fabricantes, organismos gubernamentales y consumidores."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "11 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador Blockchain y Frontend"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Blockchain, Web Development, Cryptography, Database Systems"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2024-02-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "El sector del juguete enfrenta crecientes exigencias regulatorias sobre seguridad de producto y trazabilidad. Los fabricantes necesitan demostrar conformidad normativa de forma verificable, los organismos reguladores necesitan acceso fiable a información del producto, y los consumidores demandan transparencia sobre origen y composición. La información fragmentada y no verificable genera riesgos para todas las partes."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador blockchain y frontend**, participé en:\n\n- Implementé los smart contracts y la lógica de verificación en blockchain\n- Desarrollé la interfaz web para gestión de pasaportes digitales\n- Diseñé los flujos de acceso para múltiples tipos de stakeholder (fabricantes, reguladores, consumidores)\n- Integré protocolos de seguridad para manejo de información sensible de producto"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Verificación blockchain:**\n\n- Almacenamiento inmutable de datos de seguridad y cumplimiento de cada producto\n- Trazabilidad completa desde fabricación hasta fin de ciclo de vida\n- Verificación criptográfica de autenticidad e integridad de información\n\n**Interfaz multi-stakeholder:**\n\n- Panel para fabricantes: gestión de datos de producto y certificaciones\n- Acceso para organismos reguladores: verificación de cumplimiento normativo\n- Portal para consumidores: consulta rápida de información del producto\n\n**Seguridad y privacidad:**\n\n- Protocolos de seguridad para información sensible de producto\n- Cumplimiento de leyes de protección de datos\n- Garantía de integridad de datos mediante blockchain"
+          },
+          "differentiation": {
+            "title": "Diferenciación",
+            "text": "A diferencia de DLT4AITOYS (que se centra en servicios de IA para juguetes inteligentes), AIPASSPORTGUARDNET se enfoca en **cumplimiento regulatorio y verificación de seguridad**, proporcionando una infraestructura de confianza para que múltiples actores verifiquen la conformidad de productos del sector juguetero."
+          },
+          "collaboration": {
+            "title": "Colaboración",
+            "text": "Proyecto liderado por **AIJU** en colaboración con GAME MOVIL S.L., INDUSTRIA AUXILIAR JUEMA S.L., JUGUETES CAYRO S.L. y AEFJ (Asociación Española de Fabricantes de Juguetes)."
+          },
+          "funding": {
+            "title": "Financiación",
+            "text": "Financiado por la **Conselleria d'Innovació, Indústria, Comerç i Turisme**.\n\nExpediente: CONV24/DGINN/20\nVinculado a la estrategia de especialización inteligente S3: **Transformación digital**"
+          }
+        }
+      },
+      "cookobot": {
+        "title": "Cookobot",
+        "url": "/work/cookobot",
+        "kind": "project",
+        "tags": [
+          "Robotics",
+          "AI",
+          "Machine Learning",
+          "Computer Vision",
+          "Web Interface"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Robot asistente de cocina que integra ROS, visión por computadora con TensorFlow e interfaz web con VueJS.\n\nSistema robótico que integra **ROS (Robot Operating System)**, **visión por computadora** con TensorFlow y una **interfaz web** con VueJS para asistencia en tareas de cocina."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "5 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador Full Stack y Robótica"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "ROS, VueJS, TensorFlow, Python, JavaScript, Bulma"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2020-12-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Crear un ecosistema robótico multiplataforma que coordinara control de hardware, reconocimiento visual de objetos y una interfaz de usuario accesible. El principal reto técnico era integrar sistemas heterogéneos (ROS, framework web, modelos ML) en un flujo de trabajo coherente con comunicación bidireccional en tiempo real."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador Full Stack y robótica**, implementé componentes en las tres capas del ecosistema:\n\n- Desarrollé la interfaz web responsiva con VueJS y Bulma para control remoto del robot\n- Integré modelos TensorFlow para reconocimiento visual de ingredientes y utensilios\n- Implementé la comunicación bidireccional en tiempo real entre la web y ROS\n- Optimicé los modelos de ML para ejecución en hardware embebido con recursos limitados"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Control robótico:**\n\n- **ROS** para control, coordinación y comunicación entre nodos del robot\n- Arquitectura de nodos ROS para separación de responsabilidades (navegación, manipulación, percepción)\n\n**Visión por computadora:**\n\n- **TensorFlow** para reconocimiento de ingredientes y utensilios de cocina\n- Optimización de modelos para ejecución en hardware embebido\n\n**Interfaz web:**\n\n- **VueJS + Bulma** para interfaz web responsiva de control remoto\n- **Backend Python** para lógica de negocio y puente de comunicación con ROS\n- Monitoreo de telemetría y estado del robot en tiempo real"
+          },
+          "technical-challenges": {
+            "title": "Desafíos Resueltos",
+            "text": "- Integración de sistemas heterogéneos (ROS, web, ML) en un flujo unificado\n- Comunicación bidireccional en tiempo real entre navegador web y nodos ROS\n- Optimización de modelos TensorFlow para hardware embebido con restricciones de memoria y CPU\n- Sincronización de múltiples subsistemas concurrentes"
+          },
+          "outcome": {
+            "title": "Resultado",
+            "text": "Demostración funcional de integración de robótica, inteligencia artificial y tecnologías web para crear un asistente doméstico práctico con control remoto y percepción visual."
+          }
+        }
+      },
+      "crop-monitoring": {
+        "title": "Monitoreo Remoto de Cultivos - iPollution",
+        "url": "/work/crop-monitoring",
+        "kind": "project",
+        "tags": [
+          "IoT",
+          "Agriculture",
+          "Environmental Monitoring",
+          "Full Stack",
+          "Hardware"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Sistema IoT multiplataforma para monitoreo ambiental con sensores Arduino, API REST en Node.js y app móvil Ionic.\n\nProyecto académico desarrollado en equipo con **metodologías ágiles (Scrum)** que implementa un sistema IoT completo: desde sensores de hardware hasta aplicación móvil multiplataforma, pasando por API REST y base de datos."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "6 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador Full Stack IoT"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "JavaScript, Node.js, Express, Arduino, MySQL, ESP32, Ionic, C++"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2018-06-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Los agricultores y gestores ambientales necesitan datos en tiempo real sobre condiciones del terreno (temperatura, humedad, luminosidad, calidad del aire) para tomar decisiones informadas. Las soluciones comerciales existentes resultan costosas y cerradas. El reto era construir un sistema IoT accesible y completo que cubriera todas las capas: hardware, backend, frontend y móvil."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador Full Stack IoT**, participé en el desarrollo de las tres capas del sistema:\n\n- Programé los microcontroladores Arduino/ESP32 para captura y transmisión de datos de sensores\n- Diseñé e implementé la API RESTful en Node.js con Express\n- Desarrollé la aplicación multiplataforma en Ionic con TypeScript\n- Configuré la base de datos MySQL para almacenamiento histórico\n- Implementé comunicación en tiempo real via WebSockets"
+          },
+          "architecture": {
+            "title": "Arquitectura Multiplataforma",
+            "text": "El sistema se divide en **tres repositorios independientes**:\n\n- **Hardware (Arduino + C++)**: Proyecto3A-Arduino — Red de sensores con ESP32/Arduino\n- **Backend (Node.js + Express)**: Proyecto3A-Server — API RESTful en JavaScript\n- **Frontend (Ionic + TypeScript)**: Proyecto3A-Webapp — App multiplataforma"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Capa de hardware:**\n\n- Microcontroladores Arduino / ESP32\n- Sensores ambientales: temperatura, humedad, luminosidad, calidad del aire\n- Conectividad WiFi / Bluetooth para transmisión de datos\n\n**Capa de backend:**\n\n- Node.js con Express.js como API REST\n- MySQL para almacenamiento histórico de mediciones\n- WebSockets para comunicación bidireccional en tiempo real\n\n**Capa de frontend:**\n\n- Ionic (Angular) para app multiplataforma (Web, iOS, Android)\n- Dashboards personalizables con gráficos históricos y tendencias\n- Alertas automáticas por umbrales configurables\n- Sincronización offline y notificaciones push"
+          },
+          "methodology": {
+            "title": "Metodología de Desarrollo",
+            "text": "- **Scrum** con sprints documentados\n- Equipo de 3 desarrolladores colaborando\n- Git con flujo de trabajo por ramas (develop, feature branches)\n- Documentación técnica con diagramas UML"
+          },
+          "outcome": {
+            "title": "Resultado",
+            "text": "Sistema IoT funcional que demuestra la viabilidad de soluciones accesibles para monitoreo ambiental en tiempo real, toma de decisiones basada en datos y optimización de recursos agrícolas."
+          }
+        }
+      },
+      "dlt4aitoys": {
+        "title": "DLT4AITOYS",
+        "url": "/work/dlt4aitoys",
+        "kind": "project",
+        "tags": [
+          "Blockchain",
+          "DLT",
+          "Smart Toys",
+          "AI",
+          "Product Passport",
+          "Circular Economy",
+          "Traceability",
+          "Image Recognition"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Plataforma que combina servicios de IA (visión, chatbot, voz) con tecnologías DLT para el ciclo de vida de juguetes inteligentes.\n\nPlataforma que integra **servicios de Inteligencia Artificial** (reconocimiento de imagen, chatbots, análisis de sentimientos, reconocimiento de voz) con **tecnologías DLT (Distributed Ledger Technologies)** para gestionar el ciclo de vida completo de juguetes inteligentes."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "10 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador de Servicios de IA y DLT"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Blockchain, Python, DLT Platforms, AI Services, Chatbot APIs, Computer Vision"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2022-09-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Los juguetes inteligentes incorporan componentes tecnológicos complejos que necesitan trazabilidad a lo largo de todo su ciclo de vida. Además, la industria requiere servicios de IA accesibles (reconocimiento visual, chatbots, análisis emocional) integrados en una plataforma unificada, junto con un sistema de registro distribuido que simplifique la interacción con blockchain para usuarios no técnicos."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador de servicios de IA y DLT**, participé en:\n\n- Integré servicios de reconocimiento de imágenes y visión por computadora en la plataforma\n- Desarrollé las interfaces de chatbot conversacional y análisis de sentimientos\n- Implementé las innovaciones DLT para simplificar la interacción con redes blockchain\n- Colaboré en el diseño del pasaporte digital para registro de componentes de juguetes"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Plataforma multisectorial de IA:**\n\n- Reconocimiento de imágenes para análisis visual de productos\n- Chatbots conversacionales para interacción con usuarios\n- Análisis de sentimientos y emociones mediante procesamiento de lenguaje natural\n- Reconocimiento de voz para interfaces de juguetes inteligentes\n\n**Tecnología DLT:**\n\n- Registro distribuido para trazabilidad de componentes y etapas de fabricación\n- Mecanismos simplificados con semántica similar a bases de datos tradicionales\n- Gestión de identidad auto-soberana descentralizada\n- Interacción intuitiva con redes DLT para usuarios no familiarizados\n\n**Pasaporte digital:**\n\n- Control de componentes que forman parte de juguetes inteligentes\n- Trazabilidad de etapas de fabricación y distribución\n- Logística inversa para economía circular y reciclaje"
+          },
+          "differentiation": {
+            "title": "Diferenciación",
+            "text": "A diferencia de AIPASSPORTGUARDNET (que se centra en cumplimiento normativo y verificación de seguridad), DLT4AITOYS se enfoca en **servicios de IA integrados y la innovación en accesibilidad DLT**, haciendo que tecnologías complejas sean utilizables para la industria juguetera."
+          },
+          "collaboration": {
+            "title": "Colaboración",
+            "text": "Proyecto desarrollado en colaboración entre **AIJU** e **ITI**, combinando expertise en IA y tecnologías blockchain."
+          },
+          "funding": {
+            "title": "Financiación",
+            "text": "Financiado por **IVACE** (Instituto Valenciano de Competitividad Empresarial) con cofinanciación de la **Unión Europea** a través del Fondo Europeo de Desarrollo Regional.\n\nExpediente: IMDEEA/2022/80"
+          }
+        }
+      },
+      "glio-ia": {
+        "title": "GLIO-IA",
+        "url": "/work/glio-ia",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Machine Learning",
+          "Deep Learning",
+          "Healthcare",
+          "Medical AI",
+          "Computer Vision"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Plataforma de IA para medicina de precisión que analiza datos clínicos, imágenes y datos ómicos de pacientes con tumores cerebrales.\n\nProyecto de investigación de 24 meses que desarrolla una **plataforma integral** para el análisis de datos clínicos de pacientes con tumores cerebrales mediante **algoritmos de Deep Learning**, permitiendo diagnóstico personalizado y clasificación automatizada."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "24 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Investigador de IA y Desarrollador de Plataforma"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Python, PyTorch, PyTorch Lightning, FastAPI, PostgreSQL, React"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2022-09-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "El diagnóstico de tumores cerebrales requiere integrar información de múltiples fuentes: imágenes histológicas, imágenes radiológicas, datos clínicos y datos ómicos (transcriptómica, epigenómica, genómica). Los profesionales médicos necesitan herramientas que unifiquen estos datos heterogéneos y asistan en la toma de decisiones clínicas, especialmente ante datasets limitados y estrictos requisitos de privacidad."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **investigador de IA y desarrollador de plataforma**, lideré el desarrollo técnico completo:\n\n- Diseñé y desplegué la plataforma completa de análisis clínico\n- Investigué y desarrollé modelos de Deep Learning especializados en imágenes histológicas y radiológicas\n- Implementé pipelines de entrenamiento distribuido para modelos PyTorch Lightning\n- Diseñé estrategias de data augmentation y transfer learning para datasets médicos pequeños\n- Desarrollé técnicas de interpretabilidad (explainability) para decisiones clínicas\n- Validé científicamente los algoritmos con métricas adaptadas al contexto médico"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Análisis multimodal:**\n\n- Integración de datos clínicos, imágenes médicas y datos ómicos en un pipeline unificado\n- Modelos especializados para cada modalidad de datos\n- Procesamiento de transcriptómica, epigenómica y genómica oncológica\n\n**Backend y ML:**\n\n- **PyTorch + Lightning** como framework principal para Deep Learning\n- **FastAPI** como API REST de alto rendimiento para servir predicciones\n- **PostgreSQL** para almacenamiento estructurado de datos clínicos\n- Pipeline de entrenamiento distribuido con validación y evaluación automatizada\n\n**Frontend:**\n\n- **React** para interfaz clínica intuitiva orientada a profesionales médicos\n- Visualización de resultados de análisis y predicciones"
+          },
+          "technical-challenges": {
+            "title": "Desafíos Técnicos",
+            "text": "- **Multimodalidad**: Integración efectiva de datos heterogéneos (imágenes, texto, datos ómicos) en un modelo unificado\n- **Datos limitados**: Estrategias de data augmentation y transfer learning para compensar datasets pequeños\n- **Privacidad médica**: Cumplimiento de normativas de protección de datos sanitarios (GDPR, regulación sanitaria española)\n- **Explicabilidad**: Implementación de técnicas de interpretabilidad para que los clínicos confíen en las decisiones del modelo\n- **Validación clínica**: Métricas y protocolos de evaluación adaptados al contexto médico real"
+          },
+          "outcome": {
+            "title": "Resultados",
+            "text": "La plataforma permite a médicos e investigadores:\n\n- Acelerar el diagnóstico de tumores cerebrales mediante clasificación automatizada\n- Identificar nuevos biomarcadores terapéuticos a partir del análisis multiómico\n- Personalizar tratamientos según el perfil molecular del paciente\n- Facilitar la investigación colaborativa en medicina de precisión"
+          },
+          "funding": {
+            "title": "Financiación",
+            "text": "Proyecto financiado por la **Agencia Valenciana de Innovación (AVI)** bajo el expediente INNEST/2022/159, en colaboración con ISABIAL, FISABIO, AIJU y The New Horizons."
+          }
+        }
+      },
+      "lost-scout": {
+        "title": "Lost Scout",
+        "url": "/work/lost-scout",
+        "kind": "project",
+        "tags": [
+          "Game Development",
+          "3D",
+          "Puzzle",
+          "Exploration"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Videojuego 3D de puzzles y exploración en Unity con todos los assets 3D modelados desde cero en 3D Studio Max.\n\nJuego de exploración y puzzles desarrollado en **Unity** con modelado 3D completo creado desde cero en **3D Studio Max**, abarcando programación, game design y arte 3D."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "4 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador de Juegos y Artista 3D"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Unity, C#, 3D Studio Max"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2019-12-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Diseñar e implementar un videojuego completo como proyecto individual, cubriendo tanto la programación de mecánicas y sistemas como la creación artística de todos los assets 3D, niveles y ambientación. El reto incluía lograr una experiencia cohesiva que integrara exploración libre con puzzles lógicos progresivos."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador y artista 3D**, creé el proyecto completo de forma individual:\n\n- Programé las mecánicas de juego, sistemas de interacción y lógica de puzzles en C#\n- Modelé todos los assets 3D desde cero en 3D Studio Max (entornos, props, escenarios)\n- Diseñé los niveles con progresión de desafíos y narrativa ambiental\n- Implementé el sistema de iluminación dinámica con post-procesado\n- Desarrollé el motor de física personalizado y sistema de checkpoint"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Desarrollo en Unity:**\n\n- **C#** para mecánicas de juego, interacción con objetos y lógica de puzzles\n- Motor de física personalizado para interacciones específicas del gameplay\n- Sistema de checkpoint y guardado de progreso\n- Iluminación dinámica con post-procesado para ambientación\n\n**Creación de assets 3D:**\n\n- Modelos de entorno y escenarios completos creados en **3D Studio Max**\n- Props interactivos optimizados para rendimiento\n- Sistema de iluminación y ambientación integrado con los modelos\n- Optimización de polígonos para balance entre calidad visual y rendimiento\n\n**Game Design:**\n\n- Sistema de puzzles lógicos variados con dificultad progresiva\n- Exploración de entornos amplios con secretos ocultos\n- Interacción con objetos mediante sistema de física\n- Narrativa ambiental contada a través del escenario y los objetos"
+          },
+          "outcome": {
+            "title": "Resultado",
+            "text": "Proyecto completo que integra programación, game design y arte 3D desde concepto hasta producto final, demostrando capacidad para abarcar todas las disciplinas del desarrollo de videojuegos."
+          }
+        }
+      },
+      "multimedia-arvr": {
+        "title": "Experiencia Multimedia AR/VR",
+        "url": "/work/multimedia-arvr",
+        "kind": "project",
+        "tags": [
+          "Augmented Reality",
+          "Virtual Reality",
+          "Game Development",
+          "Immersive Experience"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Videojuego que combina Realidad Aumentada y Realidad Virtual en Unity con transición fluida entre ambos modos.\n\nVideojuego inmersivo desarrollado en **Unity** que combina **Realidad Aumentada** y **Realidad Virtual**, explorando la integración de ambas tecnologías con transiciones fluidas entre modos."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "3 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador de Experiencias Inmersivas"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Unity, C#, ARCore, VR SDK"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2021-06-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Diseñar una experiencia de juego coherente que funcione tanto en modo AR (interacción con el entorno real) como en modo VR (inmersión completa), con transiciones suaves que mantengan la continuidad del gameplay y controles adaptados a cada modalidad."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador de experiencias inmersivas**, diseñé e implementé:\n\n- Desarrollé las mecánicas de juego en C# sobre Unity\n- Integré ARCore para detección de superficies y tracking en modo AR\n- Implementé soporte para cascos VR con motion tracking\n- Diseñé el sistema de transición fluida entre modos AR y VR\n- Optimicé el rendimiento para dispositivos móviles con restricciones de GPU"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Motor de juego:**\n\n- **Unity + C#** para mecánicas, sistemas de interacción y lógica de juego\n- **ARCore** para reconocimiento de superficies y posicionamiento de elementos virtuales\n- **VR SDK** para soporte de cascos de realidad virtual con motion tracking\n\n**Modos de juego:**\n\n- **Realidad Aumentada**: Interacción con elementos virtuales superpuestos al mundo real\n- **Realidad Virtual**: Experiencia inmersiva completa en entorno 3D\n- **Modo híbrido**: Transición fluida entre AR y VR manteniendo estado del juego\n- Controles adaptados específicamente a cada experiencia\n\n**Optimización:**\n\n- Gestión de recursos para compatibilidad con móviles y VR headsets\n- Transiciones suaves entre modos sin interrupciones de carga"
+          },
+          "outcome": {
+            "title": "Resultado",
+            "text": "Experiencia de juego cohesiva que demuestra cómo AR y VR pueden complementarse en un mismo producto, ofreciendo múltiples formas de interacción con contenido digital."
+          }
+        }
+      },
+      "neuroevolutionary-ai": {
+        "title": "IA Neuroevolutiva para MTG",
+        "url": "/work/neuroevolutionary-ai",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Machine Learning",
+          "Neuroevolution",
+          "Game AI",
+          "Genetic Algorithms",
+          "Neural Networks"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Framework de IA que combina redes neuronales y algoritmos genéticos para aprender estrategias competitivas en Magic: The Gathering.\n\nTrabajo de Fin de Grado centrado en desarrollar un **framework de inteligencia artificial** que combina **redes neuronales** con **algoritmos genéticos** para aprender estrategias competitivas en Magic: The Gathering, un juego de cartas con alta complejidad estratégica."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "6 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Investigador y Desarrollador Principal"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Python, Java, Groovy"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2021-12-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Magic: The Gathering presenta un espacio de estados extremadamente amplio con información imperfecta, miles de cartas posibles y múltiples fases de juego. Los enfoques tradicionales de IA basados en búsqueda exhaustiva resultan inviables debido a la complejidad combinatoria del juego. El reto consistía en diseñar un sistema capaz de aprender estrategias competitivas sin supervisión humana directa."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **investigador y desarrollador principal**, diseñé e implementé el framework completo:\n\n- Diseñé la arquitectura del sistema neuroevolutivo desde cero\n- Implementé los algoritmos genéticos para evolución de redes neuronales\n- Desarrollé el sistema de evaluación de estados de juego\n- Integré el framework con el motor de juego Magarena para entrenamiento automatizado\n- Diseñé y ejecuté los experimentos de validación\n- Analicé los resultados mediante métricas cuantitativas de rendimiento"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "El framework implementa un pipeline neuroevolutivo completo:\n\n**Arquitectura del sistema:**\n\n- **Redes neuronales** como agentes de decisión que evalúan posiciones de juego\n- **Algoritmos genéticos** que evolucionan los pesos y la topología de las redes a lo largo de generaciones\n- **Sistema de fitness** basado en partidas automatizadas contra agentes de referencia\n- **Evaluación paralela** de múltiples agentes por generación\n\n**Motor de juego:**\n\n- Integración con **Magarena**, motor open-source de MTG en Java\n- Scripts de automatización en **Groovy** para gestión de torneos y generaciones\n- Análisis y visualización de resultados en **Python**\n\n**Proceso evolutivo:**\n\n- Población de redes neuronales compitiendo entre sí y contra agentes base\n- Selección, cruce y mutación de los mejores individuos\n- Evaluación de métricas de complejidad del entorno de juego"
+          },
+          "decisions": {
+            "title": "Decisiones Técnicas Clave",
+            "text": "- **Neuroevolución sobre aprendizaje por refuerzo**: Elegí métodos neuroevolutivos porque permiten explorar el espacio de soluciones sin necesidad de definir una función de recompensa explícita, algo difícil en un juego con estados tan complejos\n- **Java como lenguaje principal**: La integración nativa con Magarena evitó la sobrecarga de comunicación entre procesos\n- **Evaluación multi-agente**: Cada generación enfrentaba agentes entre sí y contra baselines fijos para medir mejora absoluta y relativa"
+          },
+          "outcome": {
+            "title": "Resultados",
+            "text": "La IA demostró capacidad para aprender estrategias competitivas y mejorar su rendimiento de forma consistente generación tras generación. El sistema validó la aplicabilidad de métodos neuroevolutivos en juegos de alta complejidad estratégica con información imperfecta, abriendo una línea de investigación sobre evolución de comportamientos emergentes en entornos de juego complejos."
+          }
+        }
+      },
+      "simdat-4-0": {
+        "title": "SIMDAT 4.0",
+        "url": "/work/simdat-4-0",
+        "kind": "project",
+        "tags": [
+          "Industry 4.0",
+          "IoT",
+          "Virtual Reality",
+          "Digital Twin",
+          "Additive Manufacturing",
+          "RFID",
+          "Simulation",
+          "Robotics",
+          "Sustainability"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Implementación de tecnologías Industria 4.0 en entornos reales: IoT, gemelos digitales, realidad virtual y fabricación aditiva.\n\nProyecto de 18 meses enfocado en la **implementación de tecnologías de la Industria 4.0** en entornos reales de fabricación, desarrollando demostradores funcionales que integran IoT, Realidad Virtual, Gemelos Digitales, Fabricación Aditiva y RFID."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "18 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador de Soluciones Industria 4.0"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Python, IoT Platforms, RFID Systems, VR Development, 3D Printing, Simulation Software"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2022-04-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Las empresas manufactureras necesitan adoptar tecnologías digitales para mejorar productividad, calidad y sostenibilidad, pero la transición desde procesos tradicionales presenta barreras técnicas y organizativas significativas. El reto era demostrar la viabilidad de estas tecnologías en entornos industriales reales, no en laboratorio."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador de soluciones Industria 4.0**, participé en la implementación de múltiples demostradores tecnológicos:\n\n- Desarrollé sistemas de monitoreo IoT en tiempo real para procesos industriales\n- Implementé gemelos digitales para simulación y optimización de células robóticas\n- Integré sistemas RFID para trazabilidad de materiales reciclables\n- Colaboré en el desarrollo de soluciones de fabricación aditiva con conformal cooling"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Simulación y Gemelos Digitales:**\n\n- Simulación de procesos industriales con visualización virtual de células robóticas\n- Generación de Gemelos Digitales en Realidad Virtual para replicar operaciones reales\n- Identificación de mejoras y optimización de parámetros operativos\n\n**Internet de las Cosas (IoT):**\n\n- Monitoreo en tiempo real del control y estado de procesos industriales\n- Análisis automático de defectos en piezas producidas (control de calidad)\n- Análisis de patrones y anomalías para decisiones basadas en datos\n\n**Fabricación Aditiva:**\n\n- Fabricación de moldes mediante impresión 3D\n- Técnicas de conformal cooling para optimizar ciclos de inyección\n- Reducción de deformaciones mediante enfriamiento uniforme\n\n**RFID y Trazabilidad:**\n\n- Trazabilidad de material reciclable mediante tecnología RFID\n- Optimización de gestión de residuos y localización de materiales\n- Promoción de economía circular desde el proceso de fabricación"
+          },
+          "outcome": {
+            "title": "Resultados",
+            "text": "El proyecto concluyó con demostradores funcionales que validan la aplicabilidad de tecnologías 4.0 en fabricación real, contribuyendo a producción más inteligente, sostenibilidad ambiental, toma de decisiones basada en datos y optimización de procesos industriales."
+          },
+          "funding": {
+            "title": "Financiación",
+            "text": "Proyecto cofinanciado por el **Fondo Europeo de Desarrollo Regional** y el **IVACE** (Instituto Valenciano de Competitividad Empresarial).\n\nExpediente: IMDEEA/2022/82\nVinculado a la estrategia de especialización inteligente S3: **Transformación digital**"
+          }
+        }
+      },
+      "smart-scale": {
+        "title": "Báscula Inteligente",
+        "url": "/work/smart-scale",
+        "kind": "project",
+        "tags": [
+          "IoT",
+          "Mobile",
+          "Health Tracking",
+          "Cloud Integration"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Báscula IoT conectada con app Android en Kotlin, sincronización cloud via Firebase y microcontrolador ESP32.\n\nSistema IoT que integra **hardware ESP32**, **Firebase Realtime Database** y **aplicación Android en Kotlin** para seguimiento de peso con sincronización automática en la nube."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "4 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador IoT y Móvil"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Android, Firebase, ESP32, Kotlin, C++"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2018-12-01"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Construir un producto IoT completo de extremo a extremo: desde el sensor de peso físico hasta una aplicación móvil con perfiles de usuario, historial y análisis de tendencias. El reto incluía la comunicación inalámbrica fiable entre hardware y cloud, y la sincronización instantánea de datos."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador IoT y móvil**, implementé todas las capas del producto:\n\n- Programé el firmware del ESP32 en C++ con sensores de peso y conectividad WiFi\n- Configuré Firebase Realtime Database para sincronización instantánea de datos\n- Desarrollé la aplicación Android en Kotlin con autenticación y múltiples perfiles\n- Implementé el sistema de calibración automática del hardware\n- Diseñé la visualización de historial y análisis de tendencias"
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Hardware:**\n\n- **ESP32** como microcontrolador con sensores de peso de alta precisión\n- Conectividad WiFi bidireccional\n- Calibración automática y optimización de consumo energético\n\n**Cloud:**\n\n- **Firebase Realtime Database** para sincronización instantánea entre báscula y app\n- **Firebase Authentication** para gestión de múltiples perfiles de usuario\n\n**Aplicación móvil:**\n\n- **Kotlin** para desarrollo nativo Android\n- Historial y gráficos de evolución de peso\n- Notificaciones personalizables y recordatorios\n- Análisis de tendencias y seguimiento de objetivos"
+          },
+          "outcome": {
+            "title": "Resultado",
+            "text": "Producto IoT funcional y escalable que demuestra la integración completa de hardware embebido con servicios cloud y desarrollo móvil nativo."
+          }
+        }
+      },
+      "wotics": {
+        "title": "woTICS",
+        "url": "/work/wotics",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Virtual Reality",
+          "Chatbot",
+          "Social Impact",
+          "Accessibility",
+          "Education",
+          "Employment",
+          "Asperger"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Herramientas de IA, Realidad Virtual y guía digital para mejorar la empleabilidad de jóvenes con Síndrome de Asperger.\n\nProyecto de impacto social que desarrolla herramientas tecnológicas para mejorar la **empleabilidad de jóvenes con Síndrome de Asperger** combinando **Inteligencia Artificial**, **Realidad Virtual** y **recursos educativos** digitales."
+          },
+          "duration": {
+            "title": "Duración",
+            "text": "18 meses"
+          },
+          "role": {
+            "title": "Rol",
+            "text": "Desarrollador de Herramientas de IA y VR"
+          },
+          "stack": {
+            "title": "Tecnologías",
+            "text": "Python, VR Development, Chatbot Frameworks, Web Applications, AI/ML Services"
+          },
+          "date": {
+            "title": "Fecha",
+            "text": "2019-12-31"
+          },
+          "challenge": {
+            "title": "El Desafío",
+            "text": "Las personas con trastorno del espectro autista enfrentan grave exclusión en el ámbito laboral. Los recursos de preparación laboral existentes no se adaptan a sus necesidades específicas de aprendizaje: requieren herramientas que respeten el ritmo individual, permitan práctica repetida sin juicio y simulen situaciones laborales reales en entornos seguros."
+          },
+          "contribution": {
+            "title": "Mi Rol",
+            "text": "Como **desarrollador de herramientas de IA y VR**, participé en la implementación de las tres herramientas principales del proyecto:\n\n- Desarrollé el chatbot conversacional basado en IA para resolución de dudas laborales\n- Implementé los escenarios de Realidad Virtual para simulación de entornos de trabajo\n- Colaboré en el desarrollo de la guía digital para búsqueda activa de empleo\n- Integré servicios de procesamiento de lenguaje natural en la plataforma web"
+          },
+          "tools": {
+            "title": "Herramientas Desarrolladas",
+            "text": "**1. Guía para Búsqueda Activa de Empleo**\nRecurso digital que cubre elaboración de currículum, preparación de entrevistas, estrategias de búsqueda de empleo, expectativas empresariales y entidades de apoyo disponibles.\n\n**2. Plataforma woTICS con Asistente Virtual**\nAplicación web accesible con chatbot inteligente basado en IA que responde dudas sobre el mundo laboral con respuestas personalizadas y una interfaz diseñada para usuarios con Asperger.\n\n**3. Escenario de Realidad Virtual**\nSimulación inmersiva de entornos laborales reales (oficinas, tiendas, espacios de trabajo) donde los usuarios practican situaciones como el primer día de trabajo, interacciones con compañeros y gestión de conflictos en un entorno libre de consecuencias."
+          },
+          "approach": {
+            "title": "Enfoque Técnico",
+            "text": "**Inteligencia Artificial:**\n\n- Chatbot conversacional con procesamiento de lenguaje natural\n- Base de conocimiento especializada en empleo y habilidades sociales\n- Sistema de respuestas adaptativo que mejora con el uso\n\n**Realidad Virtual:**\n\n- Entornos 3D inmersivos que replican espacios de trabajo realistas\n- Simulación de interacciones laborales con NPCs\n- Múltiples escenarios profesionales con dificultad progresiva\n\n**Desarrollo Web:**\n\n- Aplicación con diseño universal y accesibilidad como prioridad\n- Interfaz adaptada a las necesidades de usuarios con Asperger\n- Acceso multiplataforma desde cualquier dispositivo"
+          },
+          "pedagogy": {
+            "title": "Enfoque Pedagógico",
+            "text": "- Respeto al ritmo de aprendizaje individual sin presión temporal\n- Práctica segura en entorno libre de juicio\n- Feedback constructivo y aprendizaje guiado\n- Posibilidad de repetir experiencias múltiples veces"
+          },
+          "collaboration": {
+            "title": "Colaboración",
+            "text": "Proyecto desarrollado por **AIJU** en colaboración con **ASPALI** (Asociación para personas con Síndrome de Asperger)."
+          },
+          "funding": {
+            "title": "Financiación",
+            "text": "Cofinanciado por el **Programa Erasmus+** de la Unión Europea.\n\nSitio web oficial: wotics.eu"
+          }
+        }
+      },
+      "profile": {
+        "title": "Perfil",
+        "url": "/",
+        "kind": "page",
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Diseño y despliego agentes de IA. En GuruSup conecto modelos, datos y herramientas para resolver tareas de atención al cliente en producción. Antes desarrollé software de IA para empresas e investigación."
+          }
+        }
+      },
+      "experience": {
+        "title": "Trayectoria",
+        "url": "/experience",
+        "kind": "page",
+        "sections": {
+          "gurusup": {
+            "title": "GuruSup",
+            "text": "2026–actualidad · Software Engineer · LLM e IA generativa\nDesarrollo sistemas de agentes y trabajo en cómo recuperan el contexto que necesitan para resolver tareas de atención al cliente."
+          },
+          "convotis": {
+            "title": "CONVOTIS Iberia",
+            "text": "2025–2026 · AI Engineer\nDiseñé y desplegué soluciones de IA generativa para procesos empresariales. Trabajé en la orquestación de agentes, la recuperación de datos internos y externos y el desarrollo de asistentes con memoria contextual."
+          },
+          "aiju": {
+            "title": "AIJU",
+            "text": "2021–2025 · Desarrollador de IA y software\nDesarrollé software para proyectos de IA e Industria 4.0, desde la captura de datos con IoT hasta su análisis. En GLIO-IA diseñé una plataforma que integra datos clínicos, imágenes médicas y datos ómicos."
+          }
+        }
+      },
+      "skills": {
+        "title": "Habilidades",
+        "url": "/skills",
+        "kind": "page",
+        "sections": {
+          "agents": {
+            "title": "IA generativa",
+            "text": "LLM, sistemas multiagente, recuperación de información y memoria contextual"
+          },
+          "ml": {
+            "title": "Aprendizaje automático",
+            "text": "Python, PyTorch, visión por computador y entrenamiento distribuido"
+          },
+          "software": {
+            "title": "Ingeniería de software",
+            "text": "APIs con FastAPI, interfaces con React, PostgreSQL y despliegue en la nube"
+          },
+          "education": {
+            "title": "Formación",
+            "text": "Máster en Investigación en Inteligencia Artificial\nGrado en Ingeniería de Tecnologías Interactivas"
+          }
+        }
+      },
+      "cv": {
+        "title": "Currículum",
+        "url": "/cv",
+        "kind": "page",
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Previsualiza y descarga el currículum de Alejandro Mira en español o en inglés."
+          }
+        }
+      },
+      "health-dashboard": {
+        "title": "HealthDashboard",
+        "url": "/work#personal-projects-title",
+        "kind": "project",
+        "tags": [],
+        "sections": {
+          "overview": {
+            "title": "Resumen",
+            "text": "Panel para registrar medidas de composición corporal y seguir su evolución con gráficos y un historial filtrable."
+          }
+        }
+      }
+    },
+    "presets": {
+      "cv": {
+        "question": "¿Puedo ver su CV?",
+        "reply": "Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV."
+      },
+      "career": {
+        "question": "¿Dónde ha trabajado?",
+        "reply": "Alex ha trabajado en tres equipos:\n\n- **GuruSup** · Desarrolla agentes de IA para atención al cliente.\n- **CONVOTIS Iberia** · Diseñó y desplegó soluciones de IA generativa.\n- **AIJU** · Desarrolló software de investigación e Industria 4.0."
+      },
+      "glio": {
+        "question": "¿Qué ha hecho en IA médica?",
+        "reply": "En AIJU, Alex diseñó GLIO-IA, una plataforma que combina imágenes médicas, datos clínicos y datos ómicos para investigar tumores cerebrales."
+      }
+    },
+    "contact": "En Contacto puedes escribir a Alex por correo o encontrar sus perfiles de LinkedIn y GitHub.",
+    "cv": "Puedes previsualizar y descargar los PDF en español e inglés desde la aplicación de CV.",
+    "fallback": "Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo."
+  },
+  "en": {
+    "entries": {
+      "aipassportguardnet": {
+        "title": "AIPASSPORTGUARDNET",
+        "url": "/en/work/aipassportguardnet",
+        "kind": "project",
+        "tags": [
+          "Blockchain",
+          "Product Passport",
+          "Traceability",
+          "Sustainability",
+          "Security",
+          "Toys Industry",
+          "Digital Transformation"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Blockchain system for safety verification and regulatory compliance of toy sector products through digital passports.\n\nSystem based on **blockchain technology** for creating a **Digital Product Passport** in the toy sector, focused on product safety verification, regulatory compliance, and multi-stakeholder access for manufacturers, government agencies, and consumers."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "11 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Blockchain and Frontend Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Blockchain, Web Development, Cryptography, Database Systems"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2024-02-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "The toy sector faces growing regulatory demands on product safety and traceability. Manufacturers need to demonstrate regulatory compliance in a verifiable way, regulatory bodies need reliable access to product information, and consumers demand transparency about origin and composition. Fragmented and unverifiable information creates risks for all parties."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **blockchain and frontend developer**, I participated in:\n\n- Implemented smart contracts and blockchain verification logic\n- Developed the web interface for digital passport management\n- Designed access workflows for multiple stakeholder types (manufacturers, regulators, consumers)\n- Integrated security protocols for handling sensitive product information"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Blockchain verification:**\n\n- Immutable storage of safety and compliance data for each product\n- Complete traceability from manufacturing to end of lifecycle\n- Cryptographic verification of information authenticity and integrity\n\n**Multi-stakeholder interface:**\n\n- Manufacturer panel: product data and certification management\n- Regulatory body access: compliance verification\n- Consumer portal: quick product information queries\n\n**Security and privacy:**\n\n- Security protocols for sensitive product information\n- Data protection law compliance\n- Data integrity guaranteed through blockchain"
+          },
+          "differentiation": {
+            "title": "Differentiation",
+            "text": "Unlike DLT4AITOYS (which focuses on AI services for smart toys), AIPASSPORTGUARDNET focuses on **regulatory compliance and safety verification**, providing a trust infrastructure for multiple actors to verify product conformity in the toy sector."
+          },
+          "collaboration": {
+            "title": "Collaboration",
+            "text": "Project led by **AIJU** in collaboration with GAME MOVIL S.L., INDUSTRIA AUXILIAR JUEMA S.L., JUGUETES CAYRO S.L., and AEFJ (Spanish Association of Toy Manufacturers)."
+          },
+          "funding": {
+            "title": "Funding",
+            "text": "Funded by the **Conselleria d'Innovació, Indústria, Comerç i Turisme**.\n\nFile number: CONV24/DGINN/20\nLinked to the smart specialization strategy S3: **Digital transformation**"
+          }
+        }
+      },
+      "cookobot": {
+        "title": "Cookobot",
+        "url": "/en/work/cookobot",
+        "kind": "project",
+        "tags": [
+          "Robotics",
+          "AI",
+          "Machine Learning",
+          "Computer Vision",
+          "Web Interface"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Kitchen assistant robot integrating ROS, computer vision with TensorFlow, and a VueJS web interface.\n\nRobotic system integrating **ROS (Robot Operating System)**, **computer vision** with TensorFlow, and a **web interface** with VueJS for kitchen task assistance."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "5 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Full Stack and Robotics Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "ROS, VueJS, TensorFlow, Python, JavaScript, Bulma"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2020-12-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Building a cross-platform robotic ecosystem that coordinated hardware control, visual object recognition, and an accessible user interface. The main technical challenge was integrating heterogeneous systems (ROS, web framework, ML models) into a coherent workflow with bidirectional real-time communication."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **Full Stack and robotics developer**, I implemented components across all three ecosystem layers:\n\n- Developed the responsive web interface with VueJS and Bulma for remote robot control\n- Integrated TensorFlow models for visual recognition of ingredients and utensils\n- Implemented bidirectional real-time communication between the web app and ROS\n- Optimized ML models for execution on resource-constrained embedded hardware"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Robotic control:**\n\n- **ROS** for control, coordination, and communication between robot nodes\n- ROS node architecture for separation of concerns (navigation, manipulation, perception)\n\n**Computer vision:**\n\n- **TensorFlow** for recognition of kitchen ingredients and utensils\n- Model optimization for embedded hardware execution\n\n**Web interface:**\n\n- **VueJS + Bulma** for responsive remote control web interface\n- **Python backend** for business logic and ROS communication bridge\n- Real-time telemetry and robot status monitoring"
+          },
+          "technical-challenges": {
+            "title": "Challenges Solved",
+            "text": "- Integration of heterogeneous systems (ROS, web, ML) into a unified workflow\n- Bidirectional real-time communication between web browser and ROS nodes\n- TensorFlow model optimization for embedded hardware with memory and CPU constraints\n- Synchronization of multiple concurrent subsystems"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "text": "Functional demonstration of robotics, artificial intelligence, and web technologies integration to create a practical home assistant with remote control and visual perception capabilities."
+          }
+        }
+      },
+      "crop-monitoring": {
+        "title": "Remote Crop Monitoring - iPollution",
+        "url": "/en/work/crop-monitoring",
+        "kind": "project",
+        "tags": [
+          "IoT",
+          "Agriculture",
+          "Environmental Monitoring",
+          "Full Stack",
+          "Hardware"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Cross-platform IoT system for environmental monitoring with Arduino sensors, Node.js REST API, and Ionic mobile app.\n\nAcademic project developed as a team using **Agile methodologies (Scrum)**, implementing a full IoT system: from hardware sensors to cross-platform mobile app, including a REST API and database."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "6 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Full Stack IoT Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "JavaScript, Node.js, Express, Arduino, MySQL, ESP32, Ionic, C++"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2018-06-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Farmers and environmental managers need real-time data about terrain conditions (temperature, humidity, luminosity, air quality) to make informed decisions. Existing commercial solutions are expensive and proprietary. The challenge was to build an accessible, complete IoT system covering all layers: hardware, backend, frontend, and mobile."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **Full Stack IoT Developer**, I contributed across all three system layers:\n\n- Programmed Arduino/ESP32 microcontrollers for sensor data capture and transmission\n- Designed and implemented the RESTful API in Node.js with Express\n- Developed the cross-platform application in Ionic with TypeScript\n- Configured the MySQL database for historical data storage\n- Implemented real-time communication via WebSockets"
+          },
+          "architecture": {
+            "title": "Multi-platform Architecture",
+            "text": "The system is divided into **three independent repositories**:\n\n- **Hardware (Arduino + C++)**: Proyecto3A-Arduino — Sensor network with ESP32/Arduino\n- **Backend (Node.js + Express)**: Proyecto3A-Server — RESTful API in JavaScript\n- **Frontend (Ionic + TypeScript)**: Proyecto3A-Webapp — Cross-platform app"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Hardware layer:**\n\n- Arduino / ESP32 microcontrollers\n- Environmental sensors: temperature, humidity, luminosity, air quality\n- WiFi / Bluetooth connectivity for data transmission\n\n**Backend layer:**\n\n- Node.js with Express.js as REST API\n- MySQL for historical measurement storage\n- WebSockets for bidirectional real-time communication\n\n**Frontend layer:**\n\n- Ionic (Angular) for cross-platform app (Web, iOS, Android)\n- Customizable dashboards with historical charts and trends\n- Automatic alerts based on configurable thresholds\n- Offline synchronization and push notifications"
+          },
+          "methodology": {
+            "title": "Development Methodology",
+            "text": "- **Scrum** with documented sprints\n- Team of 3 developers collaborating\n- Git with branch workflow (develop, feature branches)\n- Technical documentation with UML diagrams"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "text": "Functional IoT system demonstrating the viability of accessible solutions for real-time environmental monitoring, data-driven decision making, and agricultural resource optimization."
+          }
+        }
+      },
+      "dlt4aitoys": {
+        "title": "DLT4AITOYS",
+        "url": "/en/work/dlt4aitoys",
+        "kind": "project",
+        "tags": [
+          "Blockchain",
+          "DLT",
+          "Smart Toys",
+          "AI",
+          "Product Passport",
+          "Circular Economy",
+          "Traceability",
+          "Image Recognition"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Platform combining AI services (vision, chatbot, voice) with DLT technologies for the smart toy lifecycle.\n\nPlatform integrating **Artificial Intelligence services** (image recognition, chatbots, sentiment analysis, voice recognition) with **DLT (Distributed Ledger Technologies)** to manage the complete lifecycle of smart toys."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "10 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "AI Services and DLT Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Blockchain, Python, DLT Platforms, AI Services, Chatbot APIs, Computer Vision"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2022-09-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Smart toys incorporate complex technological components that need traceability throughout their entire lifecycle. Additionally, the industry requires accessible AI services (visual recognition, chatbots, emotional analysis) integrated into a unified platform, along with a distributed ledger system that simplifies blockchain interaction for non-technical users."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **AI services and DLT developer**, I participated in:\n\n- Integrated image recognition and computer vision services into the platform\n- Developed conversational chatbot and sentiment analysis interfaces\n- Implemented DLT innovations to simplify blockchain network interaction\n- Collaborated on the digital passport design for toy component registration"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Multisectorial AI platform:**\n\n- Image recognition for visual product analysis\n- Conversational chatbots for user interaction\n- Sentiment and emotion analysis through natural language processing\n- Voice recognition for smart toy interfaces\n\n**DLT technology:**\n\n- Distributed ledger for component and manufacturing stage traceability\n- Simplified mechanisms with semantics similar to traditional databases\n- Decentralized self-sovereign identity management\n- Intuitive interaction with DLT networks for unfamiliar users\n\n**Digital passport:**\n\n- Component control for elements within smart toys\n- Manufacturing and distribution stage traceability\n- Reverse logistics for circular economy and recycling"
+          },
+          "differentiation": {
+            "title": "Differentiation",
+            "text": "Unlike AIPASSPORTGUARDNET (which focuses on regulatory compliance and safety verification), DLT4AITOYS focuses on **integrated AI services and DLT accessibility innovation**, making complex technologies usable for the toy industry."
+          },
+          "collaboration": {
+            "title": "Collaboration",
+            "text": "Project developed in collaboration between **AIJU** and **ITI**, combining expertise in AI and blockchain technologies."
+          },
+          "funding": {
+            "title": "Funding",
+            "text": "Funded by **IVACE** (Valencian Institute of Business Competitiveness) with co-financing from the **European Union** through the European Regional Development Fund.\n\nFile number: IMDEEA/2022/80"
+          }
+        }
+      },
+      "glio-ia": {
+        "title": "GLIO-IA",
+        "url": "/en/work/glio-ia",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Machine Learning",
+          "Deep Learning",
+          "Healthcare",
+          "Medical AI",
+          "Computer Vision"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "AI platform for precision medicine that analyzes clinical data, medical images, and omics data from brain tumor patients.\n\nA 24-month research project developing a **comprehensive platform** for analyzing clinical data from brain tumor patients through **Deep Learning algorithms**, enabling personalized diagnosis and automated classification."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "24 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "AI Researcher and Platform Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Python, PyTorch, PyTorch Lightning, FastAPI, PostgreSQL, React"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2022-09-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Brain tumor diagnosis requires integrating information from multiple sources: histological images, radiological images, clinical data, and omics data (transcriptomics, epigenomics, genomics). Medical professionals need tools that unify these heterogeneous data sources and assist in clinical decision-making, especially when dealing with limited datasets and strict privacy requirements."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **AI researcher and platform developer**, I led the complete technical development:\n\n- Designed and deployed the full clinical analysis platform\n- Researched and developed Deep Learning models specialized in histological and radiological images\n- Implemented distributed training pipelines using PyTorch Lightning\n- Designed data augmentation and transfer learning strategies for small medical datasets\n- Developed explainability techniques for clinical decision support\n- Scientifically validated algorithms with metrics adapted to the medical context"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Multimodal analysis:**\n\n- Integration of clinical data, medical images, and omics data into a unified pipeline\n- Specialized models for each data modality\n- Processing of transcriptomics, epigenomics, and oncological genomics\n\n**Backend and ML:**\n\n- **PyTorch + Lightning** as the main Deep Learning framework\n- **FastAPI** as a high-performance REST API for serving predictions\n- **PostgreSQL** for structured clinical data storage\n- Distributed training pipeline with automated validation and evaluation\n\n**Frontend:**\n\n- **React** for an intuitive clinical interface aimed at medical professionals\n- Visualization of analysis results and predictions"
+          },
+          "technical-challenges": {
+            "title": "Technical Challenges",
+            "text": "- **Multimodality**: Effective integration of heterogeneous data (images, text, omics) into a unified model\n- **Limited data**: Data augmentation and transfer learning strategies to compensate for small datasets\n- **Medical privacy**: Compliance with healthcare data protection regulations (GDPR, Spanish healthcare regulation)\n- **Explainability**: Implementation of interpretability techniques so clinicians can trust model decisions\n- **Clinical validation**: Evaluation metrics and protocols adapted to real-world medical context"
+          },
+          "outcome": {
+            "title": "Results",
+            "text": "The platform enables doctors and researchers to:\n\n- Accelerate brain tumor diagnosis through automated classification\n- Identify new therapeutic biomarkers from multi-omics analysis\n- Personalize treatments based on the patient's molecular profile\n- Facilitate collaborative research in precision medicine"
+          },
+          "funding": {
+            "title": "Funding",
+            "text": "Project funded by the **Valencian Innovation Agency (AVI)** under file INNEST/2022/159, in collaboration with ISABIAL, FISABIO, AIJU, and The New Horizons."
+          }
+        }
+      },
+      "lost-scout": {
+        "title": "Lost Scout",
+        "url": "/en/work/lost-scout",
+        "kind": "project",
+        "tags": [
+          "Game Development",
+          "3D",
+          "Puzzle",
+          "Exploration"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "3D puzzle and exploration video game in Unity with all 3D assets modeled from scratch in 3D Studio Max.\n\nExploration and puzzle game developed in **Unity** with complete 3D modeling created from scratch in **3D Studio Max**, encompassing programming, game design, and 3D art."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "4 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Game Developer and 3D Artist"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Unity, C#, 3D Studio Max"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2019-12-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Designing and implementing a complete video game as an individual project, covering both mechanics programming and systems as well as the artistic creation of all 3D assets, levels, and ambiance. The challenge included achieving a cohesive experience that integrated free exploration with progressive logical puzzles."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **game developer and 3D artist**, I created the entire project individually:\n\n- Programmed game mechanics, interaction systems, and puzzle logic in C#\n- Modeled all 3D assets from scratch in 3D Studio Max (environments, props, scenarios)\n- Designed levels with progressive challenges and environmental storytelling\n- Implemented dynamic lighting system with post-processing\n- Developed custom physics engine and checkpoint system"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Unity development:**\n\n- **C#** for game mechanics, object interaction, and puzzle logic\n- Custom physics engine for gameplay-specific interactions\n- Checkpoint and progress saving system\n- Dynamic lighting with post-processing for ambiance\n\n**3D asset creation:**\n\n- Complete environment and scenario models created in **3D Studio Max**\n- Optimized interactive props for performance\n- Lighting and ambiance system integrated with models\n- Polygon optimization for balance between visual quality and performance\n\n**Game design:**\n\n- Varied logical puzzle system with progressive difficulty\n- Wide environment exploration with hidden secrets\n- Physics-based object interaction\n- Environmental storytelling through scenery and objects"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "text": "Complete project integrating programming, game design, and 3D art from concept to final product, demonstrating the ability to cover all video game development disciplines."
+          }
+        }
+      },
+      "multimedia-arvr": {
+        "title": "Multimedia AR/VR Experience",
+        "url": "/en/work/multimedia-arvr",
+        "kind": "project",
+        "tags": [
+          "Augmented Reality",
+          "Virtual Reality",
+          "Game Development",
+          "Immersive Experience"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Video game combining Augmented Reality and Virtual Reality in Unity with seamless transitions between both modes.\n\nImmersive video game developed in **Unity** that combines **Augmented Reality** and **Virtual Reality**, exploring the integration of both technologies with seamless transitions between modes."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "3 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Immersive Experience Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Unity, C#, ARCore, VR SDK"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2021-06-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Designing a coherent gaming experience that works in both AR mode (interaction with the real environment) and VR mode (full immersion), with smooth transitions that maintain gameplay continuity and controls adapted to each modality."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **immersive experience developer**, I designed and implemented:\n\n- Developed game mechanics in C# on Unity\n- Integrated ARCore for surface detection and tracking in AR mode\n- Implemented VR headset support with motion tracking\n- Designed the seamless transition system between AR and VR modes\n- Optimized performance for mobile devices with GPU constraints"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Game engine:**\n\n- **Unity + C#** for mechanics, interaction systems, and game logic\n- **ARCore** for surface recognition and virtual element positioning\n- **VR SDK** for virtual reality headset support with motion tracking\n\n**Game modes:**\n\n- **Augmented Reality**: Interaction with virtual elements overlaid on the real world\n- **Virtual Reality**: Complete immersive experience in a 3D environment\n- **Hybrid mode**: Seamless transition between AR and VR while maintaining game state\n- Controls specifically adapted to each experience\n\n**Optimization:**\n\n- Resource management for mobile and VR headset compatibility\n- Smooth transitions between modes without loading interruptions"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "text": "Cohesive gaming experience demonstrating how AR and VR can complement each other in a single product, offering multiple ways to interact with digital content."
+          }
+        }
+      },
+      "neuroevolutionary-ai": {
+        "title": "Neuroevolutionary AI for MTG",
+        "url": "/en/work/neuroevolutionary-ai",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Machine Learning",
+          "Neuroevolution",
+          "Game AI",
+          "Genetic Algorithms",
+          "Neural Networks"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "AI framework combining neural networks and genetic algorithms to learn competitive strategies in Magic: The Gathering.\n\nBachelor's Thesis focused on developing an **artificial intelligence framework** that combines **neural networks** with **genetic algorithms** to learn competitive strategies in Magic: The Gathering, a card game with high strategic complexity."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "6 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Lead Researcher and Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Python, Java, Groovy"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2021-12-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Magic: The Gathering presents an extremely large state space with imperfect information, thousands of possible cards, and multiple game phases. Traditional AI approaches based on exhaustive search are infeasible due to the game's combinatorial complexity. The challenge was to design a system capable of learning competitive strategies without direct human supervision."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **lead researcher and developer**, I designed and implemented the complete framework:\n\n- Designed the neuroevolutionary system architecture from scratch\n- Implemented genetic algorithms for neural network evolution\n- Developed the game state evaluation system\n- Integrated the framework with the Magarena game engine for automated training\n- Designed and executed validation experiments\n- Analyzed results through quantitative performance metrics"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "The framework implements a complete neuroevolutionary pipeline:\n\n**System architecture:**\n\n- **Neural networks** as decision agents evaluating game positions\n- **Genetic algorithms** evolving network weights and topology across generations\n- **Fitness system** based on automated matches against reference agents\n- **Parallel evaluation** of multiple agents per generation\n\n**Game engine:**\n\n- Integration with **Magarena**, an open-source MTG engine in Java\n- **Groovy** automation scripts for tournament and generation management\n- **Python** for result analysis and visualization\n\n**Evolutionary process:**\n\n- Population of neural networks competing against each other and baseline agents\n- Selection, crossover, and mutation of the fittest individuals\n- Complexity metrics evaluation of the game environment"
+          },
+          "decisions": {
+            "title": "Key Technical Decisions",
+            "text": "- **Neuroevolution over reinforcement learning**: I chose neuroevolutionary methods because they explore the solution space without requiring an explicit reward function, which is difficult to define in a game with such complex states\n- **Java as primary language**: Native integration with Magarena avoided inter-process communication overhead\n- **Multi-agent evaluation**: Each generation tested agents against each other and fixed baselines to measure both absolute and relative improvement"
+          },
+          "outcome": {
+            "title": "Results",
+            "text": "The AI demonstrated the capability to learn competitive strategies and consistently improve its performance generation after generation. The system validated the applicability of neuroevolutionary methods in highly complex strategic games with imperfect information, opening a research line on emergent behavior evolution in complex game environments."
+          }
+        }
+      },
+      "simdat-4-0": {
+        "title": "SIMDAT 4.0",
+        "url": "/en/work/simdat-4-0",
+        "kind": "project",
+        "tags": [
+          "Industry 4.0",
+          "IoT",
+          "Virtual Reality",
+          "Digital Twin",
+          "Additive Manufacturing",
+          "RFID",
+          "Simulation",
+          "Robotics",
+          "Sustainability"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Implementation of Industry 4.0 technologies in real environments: IoT, digital twins, virtual reality, and additive manufacturing.\n\nAn 18-month project focused on **implementing Industry 4.0 technologies** in real manufacturing environments, developing functional demonstrators integrating IoT, Virtual Reality, Digital Twins, Additive Manufacturing, and RFID."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "18 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "Industry 4.0 Solutions Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Python, IoT Platforms, RFID Systems, VR Development, 3D Printing, Simulation Software"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2022-04-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Manufacturing companies need to adopt digital technologies to improve productivity, quality, and sustainability, but the transition from traditional processes presents significant technical and organizational barriers. The challenge was to demonstrate the viability of these technologies in real industrial environments, not in laboratory settings."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **Industry 4.0 solutions developer**, I participated in implementing multiple technological demonstrators:\n\n- Developed real-time IoT monitoring systems for industrial processes\n- Implemented digital twins for simulation and optimization of robotic cells\n- Integrated RFID systems for recyclable material traceability\n- Collaborated on additive manufacturing solutions with conformal cooling"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Simulation and Digital Twins:**\n\n- Industrial process simulation with virtual visualization of robotic cells\n- Digital Twin generation in Virtual Reality to replicate real operations\n- Identification of improvements and optimization of operational parameters\n\n**Internet of Things (IoT):**\n\n- Real-time monitoring of industrial process control and status\n- Automatic defect analysis in produced parts (quality control)\n- Pattern and anomaly analysis for data-driven decisions\n\n**Additive Manufacturing:**\n\n- Mold manufacturing through 3D printing\n- Conformal cooling techniques to optimize injection cycles\n- Deformation reduction through uniform cooling\n\n**RFID and Traceability:**\n\n- Recyclable material traceability using RFID technology\n- Waste management and material location optimization\n- Circular economy promotion from the manufacturing process"
+          },
+          "outcome": {
+            "title": "Results",
+            "text": "The project concluded with functional demonstrators validating the applicability of 4.0 technologies in real manufacturing, contributing to smarter production, environmental sustainability, data-driven decision making, and industrial process optimization."
+          },
+          "funding": {
+            "title": "Funding",
+            "text": "Project co-financed by the **European Regional Development Fund** and **IVACE** (Valencian Institute of Business Competitiveness).\n\nFile number: IMDEEA/2022/82\nLinked to the smart specialization strategy S3: **Digital transformation**"
+          }
+        }
+      },
+      "smart-scale": {
+        "title": "Smart Scale",
+        "url": "/en/work/smart-scale",
+        "kind": "project",
+        "tags": [
+          "IoT",
+          "Mobile",
+          "Health Tracking",
+          "Cloud Integration"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "IoT connected scale with Kotlin Android app, cloud sync via Firebase, and ESP32 microcontroller.\n\nIoT system integrating **ESP32 hardware**, **Firebase Realtime Database**, and a **Kotlin Android application** for weight tracking with automatic cloud synchronization."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "4 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "IoT and Mobile Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Android, Firebase, ESP32, Kotlin, C++"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2018-12-01"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "Building a complete end-to-end IoT product: from the physical weight sensor to a mobile app with user profiles, history, and trend analysis. The challenge included reliable wireless communication between hardware and cloud, and instant data synchronization."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **IoT and mobile developer**, I implemented all product layers:\n\n- Programmed the ESP32 firmware in C++ with weight sensors and WiFi connectivity\n- Configured Firebase Realtime Database for instant data synchronization\n- Developed the Android app in Kotlin with authentication and multiple profiles\n- Implemented the automatic hardware calibration system\n- Designed the history visualization and trend analysis features"
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Hardware:**\n\n- **ESP32** as microcontroller with high-precision weight sensors\n- Bidirectional WiFi connectivity\n- Automatic calibration and power consumption optimization\n\n**Cloud:**\n\n- **Firebase Realtime Database** for instant synchronization between scale and app\n- **Firebase Authentication** for multi-user profile management\n\n**Mobile app:**\n\n- **Kotlin** for native Android development\n- Weight evolution history and charts\n- Customizable notifications and reminders\n- Trend analysis and goal progress tracking"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "text": "Functional and scalable IoT product demonstrating the complete integration of embedded hardware with cloud services and native mobile development."
+          }
+        }
+      },
+      "wotics": {
+        "title": "woTICS",
+        "url": "/en/work/wotics",
+        "kind": "project",
+        "tags": [
+          "AI",
+          "Virtual Reality",
+          "Chatbot",
+          "Social Impact",
+          "Accessibility",
+          "Education",
+          "Employment",
+          "Asperger"
+        ],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "AI, Virtual Reality, and digital guide tools to improve employability for young people with Asperger Syndrome.\n\nSocial impact project developing technological tools to improve **employability for young people with Asperger Syndrome** by combining **Artificial Intelligence**, **Virtual Reality**, and **digital educational resources**."
+          },
+          "duration": {
+            "title": "Duration",
+            "text": "18 months"
+          },
+          "role": {
+            "title": "Role",
+            "text": "AI and VR Tools Developer"
+          },
+          "stack": {
+            "title": "Technologies",
+            "text": "Python, VR Development, Chatbot Frameworks, Web Applications, AI/ML Services"
+          },
+          "date": {
+            "title": "Date",
+            "text": "2019-12-31"
+          },
+          "challenge": {
+            "title": "The Challenge",
+            "text": "People with autism spectrum disorder face severe exclusion in the workplace. Existing job preparation resources don't adapt to their specific learning needs: they require tools that respect individual pacing, allow repeated practice without judgment, and simulate real work situations in safe environments."
+          },
+          "contribution": {
+            "title": "My Role",
+            "text": "As **AI and VR tools developer**, I participated in implementing the three main project tools:\n\n- Developed the AI-based conversational chatbot for workplace question resolution\n- Implemented Virtual Reality scenarios for work environment simulation\n- Collaborated on the digital guide for active job searching\n- Integrated natural language processing services into the web platform"
+          },
+          "tools": {
+            "title": "Developed Tools",
+            "text": "**1. Active Job Search Guide**\nDigital resource covering curriculum vitae preparation, interview techniques, job search strategies, employer expectations, and available support entities.\n\n**2. woTICS Platform with Virtual Assistant**\nAccessible web application with an AI-based intelligent chatbot that answers work-related questions with personalized responses and an interface designed for users with Asperger.\n\n**3. Virtual Reality Scenario**\nImmersive simulation of real work environments (offices, stores, workspaces) where users practice situations like the first day at work, colleague interactions, and conflict management in a consequence-free environment."
+          },
+          "approach": {
+            "title": "Technical Approach",
+            "text": "**Artificial Intelligence:**\n\n- Conversational chatbot with natural language processing\n- Specialized knowledge base in employment and social skills\n- Adaptive response system that improves with use\n\n**Virtual Reality:**\n\n- Immersive 3D environments replicating realistic workspaces\n- Simulation of workplace interactions with NPCs\n- Multiple professional scenarios with progressive difficulty\n\n**Web Development:**\n\n- Application with universal design and accessibility as priority\n- Interface adapted to the needs of users with Asperger\n- Cross-platform access from any device"
+          },
+          "pedagogy": {
+            "title": "Pedagogical Approach",
+            "text": "- Respect for individual learning pace without time pressure\n- Safe practice in a judgment-free environment\n- Constructive feedback and guided learning\n- Ability to repeat experiences multiple times"
+          },
+          "collaboration": {
+            "title": "Collaboration",
+            "text": "Project developed by **AIJU** in collaboration with **ASPALI** (Association for people with Asperger Syndrome)."
+          },
+          "funding": {
+            "title": "Funding",
+            "text": "Co-financed by the **Erasmus+ Programme** of the European Union.\n\nOfficial website: wotics.eu"
+          }
+        }
+      },
+      "profile": {
+        "title": "Profile",
+        "url": "/en",
+        "kind": "page",
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "I design and deploy AI agents. At GuruSup, I connect models, data and tools to handle customer support tasks in production. Previously, I built AI software for businesses and research."
+          }
+        }
+      },
+      "experience": {
+        "title": "Experience",
+        "url": "/en/experience",
+        "kind": "page",
+        "sections": {
+          "gurusup": {
+            "title": "GuruSup",
+            "text": "2026–present · Software Engineer · LLMs and generative AI\nI build agent systems and work on how they retrieve the context they need to handle customer support tasks."
+          },
+          "convotis": {
+            "title": "CONVOTIS Iberia",
+            "text": "2025–2026 · AI Engineer\nI designed and deployed generative AI for business processes, working on agent orchestration, retrieval across internal and external data, and assistants with contextual memory."
+          },
+          "aiju": {
+            "title": "AIJU",
+            "text": "2021–2025 · AI & Software Developer\nI developed software for AI and Industry 4.0 projects, from IoT data collection to analysis. For GLIO-IA, I designed a platform that brings together clinical data, medical images and omics data."
+          }
+        }
+      },
+      "skills": {
+        "title": "Skills",
+        "url": "/en/skills",
+        "kind": "page",
+        "sections": {
+          "agents": {
+            "title": "Generative AI",
+            "text": "LLMs, multi-agent systems, information retrieval and contextual memory"
+          },
+          "ml": {
+            "title": "Machine learning",
+            "text": "Python, PyTorch, computer vision and distributed training"
+          },
+          "software": {
+            "title": "Software engineering",
+            "text": "FastAPI, React, PostgreSQL and cloud deployment"
+          },
+          "education": {
+            "title": "Education",
+            "text": "Master’s in Artificial Intelligence Research\nBachelor’s in Interactive Technologies Engineering"
+          }
+        }
+      },
+      "cv": {
+        "title": "Résumé",
+        "url": "/en/cv",
+        "kind": "page",
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "Preview and download Alejandro Mira’s résumé in Spanish or English."
+          }
+        }
+      },
+      "health-dashboard": {
+        "title": "HealthDashboard",
+        "url": "/en/work#personal-projects-title",
+        "kind": "project",
+        "tags": [],
+        "sections": {
+          "overview": {
+            "title": "Overview",
+            "text": "A dashboard for recording body composition measurements and tracking changes with charts and a filterable history."
+          }
+        }
+      }
+    },
+    "presets": {
+      "cv": {
+        "question": "Can I see his résumé?",
+        "reply": "You can preview and download the Spanish and English PDFs from the résumé app."
+      },
+      "career": {
+        "question": "Where has Alex worked?",
+        "reply": "Alex has worked with three teams:\n\n- **GuruSup** · Builds AI agents for customer support.\n- **CONVOTIS Iberia** · Designed and deployed generative AI solutions.\n- **AIJU** · Built research and Industry 4.0 software."
+      },
+      "glio": {
+        "question": "What has Alex built in medical AI?",
+        "reply": "At AIJU, Alex designed GLIO-IA, a platform that brings medical images, clinical records and omics data together for brain tumour research."
+      }
+    },
+    "contact": "In Contact you can email Alex or find his LinkedIn and GitHub profiles.",
+    "cv": "You can preview and download the Spanish and English PDFs from the résumé app.",
+    "fallback": "This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start."
+  }
+}

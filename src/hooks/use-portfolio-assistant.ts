@@ -92,7 +92,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
     window.dispatchEvent(new Event(AVATAR_KEY));
   }
 
-  async function send(text: string) {
+  async function send(text: string, preset?: 'glio' | 'career' | 'cv') {
     const clean = text.trim();
     if (!clean || busy || pendingChallenge.current) return;
     followThread.current = true;
@@ -123,7 +123,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
     }
 
     setInput((current) => (current === input ? '' : current));
-    void sendMessage({ text: clean }, { headers });
+    void sendMessage({ text: clean }, { headers, body: preset ? { preset } : undefined });
   }
 
   function toggleReadingMode() {

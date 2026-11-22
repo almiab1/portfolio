@@ -81,6 +81,7 @@ class ChatRequest(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     id: str = Field(min_length=1, max_length=128)
+    preset: Literal["glio", "career", "cv"] | None = None
     trigger: Literal["submit-message"]
     messageId: str | None = Field(default=None, max_length=128)
     lang: Language = "es"
@@ -170,11 +171,13 @@ def restricted_text(text: str, secret: str | None = None, *, screen_instructions
     )
 
 
-async def reply_events(text: str) -> AsyncIterator[BaseChunk]:
+async def reply_events(text: str, destination: str | None = None) -> AsyncIterator[BaseChunk]:
     yield StartChunk()
     yield TextStartChunk(id="reply")
     yield TextDeltaChunk(id="reply", delta=text)
     yield TextEndChunk(id="reply")
+    if destination:
+        yield DataChunk(type="data-destination", data=destination)
     yield FinishChunk(finish_reason="stop")
     yield DoneChunk()
 
@@ -202,7 +205,7 @@ async def guarded_events(
             elif isinstance(event, (ErrorChunk, AbortChunk)):
                 failed = True
             elif isinstance(event, FinishChunk):
-                completed = event.finish_reason not in {"error", "content-filter"}
+                completed = event.finish_reason == "stop"
     except Exception:
         failed = True
 

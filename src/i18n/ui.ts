@@ -1,15 +1,15 @@
 // ABOUTME: Localized interface and profile content for the portfolio.
 // ABOUTME: Spanish and English keys are shared by the Astro pages and interactive islands.
 import assistantReplies from './assistant-replies.json';
+import profileContent from './profile-content.json';
 
 export const ui = {
   es: {
     ...assistantReplies.es,
+    ...profileContent.es,
     'desktop.more': 'Más',
     'desktop.skills': 'Habilidades',
     'desktop.skillsIntro': 'Las tecnologías que uso y ejemplos de cómo las aplico.',
-    'desktop.profileBio':
-      'Diseño y despliego agentes de IA. En GuruSup conecto modelos, datos y herramientas para resolver tareas de atención al cliente en producción. Antes desarrollé software de IA para empresas e investigación.',
     'desktop.profileFocus': 'Agentes de IA · Ingeniería de software',
     'desktop.viewExperience': 'Ver trayectoria',
     'desktop.viewSkills': 'Ver habilidades',
@@ -35,9 +35,6 @@ export const ui = {
     'desktop.assistantChallengeError': 'No se pudo completar la verificación. Vuelve a intentarlo.',
     'desktop.assistantError': 'No se pudo enviar el mensaje. Vuelve a intentarlo.',
     'desktop.assistantPending': 'Preparando respuesta…',
-    'desktop.askGlio': '¿Qué ha hecho en IA médica?',
-    'desktop.askCareer': '¿Dónde ha trabajado?',
-    'desktop.askCv': '¿Puedo ver su CV?',
     'desktop.profile': 'Perfil',
     'desktop.experience': 'Trayectoria',
     'desktop.title': 'Portfolio / Escritorio',
@@ -46,9 +43,6 @@ export const ui = {
     'desktop.close': 'Cerrar pestaña activa',
     'desktop.cvShort': 'CV',
     'desktop.cvOpen': 'Ver currículum',
-    'desktop.cvTitle': 'Currículum',
-    'desktop.cvIntro':
-      'Previsualiza y descarga el currículum de Alejandro Mira en español o en inglés.',
     'desktop.cvEs': 'CV en español',
     'desktop.cvEn': 'CV en inglés',
     'desktop.cvDownloadEs': 'Descargar CV en español',
@@ -56,7 +50,6 @@ export const ui = {
     'desktop.cvExternal': 'Abrir PDF en otra pestaña',
     'desktop.careerIntro': 'Del software de investigación a los agentes de IA en producción.',
     'desktop.currentRole': 'Puesto actual',
-    'profile.role': 'Ingeniero de IA y software',
     'profile.specialty': 'Desarrollo agentes de IA para atención al cliente.',
     'profile.intro':
       'En GuruSup integro los datos y las herramientas que los agentes necesitan para funcionar en producción.',
@@ -72,32 +65,10 @@ export const ui = {
     'profile.repository': 'Ver código en GitHub',
     'profile.readProject': 'Leer el proyecto',
     'profile.healthType': 'Aplicación web',
-    'profile.healthSummary':
-      'Panel para registrar medidas de composición corporal y seguir su evolución con gráficos y un historial filtrable.',
     'profile.soloProject': 'Proyecto académico individual',
     'profile.announcement': 'Leer mi anuncio en LinkedIn',
-    'profile.currentPeriod': '2026–actualidad',
     'profile.readGlio': 'Leer el caso GLIO-IA',
     'profile.projectDistribution': 'Proyectos por tipo',
-    'profile.job.gurusup.role': 'Software Engineer · LLM e IA generativa',
-    'profile.job.gurusup.summary':
-      'Desarrollo sistemas de agentes y trabajo en cómo recuperan el contexto que necesitan para resolver tareas de atención al cliente.',
-    'profile.job.convotis.role': 'AI Engineer',
-    'profile.job.convotis.summary':
-      'Diseñé y desplegué soluciones de IA generativa para procesos empresariales. Trabajé en la orquestación de agentes, la recuperación de datos internos y externos y el desarrollo de asistentes con memoria contextual.',
-    'profile.job.aiju.role': 'Desarrollador de IA y software',
-    'profile.job.aiju.summary':
-      'Desarrollé software para proyectos de IA e Industria 4.0, desde la captura de datos con IoT hasta su análisis. En GLIO-IA diseñé una plataforma que integra datos clínicos, imágenes médicas y datos ómicos.',
-    'profile.skill.agents.title': 'IA generativa',
-    'profile.skill.agents.tools':
-      'LLM, sistemas multiagente, recuperación de información y memoria contextual',
-    'profile.skill.ml.title': 'Aprendizaje automático',
-    'profile.skill.ml.tools': 'Python, PyTorch, visión por computador y entrenamiento distribuido',
-    'profile.skill.software.title': 'Ingeniería de software',
-    'profile.skill.software.tools':
-      'APIs con FastAPI, interfaces con React, PostgreSQL y despliegue en la nube',
-    'profile.degree.master': 'Máster en Investigación en Inteligencia Artificial',
-    'profile.degree.bachelor': 'Grado en Ingeniería de Tecnologías Interactivas',
     'work.backToProfile': 'Volver al perfil',
     'work.catalogIntro':
       'Busca por nombre, tecnología o tema. Cada ficha explica mi aportación al proyecto.',
@@ -237,11 +208,10 @@ export const ui = {
   },
   en: {
     ...assistantReplies.en,
+    ...profileContent.en,
     'desktop.more': 'More',
     'desktop.skills': 'Skills',
     'desktop.skillsIntro': 'The technologies I use and examples of how I apply them.',
-    'desktop.profileBio':
-      'I design and deploy AI agents. At GuruSup, I connect models, data and tools to handle customer support tasks in production. Previously, I built AI software for businesses and research.',
     'desktop.profileFocus': 'AI agents · Software engineering',
     'desktop.viewExperience': 'View experience',
     'desktop.viewSkills': 'View skills',
@@ -267,9 +237,6 @@ export const ui = {
     'desktop.assistantChallengeError': 'Verification could not be completed. Try again.',
     'desktop.assistantError': 'The message could not be sent. Try again.',
     'desktop.assistantPending': 'Preparing a reply…',
-    'desktop.askGlio': 'What has Alex built in medical AI?',
-    'desktop.askCareer': 'Where has Alex worked?',
-    'desktop.askCv': 'Can I see his résumé?',
     'desktop.profile': 'Profile',
     'desktop.experience': 'Experience',
     'desktop.title': 'Portfolio / Desktop',
@@ -278,8 +245,6 @@ export const ui = {
     'desktop.close': 'Close active tab',
     'desktop.cvShort': 'CV',
     'desktop.cvOpen': 'View résumé',
-    'desktop.cvTitle': 'Résumé',
-    'desktop.cvIntro': 'Preview and download Alejandro Mira’s résumé in Spanish or English.',
     'desktop.cvEs': 'Spanish résumé',
     'desktop.cvEn': 'English résumé',
     'desktop.cvDownloadEs': 'Download Spanish résumé',
@@ -287,7 +252,6 @@ export const ui = {
     'desktop.cvExternal': 'Open PDF in a new tab',
     'desktop.careerIntro': 'From research software to AI agents in production.',
     'desktop.currentRole': 'Current role',
-    'profile.role': 'AI and software engineer',
     'profile.specialty': 'I build AI agents for customer support.',
     'profile.intro': 'At GuruSup, I connect the data and tools agents need to run in production.',
     'profile.exploreWork': 'View projects',
@@ -302,31 +266,10 @@ export const ui = {
     'profile.repository': 'View code on GitHub',
     'profile.readProject': 'Read the project',
     'profile.healthType': 'Web application',
-    'profile.healthSummary':
-      'A dashboard for recording body composition measurements and tracking changes with charts and a filterable history.',
     'profile.soloProject': 'Individual academic project',
     'profile.announcement': 'Read my LinkedIn announcement',
-    'profile.currentPeriod': '2026–present',
     'profile.readGlio': 'Read the GLIO-IA case study',
     'profile.projectDistribution': 'Projects by type',
-    'profile.job.gurusup.role': 'Software Engineer · LLMs and generative AI',
-    'profile.job.gurusup.summary':
-      'I build agent systems and work on how they retrieve the context they need to handle customer support tasks.',
-    'profile.job.convotis.role': 'AI Engineer',
-    'profile.job.convotis.summary':
-      'I designed and deployed generative AI for business processes, working on agent orchestration, retrieval across internal and external data, and assistants with contextual memory.',
-    'profile.job.aiju.role': 'AI & Software Developer',
-    'profile.job.aiju.summary':
-      'I developed software for AI and Industry 4.0 projects, from IoT data collection to analysis. For GLIO-IA, I designed a platform that brings together clinical data, medical images and omics data.',
-    'profile.skill.agents.title': 'Generative AI',
-    'profile.skill.agents.tools':
-      'LLMs, multi-agent systems, information retrieval and contextual memory',
-    'profile.skill.ml.title': 'Machine learning',
-    'profile.skill.ml.tools': 'Python, PyTorch, computer vision and distributed training',
-    'profile.skill.software.title': 'Software engineering',
-    'profile.skill.software.tools': 'FastAPI, React, PostgreSQL and cloud deployment',
-    'profile.degree.master': 'Master’s in Artificial Intelligence Research',
-    'profile.degree.bachelor': 'Bachelor’s in Interactive Technologies Engineering',
     'work.backToProfile': 'Back to profile',
     'work.catalogIntro':
       'Search by name, technology or topic. Each case study explains what I contributed.',

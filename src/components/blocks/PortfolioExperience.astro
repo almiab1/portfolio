@@ -3,7 +3,15 @@
 // ABOUTME: Shares the experience app between the Spanish and English routes.
 import { ArrowUpRight } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
+import jobs from '@/data/portfolio-jobs.json';
 import { useTranslations, type Language } from '@/i18n/utils';
+
+interface Job {
+  key: 'gurusup' | 'convotis' | 'aiju';
+  company: string;
+  year: string;
+  period?: string;
+}
 
 interface Props {
   lang: Language;
@@ -11,11 +19,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const jobs = [
-  { key: 'gurusup', company: 'GuruSup', year: '2026', period: t('profile.currentPeriod') },
-  { key: 'convotis', company: 'CONVOTIS Iberia', year: '2025', period: '2025–2026' },
-  { key: 'aiju', company: 'AIJU', year: '2021', period: '2021–2025' },
-] as const;
 ---
 
 <Base
@@ -30,11 +33,11 @@ const jobs = [
         <p class="profile-lead">{t('desktop.careerIntro')}</p>
       </header>
       <ol class="desktop-timeline" role="list">
-        {jobs.map(({ key, company, year, period }) => (
+        {(jobs as Job[]).map(({ key, company, year, period }) => (
           <li>
             <time datetime={year}>{year}</time>
             <div>
-              <p class="portfolio-kicker">{period}</p>
+              <p class="portfolio-kicker">{period ?? t('profile.currentPeriod')}</p>
               <h2>{company}</h2>
               <p class="desktop-job-role">{t(`profile.job.${key}.role`)}</p>
               <p class="portfolio-muted">{t(`profile.job.${key}.summary`)}</p>
