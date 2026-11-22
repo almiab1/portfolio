@@ -52,6 +52,7 @@ Spanish is the default locale, served without a prefix (`/`, `/work/[slug]`). En
 
 - `develop` is the integration branch and `main` is production. Branch features from `develop`, and target PRs at `develop`.
 - Keep history linear: rebase feature branches onto `develop` (`git pull --rebase`, `git rebase develop`) and integrate by fast-forward or GitHub "Rebase and merge"; merge commits are disabled.
+- Before integrating a PR into `develop`, verify that the required GitHub Actions job `assistant` from `Portfolio assistant` has completed successfully on the current PR head. If GitHub has not listed it yet, wait for it to appear. Recheck after any new commit.
 - Use Conventional Commits (`feat|fix|chore|refactor|test|docs: …`) and commit often.
 - If uncommitted changes exist when you start, ask Alex how to handle them. Work on a branch, never directly on `develop` or `main`.
 - Use Worktrunk (`wt`) for feature worktrees. In WSL, configure `worktree-path = "/home/pica/dev/projects/worktrees/{{ repo }}/{{ branch | sanitize }}"` in `~/.config/worktrunk/config.toml` so new Portfolio worktrees go under `/home/pica/dev/projects/worktrees/Portfolio/`.
