@@ -1,5 +1,5 @@
 /* ABOUTME: Styles the compact professional profile, starting with the phone layout. */
-/* ABOUTME: Gives the skills and catalogue extras a common card and grid rhythm. */
+/* ABOUTME: Provides the layout for catalogue extras. */
 .profile-app {
   min-height: 100%;
   display: grid;
@@ -71,6 +71,7 @@
 }
 
 .desktop-current-role > span:first-child {
+  position: relative;
   width: 0.45rem;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -119,46 +120,27 @@
   color: var(--foreground);
 }
 
-.skill-app-grid,
 .catalogue-extras {
   display: grid;
   gap: clamp(0.8rem, 2.5cqw, 1.5rem);
+  margin-block: 0 clamp(1.25rem, 3cqw, 2.5rem);
 }
 
-.skill-app-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr));
-}
-
-.skill-app-grid li,
-.skill-app-education {
-  padding: clamp(0.9rem, 3cqw, 1.7rem);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--background);
-}
-
-.skill-app-grid li {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.skill-app-grid h2,
 .catalogue-extras h2 {
   font-size: var(--portfolio-subheading-size);
   font-weight: 700;
   line-height: 1.15;
 }
 
-.skill-app-grid a {
-  margin-block-start: auto;
-  font-size: 0.87rem;
+.catalogue-list .personal-card {
+  flex-direction: row;
+  align-items: center;
+  margin-block: 0.75rem;
 }
 
-.skill-app-education,
-.catalogue-extras {
-  margin-block-start: clamp(1.5rem, 4cqw, 3rem);
+.catalogue-list .personal-image {
+  flex: 0 0 23%;
+  max-width: 9rem;
 }
 
 .catalogue-extras .personal-grid {
@@ -211,6 +193,28 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .desktop-current-role > span:first-child::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 1px solid #467451;
+    border-radius: 50%;
+    opacity: 0;
+    animation: role-signal 1.8s ease-out 2;
+  }
+
+  @keyframes role-signal {
+    from {
+      opacity: 0.7;
+      transform: scale(0.65);
+    }
+    75%,
+    to {
+      opacity: 0;
+      transform: scale(1.7);
+    }
+  }
+
   html:not([data-astro-transition]) .profile-card-body {
     animation: desktop-app-enter 220ms var(--portfolio-ease) both;
   }

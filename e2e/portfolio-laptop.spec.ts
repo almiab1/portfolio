@@ -1,5 +1,5 @@
 // ABOUTME: Checks the first screen at representative laptop browser sizes.
-// ABOUTME: Keeps the profile flush with its pane and the project rows ahead of the controls.
+// ABOUTME: Keeps the profile in view and the project results reachable from the overview.
 import { expect, test } from '@playwright/test';
 
 const LAPTOP_VIEWPORTS = [
@@ -56,6 +56,9 @@ for (const locale of [
       await expect(search).toBeEnabled();
       await expect(type).toBeEnabled();
       expect((await toolbar.boundingBox())!.height).toBeLessThanOrEqual(56);
+      await expect(page.locator('#health-dashboard')).toBeInViewport();
+      await page.locator('a[data-clear-project-type]').click();
+      await expect(search).toBeFocused();
       const rows = page.locator('.catalogue-row');
       for (let index = 0; index < 3; index++) {
         await expect(rows.nth(index)).toBeInViewport({ ratio: 0.98 });

@@ -9,7 +9,9 @@ for (const locale of [
     role: 'Ingeniero de IA y software',
     portrait: 'Retrato de Alejandro Mira',
     experience: 'Ver trayectoria',
-    skills: 'Ver habilidades',
+    skills: 'Ver capacidades',
+    capabilities: 'Capacidades',
+    education: 'Formación',
     cv: 'Ver currículum',
   },
   {
@@ -18,7 +20,9 @@ for (const locale of [
     role: 'AI and software engineer',
     portrait: 'Portrait of Alejandro Mira',
     experience: 'View experience',
-    skills: 'View skills',
+    skills: 'View capabilities',
+    capabilities: 'Capabilities',
+    education: 'Education',
     cv: 'View résumé',
   },
 ]) {
@@ -62,14 +66,37 @@ for (const locale of [
       (url) => url.pathname.replace(/\/$/, '') === locale.prefix + '/experience',
     );
     await expect(page.locator('.desktop-timeline')).toBeVisible();
-    await expect(page.locator('.skill-app-grid')).toHaveCount(0);
+    const education = page.getByRole('region', { name: locale.education });
+    await expect(education.getByRole('heading', { level: 3 })).toHaveCount(2);
+    await expect(education).toContainText('Universidad Internacional Menéndez Pelayo');
+    await expect(education).toContainText('Universitat Politècnica de València');
+    await expect(page.locator('.capabilities')).toHaveCount(0);
     await page.goBack();
     await skills.click();
-    await expect(page.locator('.skill-app-grid > li')).toHaveCount(3);
-    await expect(page.locator('#education-title')).toBeVisible();
-    await expect(
-      page.locator('.skill-app-grid').getByRole('link', { name: /GLIO-IA/ }),
-    ).toHaveAttribute('href', /\/work\/glio-ia\/?$/);
+    await expect(page.getByRole('heading', { name: locale.capabilities, level: 1 })).toBeVisible();
+    await expect(page.locator('.capabilities > li')).toHaveCount(3);
+    const artwork = page.locator('.capability img');
+    await expect(artwork).toHaveCount(3);
+    for (const image of await artwork.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() => image.evaluate((node: HTMLImageElement) => node.naturalWidth))
+        .toBeGreaterThan(0);
+    }
+    await expect(page.getByRole('region', { name: locale.education })).toHaveCount(0);
+    const evidence = page.locator('.capabilities');
+    for (const [name, path, hash, target] of [
+      ['GuruSup', '/experience', '#gurusup', '#gurusup'],
+      ['GLIO-IA', '/work/glio-ia', '', 'h1'],
+      ['HealthDashboard', '/work', '#health-dashboard', '#health-dashboard'],
+    ]) {
+      await evidence.getByRole('link', { name: new RegExp(name) }).click();
+      await expect(page).toHaveURL(
+        (url) => url.pathname.replace(/\/$/, '') === locale.prefix + path && url.hash === hash,
+      );
+      await expect(page.locator(target)).toContainText(name);
+      await page.goBack();
+    }
     await page.goBack();
     await cv.click();
     await expect(page.locator('.desktop-cv')).toBeVisible();

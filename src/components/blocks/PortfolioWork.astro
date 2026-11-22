@@ -1,7 +1,7 @@
 ---
 // ABOUTME: Renders the bilingual project archive with indexed search and type controls.
 // ABOUTME: Keeps case links as HTML and carries filter state when browsing them.
-import { ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BarChart3, Search, SlidersHorizontal, X } from 'lucide-react';
 import Layout from '@/layouts/BaseLayout.astro';
 import healthArt from '@/assets/projects/health-dashboard.svg?url';
 import { catalogSearch } from '@/lib/catalog-filters';
@@ -50,7 +50,75 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
     </header>
 
     <project-catalog data-work-path={workUrl}>
-      <div class="catalogue-toolbar">
+      <div class="catalogue-extras">
+        <section aria-labelledby="personal-projects-title" data-personal-projects>
+          <h2 id="personal-projects-title">{t('profile.personal')}</h2>
+          <ul class="personal-grid" role="list">
+            <li
+              id="health-dashboard"
+              data-project-id={personalProject.id}
+              data-type="web"
+              data-search={JSON.stringify(personalProject)}
+            >
+              <a
+                class="personal-card card"
+                href="https://github.com/almiab1/HealthDashboard"
+                data-project-link
+                data-project-slug={personalProject.id}
+                data-link-type="repository"
+              >
+                <div class="personal-image">
+                  <img
+                    src={healthArt}
+                    width="640"
+                    height="360"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="personal-content">
+                  <p class="portfolio-kicker">{t('profile.healthType')}</p>
+                  <h3>{personalProject.title}</h3>
+                  <p>{personalProject.summary}</p>
+                  <span class="portfolio-muted">Astro · React · MySQL</span>
+                  <span class="personal-action">
+                    {t('profile.repository')} <ArrowUpRight size={19} aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+        {projectTypes.length > 0 && (
+          <section class="profile-distribution" aria-labelledby="project-distribution-title">
+            <div class="portfolio-icon">
+              <BarChart3 size={21} aria-hidden="true" />
+            </div>
+            <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
+            <ul class="distribution-bars" role="list">
+              {projectTypes.map(({ type, count, label }) => (
+                <li data-project-type={type}>
+                  <a
+                    href={workUrl + catalogSearch({ query: '', type })}
+                    data-project-type-shortcut={type}
+                  >
+                    <span class="distribution-label">{label}</span>
+                    <span class="distribution-track" aria-hidden="true">
+                      <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
+                    </span>
+                    <strong>{count}</strong>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a class="portfolio-link" href={workUrl} data-clear-project-type>
+              {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+          </section>
+        )}
+      </div>
+      <div class="catalogue-toolbar" id="catalogue-results">
         <div class="catalogue-controls" role="search" aria-label={t('work.searchLabel')}>
           <label class="catalogue-field" title={t('work.searchPlaceholder')}>
             <span class="sr-only">{t('work.searchLabel')}</span>
@@ -134,82 +202,15 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
                     {data.summary}
                   </span>
                 </span>
-                <span class="catalogue-role" title={data.role}>
-                  {data.role}
+                <span class="catalogue-action">
+                  {t('project.readCase')}
+                  <ArrowRight className="catalogue-arrow" size={18} aria-hidden="true" />
                 </span>
-                <ArrowUpRight className="catalogue-arrow" size={21} aria-hidden="true" />
               </a>
             </li>
           );
         })}
       </ul>
-      <div class="catalogue-extras">
-        <section aria-labelledby="personal-projects-title" data-personal-projects>
-          <h2 id="personal-projects-title">{t('profile.personal')}</h2>
-          <ul class="personal-grid" role="list">
-            <li
-              data-project-id={personalProject.id}
-              data-type="web"
-              data-search={JSON.stringify(personalProject)}
-            >
-              <a
-                class="personal-card card"
-                href="https://github.com/almiab1/HealthDashboard"
-                data-project-link
-                data-project-slug={personalProject.id}
-                data-link-type="repository"
-              >
-                <div class="personal-image">
-                  <img
-                    src={healthArt}
-                    width="640"
-                    height="360"
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="personal-content">
-                  <p class="portfolio-kicker">{t('profile.healthType')}</p>
-                  <h3>{personalProject.title}</h3>
-                  <p>{personalProject.summary}</p>
-                  <span class="portfolio-muted">Astro · React · MySQL</span>
-                  <span class="personal-action">
-                    {t('profile.repository')} <ArrowUpRight size={19} aria-hidden="true" />
-                  </span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </section>
-        {projectTypes.length > 0 && (
-          <section class="profile-distribution" aria-labelledby="project-distribution-title">
-            <div class="portfolio-icon">
-              <BarChart3 size={21} aria-hidden="true" />
-            </div>
-            <h3 id="project-distribution-title">{t('profile.projectDistribution')}</h3>
-            <ul class="distribution-bars" role="list">
-              {projectTypes.map(({ type, count, label }) => (
-                <li data-project-type={type}>
-                  <a
-                    href={workUrl + catalogSearch({ query: '', type })}
-                    data-project-type-shortcut={type}
-                  >
-                    <span class="distribution-label">{label}</span>
-                    <span class="distribution-track" aria-hidden="true">
-                      <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
-                    </span>
-                    <strong>{count}</strong>
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <a class="portfolio-link" href={workUrl} data-clear-project-type>
-              {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
-            </a>
-          </section>
-        )}
-      </div>
     </project-catalog>
   </main>
 </Layout>
@@ -239,7 +240,9 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         if (scrollKey && pane.clientHeight) scrollPositions.set(scrollKey, pane.scrollTop);
       };
       const personal = this.querySelector<HTMLElement>('[data-personal-projects]')!;
-      const personalRow = personal.querySelector<HTMLElement>('[data-project-id]')!;
+      const personalGrid = personal.querySelector('ul')!;
+      const resultList = this.querySelector('.catalogue-list')!;
+      const personalRow = this.querySelector<HTMLElement>('#health-dashboard')!;
       const query = this.querySelector<HTMLInputElement>('input[name="q"]')!;
       const type = this.querySelector<HTMLSelectElement>('select[name="type"]')!;
       const clear = this.querySelector<HTMLButtonElement>('[data-clear]')!;
@@ -266,7 +269,10 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
           if (link) link.href = link.dataset.casePath + search;
         }
 
-        personal.hidden = personalRow.hidden;
+        const filtering = Boolean(filters.query || filters.type);
+        const personalList = filtering ? resultList : personalGrid;
+        if (personalRow.parentElement !== personalList) personalList.prepend(personalRow);
+        personal.hidden = filtering;
         const size = visibleIds.size;
         const resultText = `${size} ${size === 1 ? count.dataset.one : count.dataset.many}`;
         if (count.textContent?.trim() !== resultText) count.textContent = resultText;
@@ -296,6 +302,31 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         query.disabled = false;
         type.disabled = false;
       };
+
+      this.querySelectorAll<HTMLAnchorElement>(
+        '[data-project-type-shortcut], a[data-clear-project-type]',
+      ).forEach((link) => {
+        link.addEventListener(
+          'click',
+          (event) => {
+            if (
+              event.button !== 0 ||
+              event.metaKey ||
+              event.ctrlKey ||
+              event.shiftKey ||
+              event.altKey
+            )
+              return;
+            event.preventDefault();
+            query.value = '';
+            type.value = link.dataset.projectTypeShortcut ?? '';
+            refresh(true);
+            query.focus({ preventScroll: true });
+            this.querySelector('#catalogue-results')?.scrollIntoView({ block: 'start' });
+          },
+          options,
+        );
+      });
 
       query.addEventListener('input', () => refresh(true), options);
       type.addEventListener('change', () => refresh(true), options);

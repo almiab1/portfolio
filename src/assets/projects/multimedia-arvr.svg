@@ -1,0 +1,7 @@
+<!-- ABOUTME: Illustrates a transition between augmented and virtual spaces. -->
+<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#ead6c2"/>
+  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
+  <path d="M0 230 145 140l138 87v133H0z" fill="#b7c7a5"/><path d="M360 360V207l135-91 145 95v149z" fill="#af745b"/><path d="M320 49v262" stroke="#713e2d" stroke-width="3" stroke-dasharray="7 7"/><g fill="none" stroke="#304b40" stroke-width="5"><path d="M74 224v-42h42m110 0h42v42m0 43v42h-42M116 309H74v-42"/><path d="m142 226 31-19 31 19v39l-31 19-31-19zM173 207v77m-31-58 31 19 31-19"/></g><path d="M402 183q38-50 118 0l-7 42q-10 20-31 20l-21-17-21 17q-21 0-31-20z" fill="#f7ebd9" stroke="#713e2d" stroke-width="5"/><path d="M416 201h31m30 0h30" stroke="#c07555" stroke-width="6" stroke-linecap="round"/>
+</svg>

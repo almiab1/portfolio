@@ -68,6 +68,7 @@ for (const lang of ['es', 'en'] as const) {
       .locator('project-catalog')
       .getByRole('link', { name: /GLIO-IA/ })
       .click();
+    await expect(tabs.locator('a svg[aria-hidden="true"]')).toHaveCount(3);
     await expect(tabs.getByRole('link', { name: 'GLIO-IA', exact: true })).toHaveAttribute(
       'aria-current',
       'page',

@@ -1,89 +1,44 @@
-// ABOUTME: Draws a small original dot character for each assistant avatar preset.
-// ABOUTME: Shares the same visual between the assistant header and preset picker.
+// ABOUTME: Draws Mota, the portfolio assistant’s pixel robot, in three color palettes.
+// ABOUTME: Shares the same sprite between the assistant header, skin picker and dock.
 import type { Avatar } from '@/hooks/use-portfolio-assistant';
 
 interface Props {
   avatar: Avatar;
   size?: number;
+  expression?: 'idle' | 'busy';
 }
 
-const PIXELS = [
-  [12, 5],
-  [20, 5],
-  [8, 10],
-  [16, 10],
-  [24, 10],
-  [5, 15],
-  [11, 15],
-  [21, 15],
-  [27, 15],
-  [8, 20],
-  [16, 20],
-  [24, 20],
-  [12, 25],
-  [20, 25],
-];
-
-export default function AssistantAvatar({ avatar, size = 32 }: Props) {
+export default function AssistantAvatar({ avatar, size = 32, expression }: Props) {
   return (
     <svg
       className="assistant-avatar"
       data-avatar={avatar}
-      viewBox="0 0 32 32"
+      data-expression={expression}
+      viewBox="0 0 16 16"
       width={size}
       height={size}
+      shapeRendering="crispEdges"
       aria-hidden="true"
     >
-      {avatar === 'orbit' && (
-        <>
-          <circle
-            cx="16"
-            cy="16"
-            r="11"
-            fill="none"
-            stroke="currentColor"
-            strokeDasharray="0.1 3.3"
-            strokeWidth="2.4"
-            strokeLinecap="round"
-          />
-          <circle cx="12" cy="15" r="1.8" fill="currentColor" />
-          <circle cx="20" cy="15" r="1.8" fill="currentColor" />
-          <path
-            d="M13.5 20q2.5 2 5 0"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
-        </>
-      )}
-      {avatar === 'pixel' &&
-        PIXELS.map(([x, y]) => (
-          <rect
-            key={`${x}-${y}`}
-            x={x - 1.6}
-            y={y - 1.6}
-            width="3.2"
-            height="3.2"
-            rx="0.6"
-            fill="currentColor"
-          />
-        ))}
-      {avatar === 'pulse' && (
+      <path className="assistant-avatar-signal" d="M11 0h2v2h-2z" />
+      <path
+        className="assistant-avatar-shell"
+        d="M10 2h2v2h-2zM4 4h8v1h2v2h1v5h-2v2h-1v1H4v-1H3v-2H1V7h1V5h2z"
+      />
+      <path className="assistant-avatar-light" d="M4 5h8v1H4zM2 8h1v3H2z" />
+      <path className="assistant-avatar-screen" d="M4 7h8v1h1v4h-1v1H4v-1H3V8h1z" />
+      {expression === 'busy' ? (
+        <path className="assistant-avatar-signal" d="M5 9h1v1H5zM7 9h2v1H7zM10 9h1v1h-1z" />
+      ) : (
         <>
           <path
-            d="M3 16h5l3-7 5 14 5-14 3 7h5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            className="assistant-avatar-light assistant-avatar-eyes"
+            d="M5 8h1v2H5zM10 8h1v2h-1z"
           />
-          <circle cx="8" cy="16" r="2" fill="currentColor" />
-          <circle cx="24" cy="16" r="2" fill="currentColor" />
-          <circle cx="16" cy="23" r="2" fill="currentColor" />
+          <path className="assistant-avatar-signal" d="M7 11h2v1H7z" />
         </>
       )}
+      <path className="assistant-avatar-feet" d="M4 14h3v2H4zM9 14h3v2H9z" />
     </svg>
   );
 }

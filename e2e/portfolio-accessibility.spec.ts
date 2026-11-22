@@ -77,10 +77,8 @@ test.describe('compact mobile navigation', () => {
     await expect(more).toBeFocused();
     await expect(cv).toBeHidden();
     await more.press('Enter');
-    await dock.getByRole('link', { name: 'Habilidades', exact: true }).click();
-    await expect(
-      page.getByRole('heading', { name: 'Habilidades técnicas', level: 1 }),
-    ).toBeVisible();
+    await dock.getByRole('link', { name: 'Capacidades', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Capacidades', level: 1 })).toBeVisible();
     await more.press('Enter');
     await cv.press('Enter');
     await expect(page.getByRole('heading', { name: 'Currículum' })).toBeVisible();
