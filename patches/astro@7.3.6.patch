@@ -1,0 +1,23 @@
+diff --git a/dist/core/routing/create-manifest.js b/dist/core/routing/create-manifest.js
+index 060cc758c899bc67d26d921638b563974f313f87..a7cf4ae92689294d165560eb70b60cadeab1fef1 100644
+--- a/dist/core/routing/create-manifest.js
++++ b/dist/core/routing/create-manifest.js
+@@ -15,7 +15,7 @@ import {
+   UnsupportedExternalRedirect
+ } from "../errors/errors-data.js";
+ import { AstroError } from "../errors/index.js";
+-import { hasFileExtension, removeLeadingForwardSlash, slash } from "../path.js";
++import { hasFileExtension, removeLeadingForwardSlash, removeTrailingForwardSlash, slash } from "../path.js";
+ import { injectServerIslandRoute } from "../server-islands/endpoint.js";
+ import { resolvePages } from "../util.js";
+ import { ensure404Route } from "./astro-designed-error-pages.js";
+@@ -617,7 +617,8 @@ function createI18nFallbackRoutes(routes, i18n, config) {
+         for (const fallbackToRoute of fallbackToRoutes) {
+           const hasRoute = fallbackFromRoutes && fallbackFromRoutes.some((route) => {
+             if (fallbackToLocale === i18n.defaultLocale) {
+-              return route.route === `/${fallbackFromLocale}${fallbackToRoute.route}` || route.route.replace(`/${fallbackFromLocale}`, "") === fallbackToRoute.route;
++              const expectedRoute = `/${fallbackFromLocale}${fallbackToRoute.route}`;
++              return removeTrailingForwardSlash(route.route) === removeTrailingForwardSlash(expectedRoute) || route.route.replace(`/${fallbackFromLocale}`, "") === fallbackToRoute.route;
+             } else {
+               const expectedRoute = replaceOrKeep(
+                 fallbackToRoute.route,

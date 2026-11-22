@@ -1,6 +1,9 @@
+// ABOUTME: Defines the schemas and Markdown loaders for portfolio content.
+// ABOUTME: Keeps unpublished collections available to content queries.
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { optionalMarkdownLoader } from './lib/optional-markdown-loader';
 
 export const collections = {
   projects: defineCollection({
@@ -39,7 +42,7 @@ export const collections = {
     }),
   }),
   posts: defineCollection({
-    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/posts' }),
+    loader: optionalMarkdownLoader('./src/content/posts'),
     schema: z.object({
       lang: z.enum(['es', 'en']).default('es'),
       title: z.string(),
@@ -51,7 +54,7 @@ export const collections = {
     }),
   }),
   talks: defineCollection({
-    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/talks' }),
+    loader: optionalMarkdownLoader('./src/content/talks'),
     schema: z.object({
       lang: z.enum(['es', 'en']).default('es'),
       title: z.string(),
@@ -64,7 +67,7 @@ export const collections = {
     }),
   }),
   oss: defineCollection({
-    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/oss' }),
+    loader: optionalMarkdownLoader('./src/content/oss'),
     schema: z.object({
       title: z.string(),
       repo: z.string().url(),
