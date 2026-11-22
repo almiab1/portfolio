@@ -11,6 +11,11 @@ for (const locale of [
     experience: 'Ver trayectoria',
     skills: 'Ver capacidades',
     capabilities: 'Capacidades',
+    capabilityTitles: [
+      'Ingeniería de agentes de IA',
+      'Ingeniería de software y producto',
+      'Evaluación de sistemas de IA',
+    ],
     education: 'Formación',
     cv: 'Ver currículum',
   },
@@ -22,6 +27,11 @@ for (const locale of [
     experience: 'View experience',
     skills: 'View capabilities',
     capabilities: 'Capabilities',
+    capabilityTitles: [
+      'AI agent engineering',
+      'Software and product engineering',
+      'AI system evaluation',
+    ],
     education: 'Education',
     cv: 'View résumé',
   },
@@ -65,7 +75,7 @@ for (const locale of [
     await expect(page).toHaveURL(
       (url) => url.pathname.replace(/\/$/, '') === locale.prefix + '/experience',
     );
-    await expect(page.locator('.desktop-timeline')).toBeVisible();
+    await expect(page.locator('#gurusup')).toContainText('Pydantic AI');
     const education = page.getByRole('region', { name: locale.education });
     await expect(education.getByRole('heading', { level: 3 })).toHaveCount(2);
     await expect(education).toContainText('Universidad Internacional Menéndez Pelayo');
@@ -74,7 +84,9 @@ for (const locale of [
     await page.goBack();
     await skills.click();
     await expect(page.getByRole('heading', { name: locale.capabilities, level: 1 })).toBeVisible();
-    await expect(page.locator('.capabilities > li')).toHaveCount(3);
+    const cards = page.locator('.capabilities > li');
+    await expect(cards.getByRole('heading', { level: 2 })).toHaveText(locale.capabilityTitles);
+    await expect(cards.first()).toContainText('Model Context Protocol (MCP)');
     const artwork = page.locator('.capability img');
     await expect(artwork).toHaveCount(3);
     for (const image of await artwork.all()) {

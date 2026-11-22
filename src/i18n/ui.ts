@@ -9,15 +9,15 @@ export const ui = {
     ...profileContent.es,
     'desktop.more': 'Más',
     'desktop.skills': 'Capacidades',
-    'desktop.skillsIntro': 'Cómo aplico la IA y la ingeniería de software en proyectos reales.',
+    'desktop.skillsIntro': 'Mi trabajo une ingeniería de software, IA generativa y producto. Empiezo con la tarea que un cliente necesita resolver y sigo con ella hasta ver cómo funciona en producción.',
     'capabilities.agents.summary':
-      'Desarrollo agentes de atención al cliente que recuperan el contexto de cada consulta y usan herramientas para resolverla.',
+      'Diseño el harness que coordina los agentes de soporte. Define qué contexto de la empresa recibe cada agente, qué herramientas puede usar mediante Model Context Protocol (MCP) y cuándo debe pasar la conversación a una persona.',
     'capabilities.agents.example': 'Ver mi trabajo en GuruSup',
     'capabilities.ml.summary':
-      'Entreno modelos de visión por computador con PyTorch y estudio cómo explicar sus predicciones en imágenes médicas.',
+      'En un agente de voz sigo la traza de una llamada para entender por qué tardó en responder, cómo reaccionó a una interrupción y cuánto costó resolverla. En GLIO-IA la pregunta era otra: ¿qué parte de la imagen pesó más en la predicción del modelo?',
     'capabilities.ml.example': 'Leer el caso GLIO-IA',
     'capabilities.software.summary':
-      'Construyo aplicaciones web de extremo a extremo. En HealthDashboard, conecto una interfaz con React y Astro a una base de datos MySQL.',
+      'Trabajo con clientes para decidir qué merece la pena construir y me encargo de llevarlo a producción. En mi proyecto HealthDashboard, una pregunta dio forma a la interfaz y a los datos: ¿cómo ver qué ha cambiado entre dos mediciones?',
     'capabilities.software.example': 'Ver HealthDashboard',
     'desktop.profileFocus': 'Agentes de IA · Ingeniería de software',
     'desktop.viewExperience': 'Ver trayectoria',
@@ -55,7 +55,7 @@ export const ui = {
     'desktop.cvDownloadEs': 'Descargar CV en español',
     'desktop.cvDownloadEn': 'Descargar CV en inglés',
     'desktop.cvExternal': 'Abrir PDF en otra pestaña',
-    'desktop.careerIntro': 'Del software de investigación a los agentes de IA en producción.',
+    'desktop.careerIntro': 'En AIJU construí software para investigación. En CONVOTIS conecté modelos con datos de empresa. Hoy reúno esas dos experiencias en los agentes de atención al cliente de GuruSup.',
     'desktop.currentRole': 'Puesto actual',
     'profile.specialty': 'Desarrollo agentes de IA para atención al cliente.',
     'profile.intro':
@@ -218,15 +218,15 @@ export const ui = {
     ...profileContent.en,
     'desktop.more': 'More',
     'desktop.skills': 'Capabilities',
-    'desktop.skillsIntro': 'How I apply AI and software engineering in real projects.',
+    'desktop.skillsIntro': 'My work brings together software engineering, generative AI and product. I start with the job a customer needs to get done and stay with it to see how the system performs in production.',
     'capabilities.agents.summary':
-      'I build customer support agents that retrieve the context for each request and use tools to resolve it.',
+      'I design the harness that coordinates support agents. It determines which company context each agent sees, which tools it can use through the Model Context Protocol (MCP), and when to hand the conversation to a person.',
     'capabilities.agents.example': 'See my work at GuruSup',
     'capabilities.ml.summary':
-      'I train computer vision models in PyTorch and study how to explain their predictions on medical images.',
+      'For a voice agent, I trace a call to understand why a reply was slow, how the agent handled an interruption and what it cost to resolve the request. On GLIO-IA I investigated a different question: which regions of an image contributed most to a model’s prediction?',
     'capabilities.ml.example': 'Read the GLIO-IA case study',
     'capabilities.software.summary':
-      'I build web applications end to end. In HealthDashboard, I connect a React and Astro interface to a MySQL database.',
+      'I work with customers to decide what is worth building, then take it through to production. In my own project, HealthDashboard, one question shaped the interface and the data model: how can someone see what changed between two measurements?',
     'capabilities.software.example': 'See HealthDashboard',
     'desktop.profileFocus': 'AI agents · Software engineering',
     'desktop.viewExperience': 'View experience',
@@ -264,7 +264,7 @@ export const ui = {
     'desktop.cvDownloadEs': 'Download Spanish résumé',
     'desktop.cvDownloadEn': 'Download English résumé',
     'desktop.cvExternal': 'Open PDF in a new tab',
-    'desktop.careerIntro': 'From research software to AI agents in production.',
+    'desktop.careerIntro': 'At AIJU I built research software. At CONVOTIS I connected models to business data. Today I draw on both at GuruSup, building agents for customer support.',
     'desktop.currentRole': 'Current role',
     'profile.specialty': 'I build AI agents for customer support.',
     'profile.intro': 'At GuruSup, I connect the data and tools agents need to run in production.',

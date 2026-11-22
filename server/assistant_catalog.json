@@ -617,7 +617,7 @@
         "sections": {
           "overview": {
             "title": "Resumen",
-            "text": "Diseño y despliego agentes de IA. En GuruSup conecto modelos, datos y herramientas para resolver tareas de atención al cliente en producción. Antes desarrollé software de IA para empresas e investigación."
+            "text": "En GuruSup construyo agentes de IA para atención al cliente por chat y voz. Trabajo con clientes para elegir qué problema resolver, diseño el sistema y uso las conversaciones reales para entender dónde falla."
           }
         }
       },
@@ -628,15 +628,15 @@
         "sections": {
           "gurusup": {
             "title": "GuruSup",
-            "text": "2026–actualidad · Software Engineer · LLM e IA generativa\nDesarrollo sistemas de agentes y trabajo en cómo recuperan el contexto que necesitan para resolver tareas de atención al cliente."
+            "text": "2026–actualidad · AI Engineer · LLM e IA generativa\nLlevo problemas de clientes desde la primera conversación hasta producción. Construyo sistemas multiagente para chat, correo y voz con Python y Pydantic AI. En telefonía trabajo con interrupciones y traspasos a personas. Después reviso trazas, tiempos de respuesta y costes para decidir qué mejorar."
           },
           "convotis": {
             "title": "CONVOTIS Iberia",
-            "text": "2025–2026 · AI Engineer\nDiseñé y desplegué soluciones de IA generativa para procesos empresariales. Trabajé en la orquestación de agentes, la recuperación de datos internos y externos y el desarrollo de asistentes con memoria contextual."
+            "text": "2025–2026 · AI Engineer\nDiseñé y desplegué asistentes para procesos de empresa. Conecté agentes a fuentes internas y externas mediante búsqueda vectorial (RAG), y trabajé en que mantuvieran el contexto entre turnos y sus respuestas se pudieran rastrear."
           },
           "aiju": {
             "title": "AIJU",
-            "text": "2021–2025 · Desarrollador de IA y software\nDesarrollé software para proyectos de IA e Industria 4.0, desde la captura de datos con IoT hasta su análisis. En GLIO-IA diseñé una plataforma que integra datos clínicos, imágenes médicas y datos ómicos."
+            "text": "2021–2025 · Ingeniero de IA y software\nDesarrollé software para proyectos de IA e Industria 4.0, desde la captura de datos con IoT hasta su análisis. En GLIO-IA diseñé una plataforma que integra datos clínicos, imágenes médicas y datos ómicos."
           }
         }
       },
@@ -646,16 +646,16 @@
         "kind": "page",
         "sections": {
           "agents": {
-            "title": "IA generativa",
-            "text": "LLM, sistemas multiagente, recuperación de información y memoria contextual"
+            "title": "Ingeniería de agentes de IA",
+            "text": "IA generativa, sistemas multiagente, harness de agentes, recuperación de contexto e integración de herramientas con Model Context Protocol (MCP)"
           },
           "ml": {
-            "title": "Aprendizaje automático",
-            "text": "Python, PyTorch, visión por computador y entrenamiento distribuido"
+            "title": "Evaluación de sistemas de IA",
+            "text": "Evaluación de agentes, trazas con Logfire, latencia y coste de los LLM. Visión por computador e interpretabilidad con PyTorch."
           },
           "software": {
-            "title": "Ingeniería de software",
-            "text": "APIs con FastAPI, interfaces con React, PostgreSQL y despliegue en la nube"
+            "title": "Ingeniería de software y producto",
+            "text": "Definición y priorización de problemas de cliente, diseño de flujos, APIs con FastAPI, React y bases de datos relacionales"
           }
         }
       },
@@ -1330,7 +1330,7 @@
         "sections": {
           "overview": {
             "title": "Overview",
-            "text": "I design and deploy AI agents. At GuruSup, I connect models, data and tools to handle customer support tasks in production. Previously, I built AI software for businesses and research."
+            "text": "At GuruSup I build AI agents for customer support over chat and voice. I work with customers to choose the problem, design the system and learn from real conversations where it falls short."
           }
         }
       },
@@ -1341,15 +1341,15 @@
         "sections": {
           "gurusup": {
             "title": "GuruSup",
-            "text": "2026–present · Software Engineer · LLMs and generative AI\nI build agent systems and work on how they retrieve the context they need to handle customer support tasks."
+            "text": "2026–present · AI Engineer · LLMs & GenAI\nI take customer problems from the first conversation through to production. I build multi-agent systems for chat, email and voice with Python and Pydantic AI. On calls, I work on interruptions and handoffs to people. I use traces, response times and costs to decide what to improve next."
           },
           "convotis": {
             "title": "CONVOTIS Iberia",
-            "text": "2025–2026 · AI Engineer\nI designed and deployed generative AI for business processes, working on agent orchestration, retrieval across internal and external data, and assistants with contextual memory."
+            "text": "2025–2026 · AI Engineer\nI designed and deployed assistants for business workflows. I connected agents to internal and external sources through vector retrieval (RAG) and worked on retaining context across turns and making answers traceable."
           },
           "aiju": {
             "title": "AIJU",
-            "text": "2021–2025 · AI & Software Developer\nI developed software for AI and Industry 4.0 projects, from IoT data collection to analysis. For GLIO-IA, I designed a platform that brings together clinical data, medical images and omics data."
+            "text": "2021–2025 · AI & Software Engineer\nI developed software for AI and Industry 4.0 projects, from IoT data collection to analysis. For GLIO-IA, I designed a platform that brings together clinical data, medical images and omics data."
           }
         }
       },
@@ -1359,16 +1359,16 @@
         "kind": "page",
         "sections": {
           "agents": {
-            "title": "Generative AI",
-            "text": "LLMs, multi-agent systems, information retrieval and contextual memory"
+            "title": "AI agent engineering",
+            "text": "Generative AI, multi-agent systems, agent harnesses, context retrieval and tool integration with the Model Context Protocol (MCP)"
           },
           "ml": {
-            "title": "Machine learning",
-            "text": "Python, PyTorch, computer vision and distributed training"
+            "title": "AI system evaluation",
+            "text": "Agent evaluation, tracing with Logfire, LLM latency and cost. Computer vision and interpretability with PyTorch."
           },
           "software": {
-            "title": "Software engineering",
-            "text": "FastAPI, React, PostgreSQL and cloud deployment"
+            "title": "Software and product engineering",
+            "text": "Customer discovery and prioritisation, workflow design, FastAPI services, React and relational databases"
           }
         }
       },
