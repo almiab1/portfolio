@@ -27,6 +27,17 @@ for (const locale of [
       `https://www.upv.es/titulaciones/GTI/${locale.bachelorPath}`,
     );
 
+    const headings = main.locator('h2.organization-name, h3.organization-name');
+    for (const width of [320, 1575]) {
+      await page.setViewportSize({ width, height: 844 });
+      await expect(headings).toHaveCount(5);
+      for (const heading of await headings.all()) {
+        const mark = await heading.locator('img').boundingBox();
+        const title = await heading.locator(':scope > :is(a, span)').boundingBox();
+        expect(mark!.x + mark!.width).toBeLessThan(title!.x);
+        expect(Math.abs(mark!.y + mark!.height / 2 - title!.y - title!.height / 2)).toBeLessThan(2);
+      }
+    }
     const marks = main.locator('img.organization-mark');
     await expect(marks).toHaveCount(5);
     for (const mark of await marks.all()) {

@@ -71,7 +71,7 @@ const degrees = [
               <p class="portfolio-kicker">{period ?? t('profile.currentPeriod')}</p>
               <h2 class="organization-name">
                 <img class="organization-mark" {...employerMarks[key]} alt="" />
-                {company}
+                <span>{company}</span>
               </h2>
               <p class="desktop-job-role">{t(`profile.job.${key}.role`)}</p>
               <p class="portfolio-muted">{t(`profile.job.${key}.summary`)}</p>
@@ -93,16 +93,14 @@ const degrees = [
           {degrees.map(({ key, school, period, mark, href }) => (
             <li>
               <p class="portfolio-kicker">{period}</p>
-              <h3>
+              <h3 class="organization-name">
+                <img class="organization-mark" {...mark} alt="" />
                 <a class="portfolio-link degree-link" href={href}>
                   {t(`profile.degree.${key}`)}
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
               </h3>
-              <p class="organization-name portfolio-muted">
-                <img class="organization-mark" {...mark} alt="" />
-                {school}
-              </p>
+              <p class="portfolio-muted">{school}</p>
             </li>
           ))}
         </ul>
@@ -117,28 +115,18 @@ const degrees = [
   }
 
   .organization-name {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: clamp(2.5rem, 8cqw, 4.5rem) minmax(0, 1fr);
     align-items: center;
-    gap: 0.35rem 0.65rem;
-  }
-
-  @container (min-width: 34rem) {
-    .organization-name {
-      justify-content: space-between;
-    }
-
-    .organization-mark {
-      order: 1;
-    }
+    column-gap: 0.65rem;
   }
 
   .organization-mark {
-    flex: none;
     width: auto;
     height: auto;
-    max-inline-size: min(100%, 6.25rem);
-    max-block-size: 2rem;
+    max-width: 100%;
+    max-height: 2rem;
+    justify-self: center;
     object-fit: contain;
   }
 

@@ -53,7 +53,7 @@ for (const locale of [
       );
 
     const caseRows = page.locator('.catalogue-list [data-project-id]');
-    await expect(caseRows.locator('[data-visual-kind="illustration"] img')).toHaveCount(
+    await expect(caseRows.locator('[data-visual-kind="image"] img')).toHaveCount(
       await caseRows.count(),
     );
     await expect(caseRows.locator('.catalogue-action')).toHaveText(
@@ -86,11 +86,11 @@ for (const locale of [
     await expect(toolbar).toBeInViewport();
 
     const row = page.locator(`[data-case-path="${locale.prefix}/work/cookobot"]`);
-    const thumbnail = row.locator('[data-visual-kind="illustration"] img');
+    const thumbnail = row.locator('[data-visual-kind="image"] img');
     const artworkUrl = await thumbnail.getAttribute('src');
     expect(artworkUrl).toBeTruthy();
     await row.click();
-    const cover = page.locator('.case-cover [data-visual-kind="illustration"] img');
+    const cover = page.locator('.case-cover [data-visual-kind="image"] img');
     await expect(cover).toHaveAttribute('src', artworkUrl!);
     await expect
       .poll(() => cover.evaluate((image: HTMLImageElement) => image.naturalWidth))
@@ -114,14 +114,22 @@ for (const locale of [
     await expect(outline.locator('[aria-current="location"]')).toHaveCount(1);
     await expect.poll(() => decodeURIComponent(new URL(page.url()).hash)).toBe(target);
 
-    for (const slug of ['crop-monitoring', 'neuroevolutionary-ai']) {
+    for (const slug of [
+      'lost-scout',
+      'wotics',
+      'simdat-4-0',
+      'crop-monitoring',
+      'neuroevolutionary-ai',
+    ]) {
       await page.goto(`${locale.prefix}/work`);
       const source = page.locator(
         `[data-case-path="${locale.prefix}/work/${slug}"] [data-visual-source="${slug}"] img`,
       );
       const sourceUrl = await source.getAttribute('src');
-      expect(sourceUrl).toBeTruthy();
+      expect(sourceUrl).toMatch(/^\/images\/projects\//);
       await page.goto(`${locale.prefix}/work/${slug}`);
+      const sharedImage = await page.locator('meta[property="og:image"]').getAttribute('content');
+      expect(new URL(sharedImage!).pathname).toBe(sourceUrl);
       await expect(page.locator(`.case-cover [data-visual-source="${slug}"] img`)).toHaveAttribute(
         'src',
         sourceUrl!,
@@ -133,7 +141,7 @@ for (const locale of [
     }
 
     await page.goto(`${locale.prefix}/work/smart-scale`);
-    await expect(page.locator('.case-cover [data-visual-kind="illustration"] img')).toBeVisible();
+    await expect(page.locator('.case-cover [data-visual-kind="image"] img')).toBeVisible();
     await page.goto(`${locale.prefix}/work/glio-ia`);
     const diagram = page.getByRole('figure', { name: locale.flow });
     await expect(diagram.getByRole('listitem')).toHaveText(locale.inputs);
