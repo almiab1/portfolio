@@ -3,8 +3,9 @@
 import { randomUUID } from 'node:crypto';
 import { open } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
-import { chromium, devices, expect } from '@playwright/test';
+import { chromium, devices, expect, request as apiRequest } from '@playwright/test';
 import { installPreviewBridge } from './bridge.mjs';
+import { classifyPreviewRequest, forwardCollectorRequest } from './network-policy.mjs';
 import { inspectAnalytics, requireCheck, VerificationError } from './payloads.mjs';
 
 const TIMEOUT = 20_000;
@@ -62,7 +63,13 @@ async function configFromEnv() {
       await file.close();
     }
   }
-  return { previewOrigin, posthogOrigin, port, reportFile: REPORT_FILE, shareUrl };
+  return {
+    previewOrigin,
+    posthogOrigin,
+    port,
+    reportFile: REPORT_FILE,
+    shareUrl,
+  };
 }
 
 async function bootstrapAccess(context, previewOrigin, shareUrl) {
@@ -73,7 +80,10 @@ async function bootstrapAccess(context, previewOrigin, shareUrl) {
       next.origin === previewOrigin && !next.username && !next.password,
       'Preview access redirected outside the deployment',
     );
-    const response = await context.request.get(next.href, { maxRedirects: 0, timeout: TIMEOUT });
+    const response = await context.request.get(next.href, {
+      maxRedirects: 0,
+      timeout: TIMEOUT,
+    });
     try {
       if (response.ok()) return;
       const location = response.headers().location;
@@ -165,8 +175,9 @@ function makeInputs(locale) {
   return { question, marker, query: 'query-' + id, fragment: 'fragment-' + id };
 }
 
-function installAnalyticsGate(context, config, session, markers) {
+export function installAnalyticsGate(context, config, session, markers, transport = apiRequest) {
   const { previewOrigin, posthogOrigin } = config;
+  const home = session.locale === 'en' ? '/en/' : '/';
   const pending = new Map();
   const seen = new Set();
   context.on('response', (response) => {
@@ -194,34 +205,40 @@ function installAnalyticsGate(context, config, session, markers) {
   return context.route('**/*', async (route) => {
     const request = route.request();
     const url = new URL(request.url());
-    if (url.origin !== posthogOrigin) {
-      if (
-        url.origin === previewOrigin &&
-        url.pathname !== '/api/chat' &&
-        ['GET', 'HEAD'].includes(request.method()) &&
-        !request.redirectedFrom()
-      ) {
-        return route.continue();
-      }
-      if (url.origin === previewOrigin && url.pathname === '/api/chat') {
-        session.analyticsFailure ??= 'Unbridged assistant request blocked';
-      }
-      return route.abort();
-    }
     try {
+      const packet = {
+        url,
+        method: request.method(),
+        headers: await request.allHeaders(),
+        body: request.postDataBuffer(),
+      };
+      if (url.origin !== posthogOrigin) {
+        const action = classifyPreviewRequest(
+          {
+            ...packet,
+            redirected: request.redirectedFrom(),
+            resourceType: request.resourceType(),
+          },
+          { previewOrigin, home, ...session.inputs, markers },
+        );
+        if (action === 'preview-read') return await route.continue();
+        if (action === 'vercel-control') return await route.abort();
+        throw new VerificationError(
+          action === 'unbridged'
+            ? 'Unbridged assistant request blocked'
+            : 'Unexpected browser request blocked',
+        );
+      }
       requireCheck(
-        !session.analyticsFailure && !request.redirectedFrom(),
-        'Unsafe analytics redirect',
+        !session.analyticsFailure && !request.redirectedFrom() && !url.username && !url.password,
+        'Unsafe analytics request',
       );
-      const controls = inspectAnalytics(
-        {
-          url,
-          method: request.method(),
-          headers: await request.allHeaders(),
-          body: request.postDataBuffer(),
-        },
-        { locale: session.locale, previewOrigin, userAgent: DESKTOP.userAgent, markers },
-      );
+      const controls = inspectAnalytics(packet, {
+        locale: session.locale,
+        previewOrigin,
+        userAgent: DESKTOP.userAgent,
+        markers,
+      });
       const distinctId = session.distinctId ?? controls[0].distinctId;
       requireCheck(
         controls.every((control) => control.distinctId === distinctId),
@@ -234,7 +251,7 @@ function installAnalyticsGate(context, config, session, markers) {
         seen.add(key);
       }
       pending.set(request, { path: url.pathname, controls, completed: false });
-      return await route.continue();
+      return await forwardCollectorRequest(route, transport, packet);
     } catch (error) {
       session.analyticsFailure ??=
         error instanceof VerificationError
@@ -298,7 +315,12 @@ async function verifySession(browser, config, session) {
           history.replaceState(history.state, '', '?verification=' + query + '#' + fragment);
         }
       },
-      { previewOrigin, home: prefix + '/', query: inputs.query, fragment: inputs.fragment },
+      {
+        previewOrigin,
+        home: prefix + '/',
+        query: inputs.query,
+        fragment: inputs.fragment,
+      },
     );
     await installAnalyticsGate(context, config, session, markers);
     await installPreviewBridge(context, {
@@ -371,7 +393,10 @@ async function verifySession(browser, config, session) {
     const download = page.waitForEvent('download', { timeout: TIMEOUT });
     download.catch(() => {});
     await page.locator(`main a[download][data-cv-edition="${locale}"]`).click();
-    requireCheck(/\.pdf$/i.test((await download).suggestedFilename()), 'Expected a CV PDF download');
+    requireCheck(
+      /\.pdf$/i.test((await download).suggestedFilename()),
+      'Expected a CV PDF download',
+    );
     session.cvDownloadVerified = true;
 
     session.phase = 'analytics-flush';
@@ -384,7 +409,7 @@ async function verifySession(browser, config, session) {
   session.phase = 'complete';
 }
 
-export async function runVerification(config, browser) {
+export async function runVerification(config, browser, verify = verifySession) {
   const { reportFile, previewOrigin, posthogOrigin } = config;
   const file = await open(reportFile, 'wx', 0o600);
   const report = {
@@ -406,7 +431,7 @@ export async function runVerification(config, browser) {
       };
       report.sessions.push(session);
       try {
-        await verifySession(browser, config, session);
+        await verify(browser, config, session);
       } catch (error) {
         session.failure =
           session.chatFailure ??
@@ -421,7 +446,10 @@ export async function runVerification(config, browser) {
     }
     if (
       report.sessions.length === 2 &&
-      report.sessions.every(({ verified }) => verified) &&
+      report.sessions.every(
+        ({ verified, analyticsFailure, chatFailure, distinctId }) =>
+          verified && !analyticsFailure && !chatFailure && distinctId,
+      ) &&
       report.sessions[0].distinctId !== report.sessions[1].distinctId
     ) {
       report.status = 'passed';
@@ -447,7 +475,9 @@ async function main() {
       console.error('Verification incomplete. Inspect the private report before any later run.');
       process.exitCode = 1;
     } else {
-      console.log('Browser checks passed. Verify NVIDIA backend logs and stored PostHog data using the skill.');
+      console.log(
+        'Browser checks passed. Verify NVIDIA backend logs and stored PostHog data using the skill.',
+      );
     }
   } catch {
     console.error(
