@@ -1,6 +1,7 @@
 # ABOUTME: Pins the Python runtime for the portfolio assistant.
-# ABOUTME: Installs the Vercel AI protocol adapter and OpenAI-compatible NVIDIA NIM client.
+# ABOUTME: Installs the Pydantic AI harness, model clients and Vercel AI protocol adapter.
 fastapi==0.162.2
 httpx2==2.16.2
-pydantic-ai-slim[openai,ui]==2.66.0
+pydantic-ai-slim[anthropic,openai,ui]==2.66.0
+pydantic-ai-harness[skills,codemode]==0.66.0
 PyYAML==6.0.3

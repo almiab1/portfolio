@@ -166,14 +166,20 @@ export default function PortfolioAssistant({ lang, preview = false, challenge }:
       </div>
 
       <div className="assistant-suggestions">
-        {(['desktop.askGlio', 'desktop.askCareer', 'desktop.askCv'] as const).map((key) => (
+        {(
+          [
+            ['desktop.askGlio', 'glio'],
+            ['desktop.askCareer', 'career'],
+            ['desktop.askCv', 'cv'],
+          ] as const
+        ).map(([key, preset]) => (
           <Button
             key={key}
             type="button"
             variant="outline"
             size="sm"
             disabled={busy}
-            onClick={() => send(translate(key))}
+            onClick={() => send(translate(key), preset)}
           >
             {translate(key)}
           </Button>

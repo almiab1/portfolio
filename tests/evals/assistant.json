@@ -1,0 +1,114 @@
+[
+  {
+    "id": "cv-es",
+    "lang": "es",
+    "question": "¿Puedo ver su CV?",
+    "destination": "cv",
+    "required": [
+      "PDF"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "cv-en",
+    "lang": "en",
+    "question": "Can I see his résumé?",
+    "destination": "cv",
+    "required": [
+      "PDF"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "duration-es",
+    "lang": "es",
+    "question": "¿Cuánto duró GLIO-IA?",
+    "destination": "glio",
+    "required": [
+      "24 meses"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "duration-en",
+    "lang": "en",
+    "question": "How long did GLIO-IA last?",
+    "destination": "glio",
+    "required": [
+      "24 months"
+    ],
+    "max_requests": 0
+  },
+  {
+    "id": "compare-es",
+    "lang": "es",
+    "question": "Compara las aportaciones de Alex en GLIO-IA y Cookobot",
+    "required": [
+      "GLIO",
+      "Cookobot"
+    ],
+    "max_requests": 1
+  },
+  {
+    "id": "compare-en",
+    "lang": "en",
+    "question": "Compare Alex's contributions to GLIO-IA and Cookobot",
+    "required": [
+      "GLIO",
+      "Cookobot"
+    ],
+    "max_requests": 1
+  },
+  {
+    "id": "selection-es",
+    "lang": "es",
+    "question": "¿Qué dos proyectos demuestran mejor experiencia en visión artificial?",
+    "required": [],
+    "max_requests": 2,
+    "projects": [
+      "GLIO-IA",
+      "Cookobot",
+      "DLT4AITOYS"
+    ],
+    "minimum_projects": 2
+  },
+  {
+    "id": "selection-en",
+    "lang": "en",
+    "question": "Which two projects best demonstrate experience in computer vision?",
+    "required": [],
+    "max_requests": 2,
+    "projects": [
+      "GLIO-IA",
+      "Cookobot",
+      "DLT4AITOYS"
+    ],
+    "minimum_projects": 2
+  },
+  {
+    "id": "funding-followup-es",
+    "lang": "es",
+    "question": "¿Y quién lo financió?",
+    "history": [
+      {
+        "role": "user",
+        "text": "¿Cuánto duró GLIO-IA?"
+      }
+    ],
+    "required": [
+      "AVI"
+    ],
+    "max_requests": 0,
+    "destination": "glio"
+  },
+  {
+    "id": "unpublished-funding-en",
+    "lang": "en",
+    "question": "Who funded Cookobot?",
+    "required": [
+      "does not specify"
+    ],
+    "max_requests": 0,
+    "destination": "work"
+  }
+]

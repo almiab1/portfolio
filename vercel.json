@@ -16,7 +16,7 @@
   ],
   "functions": {
     "api/chat.py": {
-      "includeFiles": "{server/assistant_security.py,server/assistant_challenge.py,server/assistant_budget.py,src/content/projects/**,src/i18n/assistant-replies.json}"
+      "includeFiles": "{server/*.py,server/assistant_catalog.json,assistant_skills/**,src/i18n/assistant-replies.json}"
     }
   }
 }

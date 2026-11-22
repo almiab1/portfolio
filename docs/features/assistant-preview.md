@@ -10,19 +10,28 @@ Con la configuración predeterminada, React selecciona una respuesta bilingüe e
 
 ```mermaid
 flowchart TD
-    UI[Panel React en Astro] -->|Demo pública| Local[Respuestas y tarjetas locales]
-    UI -->|Modo remoto, envío explícito| API[POST /api/chat en FastAPI]
-    API -->|Valida el token de esta pregunta| Verify[Cloudflare Siteverify]
-    API -->|Reserva una consulta admisible| Budget[Redis compartido]
-    API -->|Contexto público en ES o EN| Agent[Pydantic AI]
-    Agent --> NIM[NVIDIA NIM]
-    NIM --> Output[Revisión del texto completo]
-    Output -->|Texto y destino autorizado| UI
+    UI[Astro y React] <-->|HTTP y SSE| API[API y control de acceso]
+    API <-->|Turno preparado y resultado| Harness[Pydantic AI Harness]
+    Guide[Catálogo, skills y tools del porfolio] --> Harness
+    Harness --> Model[Modelo configurado por despliegue]
+    Model -->|Reserva por intento| Redis[(Redis)]
+    Model --> Provider[Proveedor de inferencia]
 ```
 
-El contexto combina el perfil profesional y las fichas MDX del idioma activo. Se conserva en memoria por idioma dentro de cada instancia. El historial que llega del navegador se filtra y se entrega como datos de un turno de usuario. La única herramienta del modelo selecciona una de siete tarjetas internas; el frontend construye el enlace. El modelo no necesita acceso a datos privados. Sus acciones se limitan a la navegación interna.
+La definición del porfolio vive en `server/portfolio_guide.py`. Durante el build, `pnpm run assistant:catalog` genera el catálogo bilingüe versionado en `server/assistant_catalog.json` a partir de los MDX publicados y del contenido compartido del perfil. La guía selecciona evidencia, instrucciones, funciones de lectura y un destino. El harness recibe ese turno y un modelo de Pydantic AI. Los identificadores de las fuentes sirven para revisar la evidencia. React resuelve los enlaces según el idioma.
 
-Cada consulta admitida puede generar hasta dos peticiones al modelo si este selecciona una tarjeta. El máximo por petición es de 400 tokens de respuesta, con un límite de 800 por ejecución y un tiempo máximo de 20 segundos. La interfaz utiliza un protocolo de streaming, pero el visitante recibe el texto cuando el servidor ha terminado de revisarlo.
+Las instrucciones de las skills forman el prefijo del prompt. La pregunta, el historial reciente y los fragmentos de evidencia se envían después. Las peticiones que seleccionan las mismas skills pueden así reutilizar prefijos en los proveedores que admiten caché automática. El ensayo mide tokens de entrada y salida. No mide aciertos de caché ni ahorro facturado.
+
+Los botones CV, experiencia y GLIO-IA y las consultas de datos exactos se resuelven en el servidor sin inferencia. Una comparación de proyectos nombrados ejecuta el script revisado de la skill y entrega las contribuciones al modelo en una petición. Las preguntas compuestas pueden probar Code Mode en Preview con `PORTFOLIO_ASSISTANT_CODE_MODE=1`. Monty puede agrupar hasta tres lecturas del catálogo en una ejecución. Una segunda inferencia redacta la respuesta. El proceso impone un plazo total de 20 segundos. El servidor examina la respuesta completa antes de publicar el texto o la tarjeta.
+
+Elige el proveedor con `PORTFOLIO_ASSISTANT_PROVIDER` y el modelo con `PORTFOLIO_ASSISTANT_MODEL`. NVIDIA usa Nemotron por defecto. Para los demás proveedores hace falta indicar un modelo compatible con el uso previsto.
+
+| Proveedor | Credencial |
+| --- | --- |
+| `nvidia` | `NVIDIA_API_KEY` |
+| `openai` | `OPENAI_API_KEY` |
+| `anthropic` | `ANTHROPIC_API_KEY` |
+| `openrouter` | `OPENROUTER_API_KEY` |
 
 ## Arranque local
 
@@ -69,19 +78,30 @@ Pregunta «¿Qué aportó Alex al proyecto de IA médica?» en español y «What
 
 El despliegue público usa la demo local por defecto. Para permitir preguntas anónimas al modelo real, habilita el widget gestionado en `www.alejandromira.com`, configura los secretos de Turnstile, Redis y NVIDIA en Production y elige credenciales del proveedor adecuadas para uso público. Usa un almacén de cuota de producción separado del de pruebas. Los enlaces de otros dominios deben conducir a la URL canónica si quieres ofrecerles el chat remoto.
 
-Activa `PORTFOLIO_ASSISTANT_MODE=live` en el servidor y `PORTFOLIO_ASSISTANT_PUBLIC_LIVE=1` en el build y en la función de Production. El build necesita también la clave pública del widget. El servidor comprueba el entorno, el dominio y la verificación de cada pregunta independientemente del estado del cliente. Antes de anunciarlo, valida un turno en español y otro en inglés, confirma la reserva en Redis y contrasta el número de turnos con el consumo de NVIDIA. Para volver a la demo, desactiva el modo público y vuelve a desplegar. Si necesitas cortar inmediatamente el acceso a un despliegue ya publicado, bloquea la ruta de chat en el firewall o revoca la credencial de inferencia del proveedor.
+Activa `PORTFOLIO_ASSISTANT_MODE=live` en el servidor y `PORTFOLIO_ASSISTANT_PUBLIC_LIVE=1` en el build y en la función de Production. El build necesita también la clave pública del widget. El servidor comprueba el entorno, el dominio y la verificación de cada pregunta independientemente del estado del cliente. Antes de anunciarlo, valida un turno en español y otro en inglés, comprueba que las respuestas editoriales consumen cero y contrasta los intentos de inferencia con Redis. Para volver a la demo, desactiva el modo público y vuelve a desplegar. Si necesitas cortar inmediatamente el acceso a un despliegue ya publicado, bloquea la ruta de chat en el firewall o revoca la credencial de inferencia del proveedor.
 
 ## Límites y seguridad
 
 - El servidor valida el formato, el origen y el tamaño de la petición. El historial se pasa como datos sin privilegios, después de descartar turnos con contenido restringido. El modelo solo recibe referencias públicas del portfolio.
 - Evita incluir datos privados al escribir. Se bloquean patrones de extracción de instrucciones y credenciales reconocibles antes de enviar la consulta a NVIDIA. Las reglas de texto reducen el riesgo y se combinan con herramientas de solo lectura.
 - El servidor revisa la respuesta completa antes de mostrarla. El navegador recibe texto, una tarjeta opcional de una lista cerrada y un aviso genérico ante errores. Las trazas, el razonamiento y los parámetros internos del proveedor se descartan.
-- El proceso limita los intentos antes de leer el cuerpo. Redis reserva los turnos que pueden llegar al proveedor con contadores compartidos. Los valores iniciales son 10 por cliente y minuto, 30 globales por minuto y 100 globales en 24 horas. Se ajustan con `PORTFOLIO_ASSISTANT_CLIENT_PER_MINUTE`, `PORTFOLIO_ASSISTANT_GLOBAL_PER_MINUTE` y `PORTFOLIO_ASSISTANT_GLOBAL_PER_DAY`. El contador mide turnos admitidos, no tokens ni importe facturado.
+- El proceso limita los intentos antes de leer el cuerpo. Redis reserva cada intento HTTP de inferencia con contadores compartidos. Los valores iniciales son 10 por cliente y minuto, 30 globales por minuto y 100 globales en 24 horas. Se ajustan con `PORTFOLIO_ASSISTANT_CLIENT_PER_MINUTE`, `PORTFOLIO_ASSISTANT_GLOBAL_PER_MINUTE` y `PORTFOLIO_ASSISTANT_GLOBAL_PER_DAY`. Una síntesis consume una unidad y un turno de dos inferencias consume dos. Las consultas editoriales consumen cero.
 - Para una apertura anónima, la verificación de navegador reduce la automatización y el cupo global limita su coste residual. Para restringir el uso a personas identificadas se necesita además autenticación. El portal público puede seguir usando la demo local mientras se toma esa decisión.
 
-## Oportunidades de optimización
+## Evaluación y publicación de skills
 
-Las tres preguntas sugeridas tienen respuestas editoriales y destinos conocidos. Resolverlas localmente también en el modo remoto permitiría ahorrar la verificación y la inferencia en esos turnos. Para preguntas libres, conviene medir si una única respuesta estructurada con texto y destino conserva la calidad bilingüe y evita la segunda petición al modelo. La métrica relevante es el tiempo desde el envío hasta la respuesta ya revisada, junto con las llamadas reales por turno.
+Las revisiones de `assistant_skills/` se publican con Git. Cada cambio de procedimiento o script incluye un caso reproducible en ES y EN, comprueba el catálogo y se revisa por PR a `develop`. La revisión aprobada queda fijada por el commit del despliegue. Para recuperar una versión funcional, vuelve a desplegar el commit verificado junto con su catálogo.
+
+La suite Python comprueba rutas, permisos, evidencia, presupuestos y comportamiento del sandbox con modelos simulados. Para evaluar calidad real, ejecuta las preguntas públicas de `tests/evals/assistant.json` en un entorno con una credencial de evaluación. Los siguientes comandos envían peticiones al proveedor configurado. Cada ejecución tiene su propio tope de intentos.
+
+```sh
+python -m scripts.evaluate_assistant --max-posts 8 --output /tmp/assistant-base.json
+python -m scripts.evaluate_assistant --compound --max-posts 8 --baseline /tmp/assistant-base.json --output /tmp/assistant-candidate.json
+```
+
+Los informes incluyen el modelo, las versiones de catálogo, skills y casos, y las respuestas a preguntas de prueba. Compara los intentos, los tokens del turno y su duración. Revisa las afirmaciones y fuentes en ambos idiomas antes de aprobar una candidata. Los fallos por cuota y los errores temporales del proveedor se investigan por separado de un defecto de la skill. El coste facturado y los aciertos de caché dependen del proveedor.
+
+En el ensayo local con Nemotron, el flujo ordinario superó los diez casos ES/EN con cuatro peticiones en total. Seis consultas se resolvieron sin inferencia. Al revisar el texto en español se encontró una atribución imprecisa: una respuesta decía que Alex desarrolló los modelos TensorFlow de Cookobot, mientras la ficha documenta su integración y optimización. Los criterios automáticos de esa tanda comprobaban nombres de proyectos, datos concretos, destinos y consumo. La fidelidad de las atribuciones sigue siendo un criterio de revisión antes de abrir el acceso público. La candidata con Code Mode superó nueve casos con cinco peticiones. En la recomendación inglesa, dos ensayos dirigidos posteriores produjeron una salida truncada y una llamada a herramienta escrita como texto. El harness descarta ambos resultados. Code Mode queda desactivado por defecto y restringido a preview.
 
 ## Pruebas
 
@@ -89,4 +109,10 @@ Las pruebas de concurrencia y caducidad de la cuota arrancan un Redis temporal c
 
 ```sh
 uv run --with-requirements requirements.txt --with pytest --with httpx python -m pytest -q tests
+```
+
+Para recorrer el transporte de React hasta la API Python y verificar los destinos de ambos idiomas, instala `uvicorn` en el entorno Python activo y ejecuta:
+
+```sh
+pnpm exec playwright test --config playwright.assistant.config.ts
 ```
