@@ -145,8 +145,13 @@
   overflow: auto hidden;
 }
 
-.desktop-tabs a,
-.desktop-titlebar button {
+.desktop-tab {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+}
+
+.desktop-tabs a {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -175,19 +180,40 @@
   white-space: nowrap;
 }
 
-.desktop-tabs a[aria-current] {
+.desktop-tab:has([aria-current]) {
   background: var(--desktop-panel);
   color: var(--foreground);
   box-shadow: inset 0 2px var(--primary);
 }
 
-.desktop-titlebar button {
-  border-inline-start: 1px solid var(--border);
-  color: var(--primary);
+.desktop-tab a[aria-current] {
+  color: var(--foreground);
 }
 
-.desktop-titlebar button[hidden] {
-  display: none;
+.desktop-tab:has(button) a {
+  padding-inline-end: 0.25rem;
+}
+
+.desktop-tab-close {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desktop-tab-close {
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-inline-end: 0.25rem;
+    border-radius: var(--radius);
+  }
+
+  .desktop-tab:not(:hover):not(:focus-within) .desktop-tab-close {
+    opacity: 0;
+  }
 }
 
 .desktop-titlebar :focus-visible,
