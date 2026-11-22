@@ -109,6 +109,7 @@ for (const lang of ['es', 'en'] as const) {
     await expect(projectTab).toHaveAttribute('aria-current', 'page');
     const closeCatalogue = tabs.getByRole('button', { name: close(projects), exact: true });
     await page.mouse.move(0, 0);
+    await expect(tabs.getByRole('button', { name: close('Lost Scout') })).toHaveCSS('opacity', '1');
     await expect(closeCatalogue).toHaveCSS('opacity', '0');
     await catalogueTab.hover();
     await expect(closeCatalogue).toHaveCSS('opacity', '1');

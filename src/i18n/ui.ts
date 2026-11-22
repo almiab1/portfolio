@@ -135,7 +135,14 @@ export const ui = {
     'hero.emergingTechnologies': 'Tecnologías Emergentes',
 
     // Contacto
-    'contact.cta': '¿Tienes un proyecto en mente? ¡Hablemos!',
+    'contact.cta': 'Si tienes un proyecto en mente o quieres saludar, escríbeme.',
+    'contact.draft.title': 'Escribe un mensaje',
+    'contact.draft.help':
+      'Se abrirá un borrador en tu aplicación de correo para que puedas enviarlo.',
+    'contact.draft.subject': 'Asunto',
+    'contact.draft.message': 'Mensaje',
+    'contact.draft.open': 'Abrir borrador de correo',
+    'contact.draft.required': 'Escribe algo en este campo.',
 
     // Sobre mí
     'about.title': 'Sobre mí',
@@ -343,7 +350,13 @@ export const ui = {
     'hero.emergingTechnologies': 'Emerging Technologies',
 
     // Contact
-    'contact.cta': "Have a project in mind? Let's talk!",
+    'contact.cta': 'If you have a project in mind or just want to say hello, drop me a line.',
+    'contact.draft.title': 'Write a message',
+    'contact.draft.help': 'A draft will open in your email app so you can send it from there.',
+    'contact.draft.subject': 'Subject',
+    'contact.draft.message': 'Message',
+    'contact.draft.open': 'Open email draft',
+    'contact.draft.required': 'Enter some text in this field.',
 
     // About
     'about.title': 'About Me',

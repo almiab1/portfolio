@@ -16,6 +16,7 @@ interface Job {
   company: string;
   year: string;
   period?: string;
+  website: Record<Language, string>;
 }
 
 interface Props {
@@ -64,14 +65,17 @@ const degrees = [
         <p class="profile-lead">{t('desktop.careerIntro')}</p>
       </header>
       <ol class="desktop-timeline" role="list">
-        {(jobs as Job[]).map(({ key, company, year, period }) => (
+        {(jobs as Job[]).map(({ key, company, year, period, website }) => (
           <li id={key}>
             <time datetime={year}>{year}</time>
             <div>
               <p class="portfolio-kicker">{period ?? t('profile.currentPeriod')}</p>
               <h2 class="organization-name">
-                <img class="organization-mark" {...employerMarks[key]} alt="" />
-                <span>{company}</span>
+                <a class="portfolio-link employer-link" href={website[lang]}>
+                  <img class="organization-mark" {...employerMarks[key]} alt="" />
+                  <span>{company}</span>
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
               </h2>
               <p class="desktop-job-role">{t(`profile.job.${key}.role`)}</p>
               <p class="portfolio-muted">{t(`profile.job.${key}.summary`)}</p>
@@ -114,7 +118,8 @@ const degrees = [
     scroll-margin-block-start: 1.25rem;
   }
 
-  .organization-name {
+  .credentials-list .organization-name,
+  .employer-link {
     display: grid;
     grid-template-columns: clamp(2.5rem, 8cqw, 4.5rem) minmax(0, 1fr);
     align-items: center;
@@ -130,6 +135,12 @@ const degrees = [
     object-fit: contain;
   }
 
+  .employer-link {
+    display: inline-grid;
+    grid-template-columns: clamp(2.5rem, 8cqw, 4.5rem) auto auto;
+  }
+
+  .employer-link,
   .degree-link {
     font-size: inherit;
     font-weight: inherit;

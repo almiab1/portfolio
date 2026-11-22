@@ -120,6 +120,33 @@
   color: var(--foreground);
 }
 
+.profile-card-social a svg {
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .profile-card-social a:hover svg {
+    color: var(--primary);
+    transform: scale(1.12);
+  }
+}
+
+.profile-card-social a:active svg {
+  color: var(--primary);
+  transform: scale(0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-card-social a svg {
+    transition: color 150ms ease;
+  }
+
+  .profile-card-social a:hover svg,
+  .profile-card-social a:active svg {
+    transform: none;
+  }
+}
+
 .catalogue-extras {
   display: grid;
   gap: clamp(0.8rem, 2.5cqw, 1.5rem);

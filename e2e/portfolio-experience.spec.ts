@@ -11,8 +11,14 @@ for (const locale of [
     await page.goto(`${locale.prefix}/experience`);
     const main = page.getByRole('main');
 
-    for (const company of ['GuruSup', 'CONVOTIS Iberia', 'AIJU']) {
-      await expect(main.getByRole('heading', { name: company, level: 2 })).toBeVisible();
+    for (const [company, es, en] of [
+      ['GuruSup', 'https://gurusup.com/es', 'https://gurusup.com/'],
+      ['CONVOTIS Iberia', 'https://www.convotis.com/es/', 'https://www.convotis.com/en/'],
+      ['AIJU', 'https://www.aiju.es/', 'https://www.aiju.es/en/'],
+    ]) {
+      const link = main.getByRole('heading', { name: company, level: 2 }).getByRole('link');
+      await expect(link).toHaveAttribute('href', locale.lang === 'es' ? es : en);
+      await expect(link.locator('img')).toBeVisible();
     }
 
     const education = main.getByRole('region', { name: locale.education });
@@ -33,7 +39,7 @@ for (const locale of [
       await expect(headings).toHaveCount(5);
       for (const heading of await headings.all()) {
         const mark = await heading.locator('img').boundingBox();
-        const title = await heading.locator(':scope > :is(a, span)').boundingBox();
+        const title = await heading.locator('.employer-link span, .degree-link').boundingBox();
         expect(mark!.x + mark!.width).toBeLessThan(title!.x);
         expect(Math.abs(mark!.y + mark!.height / 2 - title!.y - title!.height / 2)).toBeLessThan(2);
       }

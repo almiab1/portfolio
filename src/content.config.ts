@@ -36,7 +36,7 @@ export const collections = {
           external: z.string().url().optional(),
         })
         .partial(),
-      cover: z.object({ src: z.string(), alt: z.string() }).partial(),
+      cover: z.object({ src: z.string(), alt: z.string(), fit: z.enum(['contain', 'cover']) }).partial(),
       gallery: z.array(z.object({ src: z.string(), alt: z.string() })).optional(), // Galería de imágenes del proyecto
       seo: z.object({ title: z.string().optional(), description: z.string().optional() }).partial(),
     }),

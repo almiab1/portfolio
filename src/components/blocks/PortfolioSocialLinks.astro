@@ -22,7 +22,7 @@ const x = { method: 'x', href: 'https://x.com/alexmiira', label: 'X · @alexmiir
 const links = isProfile ? [github, linkedin, x] : [linkedin, github, x];
 ---
 
-<div class={isProfile ? 'profile-card-social' : 'flex flex-wrap justify-center gap-x-5 gap-y-2'}>
+<div class={isProfile ? 'profile-card-social' : 'contact-socials'}>
   {links.map(({ method, href, label, icon: Icon }) => (
     <a
       class="portfolio-contact-social"
