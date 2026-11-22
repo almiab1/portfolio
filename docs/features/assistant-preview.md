@@ -57,6 +57,8 @@ PORTFOLIO_ASSISTANT_MODE=live uv run --env-file .env.local --with-requirements r
 Si cambias la URL del servidor local de Astro, define esa URL exacta en
 `PORTFOLIO_ASSISTANT_LOCAL_ORIGIN` al arrancar Python.
 
+Para repetir la prueba de privacidad en español e inglés con la interfaz de `develop`, NVIDIA en local y PostHog real, usa la [skill `verify-preview-nvidia`](../../.agents/skills/verify-preview-nvidia/SKILL.md). Incluye las comprobaciones pendientes en el despliegue público.
+
 ## Vista previa de Vercel
 
 Activa Vercel Authentication en Preview y usa la URL propia del despliegue indicada por `VERCEL_URL`. En Turnstile, autoriza ese hostname concreto en el widget gestionado. Cada envío se valida en el servidor para ese hostname y la acción `portfolio_chat`. Al crear otro despliegue cambia el hostname. [Configuración de hostnames](https://developers.cloudflare.com/turnstile/additional-configuration/hostname-management/) · [Validación en servidor](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/)
