@@ -1,10 +1,12 @@
 // ABOUTME: Tests the Portfolio preview bridge with a simulated Playwright context.
 // ABOUTME: Uses an in-memory HTTP transport so no chat request leaves the test process.
+// @vitest-environment node
+
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
 import http from 'node:http';
 import { syncBuiltinESMExports } from 'node:module';
-import test from 'node:test';
+import { afterEach, test, vi } from 'vitest';
 
 import { installPreviewBridge } from './bridge.mjs';
 
@@ -57,8 +59,8 @@ function island(lang, name = 'PortfolioAssistant') {
   return `<astro-island component-url="/_astro/${name}.Ab_12-fw.js" component-export="default" props="${props}" ssr client="load">`;
 }
 
-function fakeTransport(t, { statusCode, headers, chunks, observe }) {
-  t.mock.method(http, 'request', (options, respond) => {
+function fakeTransport({ statusCode, headers, chunks, observe }) {
+  vi.spyOn(http, 'request').mockImplementation((options, respond) => {
     const outbound = new EventEmitter();
     outbound.end = (bytes) => {
       observe(options, bytes);
@@ -70,11 +72,12 @@ function fakeTransport(t, { statusCode, headers, chunks, observe }) {
     return outbound;
   });
   syncBuiltinESMExports();
-  t.after(() => {
-    t.mock.restoreAll();
-    syncBuiltinESMExports();
-  });
 }
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  syncBuiltinESMExports();
+});
 
 test('only clean preview roots and the preview chat path are registered', async () => {
   const { matches, uninstall, rules } = await setup();
@@ -156,7 +159,7 @@ test('falls through for subresources, iframe and redirected document requests', 
   }
 });
 
-test('forwards untouched request bytes once and awaits inspection of real SSE bytes', async (t) => {
+test('forwards untouched request bytes once and awaits inspection of real SSE bytes', async () => {
   const body = Buffer.from(' { "text": "hola" } \n');
   const stream = Buffer.from('data: {"text":"Adiós"}\r\n\r\ndata: [DONE]\n\n');
   const contentType = 'text/event-stream; charset=utf-8';
@@ -170,7 +173,7 @@ test('forwards untouched request bytes once and awaits inspection of real SSE by
     },
     postDataBuffer: () => body,
   });
-  fakeTransport(t, {
+  fakeTransport({
     statusCode: 200,
     headers: {
       'content-type': contentType,
@@ -206,13 +209,13 @@ test('forwards untouched request bytes once and awaits inspection of real SSE by
   }]]);
 });
 
-test('aborts the browser route when reply inspection rejects', async (t) => {
+test('aborts the browser route when reply inspection rejects', async () => {
   const { route, calls } = makeRoute('/api/chat', {
     method: () => 'POST',
     postDataBuffer: () => Buffer.alloc(0),
     headerValue: () => 'application/json',
   });
-  fakeTransport(t, {
+  fakeTransport({
     statusCode: 307,
     headers: { location: 'https://example.test/do-not-follow' },
     chunks: [],

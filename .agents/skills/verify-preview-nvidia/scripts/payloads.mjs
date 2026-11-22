@@ -15,7 +15,7 @@ export function requireCheck(check, message) {
   if (!check) throw new VerificationError(message);
 }
 
-function keys(value, allowed) {
+function requireAllowedKeys(value, allowed) {
   requireCheck(
     value &&
       typeof value === 'object' &&
@@ -53,19 +53,19 @@ function text(buffer, headers, compression) {
 }
 
 function inspectEvents(payload, locale) {
-  keys(payload, ['api_key', 'batch', 'sent_at']);
+  requireAllowedKeys(payload, ['api_key', 'batch', 'sent_at']);
   requireCheck(
     TOKEN.test(payload.api_key) && TIMESTAMP.test(payload.sent_at),
     'Invalid event batch metadata',
   );
   const prefix = locale === 'en' ? '/en' : '';
   return items(payload.batch).map((entry) => {
-    keys(entry, ['event', 'uuid', 'timestamp', 'properties']);
+    requireAllowedKeys(entry, ['event', 'uuid', 'timestamp', 'properties']);
     const { event, uuid, timestamp, properties } = entry;
     const common = ['token', 'distinct_id', '$process_person_profile'];
     const pageview = event === '$pageview';
     requireCheck(pageview || event === 'cv_downloaded', 'Unexpected analytics event');
-    keys(properties, [
+    requireAllowedKeys(properties, [
       ...common,
       ...(pageview ? ['$current_url', '$pathname'] : ['locale', 'cv_locale']),
     ]);
@@ -99,8 +99,8 @@ function inspectEvents(payload, locale) {
 function attributes(list, schema) {
   const values = new Map();
   for (const entry of items(list)) {
-    keys(entry, ['key', 'value']);
-    keys(entry.value, ['stringValue']);
+    requireAllowedKeys(entry, ['key', 'value']);
+    requireAllowedKeys(entry.value, ['stringValue']);
     const value = entry.value.stringValue;
     requireCheck(
       Object.hasOwn(schema, entry.key) &&
@@ -115,10 +115,10 @@ function attributes(list, schema) {
 }
 
 function inspectLogs(payload, locale) {
-  keys(payload, ['resourceLogs']);
+  requireAllowedKeys(payload, ['resourceLogs']);
   return items(payload.resourceLogs).flatMap((resourceLog) => {
-    keys(resourceLog, ['resource', 'scopeLogs']);
-    keys(resourceLog.resource, ['attributes']);
+    requireAllowedKeys(resourceLog, ['resource', 'scopeLogs']);
+    requireAllowedKeys(resourceLog.resource, ['attributes']);
     const resource = attributes(resourceLog.resource.attributes, {
       'service.name': /^portfolio-web$/,
       'os.name': /^(Linux|macOS|Windows)$/,
@@ -129,14 +129,14 @@ function inspectLogs(payload, locale) {
     });
     requireCheck(resource.has('service.name'), 'Missing portfolio log service');
     return items(resourceLog.scopeLogs).flatMap((scopeLog) => {
-      keys(scopeLog, ['scope', 'logRecords']);
-      keys(scopeLog.scope, ['name', 'version']);
+      requireAllowedKeys(scopeLog, ['scope', 'logRecords']);
+      requireAllowedKeys(scopeLog.scope, ['name', 'version']);
       requireCheck(
         /^(web|posthog-js)$/.test(scopeLog.scope.name) && VERSION.test(scopeLog.scope.version),
         'Unexpected log instrumentation scope',
       );
       return items(scopeLog.logRecords).map((record) => {
-        keys(record, [
+        requireAllowedKeys(record, [
           'timeUnixNano',
           'observedTimeUnixNano',
           'severityNumber',
@@ -144,7 +144,7 @@ function inspectLogs(payload, locale) {
           'body',
           'attributes',
         ]);
-        keys(record.body, ['stringValue']);
+        requireAllowedKeys(record.body, ['stringValue']);
         requireCheck(
           typeof record.timeUnixNano === 'string' &&
             /^\d{19}$/.test(record.timeUnixNano) &&

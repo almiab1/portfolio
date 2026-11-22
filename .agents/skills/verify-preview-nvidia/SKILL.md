@@ -9,26 +9,30 @@ Use this when Alex asks to repeat the live privacy check. A run sends synthetic 
 
 ## Prepare the two endpoints
 
-1. Resolve the `develop` alias of Vercel project `personal-web` to its **Ready immutable deployment**. Verify its Git branch and commit. Use application code and dependencies matching that commit. Record the SHA, the clean deployment origin and the UTC start time.
+1. Resolve the `develop` alias of Vercel project `personal-web` to its **Ready immutable deployment**. Verify its Git branch and commit. Use a checkout at that commit for the backend (`APP_ROOT`). Run the browser scripts from the checkout containing this skill (`SKILL_ROOT`). These can be the same checkout when both revisions match. Record the SHA, the clean deployment origin and the UTC start time.
 2. Confirm the preview uses the intended PostHog project and ingestion origin. The original run used EU project `362830`. Open the [portfolio dashboard](https://eu.posthog.com/project/362830/dashboard/1140590) and record the current CV download count. Have read access to events, logs and recordings as well as access to the protected preview.
-3. From the repo root, select Node 22 and install locked dependencies with `pnpm install --frozen-lockfile`. Set the following in the shell that will run the browser. Supply the preview's **origin only**, without a query string or trailing slash. Set POSTHOG_ORIGIN to the collector actually embedded in this deployment. If protected, obtain a short-lived share URL through the team's authenticated Vercel access. Store it in `$PREVIEW_ACCESS_FILE` inside the private directory below, with mode 0600. Keep it out of command history, screenshots and chat.
+3. From the skill checkout, select Node 22 and install locked dependencies with `pnpm install --frozen-lockfile`. Use one shell for the following blocks so the backend and browser inherit the same settings. Supply the preview's **origin only**, without a query string or trailing slash. Set POSTHOG_ORIGIN to the collector actually embedded in this deployment. If protected, obtain a short-lived share URL through the team's authenticated Vercel access. Store it in `$PREVIEW_ACCESS_FILE` inside the private directory below, with mode 0600. Keep it out of command history, screenshots and chat. For an unprotected preview, leave `PREVIEW_ACCESS_FILE` unset.
 
 ```bash
 umask 077
+export SKILL_ROOT="$PWD"
+export APP_ROOT="/absolute/path/to/the-deployed-revision"
 export RUN_DIR="$(mktemp -d)"
 export PREVIEW_ORIGIN="https://<immutable-develop-deployment>"
 export POSTHOG_ORIGIN="https://eu.i.posthog.com"
 export LOCAL_CHAT_PORT=18762
 export REPORT_FILE="$RUN_DIR/result.json"
-export PREVIEW_ACCESS_FILE="$RUN_DIR/access"
+export PREVIEW_ACCESS_FILE="$RUN_DIR/access"  # Protected previews only
 ```
 
-Start the local backend in this environment. Put `NVIDIA_API_KEY` in the ignored `.env.local` or pass the absolute path of the corresponding private env file. Choose an unused loopback port. Use a local shell without hosted Vercel flags.
+Start the local backend in the background. Set `NVIDIA_ENV_FILE` to the absolute path of the private env file containing `NVIDIA_API_KEY` if it lives outside the backend checkout. Choose an unused loopback port. Use a local shell without hosted Vercel flags.
 
 ```bash
-PORTFOLIO_ASSISTANT_MODE=live PORTFOLIO_ASSISTANT_PROVIDER=nvidia \
-PORTFOLIO_ASSISTANT_LOCAL_ORIGIN="$PREVIEW_ORIGIN" \
-uv run --no-project --python 3.13 --env-file .env.local \
+(
+cd "$APP_ROOT" || exit 1
+export PORTFOLIO_ASSISTANT_MODE=live PORTFOLIO_ASSISTANT_PROVIDER=nvidia
+export PORTFOLIO_ASSISTANT_LOCAL_ORIGIN="$PREVIEW_ORIGIN"
+exec uv run --no-project --python 3.13 --env-file "${NVIDIA_ENV_FILE:-$APP_ROOT/.env.local}" \
   --with-requirements requirements.txt --with uvicorn python -c '
 import logging, os, uvicorn
 from server.assistant_inference import provider_settings
@@ -44,23 +48,25 @@ for name in ("api.chat", "httpx2"):
 uvicorn.run("api.chat:app", host="127.0.0.1",
             port=int(os.environ["LOCAL_CHAT_PORT"]), access_log=False)
 '
+) >"$RUN_DIR/backend.log" 2>&1 &
+BACKEND_PID=$!
 ```
 
 ## Run one turn per language
 
-Delegate the browser check to the repo's UI validator. Give it the repo root, clean preview origin, loopback port and private **file paths**. Run with the exported browser settings in a second shell. Install Chromium with `pnpm exec playwright install chromium` if missing.
+Delegate the browser check to the repo's UI validator. Wait for the backend to listen on the chosen port. For a separate agent process, pass the values of `SKILL_ROOT`, `PREVIEW_ORIGIN`, `POSTHOG_ORIGIN`, `LOCAL_CHAT_PORT`, `PREVIEW_ACCESS_FILE` and `REPORT_FILE` explicitly. The browser only needs paths to private files. Install Chromium with `pnpm exec playwright install chromium` if missing.
 
 ```bash
-node .agents/skills/verify-preview-nvidia/scripts/run.mjs
+node "$SKILL_ROOT/.agents/skills/verify-preview-nvidia/scripts/run.mjs"
 ```
 
-The bridge enables the deployed assistant island's remote transport only in the test browser. It sends the original chat payload to loopback and returns the actual server-sent events (SSE) to the UI. The preview serves the app and the PostHog SDK throughout. A comparison of GLIO-IA and SIMDAT exercises synthesis in each language. A CV preset or an editorial reply can complete with zero model calls.
+The bridge enables the deployed assistant island's remote transport only in the test browser. It sends the original chat payload to loopback and returns the actual server-sent events (SSE) to the UI. The preview serves the app and the PostHog SDK throughout. The test inspects SDK packets before forwarding each accepted POST to the configured collector in an isolated HTTP context. It returns the collector response to the browser and treats a collector redirect or a blocked suspicious request as a failed check. This verifies real ingestion through the test bridge. A native browser-to-collector transport check belongs to the hosted run. A comparison of GLIO-IA and SIMDAT exercises synthesis in each language. A CV preset or an editorial reply can complete with zero model calls.
 
-For each locale, correlate the visible reply with the returned text, an HTTP 200 from NVIDIA's `/v1/chat/completions`, and an `assistant_turn` log with `mode=synthesis status=complete` and `requests=1`. Keep the contexts alive until PostHog accepts both the matching CV download event and its deferred log. A completed model call can outlive a closed tab. If a run fails, count all provider attempts and identify which evidence was lost before deciding whether another paid attempt is needed.
+For each locale, correlate the visible reply with the returned text, an HTTP 200 from NVIDIA's `/v1/chat/completions`, and an `assistant_turn` log with `mode=synthesis status=complete` and `requests=1`. Read the rendered answer or its distinctive excerpts and confirm Spanish for the ES visit and English for the EN visit. Record this judgement per turn. If the excerpts are too short to tell, mark the language check inconclusive. Keep the contexts alive until PostHog accepts both the matching CV download event and its deferred log. A completed model call can outlive a closed tab. If a run fails, count all provider attempts and identify which evidence was lost before deciding whether another paid attempt is needed.
 
 ## Verify the receiving end
 
-Use the private report and [PostHog checks](references/posthog.md) to verify the ES/EN controls, search stored telemetry for input and output fragments, and count recordings. A pass requires positive ingestion **and** zero matches for conversation content. Report missing evidence or a blocked send as a failure or an incomplete check. After verification, stop the loopback server, close the browser and remove the temporary access file and private report when no longer needed. Keep a summary containing the SHA, model, UTC window, control counts, privacy result and retries.
+Use the private report and [PostHog checks](references/posthog.md) to verify the ES/EN controls, search stored telemetry for input and output fragments, and count recordings. A pass requires positive ingestion **and** zero matches for conversation content. Report missing evidence or a blocked send as a failure or an incomplete check. After verification, stop the loopback server started above (`kill "$BACKEND_PID"`), close the browser and remove the temporary access file and private report when no longer needed. Keep a summary containing the SHA, model, UTC window, control counts, privacy result and retries.
 
 ## What remains before public access
 
@@ -73,10 +79,10 @@ Use the [hosted configuration and limits](../../../docs/features/assistant-previ
 
 ## Offline checks
 
-From the repo root, run the bridge and payload tests without contacting either service. The [existing SDK spec](../../../e2e/portfolio-posthog.spec.ts) also covers the site’s analytics policy with intercepted endpoints.
+From the repo root, run the skill tests without contacting either service. They are included in the required `assistant` job through `pnpm test`. The [existing SDK spec](../../../e2e/portfolio-posthog.spec.ts) also covers the site’s analytics policy with intercepted endpoints.
 
 ```bash
-node --test --experimental-test-isolation=none .agents/skills/verify-preview-nvidia/scripts/*.test.mjs
+pnpm test .agents/skills/verify-preview-nvidia/scripts
 ```
 
 ## Recorded baseline
