@@ -2,7 +2,8 @@
 // ABOUTME: Preserves the visible thread while the assistant panel is hidden or restored.
 import { DefaultChatTransport } from 'ai';
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { verifyAssistantChallenge } from '@/lib/assistant-challenge';
 import { prepareAssistantRequest } from '@/lib/assistant-request';
 import { createPortfolioTransport, type PortfolioMessage } from '@/lib/assistant-transport';
 import { t, type Language } from '@/i18n/translations';
@@ -30,7 +31,7 @@ function subscribeAvatar(update: () => void) {
   };
 }
 
-export function usePortfolioAssistant(lang: Language, preview: boolean) {
+export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?: string) {
   const transport = useMemo(
     () =>
       preview
@@ -42,7 +43,9 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
         : createPortfolioTransport(lang),
     [lang, preview],
   );
+  const chatId = useId();
   const { messages, sendMessage, status, error } = useChat<PortfolioMessage>({
+    id: `${chatId}-${preview ? 'remote' : 'demo'}`,
     transport,
     messages: [
       {
@@ -52,19 +55,25 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
       },
     ],
   });
+  const widget = useRef<HTMLDivElement>(null);
+  const pendingChallenge = useRef<AbortController | null>(null);
+  const [checking, setChecking] = useState(false);
+  const [challengeError, setChallengeError] = useState(false);
   const [input, setInput] = useState('');
   const [expanded, setExpanded] = useState(false);
   const avatar = useSyncExternalStore<Avatar>(subscribeAvatar, readAvatar, () => 'orbit');
   const log = useRef<HTMLDivElement>(null);
   const followThread = useRef(true);
-  const busy = status === 'submitted' || status === 'streaming';
+  const busy = checking || status === 'submitted' || status === 'streaming';
 
   useEffect(() => {
     const panel = log.current;
     if (panel && followThread.current && panel.clientHeight) {
       panel.scrollTop = panel.scrollHeight;
     }
-  }, [messages, expanded]);
+  }, [messages, expanded, checking, challengeError]);
+
+  useEffect(() => () => pendingChallenge.current?.abort(), []);
 
   function trackScroll() {
     const panel = log.current;
@@ -83,12 +92,38 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
     window.dispatchEvent(new Event(AVATAR_KEY));
   }
 
-  function send(text: string) {
+  async function send(text: string) {
     const clean = text.trim();
-    if (!clean || busy) return;
+    if (!clean || busy || pendingChallenge.current) return;
     followThread.current = true;
-    setInput('');
-    void sendMessage({ text: clean });
+
+    let headers: Record<string, string> | undefined;
+    if (siteKey) {
+      if (!widget.current) return;
+      const challenge = new AbortController();
+      pendingChallenge.current = challenge;
+      setChallengeError(false);
+      setChecking(true);
+      try {
+        const token = await verifyAssistantChallenge(
+          widget.current,
+          siteKey,
+          lang,
+          challenge.signal,
+        );
+        if (challenge.signal.aborted) return;
+        headers = { 'X-Portfolio-Challenge': token };
+      } catch {
+        if (!challenge.signal.aborted) setChallengeError(true);
+        return;
+      } finally {
+        pendingChallenge.current = null;
+        if (!challenge.signal.aborted) setChecking(false);
+      }
+    }
+
+    setInput((current) => (current === input ? '' : current));
+    void sendMessage({ text: clean }, { headers });
   }
 
   function toggleReadingMode() {
@@ -102,6 +137,9 @@ export function usePortfolioAssistant(lang: Language, preview: boolean) {
     send,
     busy,
     error,
+    checking,
+    challengeError,
+    widget,
     avatar,
     selectAvatar,
     log,

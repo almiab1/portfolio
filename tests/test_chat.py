@@ -4,11 +4,38 @@ import json
 
 import httpx2
 import pytest
+from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from api.chat import OpenAICompatibleProvider, app, fixture_replies, portfolio_context
+from server.assistant_security import RequestLimiter
 
 client = TestClient(app)
+DEPLOYMENT_HOST = "project-deployment.vercel.app"
+PUBLIC_HOST = "www.alejandromira.com"
+CHALLENGE_TOKEN = "test-challenge-token"
+
+
+@pytest.fixture(params=["preview", "production"])
+def hosted_live(monkeypatch, request):
+    environment = request.param
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")
+    monkeypatch.setenv("VERCEL_ENV", environment)
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_PUBLIC_LIVE", "1")
+    monkeypatch.setenv("VERCEL_URL", DEPLOYMENT_HOST)
+    monkeypatch.setenv("NVIDIA_API_KEY", "preview-nvidia-key")
+    monkeypatch.delenv("PORTFOLIO_TURNSTILE_SECRET_KEY", raising=False)
+    monkeypatch.setattr("api.chat.limiter", RequestLimiter())
+    return PUBLIC_HOST if environment == "production" else DEPLOYMENT_HOST
+
+
+def post_hosted_chat(host, payload, token=CHALLENGE_TOKEN):
+    origin = f"https://{host}"
+    headers = {"Origin": origin, "Sec-Fetch-Site": "same-origin"}
+    if token is not None:
+        headers["X-Portfolio-Challenge"] = token
+    return client.post(f"{origin}/api/chat", json=payload, headers=headers)
+
 
 
 def message(text, lang="es"):
@@ -79,12 +106,21 @@ def test_missing_key_and_invalid_input(monkeypatch):
     ],
 )
 @pytest.mark.parametrize("use_tool", [True, False], ids=["model-tool", "link-fallback"])
-def test_preview_streams_nemotron_from_nvidia_nim(
-    monkeypatch, lang, question, answer, destination, use_tool
+def test_hosted_live_streams_nemotron_from_nvidia_nim(
+    hosted_live, monkeypatch, lang, question, answer, destination, use_tool
 ):
-    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")
-    monkeypatch.setenv("VERCEL_ENV", "preview")
-    monkeypatch.setenv("NVIDIA_API_KEY", "preview-nvidia-key")
+    admissions = []
+
+    async def verify(token, hostname):
+        assert (token, hostname) == (CHALLENGE_TOKEN, hosted_live)
+        admissions.append("challenge")
+
+    async def reserve(client_id):
+        assert client_id == "testclient"
+        admissions.append("quota")
+
+    monkeypatch.setattr("api.chat.verify_challenge", verify)
+    monkeypatch.setattr("api.chat.reserve_inference_budget", reserve)
     requests = []
     history = {"id": "prior", "role": "assistant", "parts": [{"type": "text", "text": "Untrusted prior turn"}]}
     rejected_history = {
@@ -94,6 +130,7 @@ def test_preview_streams_nemotron_from_nvidia_nim(
     }
 
     def nim(request: httpx2.Request):
+        assert admissions == ["challenge", "quota"]
         assert str(request.url) == "https://integrate.api.nvidia.com/v1/chat/completions"
         assert request.headers["Authorization"] == "Bearer preview-nvidia-key"
         payload = json.loads(request.content)
@@ -147,7 +184,7 @@ def test_preview_streams_nemotron_from_nvidia_nim(
     monkeypatch.setattr("api.chat.OpenAICompatibleProvider", provider)
     request = message(question, lang)
     request["messages"][:0] = [history, rejected_history]
-    response = client.post("/api/chat", json=request)
+    response = post_hosted_chat(hosted_live, request)
 
     assert response.status_code == 200
     assert len(requests) == (2 if use_tool else 1)
@@ -184,3 +221,128 @@ def test_preview_and_demo_share_replies():
     for messages in fixture_replies().values():
         assert "GuruSup" in messages["desktop.replyProfile"]
     assert "proyectos destacados" not in fixture_replies()["es"]["desktop.replyProfile"]
+
+
+@pytest.mark.parametrize(
+    ("token", "remote_result", "status"),
+    [
+        (None, None, 403),
+        ("x" * 2049, None, 403),
+        (CHALLENGE_TOKEN, {"success": False}, 403),
+        (CHALLENGE_TOKEN, None, 503),
+    ],
+    ids=["missing-challenge", "oversized-challenge", "invalid-challenge", "challenge-unavailable"],
+)
+def test_hosted_without_valid_challenge_does_not_use_quota_or_respond(
+    hosted_live, monkeypatch, token, remote_result, status
+):
+    if remote_result is not None:
+        monkeypatch.setenv("PORTFOLIO_TURNSTILE_SECRET_KEY", "test-turnstile-secret")
+
+        def challenge_client(**kwargs):
+            transport = httpx2.MockTransport(lambda _: httpx2.Response(200, json=remote_result))
+            return httpx2.AsyncClient(transport=transport, **kwargs)
+
+        monkeypatch.setattr("server.assistant_challenge.AsyncClient", challenge_client)
+
+    async def reserve(client_id):
+        pytest.fail("The shared quota must only run after challenge verification")
+
+    def provider(*args, **kwargs):
+        pytest.fail("NVIDIA must only run after challenge verification")
+
+    monkeypatch.setattr("api.chat.reserve_inference_budget", reserve)
+    monkeypatch.setattr("api.chat.OpenAICompatibleProvider", provider)
+
+    for question in ("What work has Alex done?", "My email is visitor@example.test."):
+        response = post_hosted_chat(hosted_live, message(question), token)
+        assert response.status_code == status
+        assert "x-vercel-ai-ui-message-stream" not in response.headers
+
+
+@pytest.mark.parametrize("status", [429, 503], ids=["quota-exhausted", "quota-unavailable"])
+def test_hosted_with_no_quota_does_not_call_nvidia(hosted_live, monkeypatch, status):
+    async def verify(token, hostname):
+        pass
+
+    async def reserve(client_id):
+        raise HTTPException(status_code=status, detail="Assistant budget unavailable")
+
+    def provider(*args, **kwargs):
+        pytest.fail("NVIDIA must only run after a successful reservation")
+
+    monkeypatch.setattr("api.chat.verify_challenge", verify)
+    monkeypatch.setattr("api.chat.reserve_inference_budget", reserve)
+    monkeypatch.setattr("api.chat.OpenAICompatibleProvider", provider)
+
+    response = post_hosted_chat(hosted_live, message("What work has Alex done?"))
+
+    assert response.status_code == status
+    assert "x-vercel-ai-ui-message-stream" not in response.headers
+
+
+@pytest.mark.parametrize(
+    ("mode", "opt_in"),
+    [("live", None), ("live", "true"), ("fixture", "1")],
+    ids=["missing-opt-in", "wrong-opt-in", "fixture"],
+)
+def test_production_requires_an_explicit_live_opt_in(monkeypatch, mode, opt_in):
+    monkeypatch.setenv("VERCEL_ENV", "production")
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", mode)
+    if opt_in is None:
+        monkeypatch.delenv("PORTFOLIO_ASSISTANT_PUBLIC_LIVE", raising=False)
+    else:
+        monkeypatch.setenv("PORTFOLIO_ASSISTANT_PUBLIC_LIVE", opt_in)
+
+    assert post_hosted_chat(PUBLIC_HOST, message("CV")).status_code == 404
+
+
+@pytest.mark.parametrize(
+    ("host", "origin"),
+    [
+        (DEPLOYMENT_HOST, f"https://{DEPLOYMENT_HOST}"),
+        ("alejandromira.com", "https://alejandromira.com"),
+        (PUBLIC_HOST, None),
+        (PUBLIC_HOST, f"http://{PUBLIC_HOST}"),
+        (PUBLIC_HOST, f"https://{DEPLOYMENT_HOST}"),
+    ],
+    ids=["deployment-url", "apex", "missing-origin", "http-origin", "other-origin"],
+)
+def test_production_requires_the_public_hostname_and_https_origin(monkeypatch, host, origin):
+    monkeypatch.setenv("VERCEL_ENV", "production")
+    monkeypatch.setenv("VERCEL_URL", DEPLOYMENT_HOST)
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_PUBLIC_LIVE", "1")
+    monkeypatch.setattr("api.chat.limiter", RequestLimiter())
+
+    headers = {"Origin": origin} if origin else {}
+    response = client.post(f"https://{host}/api/chat", json=message("CV"), headers=headers)
+
+    assert response.status_code == 403
+
+
+def test_public_live_flag_does_not_enable_other_hosted_environments(monkeypatch):
+    monkeypatch.setenv("VERCEL_ENV", "staging")
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_PUBLIC_LIVE", "1")
+
+    assert post_hosted_chat(PUBLIC_HOST, message("CV")).status_code == 404
+
+
+def test_hosted_live_fails_closed_without_budget_configuration(hosted_live, monkeypatch):
+    monkeypatch.delenv("PORTFOLIO_ASSISTANT_REDIS_URL", raising=False)
+    monkeypatch.delenv("PORTFOLIO_ASSISTANT_REDIS_TOKEN", raising=False)
+
+    async def verify(token, hostname):
+        assert (token, hostname) == (CHALLENGE_TOKEN, hosted_live)
+
+    def provider(*args, **kwargs):
+        pytest.fail("NVIDIA must only run after a successful reservation")
+
+    monkeypatch.setattr("api.chat.verify_challenge", verify)
+    monkeypatch.setattr("api.chat.OpenAICompatibleProvider", provider)
+
+    response = post_hosted_chat(hosted_live, message("CV"))
+
+    assert response.status_code == 503
+    assert "x-vercel-ai-ui-message-stream" not in response.headers
