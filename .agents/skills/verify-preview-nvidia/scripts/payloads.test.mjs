@@ -1,7 +1,9 @@
 // ABOUTME: Tests the browser analytics privacy checks with synthetic request fixtures.
 // ABOUTME: Exercises uncompressed events, gzipped OTLP, and private data rejection offline.
+// @vitest-environment node
+
 import { deepEqual, throws } from 'node:assert/strict';
-import { test } from 'node:test';
+import { test } from 'vitest';
 import { gzipSync } from 'node:zlib';
 import { inspectAnalytics } from './payloads.mjs';
 
