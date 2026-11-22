@@ -22,6 +22,11 @@ for (const locale of [
     page,
   }) => {
     await page.setViewportSize({ width: 1440, height: 780 });
+    await page.goto(locale.prefix + '/');
+    await expect(page.getByRole('link', { name: 'X · @alexmiira', exact: true })).toHaveAttribute(
+      'href',
+      'https://x.com/alexmiira',
+    );
     await page.goto(locale.prefix + '/skills');
     const shortcut = page
       .locator('.desktop-menu')
@@ -37,6 +42,9 @@ for (const locale of [
     await expect(contact.locator('a[href^="mailto:"]')).toBeVisible();
     await expect(contact.getByRole('link', { name: 'LinkedIn', exact: true })).toBeVisible();
     await expect(contact.getByRole('link', { name: 'GitHub', exact: true })).toBeVisible();
+    await expect(
+      contact.getByRole('link', { name: 'X · @alexmiira', exact: true }),
+    ).toHaveAttribute('href', 'https://x.com/alexmiira');
     await expect(shortcut).toHaveAttribute('aria-current', 'page');
     await expect(page.locator('[data-desktop-tabs] a[aria-current="page"]')).toHaveText(
       locale.contact,

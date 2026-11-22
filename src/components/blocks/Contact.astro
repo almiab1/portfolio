@@ -5,6 +5,7 @@ import { Mail } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import GithubIcon from '@/components/ui/icons/GithubIcon.astro';
 import LinkedinIcon from '@/components/ui/icons/LinkedinIcon.astro';
+import XIcon from '@/components/ui/icons/XIcon.astro';
 import { useTranslations, type Language } from '@/i18n/utils';
 
 interface Props {
@@ -30,7 +31,7 @@ const github = 'https://github.com/almiab1';
           <Mail size={21} aria-hidden="true" />
           <span>{email}</span>
         </a>
-        <div class="flex flex-wrap gap-x-5 gap-y-2">
+        <div class="flex flex-wrap justify-center gap-x-5 gap-y-2">
           <a
             href={linkedin}
             target="_blank"
@@ -48,6 +49,15 @@ const github = 'https://github.com/almiab1';
           >
             <GithubIcon size={20} />
             <span>GitHub</span>
+          </a>
+          <a
+            href="https://x.com/alexmiira"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="portfolio-contact-social"
+          >
+            <XIcon size={20} />
+            <span>X · @alexmiira</span>
           </a>
         </div>
       </div>
