@@ -32,6 +32,10 @@ const { local: assistantPreview, challenge } = getAssistantAvailability({
   deployment: process.env.VERCEL_URL,
   siteKey: import.meta.env.PUBLIC_PORTFOLIO_TURNSTILE_SITE_KEY,
 });
+const checkAssistantFlag =
+  process.env.VERCEL === '1' ||
+  process.env.VERCEL_ENV !== undefined ||
+  process.env.PORTFOLIO_ASSISTANT_FLAG_CHECK === '1';
 const t = useTranslations(lang);
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const apps = [
@@ -68,7 +72,14 @@ const profile = getLocalizedUrl('/', lang);
 const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
 ---
 
-<portfolio-desktop class="desktop" data-locale={lang} data-app={app} data-path={current}>
+<portfolio-desktop
+  class="desktop"
+  data-locale={lang}
+  data-app={app}
+  data-path={current}
+  data-assistant={checkAssistantFlag ? 'disabled' : undefined}
+  data-assistant-flag={checkAssistantFlag ? '' : undefined}
+>
   <header class="desktop-menu">
     <a
       href={profile}
@@ -103,6 +114,7 @@ const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
       <button
         type="button"
         data-assistant-toggle
+        hidden={checkAssistantFlag}
         title={t('desktop.assistant')}
         aria-expanded="false"
         aria-controls="desktop-assistant"
@@ -142,7 +154,13 @@ const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
         <slot />
       </div>
     </div>
-    <div class="desktop-assistant-island ph-no-capture ph-no-record" data-analytics-private>
+    <div
+      class="desktop-assistant-island ph-no-capture ph-no-record"
+      data-assistant-island
+      data-analytics-private
+      hidden={checkAssistantFlag}
+      inert={checkAssistantFlag}
+    >
       <PortfolioAssistant
         lang={lang}
         preview={assistantPreview}

@@ -21,6 +21,7 @@ from api.chat import app, fixture_replies
 
 @pytest.fixture
 def preview(monkeypatch):
+    monkeypatch.delenv("PORTFOLIO_ASSISTANT_FLAG_TOKEN", raising=False)
     monkeypatch.delenv("VERCEL_ENV", raising=False)
     monkeypatch.delenv("VERCEL", raising=False)
     monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "live")

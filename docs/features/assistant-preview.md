@@ -4,6 +4,14 @@ El escritorio usa el chat simulado por defecto. El modo remoto conecta el mismo 
 
 Cada destino validado se muestra en el chat con una tarjeta del catálogo de json-render. Las rutas y etiquetas se resuelven en la web según el idioma activo.
 
+## Interruptor de Mota en PostHog
+
+Abre [el flag `portfolio-assistant-enabled`](https://eu.posthog.com/project/362830/feature-flags/375129) y cambia su estado para mostrar u ocultar Mota en los despliegues que incorporen este control. Usa una regla booleana para el 100 % del tráfico. La evaluación es global y sirve tanto para la demo como para el chat remoto. Encender el flag conserva el modo configurado en Vercel.
+
+El navegador consulta `GET /api/chat` en su propio dominio. La función evalúa el flag en PostHog EU con un identificador fijo de servicio y guarda el resultado durante 30 segundos por instancia. La consulta no incluye preguntas, respuestas, URL de la página ni identificadores de visitantes. En Vercel configura `PORTFOLIO_ASSISTANT_FLAG_TOKEN` con el token de proyecto. También se admite el token público de PostHog si ya está configurado para analítica. El token dedicado permite gestionar el flag en Production sin activar la analítica web.
+
+Si el flag está apagado, falta la configuración o la evaluación falla, la interfaz oculta el panel y el acceso del menú. La API rechaza los nuevos turnos antes de invocar NVIDIA. La interfaz vuelve a consultar al navegar, recuperar el foco y periódicamente mientras Mota está abierto. Una inferencia que ya haya llegado al proveedor puede terminar. En desarrollo local se mantiene la demo. Para probar el recorrido completo con el servidor local, construye la web con `PORTFOLIO_ASSISTANT_FLAG_CHECK=1`, configura el proxy local y el token dedicado en la función.
+
 ## Arquitectura
 
 Con la configuración predeterminada, React selecciona una respuesta bilingüe en el navegador. Abrir el panel o usar esa demo consume cero llamadas a NVIDIA. El modo remoto habilitado utiliza el mismo panel y envía únicamente las preguntas que el visitante decide enviar.
