@@ -18,9 +18,11 @@ export interface Props {
   app: string;
   title?: string;
   description?: string;
+  cover?: { src?: string; alt?: string };
 }
 const {
   app,
+  cover,
   title = 'Alejandro Mira — GenAI & AI Engineer',
   description = 'Porfolio de proyectos, artículos y charlas sobre IA generativa y agentes LLM.',
 } = Astro.props;
@@ -37,7 +39,8 @@ const pathWithoutLang = currentPath.replace(/^\/(es|en)(\/|$)/, '/');
 const esUrl = new URL(getRelativeLocaleUrl('es', pathWithoutLang), Astro.site);
 const enUrl = new URL(getRelativeLocaleUrl('en', pathWithoutLang), Astro.site);
 const canonicalUrl = currentLang === 'es' ? esUrl : enUrl;
-const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' });
+const socialImage =
+  cover?.src ?? (await getImage({ src: portrait, width: 800, format: 'jpeg' })).src;
 ---
 
 <html lang={currentLang} data-type="service" transition:animate="none">
@@ -68,8 +71,8 @@ const socialImage = await getImage({ src: portrait, width: 800, format: 'jpeg' }
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={new URL(socialImage.src, Astro.site)} />
-    <meta property="og:image:alt" content={t('hero.profileAlt')} />
+    <meta property="og:image" content={new URL(socialImage, Astro.site)} />
+    <meta property="og:image:alt" content={cover?.alt ?? t('hero.profileAlt')} />
     <meta name="twitter:card" content="summary" />
     <meta property="og:locale" content={currentLang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={currentLang === 'es' ? 'en_US' : 'es_ES'} />
