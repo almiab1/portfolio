@@ -71,8 +71,8 @@ def test_comparison_has_localized_evidence_and_one_synthesis_call():
 
 
 @pytest.mark.parametrize(("lang", "question"), [
-    ("es", "¿Qué dos proyectos demuestran mejor experiencia en visión artificial?"),
-    ("en", "Which two projects best demonstrate experience in computer vision?"),
+    ("es", "¿Qué dos proyectos demuestran mejor experiencia en robótica?"),
+    ("en", "Which two projects best demonstrate experience in robotics?"),
 ])
 def test_compound_recommendation_has_bounded_evidence_from_multiple_cases(lang, question):
     turn = prepare_turn(question, lang, ())
@@ -85,6 +85,71 @@ def test_compound_recommendation_has_bounded_evidence_from_multiple_cases(lang, 
     assert {"glio-ia", "cookobot"} <= {hit["source"].split("/")[0] for hit in hits}
     assert len(read([hits[0]["source"]] * 12)) == 6
     assert read(["../../.env", "cv/overview", "profile/overview"]) == []
+
+
+@pytest.mark.parametrize(("lang", "question"), [
+    ("es", "¿Qué dos proyectos demuestran mejor experiencia en visión artificial aplicada a cultivos?"),
+    ("en", "Which two projects best demonstrate computer vision in agriculture?"),
+])
+def test_qualified_vision_recommendation_keeps_its_question_specific_evidence(lang, question):
+    turn = prepare_turn(question, lang, ())
+    assert turn.direct_reply is None
+    assert turn.compound
+    assert any(item.source.startswith("crop-monitoring/") for skill in turn.skills for item in skill.evidence)
+
+
+@pytest.mark.parametrize(("lang", "question", "credit", "scope"), [
+    ("es", "¿Alex entrenó los modelos TensorFlow de Cookobot?", "Integré modelos TensorFlow",
+     "La documentación del proyecto no me atribuye su creación ni su entrenamiento."),
+    ("en", "Did Alex develop the TensorFlow models for Cookobot?", "Integrated TensorFlow models",
+     "The project documentation does not attribute model creation or training to me."),
+])
+def test_cookobot_model_authorship_question_returns_the_documented_scope(lang, question, credit, scope):
+    turn = prepare_turn(question, lang, ())
+    assert credit in turn.direct_reply
+    assert scope in turn.direct_reply
+    assert not turn.skills
+
+
+@pytest.mark.parametrize(("lang", "question", "credit"), [
+    ("es", "Compara GLIO-IA con Cookobot", "Integré modelos TensorFlow"),
+    ("en", "Compare GLIO-IA and Cookobot", "Integrated TensorFlow models"),
+])
+def test_open_cookobot_comparison_preserves_scope_and_published_attribution(lang, question, credit):
+    turn = prepare_turn(question, lang, ())
+    assert turn.direct_reply is None
+    skill, = turn.skills
+    assert skill.name == "compare-projects"
+    evidence = {item.source: item.content for item in skill.evidence}
+    assert credit in evidence["cookobot/contribution"]
+    for project in ("cookobot", "glio-ia"):
+        assert f"{project}/overview" in evidence
+        assert f"{project}/stack" in evidence
+
+
+@pytest.mark.parametrize(("lang", "question", "credit"), [
+    ("es", "Explícame cómo funcionaba la visión artificial de Cookobot", "Integré modelos TensorFlow"),
+    ("en", "Explain how Cookobot's computer vision worked", "Integrated TensorFlow models"),
+    ("es", "Compara las tecnologías de GLIO-IA y Cookobot", "Integré modelos TensorFlow"),
+    ("en", "Compare the technologies used in GLIO-IA and Cookobot", "Integrated TensorFlow models"),
+])
+def test_cookobot_synthesis_prioritizes_published_attribution_evidence(lang, question, credit):
+    turn = prepare_turn(question, lang, ())
+    skill, = turn.skills
+    assert skill.evidence[0].source == "cookobot/contribution"
+    assert credit in skill.evidence[0].content
+    assert any(item.source == "cookobot/approach" or item.source == "cookobot/stack" for item in skill.evidence)
+
+
+@pytest.mark.parametrize(("lang", "question", "credit"), [
+    ("es", "¿Qué aportó Alex a GLIO-IA?", "Investigué y desarrollé modelos de Deep Learning"),
+    ("en", "What were Alex's contributions to GLIO-IA?", "Researched and developed Deep Learning models"),
+])
+def test_contribution_question_returns_work_performed_in_addition_to_role(lang, question, credit):
+    turn = prepare_turn(question, lang, ())
+    assert credit in turn.direct_reply
+    assert turn.destination == "glio"
+    assert not turn.skills
 
 
 @pytest.mark.parametrize("question", ["How do I bake a cake?", "How long did Project Atlantis last?"])

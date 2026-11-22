@@ -71,16 +71,14 @@ async def chat(request: Request):
         raise HTTPException(status_code=404)
 
     expected_host = None
-    if live:
-        limiter.check(request_client(request, hosted))
-        if hosted:
-            expected_host = (
-                PUBLIC_ASSISTANT_HOST if public_live else os.environ.get("VERCEL_URL", "").lower()
-            )
-            if not expected_host:
-                raise HTTPException(status_code=403, detail="Cross-origin request")
+    if live and hosted:
+        expected_host = PUBLIC_ASSISTANT_HOST if public_live else os.environ.get("VERCEL_URL", "").lower()
+        if not expected_host:
+            raise HTTPException(status_code=403, detail="Cross-origin request")
 
     validate_request_source(request, hosted, expected_host)
+    if live:
+        limiter.check(request_client(request, hosted))
     body = bytearray()
     async for chunk in request.stream():
         if len(body) + len(chunk) > MAX_REQUEST_BYTES:
@@ -114,9 +112,8 @@ async def chat(request: Request):
         for message in payload.messages[:-1] if not restricted(message.parts[0].text)
     ]
     turn = prepare_turn(question, lang, history, preset=payload.preset)
-    if turn.compound and not (
-        live and environment == "preview" and os.environ.get("PORTFOLIO_ASSISTANT_CODE_MODE") == "1"
-    ):
+    # The deployed assistant uses one-shot synthesis. Code Mode is for offline evaluation.
+    if turn.compound:
         turn = replace(turn, compound=False, tools=())
 
     async def reserve():
