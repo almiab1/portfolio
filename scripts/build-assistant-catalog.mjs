@@ -17,11 +17,11 @@ const languages = ['es', 'en'];
 const locales = {
   es: {
     overview: 'Resumen', duration: 'Duración', role: 'Rol', stack: 'Tecnologías', date: 'Fecha',
-    profile: 'Perfil', experience: 'Trayectoria', skills: 'Habilidades', education: 'Formación',
+    profile: 'Perfil', experience: 'Trayectoria', skills: 'Capacidades', education: 'Formación',
   },
   en: {
     overview: 'Overview', duration: 'Duration', role: 'Role', stack: 'Technologies', date: 'Date',
-    profile: 'Profile', experience: 'Experience', skills: 'Skills', education: 'Education',
+    profile: 'Profile', experience: 'Experience', skills: 'Capabilities', education: 'Education',
   },
 };
 const headingIds = {
@@ -152,11 +152,14 @@ export async function buildCatalog(sourceRoot = REPO_ROOT) {
         ...Object.fromEntries(['agents', 'ml', 'software'].map((key) => [key, {
           title: ui[`profile.skill.${key}.title`], text: ui[`profile.skill.${key}.tools`],
         }])),
-        education: {
-          title: labels.education,
-          text: [ui['profile.degree.master'], ui['profile.degree.bachelor']].join('\n'),
-        },
       },
+    };
+    entries.education = {
+      title: labels.education, url: `${prefix}/experience`, kind: 'page',
+      sections: { overview: {
+        title: labels.education,
+        text: [ui['profile.degree.master'], ui['profile.degree.bachelor']].join('\n'),
+      } },
     };
     entries.cv = {
       title: ui['desktop.cvTitle'], url: `${prefix}/cv`, kind: 'page',

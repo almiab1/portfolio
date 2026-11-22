@@ -6,6 +6,7 @@ for (const locale of [
   {
     prefix: '',
     chart: 'Proyectos por tipo',
+    viewProject: 'Leer caso',
     outline: 'En esta ficha',
     flow: 'Flujo de datos de GLIO-IA',
     inputs: ['Datos clínicos', 'Imágenes médicas', 'Datos ómicos'],
@@ -13,6 +14,7 @@ for (const locale of [
   {
     prefix: '/en',
     chart: 'Projects by type',
+    viewProject: 'Read case study',
     outline: 'On this page',
     flow: 'GLIO-IA data flow',
     inputs: ['Clinical data', 'Medical images', 'Omics data'],
@@ -24,6 +26,21 @@ for (const locale of [
     await page.goto(`${locale.prefix}/work`);
     const chart = page.getByRole('region', { name: locale.chart });
     await expect(chart).toBeVisible();
+    const overview = page.locator('.catalogue-extras');
+    const toolbar = page.locator('#catalogue-results');
+    await expect(overview).toBeVisible();
+    expect(
+      await overview.evaluate((element) =>
+        Boolean(
+          element.compareDocumentPosition(document.querySelector('#catalogue-results')!) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+        ),
+      ),
+    ).toBe(true);
+    await expect(page.locator('#health-dashboard a')).toHaveAttribute(
+      'href',
+      'https://github.com/almiab1/HealthDashboard',
+    );
     const chartCounts = await chart
       .getByRole('listitem')
       .evaluateAll((items) =>
@@ -34,6 +51,14 @@ for (const locale of [
           ]),
         ),
       );
+
+    const caseRows = page.locator('.catalogue-list [data-project-id]');
+    await expect(caseRows.locator('[data-visual-kind="illustration"] img')).toHaveCount(
+      await caseRows.count(),
+    );
+    await expect(caseRows.locator('.catalogue-action')).toHaveText(
+      Array(await caseRows.count()).fill(locale.viewProject),
+    );
 
     const rows = page.locator('[data-project-id]');
     const types = await rows.evaluateAll((items) =>
@@ -53,6 +78,12 @@ for (const locale of [
     await expect(rows.filter({ visible: true }).and(page.locator('[data-type="ai"]'))).toHaveCount(
       catalogueCounts.ai,
     );
+
+    await expect(toolbar).toBeInViewport();
+    await chart.locator('a[data-clear-project-type]').click();
+    await expect(page.locator('select[name="type"]')).toHaveValue('');
+    await expect(rows.filter({ visible: true })).toHaveCount(types.length);
+    await expect(toolbar).toBeInViewport();
 
     const row = page.locator(`[data-case-path="${locale.prefix}/work/cookobot"]`);
     const thumbnail = row.locator('[data-visual-kind="illustration"] img');
@@ -83,6 +114,26 @@ for (const locale of [
     await expect(outline.locator('[aria-current="location"]')).toHaveCount(1);
     await expect.poll(() => decodeURIComponent(new URL(page.url()).hash)).toBe(target);
 
+    for (const slug of ['crop-monitoring', 'neuroevolutionary-ai']) {
+      await page.goto(`${locale.prefix}/work`);
+      const source = page.locator(
+        `[data-case-path="${locale.prefix}/work/${slug}"] [data-visual-source="${slug}"] img`,
+      );
+      const sourceUrl = await source.getAttribute('src');
+      expect(sourceUrl).toBeTruthy();
+      await page.goto(`${locale.prefix}/work/${slug}`);
+      await expect(page.locator(`.case-cover [data-visual-source="${slug}"] img`)).toHaveAttribute(
+        'src',
+        sourceUrl!,
+      );
+      await expect(page.locator(`.case-cover [data-visual-source="${slug}"] img`)).toHaveCSS(
+        'object-fit',
+        'contain',
+      );
+    }
+
+    await page.goto(`${locale.prefix}/work/smart-scale`);
+    await expect(page.locator('.case-cover [data-visual-kind="illustration"] img')).toBeVisible();
     await page.goto(`${locale.prefix}/work/glio-ia`);
     const diagram = page.getByRole('figure', { name: locale.flow });
     await expect(diagram.getByRole('listitem')).toHaveText(locale.inputs);

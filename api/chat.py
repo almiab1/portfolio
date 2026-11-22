@@ -36,12 +36,14 @@ def fixture_replies():
 
 
 @asynccontextmanager
-async def fixture_provider(lang, destination):
+async def fixture_provider(lang, turn):
     keys = {
         "glio": "Glio", "skills": "Skills", "experience": "Career", "cv": "Cv",
         "contact": "Contact", "profile": "Profile", "work": "Projects",
     }
-    text = fixture_replies()[lang]["desktop.reply" + keys.get(destination, "Fallback")]
+    sources = {item.source.partition("/")[0] for skill in turn.skills for item in skill.evidence}
+    key = "Education" if sources == {"education"} else keys.get(turn.destination, "Fallback")
+    text = fixture_replies()[lang]["desktop.reply" + key]
     yield FunctionModel(lambda messages, info: ModelResponse(parts=[TextPart(text)]))
 
 
@@ -124,7 +126,7 @@ async def chat(request: Request):
         if turn.direct_reply is not None:
             result = await run_turn(turn)
         else:
-            provider = open_model(reserve) if live else fixture_provider(lang, turn.destination)
+            provider = open_model(reserve) if live else fixture_provider(lang, turn)
             async with provider as model:
                 result = await run_turn(turn, model)
     except InferenceBudgetDenied:

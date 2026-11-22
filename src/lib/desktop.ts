@@ -31,7 +31,8 @@ class PortfolioDesktop extends HTMLElement {
     const close = this.querySelector<HTMLButtonElement>('[data-desktop-close]')!;
     const profile = this.querySelector<HTMLAnchorElement>('[data-desktop-brand]')!;
     const dock = [...this.querySelectorAll<HTMLAnchorElement>('[data-desktop-launch]')];
-    const workPath = dock.find((link) => link.dataset.app === 'work')!.dataset.desktopLaunch!;
+    const workLauncher = dock.find((link) => link.dataset.app === 'work')!;
+    const workPath = workLauncher.dataset.desktopLaunch!;
     const toggle = this.querySelector<HTMLButtonElement>('[data-assistant-toggle]')!;
     const mobile = matchMedia(MOBILE_QUERY);
     const more = this.querySelector<HTMLDetailsElement>('[data-desktop-more]')!;
@@ -133,6 +134,11 @@ class PortfolioDesktop extends HTMLElement {
           link.href = href;
           const caption = document.createElement('span');
           caption.textContent = label;
+          const launcher = path.startsWith(workPath + '/')
+            ? workLauncher
+            : dock.find((item) => item.dataset.desktopLaunch === path);
+          const icon = launcher?.querySelector('svg');
+          if (icon) link.append(icon.cloneNode(true));
           link.append(caption);
           link.title = label;
           if (path === current) link.setAttribute('aria-current', 'page');

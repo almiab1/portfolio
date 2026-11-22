@@ -649,7 +649,7 @@
         }
       },
       "skills": {
-        "title": "Habilidades",
+        "title": "Capacidades",
         "url": "/skills",
         "kind": "page",
         "sections": {
@@ -664,8 +664,15 @@
           "software": {
             "title": "Ingeniería de software",
             "text": "APIs con FastAPI, interfaces con React, PostgreSQL y despliegue en la nube"
-          },
-          "education": {
+          }
+        }
+      },
+      "education": {
+        "title": "Formación",
+        "url": "/experience",
+        "kind": "page",
+        "sections": {
+          "overview": {
             "title": "Formación",
             "text": "Máster en Investigación en Inteligencia Artificial\nGrado en Ingeniería de Tecnologías Interactivas"
           }
@@ -1363,7 +1370,7 @@
         }
       },
       "skills": {
-        "title": "Skills",
+        "title": "Capabilities",
         "url": "/en/skills",
         "kind": "page",
         "sections": {
@@ -1378,8 +1385,15 @@
           "software": {
             "title": "Software engineering",
             "text": "FastAPI, React, PostgreSQL and cloud deployment"
-          },
-          "education": {
+          }
+        }
+      },
+      "education": {
+        "title": "Education",
+        "url": "/en/experience",
+        "kind": "page",
+        "sections": {
+          "overview": {
             "title": "Education",
             "text": "Master’s in Artificial Intelligence Research\nBachelor’s in Interactive Technologies Engineering"
           }

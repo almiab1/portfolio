@@ -1,7 +1,12 @@
 ---
-// ABOUTME: Presents Alex’s career as a dated timeline and links to the original announcement.
+// ABOUTME: Presents Alex’s work history and education alongside his GuruSup announcement.
 // ABOUTME: Shares the experience app between the Spanish and English routes.
 import { ArrowUpRight } from 'lucide-react';
+import aijuMark from '@/assets/organizations/aiju.png?url';
+import convotisMark from '@/assets/organizations/convotis.svg?url';
+import gurusupMark from '@/assets/organizations/gurusup.jpg?url';
+import uimpMark from '@/assets/organizations/uimp.webp?url';
+import upvMark from '@/assets/organizations/upv.png?url';
 import Base from '@/layouts/BaseLayout.astro';
 import jobs from '@/data/portfolio-jobs.json';
 import { useTranslations, type Language } from '@/i18n/utils';
@@ -19,6 +24,32 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const employerMarks = {
+  gurusup: { src: gurusupMark, width: 112, height: 112 },
+  convotis: { src: convotisMark, width: 150, height: 25 },
+  aiju: { src: aijuMark, width: 282, height: 76 },
+} satisfies Record<Job['key'], { src: string; width: number; height: number }>;
+
+const degrees = [
+  {
+    key: 'master',
+    school: 'Universidad Internacional Menéndez Pelayo',
+    period: '2022–2024',
+    mark: { src: uimpMark, width: 244, height: 146 },
+    // The university's programme sheet is indexed by academic year and locale.
+    href: `https://www.uimp.es/postgrado/estudios/fichaestudio.php?any=2026-27&lan=${lang}&plan=P04C&verasi=N`,
+  },
+  {
+    key: 'bachelor',
+    school: 'Universitat Politècnica de València',
+    period: '2017–2021',
+    mark: { src: upvMark, width: 804, height: 284 },
+    href:
+      lang === 'es'
+        ? 'https://www.upv.es/titulaciones/GTI/'
+        : 'https://www.upv.es/titulaciones/GTI/indexi.html',
+  },
+] as const;
 ---
 
 <Base
@@ -34,11 +65,14 @@ const t = useTranslations(lang);
       </header>
       <ol class="desktop-timeline" role="list">
         {(jobs as Job[]).map(({ key, company, year, period }) => (
-          <li>
+          <li id={key}>
             <time datetime={year}>{year}</time>
             <div>
               <p class="portfolio-kicker">{period ?? t('profile.currentPeriod')}</p>
-              <h2>{company}</h2>
+              <h2 class="organization-name">
+                <img class="organization-mark" {...employerMarks[key]} alt="" />
+                {company}
+              </h2>
               <p class="desktop-job-role">{t(`profile.job.${key}.role`)}</p>
               <p class="portfolio-muted">{t(`profile.job.${key}.summary`)}</p>
               {key === 'gurusup' && (
@@ -53,6 +87,75 @@ const t = useTranslations(lang);
           </li>
         ))}
       </ol>
+      <section class="experience-education" aria-labelledby="education-title">
+        <h2 id="education-title">{t('profile.education')}</h2>
+        <ul class="credentials-list" role="list">
+          {degrees.map(({ key, school, period, mark, href }) => (
+            <li>
+              <p class="portfolio-kicker">{period}</p>
+              <h3>
+                <a class="portfolio-link degree-link" href={href}>
+                  {t(`profile.degree.${key}`)}
+                  <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              </h3>
+              <p class="organization-name portfolio-muted">
+                <img class="organization-mark" {...mark} alt="" />
+                {school}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </section>
   </main>
 </Base>
+
+<style>
+  #gurusup {
+    scroll-margin-block-start: 1.25rem;
+  }
+
+  .organization-name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.65rem;
+  }
+
+  @container (min-width: 34rem) {
+    .organization-name {
+      justify-content: space-between;
+    }
+
+    .organization-mark {
+      order: 1;
+    }
+  }
+
+  .organization-mark {
+    flex: none;
+    width: auto;
+    height: auto;
+    max-inline-size: min(100%, 6.25rem);
+    max-block-size: 2rem;
+    object-fit: contain;
+  }
+
+  .degree-link {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .experience-education {
+    margin-block-start: clamp(2rem, 6cqw, 4rem);
+  }
+
+  .experience-education h2 {
+    margin-block-end: 0.9rem;
+    font-size: clamp(1.5rem, 4cqw, 2.4rem);
+    font-weight: 730;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+</style>

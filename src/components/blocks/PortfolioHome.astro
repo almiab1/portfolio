@@ -2,7 +2,7 @@
 // ABOUTME: Introduces Alex in a compact professional profile.
 // ABOUTME: Links the profile to the desktop apps and emits shared structured data.
 import { Image } from 'astro:assets';
-import { ArrowUpRight, FileText, Layers } from 'lucide-react';
+import { BriefcaseBusiness, FileText, Layers } from 'lucide-react';
 import PortfolioSocialLinks from '@/components/blocks/PortfolioSocialLinks.astro';
 import Base from '@/layouts/BaseLayout.astro';
 import portrait from '@/assets/me.png';
@@ -38,7 +38,7 @@ const t = useTranslations(lang);
         </div>
         <div class="profile-card-actions">
           <a class="portfolio-button" href={getLocalizedUrl('/experience', lang)}>
-            {t('desktop.viewExperience')} <ArrowUpRight size={17} aria-hidden="true" />
+            <BriefcaseBusiness size={17} aria-hidden="true" /> {t('desktop.viewExperience')}
           </a>
           <a class="portfolio-link" href={getLocalizedUrl('/skills', lang)}>
             <Layers size={17} aria-hidden="true" /> {t('desktop.viewSkills')}

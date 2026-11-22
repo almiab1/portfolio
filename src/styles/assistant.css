@@ -31,17 +31,48 @@
   aspect-ratio: 1;
   border-radius: 0.62rem;
   background: var(--desktop-forest);
-  color: #dce9d0;
 }
 
-.assistant-badge:has([data-avatar='pixel']) {
-  background: #533b30;
-  color: #f5cbb3;
+.assistant-avatar {
+  flex: none;
+  --mota-shell: #89ae72;
+  --mota-light: #e4f3c7;
+  --mota-signal: #ffc15e;
+  --mota-feet: #597d53;
 }
 
-.assistant-badge:has([data-avatar='pulse']) {
-  background: #433b51;
-  color: #e8d6f7;
+.assistant-avatar[data-avatar='pixel'] {
+  --mota-shell: #e89574;
+  --mota-light: #ffdfbd;
+  --mota-signal: #fbd774;
+  --mota-feet: #b56857;
+}
+
+.assistant-avatar[data-avatar='pulse'] {
+  --mota-shell: #b8a2dd;
+  --mota-light: #f1defa;
+  --mota-signal: #8be6d0;
+  --mota-feet: #8369af;
+}
+
+.assistant-avatar-shell {
+  fill: var(--mota-shell);
+}
+
+.assistant-avatar-light {
+  fill: var(--mota-light);
+}
+
+.assistant-avatar-signal {
+  fill: var(--mota-signal);
+}
+
+.assistant-avatar-feet {
+  fill: var(--mota-feet);
+}
+
+.assistant-avatar-screen {
+  fill: #24372f;
 }
 
 .assistant-title {
@@ -50,10 +81,9 @@
 }
 
 .assistant-title .portfolio-kicker {
-  overflow: hidden;
   font-size: 0.64rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .assistant-title h2 {
@@ -288,7 +318,8 @@
     grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr) clamp(17.25rem, 21.5vw, 22rem);
   }
 
-  .desktop:not([data-assistant='minimized']):has(.desktop-assistant[data-reading-mode='expanded']) .desktop-workspace {
+  .desktop:not([data-assistant='minimized']):has(.desktop-assistant[data-reading-mode='expanded'])
+    .desktop-workspace {
     grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr) clamp(20rem, 36vw, 34rem);
   }
 
@@ -325,7 +356,55 @@
   }
 }
 
+@keyframes assistant-avatar-look {
+  0%,
+  55%,
+  85%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  65% {
+    transform: translateY(-2px) rotate(-6deg);
+  }
+  74% {
+    transform: translateY(-1px) rotate(4deg);
+  }
+}
+
+@keyframes assistant-avatar-blink {
+  0%,
+  28%,
+  32%,
+  100% {
+    transform: scaleY(1);
+  }
+  30% {
+    transform: scaleY(0.14);
+  }
+}
+
+@keyframes assistant-avatar-think {
+  to {
+    transform: translateY(-2px);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  .assistant-badge .assistant-avatar[data-expression='idle'] {
+    transform-origin: 50% 85%;
+    animation: assistant-avatar-look 6s ease-in-out infinite;
+  }
+
+  .assistant-avatar[data-expression='idle'] .assistant-avatar-eyes {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: assistant-avatar-blink 6s ease-in-out infinite;
+  }
+
+  .assistant-badge .assistant-avatar[data-expression='busy'] {
+    animation: assistant-avatar-think 600ms ease-in-out infinite alternate;
+  }
+
   .desktop[data-assistant='open'] .desktop-assistant,
   .assistant-settings[open] .assistant-presets {
     animation: desktop-pop-in 180ms var(--portfolio-ease) both;

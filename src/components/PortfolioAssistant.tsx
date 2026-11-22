@@ -60,18 +60,18 @@ export default function PortfolioAssistant({ lang, preview = false, challenge }:
     <aside
       className="desktop-assistant"
       id="desktop-assistant"
-      aria-labelledby="assistant-title"
+      aria-label={translate('desktop.assistant')}
       data-reading-mode={expanded ? 'expanded' : undefined}
     >
       <header className="assistant-header">
         <span className="assistant-badge">
-          <AssistantAvatar avatar={avatar} />
+          <AssistantAvatar avatar={avatar} expression={busy ? 'busy' : 'idle'} />
         </span>
         <div className="assistant-title">
           <p className="portfolio-kicker" title={mode}>
             {mode}
           </p>
-          <h2 id="assistant-title">{translate('desktop.assistant')}</h2>
+          <h2>{translate('desktop.assistantName')}</h2>
         </div>
         <Button
           variant="ghost"
@@ -139,7 +139,7 @@ export default function PortfolioAssistant({ lang, preview = false, challenge }:
             <Message key={id} align={role === 'user' ? 'end' : 'start'}>
               <MessageContent>
                 <span className="sr-only">
-                  {translate(role === 'user' ? 'desktop.assistantYou' : 'desktop.assistant')}
+                  {translate(role === 'user' ? 'desktop.assistantYou' : 'desktop.assistantName')}
                 </span>
                 <Bubble variant={role === 'user' ? 'muted' : 'outline'}>
                   <BubbleContent>

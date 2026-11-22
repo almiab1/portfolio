@@ -38,15 +38,8 @@
   transform: none;
 }
 .portfolio-monogram {
-  display: grid;
-  place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
-  border-radius: 0.4rem;
-  background: var(--foreground);
-  color: var(--background);
-  font-size: 0.75rem;
-  letter-spacing: -0.04em;
+  width: 2rem;
+  height: 2rem;
 }
 
 .portfolio-link,
@@ -477,7 +470,7 @@ project-catalog {
 }
 .catalogue-row {
   display: grid;
-  grid-template-columns: clamp(4.5rem, 10vw, 8rem) minmax(0, 2fr) minmax(0, 0.8fr) auto;
+  grid-template-columns: clamp(4.5rem, 10vw, 8rem) minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.5rem clamp(0.7rem, 2vw, 1.7rem);
   padding-block: 0.7rem;
@@ -499,6 +492,15 @@ project-catalog {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.project-visual-source {
+  background: #fff;
+}
+
+.project-visual-source > img {
+  object-fit: contain;
+  padding: 0.45rem;
 }
 
 .project-visual-category {
@@ -536,16 +538,19 @@ project-catalog {
   font-weight: 700;
   overflow-wrap: anywhere;
 }
-.catalogue-description > span:not(.portfolio-kicker),
-.catalogue-role {
+.catalogue-description > span:not(.portfolio-kicker) {
   color: var(--muted-foreground);
   font-size: 0.88rem;
   line-height: 1.4;
 }
 
-.catalogue-role {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.catalogue-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--primary);
+  font-size: 0.88rem;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -592,7 +597,7 @@ project-catalog {
   }
 
   .catalogue-row:hover .catalogue-arrow {
-    transform: translate(2px, -2px);
+    transform: translateX(2px);
   }
 }
 
@@ -622,14 +627,10 @@ project-catalog {
 }
 @media (max-width: 55rem) {
   .catalogue-row {
-    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
   }
-  .catalogue-role {
+  .catalogue-action {
     grid-column: 2;
-  }
-  .catalogue-arrow {
-    grid-column: 3;
-    grid-row: 1 / 3;
   }
   .catalogue-row .project-visual {
     grid-row: 1 / 3;
@@ -637,14 +638,11 @@ project-catalog {
 }
 @media (max-width: 43rem) {
   .catalogue-row {
-    grid-template-columns: 3.75rem minmax(0, 1fr) auto;
+    grid-template-columns: 3.75rem minmax(0, 1fr);
     align-items: start;
   }
   .catalogue-row .project-visual {
     aspect-ratio: 4 / 3;
-  }
-  .catalogue-arrow {
-    align-self: center;
   }
 }
 @media (max-width: 23rem) {
