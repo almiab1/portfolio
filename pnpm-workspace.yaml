@@ -1,5 +1,6 @@
 ignoredBuiltDependencies:
   - '@tsparticles/engine'
+  - core-js
   - esbuild
   - msw
   - sharp
