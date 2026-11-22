@@ -95,7 +95,7 @@ test('allows canonical pageviews and the actual CV edition with a synthetic corr
       request(
         '/e/',
         event('$pageview', {
-          $current_url: 'https://alejandromira.com/cv',
+          $current_url: 'https://www.alejandromira.com/cv',
           $pathname: '/cv',
         }),
       ),

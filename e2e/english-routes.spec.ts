@@ -3,7 +3,7 @@
 import { expect, test } from '@playwright/test';
 import { readdirSync } from 'node:fs';
 
-const SITE_URL = 'https://alejandromira.com';
+const SITE_URL = 'https://www.alejandromira.com';
 const projectSlugs = readdirSync('src/content/projects/en')
   .filter((filename) => filename.endsWith('.mdx'))
   .map((filename) => filename.slice(0, -4));
