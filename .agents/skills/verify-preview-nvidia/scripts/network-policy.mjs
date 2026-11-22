@@ -50,7 +50,10 @@ export function classifyPreviewRequest(
   const sameOrigin = url.origin === previewOrigin;
   const read = method === 'GET' || method === 'HEAD';
   const path = decoded(url.pathname);
-  if (sameOrigin && path.replace(/\/$/, '') === '/api/chat') return 'unbridged';
+  if (sameOrigin && path.replace(/\/$/, '') === '/api/chat' &&
+      !(method === 'GET' && url.href === previewOrigin + '/api/chat' && !body?.length)) {
+    return 'unbridged';
+  }
 
   if (sameOrigin && read && path === home) {
     if (
@@ -68,6 +71,7 @@ export function classifyPreviewRequest(
     read &&
     resourceType === 'script' &&
     ((sameOrigin && VERCEL_SCRIPT.test(path)) ||
+      (url.href === 'https://vercel.live/_next-live/feedback/feedback.js') ||
       (url.origin === 'https://va.vercel-scripts.com' && path === '/v1/script.debug.js'));
   const inspectedHeaders = Object.entries(headers)
     .filter(([name]) => !sameOrigin || !['cookie', 'referer'].includes(name))

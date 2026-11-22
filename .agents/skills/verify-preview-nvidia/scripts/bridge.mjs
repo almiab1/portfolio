@@ -81,6 +81,8 @@ export async function installPreviewBridge(context, { previewOrigin, port, onRep
     const pathname = new URL(request.url()).pathname;
 
     if (pathname === '/api/chat') {
+      // The deployed feature switch stays authoritative in the hybrid browser.
+      if (request.method() === 'GET') return route.fallback();
       if (chatForwarded || request.url() !== previewOrigin + '/api/chat' ||
           request.method() !== 'POST' || request.redirectedFrom()) {
         return route.abort();

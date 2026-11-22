@@ -3,6 +3,7 @@
 import { DefaultChatTransport } from 'ai';
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import { ASSISTANT_DISABLED } from '@/lib/assistant-flag';
 import { verifyAssistantChallenge } from '@/lib/assistant-challenge';
 import { prepareAssistantRequest } from '@/lib/assistant-request';
 import { createPortfolioTransport, type PortfolioMessage } from '@/lib/assistant-transport';
@@ -44,7 +45,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
     [lang, preview],
   );
   const chatId = useId();
-  const { messages, sendMessage, status, error } = useChat<PortfolioMessage>({
+  const { messages, sendMessage, status, error, stop } = useChat<PortfolioMessage>({
     id: `${chatId}-${preview ? 'remote' : 'demo'}`,
     transport,
     messages: [
@@ -75,6 +76,17 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
 
   useEffect(() => () => pendingChallenge.current?.abort(), []);
 
+  useEffect(() => {
+    const panel = log.current?.closest('.desktop-assistant');
+    const onDisabled = () => {
+      pendingChallenge.current?.abort();
+      setChecking(false);
+      void stop();
+    };
+    panel?.addEventListener(ASSISTANT_DISABLED, onDisabled);
+    return () => panel?.removeEventListener(ASSISTANT_DISABLED, onDisabled);
+  }, [stop]);
+
   function trackScroll() {
     const panel = log.current;
     if (panel?.clientHeight) {
@@ -92,9 +104,13 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
     window.dispatchEvent(new Event(AVATAR_KEY));
   }
 
+  function isDisabled() {
+    return Boolean(log.current?.closest('[data-assistant-island][inert]'));
+  }
+
   async function send(text: string, preset?: 'glio' | 'career' | 'cv') {
     const clean = text.trim();
-    if (!clean || busy || pendingChallenge.current) return;
+    if (!clean || busy || pendingChallenge.current || isDisabled()) return;
     followThread.current = true;
 
     let headers: Record<string, string> | undefined;
@@ -122,6 +138,7 @@ export function usePortfolioAssistant(lang: Language, preview: boolean, siteKey?
       }
     }
 
+    if (isDisabled()) return;
     setInput((current) => (current === input ? '' : current));
     void sendMessage({ text: clean }, { headers, body: preset ? { preset } : undefined });
   }

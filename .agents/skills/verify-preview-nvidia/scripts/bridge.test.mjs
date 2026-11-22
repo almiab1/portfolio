@@ -229,10 +229,17 @@ test('aborts the browser route when reply inspection rejects', async () => {
   assert.deepEqual(calls, [['abort']]);
 });
 
-test('aborts non-POST, redirected and query-bearing preview chat requests', async () => {
+test('lets the privacy gate inspect a deployed status read without consuming a model turn', async () => {
+  const { handle } = await setup();
+  const { route, calls } = makeRoute('/api/chat');
+  await handle(route);
+  assert.deepEqual(calls, [['fallback']]);
+});
+
+test('aborts unsupported methods, redirected and query-bearing preview chat writes', async () => {
   const { handle } = await setup();
   for (const [path, overrides] of [
-    ['/api/chat', {}],
+    ['/api/chat', { method: () => 'PUT' }],
     ['/api/chat', { method: () => 'POST', redirectedFrom: () => ({}) }],
     ['/api/chat?query', { method: () => 'POST' }],
   ]) {

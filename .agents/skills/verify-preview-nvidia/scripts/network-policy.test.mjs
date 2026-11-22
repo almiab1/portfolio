@@ -66,6 +66,16 @@ describe('preview request policy', () => {
     ).toBe('vercel-control');
   });
 
+  test('allows only the clean assistant visibility read and suppresses the Vercel feedback script', () => {
+    expect(classify('/api/chat')).toBe('preview-read');
+    for (const packet of [{ method: 'POST' }, { body: Buffer.from('test') }]) {
+      expect(classify('/api/chat', packet)).toBe('unbridged');
+    }
+    expect(classify('/api/chat?test=1')).toBe('unbridged');
+    expect(classify('/api/chat', { redirected: true })).toBe('blocked');
+    expect(classify('https://vercel.live/_next-live/feedback/feedback.js', { resourceType: 'script' })).toBe('vercel-control');
+  });
+
   test.each([
     ['/api/proxy/e/', {}],
     ['/_vercel/insights/script.js.copy', { resourceType: 'script' }],
