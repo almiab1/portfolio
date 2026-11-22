@@ -1,5 +1,6 @@
 // ABOUTME: Renders the persistent assistant panel with shadcn/ui chat components.
-// ABOUTME: Sends local demo questions and offers links to real portfolio apps.
+// ABOUTME: Supports demo and preview chat and links to portfolio apps.
+import { useSyncExternalStore } from 'react';
 import { ArrowUp, Maximize2, Minimize2, Minus, Palette } from 'lucide-react';
 import AssistantAvatar from '@/components/AssistantAvatar';
 import AssistantDestination from '@/components/AssistantDestination';
@@ -13,6 +14,7 @@ import { t, type Language } from '@/i18n/translations';
 interface Props {
   lang: Language;
   preview?: boolean;
+  challenge?: { siteKey: string; origin: string };
 }
 
 const AVATAR_LABELS = {
@@ -21,9 +23,20 @@ const AVATAR_LABELS = {
   pulse: 'desktop.avatarPulse',
 } as const;
 
-export default function PortfolioAssistant({ lang, preview = false }: Props) {
+function subscribeToOrigin() {
+  return () => {};
+}
+
+export default function PortfolioAssistant({ lang, preview = false, challenge }: Props) {
+  const origin = useSyncExternalStore(
+    subscribeToOrigin,
+    () => window.location.origin,
+    () => '',
+  );
+  const siteKey = challenge?.origin === origin ? challenge.siteKey : undefined;
+  const remote = preview || Boolean(siteKey);
   const translate = t(lang);
-  const mode = translate(preview ? 'desktop.assistantPreview' : 'desktop.assistantDemo');
+  const mode = translate(remote ? 'desktop.assistantPreview' : 'desktop.assistantDemo');
   const {
     messages,
     input,
@@ -31,13 +44,16 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
     send,
     busy,
     error,
+    checking,
+    challengeError,
+    widget,
     avatar,
     selectAvatar,
     log,
     trackScroll,
     expanded,
     toggleReadingMode,
-  } = usePortfolioAssistant(lang, preview);
+  } = usePortfolioAssistant(lang, remote, siteKey);
   const ReadingIcon = expanded ? Minimize2 : Maximize2;
 
   return (
@@ -135,8 +151,18 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
             </Message>
           );
         })}
-        {busy && <p role="status">{translate('desktop.assistantPending')}</p>}
-        {error && <p role="alert">{translate('desktop.assistantError')}</p>}
+        {busy && (
+          <p role="status">
+            {translate(checking ? 'desktop.assistantChecking' : 'desktop.assistantPending')}
+          </p>
+        )}
+        {(challengeError || error) && (
+          <p role="alert">
+            {translate(
+              challengeError ? 'desktop.assistantChallengeError' : 'desktop.assistantError',
+            )}
+          </p>
+        )}
       </div>
 
       <div className="assistant-suggestions">
@@ -153,33 +179,36 @@ export default function PortfolioAssistant({ lang, preview = false }: Props) {
           </Button>
         ))}
       </div>
-      <form
-        className="assistant-composer"
-        onSubmit={(event) => {
-          event.preventDefault();
-          send(input);
-        }}
-      >
-        <label className="sr-only" htmlFor="assistant-question">
-          {translate('desktop.assistantInput')}
-        </label>
-        <input
-          id="assistant-question"
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder={translate('desktop.assistantInput')}
-          maxLength={400}
-          autoComplete="off"
-        />
-        <Button
-          type="submit"
-          size="icon"
-          disabled={!input.trim() || busy}
-          aria-label={translate('desktop.assistantSend')}
+      <div>
+        {siteKey && <div ref={widget} className="px-3 empty:hidden" />}
+        <form
+          className="assistant-composer"
+          onSubmit={(event) => {
+            event.preventDefault();
+            send(input);
+          }}
         >
-          <ArrowUp aria-hidden="true" />
-        </Button>
-      </form>
+          <label className="sr-only" htmlFor="assistant-question">
+            {translate('desktop.assistantInput')}
+          </label>
+          <input
+            id="assistant-question"
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder={translate('desktop.assistantInput')}
+            maxLength={400}
+            autoComplete="off"
+          />
+          <Button
+            type="submit"
+            size="icon"
+            disabled={!input.trim() || busy}
+            aria-label={translate('desktop.assistantSend')}
+          >
+            <ArrowUp aria-hidden="true" />
+          </Button>
+        </form>
+      </div>
     </aside>
   );
 }

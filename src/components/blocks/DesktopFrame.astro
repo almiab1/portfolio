@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import DesktopLauncher from '@/components/blocks/DesktopLauncher.astro';
 import PortfolioAssistant from '@/components/PortfolioAssistant';
+import { getAssistantAvailability } from '@/lib/assistant-availability';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
 
@@ -23,9 +24,14 @@ interface Props {
 }
 
 const { lang, app } = Astro.props;
-const assistantPreview =
-  import.meta.env.PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW === '1' &&
-  process.env.VERCEL_ENV !== 'production';
+const { local: assistantPreview, challenge } = getAssistantAvailability({
+  previewOptIn: import.meta.env.PUBLIC_PORTFOLIO_ASSISTANT_PREVIEW === '1',
+  publicOptIn: process.env.PORTFOLIO_ASSISTANT_PUBLIC_LIVE === '1',
+  vercel: process.env.VERCEL === '1',
+  environment: process.env.VERCEL_ENV,
+  deployment: process.env.VERCEL_URL,
+  siteKey: import.meta.env.PUBLIC_PORTFOLIO_TURNSTILE_SITE_KEY,
+});
 const t = useTranslations(lang);
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 const apps = [
@@ -142,6 +148,7 @@ const contact = getLocalizedUrl('/contact', lang).replace(/\/$/, '');
       <PortfolioAssistant
         lang={lang}
         preview={assistantPreview}
+        challenge={challenge}
         client:load
         transition:persist={`portfolio-assistant-${lang}`}
       />

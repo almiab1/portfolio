@@ -87,7 +87,7 @@ class ChatRequest(BaseModel):
     messages: list[ChatMessage] = Field(min_length=1, max_length=MAX_HISTORY_MESSAGES)
 
 
-def validate_request_source(request: Request, hosted: bool) -> None:
+def validate_request_source(request: Request, hosted: bool, expected_host: str | None) -> None:
     media_type = request.headers.get("content-type", "").split(";", 1)[0].strip().lower()
     if media_type != "application/json":
         raise HTTPException(status_code=415, detail="Expected a JSON request")
@@ -95,18 +95,25 @@ def validate_request_source(request: Request, hosted: bool) -> None:
     if request.headers.get("sec-fetch-site") not in {None, "same-origin", "none"}:
         raise HTTPException(status_code=403, detail="Cross-origin request")
 
-    if origin := request.headers.get("origin"):
-        if not hosted and origin == os.environ.get(
+    origin = request.headers.get("origin")
+    if hosted:
+        host = request.url.netloc.lower()
+        allowed_host = host if expected_host is None else expected_host
+        if not allowed_host or host != allowed_host or origin != f"https://{allowed_host}":
+            raise HTTPException(status_code=403, detail="Cross-origin request")
+        return
+
+    if origin:
+        if origin == os.environ.get(
             "PORTFOLIO_ASSISTANT_LOCAL_ORIGIN", "http://127.0.0.1:4328"
         ):
             return
-        schemes = {"https"} if hosted else {"http", "https"}
         try:
             parsed = urlsplit(origin)
         except ValueError:
             raise HTTPException(status_code=403, detail="Cross-origin request") from None
         if (
-            parsed.scheme not in schemes
+            parsed.scheme not in {"http", "https"}
             or parsed.netloc.lower() != request.url.netloc.lower()
             or parsed.path or parsed.query or parsed.fragment
         ):

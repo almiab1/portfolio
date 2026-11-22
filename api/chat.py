@@ -1,4 +1,4 @@
-# ABOUTME: Streams the preview portfolio assistant in the Vercel AI SDK wire format.
+# ABOUTME: Streams the portfolio assistant in the Vercel AI SDK wire format.
 # ABOUTME: Restricts context to public facts and actions to known portfolio destinations.
 import json
 import os
@@ -22,6 +22,8 @@ from pydantic_ai.ui.vercel_ai import VercelAIAdapter
 from pydantic_ai.ui.vercel_ai.response_types import DataChunk
 from pydantic_ai.usage import UsageLimits
 
+from server.assistant_budget import reserve_inference_budget
+from server.assistant_challenge import CHALLENGE_HEADER, verify_challenge
 from server.assistant_security import (
     MAX_REQUEST_BYTES,
     POLICY_MARKER,
@@ -36,6 +38,7 @@ from server.assistant_security import (
     validate_request_source,
 )
 
+PUBLIC_ASSISTANT_HOST = "www.alejandromira.com"
 MODEL_NAME = "nvidia/nemotron-3.5-lightning-30b-a3b"
 NVIDIA_API_URL = "https://integrate.api.nvidia.com/v1"
 GLIO_TOPIC = re.compile(
@@ -204,19 +207,35 @@ async def chat(request: Request):
     mode = os.environ.get("PORTFOLIO_ASSISTANT_MODE")
     environment = os.environ.get("VERCEL_ENV")
     hosted = os.environ.get("VERCEL") == "1" or environment is not None
-    if (hosted and environment != "preview") or mode not in {"fixture", "live"}:
+    live = mode == "live"
+    public_live = (
+        environment == "production"
+        and live
+        and os.environ.get("PORTFOLIO_ASSISTANT_PUBLIC_LIVE") == "1"
+    )
+    if (hosted and environment != "preview" and not public_live) or mode not in {"fixture", "live"}:
         raise HTTPException(status_code=404)
 
-    validate_request_source(request, hosted)
+    expected_host = None
+    if live:
+        limiter.check(request_client(request, hosted))
+        if hosted:
+            expected_host = (
+                PUBLIC_ASSISTANT_HOST if public_live else os.environ.get("VERCEL_URL", "").lower()
+            )
+            if not expected_host:
+                raise HTTPException(status_code=403, detail="Cross-origin request")
+
+    validate_request_source(request, hosted, expected_host)
     key = os.environ.get("NVIDIA_API_KEY")
-    if mode == "live" and not key:
+    if live and not key:
         raise HTTPException(status_code=503, detail="Assistant provider is unavailable")
 
     body = bytearray()
     async for chunk in request.stream():
-        body.extend(chunk)
-        if len(body) > MAX_REQUEST_BYTES:
+        if len(body) + len(chunk) > MAX_REQUEST_BYTES:
             raise HTTPException(status_code=413, detail="Chat request is too large")
+        body.extend(chunk)
 
     try:
         payload = ChatRequest.model_validate_json(bytes(body))
@@ -227,6 +246,9 @@ async def chat(request: Request):
     question = last.parts[0].text.strip()
     if last.role != "user" or not question:
         raise HTTPException(status_code=400, detail="A question is required")
+
+    if expected_host:
+        await verify_challenge(request.headers.get(CHALLENGE_HEADER), expected_host)
 
     lang = payload.lang
     refusal = fixture_replies()[lang]["desktop.replyRestricted"]
@@ -239,7 +261,7 @@ async def chat(request: Request):
     prompt = question
     if restricted:
         prompt = "Restricted request"
-    elif mode == "live":
+    elif live:
         prompt = json.dumps({"question": question, "history": history}, ensure_ascii=False)
     # Rebuild one user turn so client-supplied history cannot create privileged message roles.
     last.parts[0].text = prompt
@@ -251,8 +273,8 @@ async def chat(request: Request):
         response.headers.update({"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
         return response
 
-    if mode == "live":
-        limiter.check(request_client(request, hosted))
+    if expected_host:
+        await reserve_inference_budget(request_client(request, hosted))
 
     model = fixture_model(lang) if mode == "fixture" else OpenAIChatModel(
         MODEL_NAME,
