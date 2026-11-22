@@ -37,7 +37,7 @@ const pdf = (folder: string) => `/cv/${folder}/CV_MiraAbad_Alejandro.pdf`;
     </header>
     <div class="desktop-cv-downloads">
       {editions.map((edition) => (
-        <a class="portfolio-link" href={pdf(edition.folder)} download>
+        <a class="portfolio-link" href={pdf(edition.folder)} download data-cv-edition={edition.code}>
           <Download size={18} aria-hidden="true" /> {edition.download}
         </a>
       ))}

@@ -70,7 +70,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
           <label class="catalogue-field catalogue-type" title={t('work.typeLabel')}>
             <span class="sr-only">{t('work.typeLabel')}</span>
             <SlidersHorizontal size={17} aria-hidden="true" />
-            <select name="type" disabled>
+            <select name="type" data-project-type-filter disabled>
               <option value="">{t('work.allTypes')}</option>
               {types.map(({ type, label }) => (
                 <option value={type}>{label}</option>
@@ -86,6 +86,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
             class="catalogue-clear"
             type="button"
             data-clear
+            data-clear-project-type
             aria-label={t('work.clearFilters')}
             title={t('work.clearFilters')}
             hidden
@@ -114,7 +115,15 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
                 tags: [...data.tags, ...data.tech, data.role ?? '', label],
               })}
             >
-              <a class="catalogue-row" href={href} data-case-path={href}>
+              <a
+                class="catalogue-row"
+                href={href}
+                data-case-path={href}
+                data-project-card
+                data-project-slug={slug}
+                data-project-type={data.type}
+                data-project-featured={String(data.featured)}
+              >
                 <ProjectVisual project={project} />
                 <span class="catalogue-description">
                   <span class="portfolio-kicker">
@@ -143,7 +152,13 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
               data-type="web"
               data-search={JSON.stringify(personalProject)}
             >
-              <a class="personal-card card" href="https://github.com/almiab1/HealthDashboard">
+              <a
+                class="personal-card card"
+                href="https://github.com/almiab1/HealthDashboard"
+                data-project-link
+                data-project-slug={personalProject.id}
+                data-link-type="repository"
+              >
                 <div class="personal-image">
                   <img
                     src={healthArt}
@@ -176,7 +191,10 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
             <ul class="distribution-bars" role="list">
               {projectTypes.map(({ type, count, label }) => (
                 <li data-project-type={type}>
-                  <a href={workUrl + catalogSearch({ query: '', type })}>
+                  <a
+                    href={workUrl + catalogSearch({ query: '', type })}
+                    data-project-type-shortcut={type}
+                  >
                     <span class="distribution-label">{label}</span>
                     <span class="distribution-track" aria-hidden="true">
                       <span style={`--bar-size: ${(count / maxProjectCount) * 100}%`}></span>
@@ -186,7 +204,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
                 </li>
               ))}
             </ul>
-            <a class="portfolio-link" href={workUrl}>
+            <a class="portfolio-link" href={workUrl} data-clear-project-type>
               {t('work.viewAll')} <ArrowUpRight size={17} aria-hidden="true" />
             </a>
           </section>
