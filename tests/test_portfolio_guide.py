@@ -204,7 +204,38 @@ def test_profile_topics_use_their_published_evidence(lang, question, destination
     )
 
 
-def test_case_study_does_not_route_to_education():
-    turn = prepare_turn("Tell me about the GLIO-IA case study", "en", ())
+@pytest.mark.parametrize(("lang", "question"), [
+    ("en", "Tell me about the GLIO-IA case study"),
+    ("es", "Hablemos del caso de estudio GLIO-IA"),
+    ("es", "Uno de los estudios de caso es GLIO-IA"),
+])
+def test_case_study_does_not_route_to_education(lang, question):
+    turn = prepare_turn(question, lang, ())
     assert turn.destination == "glio"
     assert all(not item.source.startswith("education/") for skill in turn.skills for item in skill.evidence)
+
+
+@pytest.mark.parametrize(("lang", "question"), [
+    ("es", "¿Dónde estudió Alex?"),
+    ("en", "Where did Alex study?"),
+])
+def test_study_location_questions_supply_both_universities(lang, question):
+    turn = prepare_turn(question, lang, ())
+    evidence = turn.skills[0].evidence[0].content
+    assert "Universitat Politècnica de València" in evidence
+    assert "Universidad Internacional Menéndez Pelayo" in evidence
+
+
+@pytest.mark.parametrize(("lang", "question"), [
+    ("es", "Muéstrame un estudio de caso"),
+    ("es", "Muéstrame estudios de caso"),
+    ("es", "Muéstrame casos de estudio"),
+    ("en", "Show me case studies"),
+])
+def test_generic_case_studies_use_project_evidence(lang, question):
+    turn = prepare_turn(question, lang, ())
+    assert turn.destination == "work"
+    assert [skill.name for skill in turn.skills] == ["project-facts"]
+    assert turn.skills[0].evidence
+    for item in turn.skills[0].evidence:
+        assert catalog()[lang]["entries"][item.source.split("/")[0]]["kind"] == "project"

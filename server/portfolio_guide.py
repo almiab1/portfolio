@@ -37,7 +37,7 @@ TOPICS = {
     "cv": r"\b(cv|curriculum|resume|resumé)\b",
     "experience": r"\b(gurusup|convotis|aiju|trayectoria|career|empleo|employment|experiencia profesional|professional experience|donde (?:ha )?trabaj\w*|where (?:has|did).+ work)\b",
     "skills": r"\b(habilidad\w*|skills?|capacidad\w*|capabilit\w*|technologies|tecnologias)\b",
-    "education": r"\b(formacion|education|degree\w*|estudio\w*|estudi\w*|(?:what|where) did (?:he|alex|alejandro) study)\b",
+    "education": r"\b(formacion|education|degrees?|universidad(?:es)?|universit(?:y|ies)|estudi\w*|(?:what|where) did (?:he|you|alex|alejandro) study)\b",
     "profile": r"\b(perfil|profile|quien es|who is|what does .+ do|a que se dedica)\b",
 }
 WORK = re.compile(r"\b(proyecto\w*|project\w*|caso\w*|case stud\w*|portfolio|catalog\w*)\b")
@@ -226,7 +226,7 @@ def prepare_turn(
 ) -> PreparedTurn:
     locale = catalog()[lang]
     entries = locale["entries"]
-    query = normalize(question)
+    query = re.sub(r"\b(?:casos? de estudio|estudios? de caso)\b", "proyectos", normalize(question))
     for name, item in locale["presets"].items():
         if name == preset or query == normalize(item["question"]):
             return PreparedTurn(question, direct_reply=item["reply"], destination={

@@ -40,6 +40,7 @@ describe('assistant catalog privacy', () => {
     fixture('src/i18n/profile-content.json', '{"es":{},"en":{}}');
     fixture('src/i18n/assistant-replies.json', '{"es":{},"en":{}}');
     fixture('src/data/portfolio-jobs.json', '[]');
+    fixture('src/data/portfolio-schools.json', '{}');
   });
 
   afterEach(() => {

@@ -9,7 +9,7 @@
     "desktop.replyFallback": "Esta demo responde sobre el perfil de Alex, sus proyectos, su trayectoria y su CV. Puedes empezar por el catálogo.",
     "desktop.replyContact": "En Contacto puedes escribir a Alex por correo o encontrar sus perfiles de LinkedIn y GitHub.",
     "desktop.replyRestricted": "Puedo ayudarte con información pública del portfolio. Pregúntame por los proyectos, la trayectoria o las habilidades de Alex.",
-    "desktop.replyEducation": "Alex estudió Ingeniería de Tecnologías Interactivas y un máster en Investigación en Inteligencia Artificial. En Trayectoria encontrarás su formación."
+    "desktop.replyEducation": "Alex cursó el Grado en Ingeniería de Tecnologías Interactivas en la Universitat Politècnica de València y el Máster en Investigación en Inteligencia Artificial en la Universidad Internacional Menéndez Pelayo. Puedes ver ambos programas en Trayectoria."
   },
   "en": {
     "desktop.replySkills": "Alex builds multi-agent systems at GuruSup. He designs the context and tools available to agents and works with MCP. The Capabilities page also shows his approach to product design in HealthDashboard and his work with PyTorch in GLIO-IA.",
@@ -21,6 +21,6 @@
     "desktop.replyFallback": "This demo answers questions about Alex’s profile, projects, experience and résumé. The catalogue is a good place to start.",
     "desktop.replyContact": "In Contact you can email Alex or find his LinkedIn and GitHub profiles.",
     "desktop.replyRestricted": "I can help with public information from the portfolio. Ask me about Alex’s projects, experience or skills.",
-    "desktop.replyEducation": "Alex studied Interactive Technologies Engineering and a master’s in Artificial Intelligence Research. Experience includes his education."
+    "desktop.replyEducation": "Alex earned his degree in Interactive Technologies Engineering at Universitat Politècnica de València and his master’s in Artificial Intelligence Research at Universidad Internacional Menéndez Pelayo. Experience links to both programmes."
   }
 }
