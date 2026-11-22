@@ -306,15 +306,15 @@
         "sections": {
           "overview": {
             "title": "Resumen",
-            "text": "Videojuego 3D de puzzles y exploración en Unity con todos los assets 3D modelados desde cero en 3D Studio Max.\n\nJuego de exploración y puzzles desarrollado en **Unity** con modelado 3D completo creado desde cero en **3D Studio Max**, abarcando programación, game design y arte 3D."
+            "text": "Videojuego académico de exploración y puzles en 3D desarrollado en equipo con Unity.\n\nLost Scout es un videojuego académico de estética *low poly* y cámara libre. El objetivo es llegar al campamento resolviendo los puzles de cada nivel con elementos del entorno como troncos, cuerdas, escaleras, placas de presión y palancas."
           },
           "duration": {
             "title": "Duración",
-            "text": "4 meses"
+            "text": "enero–junio de 2019"
           },
           "role": {
             "title": "Rol",
-            "text": "Desarrollador de Juegos y Artista 3D"
+            "text": "Desarrollador de jugabilidad e interfaces en Unity"
           },
           "stack": {
             "title": "Tecnologías",
@@ -322,28 +322,20 @@
           },
           "date": {
             "title": "Fecha",
-            "text": "2019-12-01"
+            "text": "2019-06-22"
           },
-          "challenge": {
-            "title": "El Desafío",
-            "text": "Diseñar e implementar un videojuego completo como proyecto individual, cubriendo tanto la programación de mecánicas y sistemas como la creación artística de todos los assets 3D, niveles y ambientación. El reto incluía lograr una experiencia cohesiva que integrara exploración libre con puzzles lógicos progresivos."
+          "section-mi-rol": {
+            "title": "Mi rol",
+            "text": "Desarrollé el menú de opciones y lo integré en el menú de pausa. También implementé la ventana de créditos y trabajé en la animación de la isla y en la iluminación de la palanca del puzle."
           },
-          "contribution": {
-            "title": "Mi Rol",
-            "text": "Como **desarrollador y artista 3D**, creé el proyecto completo de forma individual:\n\n- Programé las mecánicas de juego, sistemas de interacción y lógica de puzzles en C#\n- Modelé todos los assets 3D desde cero en 3D Studio Max (entornos, props, escenarios)\n- Diseñé los niveles con progresión de desafíos y narrativa ambiental\n- Implementé el sistema de iluminación dinámica con post-procesado\n- Desarrollé el motor de física personalizado y sistema de checkpoint"
-          },
-          "approach": {
-            "title": "Enfoque Técnico",
-            "text": "**Desarrollo en Unity:**\n\n- **C#** para mecánicas de juego, interacción con objetos y lógica de puzzles\n- Motor de física personalizado para interacciones específicas del gameplay\n- Sistema de checkpoint y guardado de progreso\n- Iluminación dinámica con post-procesado para ambientación\n\n**Creación de assets 3D:**\n\n- Modelos de entorno y escenarios completos creados en **3D Studio Max**\n- Props interactivos optimizados para rendimiento\n- Sistema de iluminación y ambientación integrado con los modelos\n- Optimización de polígonos para balance entre calidad visual y rendimiento\n\n**Game Design:**\n\n- Sistema de puzzles lógicos variados con dificultad progresiva\n- Exploración de entornos amplios con secretos ocultos\n- Interacción con objetos mediante sistema de física\n- Narrativa ambiental contada a través del escenario y los objetos"
-          },
-          "outcome": {
-            "title": "Resultado",
-            "text": "Proyecto completo que integra programación, game design y arte 3D desde concepto hasta producto final, demostrando capacidad para abarcar todas las disciplinas del desarrollo de videojuegos."
+          "section-enfoque-tecnico": {
+            "title": "Enfoque técnico",
+            "text": "El equipo desarrolló el juego en **Unity** con **C#** y utilizó **3D Studio Max** para el modelado. Los puzles combinan exploración e interacción con el escenario para abrir el camino hacia el campamento."
           }
         }
       },
       "multimedia-arvr": {
-        "title": "Experiencia Multimedia AR/VR",
+        "title": "Senet · Experiencia Multimedia AR/VR",
         "url": "/work/multimedia-arvr",
         "kind": "project",
         "tags": [
@@ -1027,15 +1019,15 @@
         "sections": {
           "overview": {
             "title": "Overview",
-            "text": "3D puzzle and exploration video game in Unity with all 3D assets modeled from scratch in 3D Studio Max.\n\nExploration and puzzle game developed in **Unity** with complete 3D modeling created from scratch in **3D Studio Max**, encompassing programming, game design, and 3D art."
+            "text": "Academic 3D puzzle and exploration game developed as a team in Unity.\n\nLost Scout is an academic game with low-poly visuals and a free camera. The goal is to reach camp by solving puzzles in each level using objects in the environment, including logs, ropes, ladders, pressure plates, and levers."
           },
           "duration": {
             "title": "Duration",
-            "text": "4 months"
+            "text": "January–June 2019"
           },
           "role": {
             "title": "Role",
-            "text": "Game Developer and 3D Artist"
+            "text": "Unity gameplay and UI developer"
           },
           "stack": {
             "title": "Technologies",
@@ -1043,28 +1035,20 @@
           },
           "date": {
             "title": "Date",
-            "text": "2019-12-01"
+            "text": "2019-06-22"
           },
-          "challenge": {
-            "title": "The Challenge",
-            "text": "Designing and implementing a complete video game as an individual project, covering both mechanics programming and systems as well as the artistic creation of all 3D assets, levels, and ambiance. The challenge included achieving a cohesive experience that integrated free exploration with progressive logical puzzles."
+          "section-my-role": {
+            "title": "My role",
+            "text": "I built the options menu and integrated it into the pause menu. I also implemented the credits window and worked on the island animation and the lighting for the puzzle lever."
           },
-          "contribution": {
-            "title": "My Role",
-            "text": "As **game developer and 3D artist**, I created the entire project individually:\n\n- Programmed game mechanics, interaction systems, and puzzle logic in C#\n- Modeled all 3D assets from scratch in 3D Studio Max (environments, props, scenarios)\n- Designed levels with progressive challenges and environmental storytelling\n- Implemented dynamic lighting system with post-processing\n- Developed custom physics engine and checkpoint system"
-          },
-          "approach": {
-            "title": "Technical Approach",
-            "text": "**Unity development:**\n\n- **C#** for game mechanics, object interaction, and puzzle logic\n- Custom physics engine for gameplay-specific interactions\n- Checkpoint and progress saving system\n- Dynamic lighting with post-processing for ambiance\n\n**3D asset creation:**\n\n- Complete environment and scenario models created in **3D Studio Max**\n- Optimized interactive props for performance\n- Lighting and ambiance system integrated with models\n- Polygon optimization for balance between visual quality and performance\n\n**Game design:**\n\n- Varied logical puzzle system with progressive difficulty\n- Wide environment exploration with hidden secrets\n- Physics-based object interaction\n- Environmental storytelling through scenery and objects"
-          },
-          "outcome": {
-            "title": "Outcome",
-            "text": "Complete project integrating programming, game design, and 3D art from concept to final product, demonstrating the ability to cover all video game development disciplines."
+          "section-technical-approach": {
+            "title": "Technical approach",
+            "text": "The team built the game in **Unity** with **C#** and used **3D Studio Max** for modeling. The puzzles combine exploration with interactions that open the way to camp."
           }
         }
       },
       "multimedia-arvr": {
-        "title": "Multimedia AR/VR Experience",
+        "title": "Senet · Multimedia AR/VR Experience",
         "url": "/en/work/multimedia-arvr",
         "kind": "project",
         "tags": [

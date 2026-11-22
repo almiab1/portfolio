@@ -12,7 +12,6 @@ DURATIONS = {
     "crop-monitoring": 6,
     "dlt4aitoys": 10,
     "glio-ia": 24,
-    "lost-scout": 4,
     "multimedia-arvr": 3,
     "neuroevolutionary-ai": 6,
     "simdat-4-0": 18,
@@ -30,6 +29,16 @@ def test_reads_exact_published_duration_in_each_language(lang, project, months):
     duration = f"{months} meses" if lang == "es" else f"{months} months"
     assert duration in turn.direct_reply
     assert not turn.skills
+    assert not turn.tools
+
+
+@pytest.mark.parametrize(("lang", "question", "date_range"), [
+    ("es", "¿Cuánto duró Lost Scout?", "enero–junio de 2019"),
+    ("en", "How long did Lost Scout last?", "January–June 2019"),
+])
+def test_lost_scout_duration_uses_the_documented_date_range(lang, question, date_range):
+    turn = prepare_turn(question, lang, ())
+    assert date_range in turn.direct_reply
     assert not turn.tools
 
 

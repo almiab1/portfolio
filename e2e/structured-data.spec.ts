@@ -5,8 +5,10 @@ import { test, expect } from '@playwright/test';
 const PAGES = [
   { path: '/', types: ['Person', 'WebSite'] },
   { path: '/en', types: ['Person', 'WebSite'] },
-  { path: '/work/cookobot', types: ['CreativeWork'] },
-  { path: '/en/work/cookobot', types: ['CreativeWork'] },
+  { path: '/work/cookobot', types: ['SoftwareSourceCode'] },
+  { path: '/en/work/cookobot', types: ['SoftwareSourceCode'] },
+  { path: '/work/wotics', types: ['CreativeWork'] },
+  { path: '/en/work/wotics', types: ['CreativeWork'] },
 ];
 
 for (const { path, types } of PAGES) {

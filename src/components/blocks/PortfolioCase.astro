@@ -33,6 +33,7 @@ const links = [
   app={data.title}
   title={`${data.title} — ${t('work.caseStudy')}`}
   description={data.summary}
+  cover={data.cover}
 >
   <script
     type="application/ld+json"
@@ -45,7 +46,7 @@ const links = [
         repo: data.links?.repo,
         technologies: data.tech,
         keywords: data.tags,
-        image: data.cover?.src,
+        image: data.cover.src ? new URL(data.cover.src, Astro.site).href : undefined,
       }),
     )}
   />

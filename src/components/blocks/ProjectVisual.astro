@@ -12,37 +12,12 @@ import {
   Server,
   Smartphone,
 } from 'lucide-react';
-import passportArt from '@/assets/projects/aipassportguardnet.svg?url';
-import dltArt from '@/assets/projects/dlt4aitoys.svg?url';
-import arvrArt from '@/assets/projects/multimedia-arvr.svg?url';
-import simdatArt from '@/assets/projects/simdat-4-0.svg?url';
-import scaleArt from '@/assets/projects/smart-scale.svg?url';
-import woticsArt from '@/assets/projects/wotics.svg?url';
-import cookobotArt from '@/assets/projects/cookobot.svg?url';
-import cropArt from '@/assets/projects/ipollution-logo.svg?url';
-import glioArt from '@/assets/projects/glio-ia.svg?url';
-import scoutArt from '@/assets/projects/lost-scout.svg?url';
-import neuroArt from '@/assets/projects/neuroevolution-training.jpg?url';
-
 interface Props {
   project: CollectionEntry<'projects'>;
   variant?: 'cover' | 'thumbnail';
 }
 
 const { project, variant = 'thumbnail' } = Astro.props;
-const ILLUSTRATIONS: Record<string, string> = {
-  aipassportguardnet: passportArt,
-  dlt4aitoys: dltArt,
-  'multimedia-arvr': arvrArt,
-  'simdat-4-0': simdatArt,
-  'smart-scale': scaleArt,
-  wotics: woticsArt,
-  cookobot: cookobotArt,
-  'crop-monitoring': cropArt,
-  'glio-ia': glioArt,
-  'lost-scout': scoutArt,
-  'neuroevolutionary-ai': neuroArt,
-};
 const TYPE_ICONS = {
   ai: BrainCircuit,
   api: Server,
@@ -54,21 +29,16 @@ const TYPE_ICONS = {
   web: Globe,
 };
 const { translationKey, type } = project.data;
-const art = translationKey ? ILLUSTRATIONS[translationKey] : undefined;
+const art = project.data.cover.src;
 const Icon = TYPE_ICONS[type];
 const isCover = variant === 'cover';
-const isSourceImage =
-  translationKey === 'crop-monitoring' || translationKey === 'neuroevolutionary-ai';
 ---
 
 <span
-  class:list={[
-    'project-visual',
-    { 'project-visual-category': !art, 'project-visual-source': isSourceImage },
-  ]}
-  data-visual-kind={art ? 'illustration' : 'category'}
+  class:list={['project-visual', { 'project-visual-category': !art, 'project-visual-source': art }]}
+  data-visual-kind={art ? 'image' : 'category'}
   data-project-type={type}
-  data-visual-source={isSourceImage ? translationKey : undefined}
+  data-visual-source={art ? translationKey : undefined}
   aria-hidden="true"
 >
   {art ? (
