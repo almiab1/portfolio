@@ -9,7 +9,7 @@ for (const locale of [
     ask: '¿Qué ha hecho en IA médica?',
     caseLink: 'Leer el caso GLIO-IA',
     back: 'Volver a proyectos',
-    close: 'Cerrar pestaña activa',
+    close: 'Cerrar pestaña GLIO-IA',
   },
   {
     prefix: '/en',
@@ -17,7 +17,7 @@ for (const locale of [
     ask: 'What has Alex built in medical AI?',
     caseLink: 'Read the GLIO-IA case study',
     back: 'Back to projects',
-    close: 'Close active tab',
+    close: 'Close GLIO-IA tab',
   },
 ]) {
   test(`returns from an assistant case to the same filtered catalogue in ${locale.prefix || 'es'}`, async ({
