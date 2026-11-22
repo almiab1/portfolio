@@ -38,6 +38,7 @@
 }
 
 .profile-card h1 {
+  overflow-wrap: anywhere;
   margin-block: 0.4rem 0.8rem;
   font-size: clamp(2.2rem, 6.1cqw, 5rem);
   font-weight: 760;
@@ -179,6 +180,16 @@
   width: 100%;
   max-height: 13rem;
   object-fit: cover;
+}
+
+@container (max-width: 12rem) {
+  .profile-card-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .profile-card-footer {
+    flex-wrap: wrap;
+  }
 }
 
 @container (min-width: 36rem) {

@@ -276,7 +276,7 @@ const yearFormat = new Intl.DateTimeFormat(lang, { year: 'numeric', timeZone: 'U
         const size = visibleIds.size;
         const resultText = `${size} ${size === 1 ? count.dataset.one : count.dataset.many}`;
         if (count.textContent?.trim() !== resultText) count.textContent = resultText;
-        clear.hidden = !filters.query && !filters.type;
+        clear.hidden = !filtering;
         empty.hidden = size > 0;
 
         if (updateUrl) {

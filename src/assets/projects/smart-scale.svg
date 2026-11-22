@@ -1,7 +1,0 @@
-<!-- ABOUTME: Illustrates a connected scale and measurement history. -->
-<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
-  <rect width="640" height="360" fill="#ead6c2"/>
-  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
-  <rect x="96" y="123" width="225" height="151" rx="29" fill="#f7ebd9" stroke="#713e2d" stroke-width="5"/><rect x="156" y="147" width="105" height="45" rx="8" fill="#304b40"/><path d="M178 169h14m14 0h14m14 0h7" stroke="#c4d6a5" stroke-width="5" stroke-linecap="round"/><rect x="413" y="62" width="126" height="236" rx="20" fill="#304b40"/><rect x="424" y="82" width="104" height="183" rx="5" fill="#f7ebd9"/><path d="M439 228l21-35 18 12 22-52 17 17" fill="none" stroke="#c07555" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="476" cy="282" r="5" fill="#c4d6a5"/><path d="M336 172q24-24 48 0m-39 11q15-15 30 0" fill="none" stroke="#713e2d" stroke-width="4" stroke-linecap="round"/>
-</svg>

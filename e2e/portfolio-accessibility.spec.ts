@@ -149,3 +149,71 @@ test('loads Inter for both languages and fits the main routes at 320 pixels', as
   });
   expect(italicLoaded).toBe(true);
 });
+
+test('keeps portfolio content and workspace controls usable at 200% text size', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+
+  const routes = [
+    '/',
+    '/en/',
+    '/contact',
+    '/en/contact',
+    '/experience',
+    '/en/experience',
+    '/skills',
+    '/en/skills',
+    '/work',
+    '/en/work',
+    '/work/neuroevolutionary-ai',
+    '/en/work/neuroevolutionary-ai',
+  ];
+
+  for (const route of routes) {
+    await page.goto(route);
+    await page.addStyleTag({ content: 'html { font-size: 200%; }' });
+    await page.evaluate(() => document.fonts.ready);
+    if (route.endsWith('/contact')) await expect(page.locator('.contact-form')).toBeVisible();
+
+    const overflow = await page.evaluate(() => {
+      const viewportWidth = document.documentElement.clientWidth;
+      const selectors = [
+        '.desktop-menu-actions',
+        '.desktop-window',
+        '.desktop-dock > a',
+        '.desktop-dock > button',
+        '.desktop-dock > details',
+        'main h1',
+        '.profile-card-body',
+        '.desktop-timeline .employer-link',
+        '.capability',
+        '.personal-card',
+        '.catalogue-controls',
+        '.contact-grid',
+        '.contact-form',
+        '.contact-form label',
+        '.contact-form input',
+        '.contact-form textarea',
+        '.contact-form button',
+        '[data-desktop-content]',
+      ];
+      return [...document.querySelectorAll<HTMLElement>(selectors.join(', '))]
+        .filter((element) => element.getClientRects().length > 0)
+        .filter((element) => {
+          const { left, right } = element.getBoundingClientRect();
+          return left < 0 || right > viewportWidth || element.scrollWidth > element.clientWidth + 1;
+        })
+        .map((element) => element.className);
+    });
+    expect(overflow, route).toEqual([]);
+
+    const more = page.locator('.desktop-more');
+    await more.locator('summary').press('Enter');
+    const capabilities = more.getByRole('link', {
+      name: route.startsWith('/en') ? 'Capabilities' : 'Capacidades',
+      exact: true,
+    });
+    await expect(capabilities).toBeInViewport();
+  }
+});
