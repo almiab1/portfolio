@@ -3,6 +3,7 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, expect, test, vi } from 'vitest';
+import { ASSISTANT_DISABLED } from '@/lib/assistant-flag';
 import PortfolioAssistant from './PortfolioAssistant';
 
 interface WidgetCallbacks {
@@ -119,4 +120,65 @@ test('an alias runs the static demo without contacting Turnstile or the preview 
 
   expect(widget.render).not.toHaveBeenCalled();
   expect(fetch).not.toHaveBeenCalled();
+});
+
+test('cancels active verification and blocks submissions when the flag is disabled', async () => {
+  const widget = stubTurnstile();
+  const fetch = vi.fn();
+  vi.stubGlobal('fetch', fetch);
+  const { container } = render(
+    <div data-assistant-island>
+      <PortfolioAssistant lang="en" challenge={{ siteKey: 'site-key', origin: location.origin }} />
+    </div>,
+  );
+  const island = container.querySelector('[data-assistant-island]')!;
+  const panel = island.querySelector('.desktop-assistant')!;
+  fireEvent.change(getQuestion(), { target: { value: 'What did Alex build?' } });
+  fireEvent.click(getSend());
+  await waitFor(() => expect(widget.render).toHaveBeenCalledOnce());
+
+  await act(async () => {
+    island.setAttribute('inert', '');
+    panel.dispatchEvent(new Event(ASSISTANT_DISABLED));
+    widget.render.mock.calls[0][1].callback('unused-token');
+  });
+
+  expect(widget.remove).toHaveBeenCalledOnce();
+  expect(screen.queryByRole('status')).toBeNull();
+  expect(getQuestion()).toHaveValue('What did Alex build?');
+  fireEvent.click(getSend());
+  expect(widget.render).toHaveBeenCalledOnce();
+  expect(fetch).not.toHaveBeenCalled();
+});
+
+test('stops an in-progress preview request when the flag is disabled', async () => {
+  const fetch = vi.fn<typeof globalThis.fetch>().mockImplementation(
+    (_url, request) =>
+      new Promise((_resolve, reject) => {
+        request?.signal?.addEventListener('abort', () => reject(request.signal?.reason));
+      }),
+  );
+  vi.stubGlobal('fetch', fetch);
+  const { container } = render(
+    <div data-assistant-island>
+      <PortfolioAssistant lang="en" preview />
+    </div>,
+  );
+  const island = container.querySelector('[data-assistant-island]')!;
+  const panel = island.querySelector('.desktop-assistant')!;
+  fireEvent.change(getQuestion(), { target: { value: 'What did Alex build?' } });
+  fireEvent.click(getSend());
+  await waitFor(() =>
+    expect(fetch).toHaveBeenCalledExactlyOnceWith('/api/chat', expect.anything()),
+  );
+  const signal = fetch.mock.calls[0][1]?.signal;
+  expect(signal?.aborted).toBe(false);
+
+  await act(async () => {
+    island.setAttribute('inert', '');
+    panel.dispatchEvent(new Event(ASSISTANT_DISABLED));
+  });
+
+  expect(signal?.aborted).toBe(true);
+  await waitFor(() => expect(screen.queryByRole('status')).toBeNull());
 });

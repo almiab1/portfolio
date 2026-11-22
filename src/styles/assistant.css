@@ -302,6 +302,11 @@
   container: assistant / inline-size;
 }
 
+.desktop-dock > [data-assistant-toggle][hidden],
+.desktop-assistant-island[hidden] {
+  display: none;
+}
+
 @container assistant (max-width: 19rem) {
   .assistant-header {
     gap: 0.25rem;
@@ -314,11 +319,13 @@
 }
 
 @media (min-width: 49.001rem) {
-  .desktop:not([data-assistant='minimized']) .desktop-workspace {
+  .desktop:not([data-assistant='minimized'], [data-assistant='disabled']) .desktop-workspace {
     grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr) clamp(17.25rem, 21.5vw, 22rem);
   }
 
-  .desktop:not([data-assistant='minimized']):has(.desktop-assistant[data-reading-mode='expanded'])
+  .desktop:not([data-assistant='minimized'], [data-assistant='disabled']):has(
+      .desktop-assistant[data-reading-mode='expanded']
+    )
     .desktop-workspace {
     grid-template-columns: var(--desktop-dock-width) minmax(0, 1fr) clamp(20rem, 36vw, 34rem);
   }

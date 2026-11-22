@@ -21,6 +21,13 @@ PUBLIC_HOST = "www.alejandromira.com"
 CHALLENGE_TOKEN = "test-challenge-token"
 
 
+@pytest.fixture(autouse=True)
+def isolate_flag_configuration(monkeypatch):
+    monkeypatch.delenv("VERCEL", raising=False)
+    monkeypatch.delenv("PORTFOLIO_ASSISTANT_FLAG_TOKEN", raising=False)
+    monkeypatch.delenv("PUBLIC_POSTHOG_PROJECT_TOKEN", raising=False)
+
+
 @pytest.fixture(params=["preview", "production"])
 def hosted_live(monkeypatch, request):
     environment = request.param
@@ -31,6 +38,12 @@ def hosted_live(monkeypatch, request):
     monkeypatch.setenv("NVIDIA_API_KEY", "preview-nvidia-key")
     monkeypatch.delenv("PORTFOLIO_TURNSTILE_SECRET_KEY", raising=False)
     monkeypatch.setattr("api.chat.limiter", RequestLimiter())
+
+    async def enable(hosted):
+        assert hosted
+        return True
+
+    monkeypatch.setattr("api.chat.assistant_enabled", enable)
     return PUBLIC_HOST if environment == "production" else DEPLOYMENT_HOST
 
 
@@ -280,3 +293,49 @@ def test_hosted_live_fails_closed_without_budget_configuration(hosted_live, monk
     response = post_hosted_chat(hosted_live, message("Compare GLIO-IA and SIMDAT", "en"))
     assert response.status_code == 503
     assert "x-vercel-ai-ui-message-stream" not in response.headers
+
+
+def test_hosted_demo_visibility_does_not_enable_chat(monkeypatch):
+    monkeypatch.setenv("VERCEL_ENV", "production")
+    monkeypatch.setenv("PORTFOLIO_ASSISTANT_MODE", "fixture")
+    checks = []
+
+    async def enable(hosted):
+        checks.append(hosted)
+        return True
+
+    monkeypatch.setattr("api.chat.assistant_enabled", enable)
+    response = client.get(f"https://{PUBLIC_HOST}/api/chat")
+    assert response.status_code == 200
+    assert response.json() == {"enabled": True}
+    assert response.headers["cache-control"] == "no-store"
+    assert post_hosted_chat(PUBLIC_HOST, message("CV")).status_code == 404
+    assert checks == [True]
+
+
+def test_closed_flag_stops_hosted_chat_after_rate_limit(hosted_live, monkeypatch):
+    order = []
+
+    def rate_limit(client_id):
+        assert client_id == "testclient"
+        order.append("rate_limit")
+
+    async def disabled(hosted):
+        assert hosted
+        order.append("flag")
+        return False
+
+    def unexpected(*args, **kwargs):
+        pytest.fail("Disabled chat must stop before challenge verification, quota, or inference")
+
+    monkeypatch.setattr("api.chat.limiter.check", rate_limit)
+    monkeypatch.setattr("api.chat.assistant_enabled", disabled)
+    monkeypatch.setattr("api.chat.verify_challenge", unexpected)
+    monkeypatch.setattr("api.chat.reserve_inference_budget", unexpected)
+    monkeypatch.setattr("api.chat.open_model", unexpected)
+    response = client.get(f"https://{hosted_live}/api/chat")
+    assert response.status_code == 200
+    assert response.json() == {"enabled": False}
+    assert response.headers["cache-control"] == "no-store"
+    assert post_hosted_chat(hosted_live, message("CV")).status_code == 404
+    assert order == ["flag", "rate_limit", "flag"]

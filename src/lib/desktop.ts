@@ -1,6 +1,7 @@
 // ABOUTME: Tracks open portfolio apps across Astro navigations.
 // ABOUTME: Keeps project filters attached to the open catalogue tab.
 import { navigate } from 'astro:transitions/client';
+import { ASSISTANT_DISABLED, watchAssistantFlag } from '@/lib/assistant-flag';
 import {
   CATALOG_FILTERS_CHANGE,
   readCatalogFilters,
@@ -34,6 +35,9 @@ class PortfolioDesktop extends HTMLElement {
     const workLauncher = dock.find((link) => link.dataset.app === 'work')!;
     const workPath = workLauncher.dataset.desktopLaunch!;
     const toggle = this.querySelector<HTMLButtonElement>('[data-assistant-toggle]')!;
+    const assistant = this.querySelector<HTMLElement>('[data-assistant-island]')!;
+    const checkAssistantFlag = this.hasAttribute('data-assistant-flag');
+    let assistantEnabled = !checkAssistantFlag;
     const mobile = matchMedia(MOBILE_QUERY);
     const more = this.querySelector<HTMLDetailsElement>('[data-desktop-more]')!;
     const moreSummary = more.querySelector('summary')!;
@@ -54,13 +58,15 @@ class PortfolioDesktop extends HTMLElement {
       options,
     );
     const updateAssistant = () => {
-      const open = mobile.matches ? mobileOpen : !desktopMinimized;
-      this.dataset.assistant = open ? 'open' : 'minimized';
+      const open = assistantEnabled && (mobile.matches ? mobileOpen : !desktopMinimized);
+      const state = open ? 'open' : 'minimized';
+      this.dataset.assistant = assistantEnabled ? state : 'disabled';
       toggle.setAttribute('aria-expanded', String(open));
     };
     toggle.addEventListener(
       'click',
       () => {
+        if (!assistantEnabled) return;
         more.open = false;
         if (mobile.matches) mobileOpen = !mobileOpen;
         else desktopMinimized = !desktopMinimized;
@@ -99,6 +105,7 @@ class PortfolioDesktop extends HTMLElement {
           }
         }
         if (event.target.closest('[data-desktop-launch]')) more.open = false;
+        if (!assistantEnabled) return;
         if (event.target.closest('[data-assistant-minimize]')) {
           if (mobile.matches) mobileOpen = false;
           else desktopMinimized = true;
@@ -119,6 +126,31 @@ class PortfolioDesktop extends HTMLElement {
     );
     mobile.addEventListener('change', updateAssistant, options);
     updateAssistant();
+    if (checkAssistantFlag) {
+      toggle.hidden = true;
+      assistant.hidden = true;
+      assistant.setAttribute('inert', '');
+      watchAssistantFlag(
+        (enabled) => {
+          const focusedAssistant =
+            assistant.contains(document.activeElement) || document.activeElement === toggle;
+          assistantEnabled = enabled;
+          toggle.hidden = !enabled;
+          assistant.hidden = !enabled;
+          assistant.toggleAttribute('inert', !enabled);
+          if (!enabled) {
+            mobileOpen = false;
+            assistant
+              .querySelector('.desktop-assistant')
+              ?.dispatchEvent(new Event(ASSISTANT_DISABLED));
+          }
+          updateAssistant();
+          if (!enabled && focusedAssistant) profile.focus();
+        },
+        () => this.dataset.assistant === 'open',
+        options.signal,
+      );
+    }
 
     const sync = () => {
       if (pathKey(location.pathname) !== current) return;

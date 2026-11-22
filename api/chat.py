@@ -9,12 +9,14 @@ from functools import lru_cache
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 from pydantic_ai.messages import ModelResponse, TextPart
 from pydantic_ai.models.function import FunctionModel
 
 from server.assistant_budget import reserve_inference_budget
 from server.assistant_challenge import CHALLENGE_HEADER, verify_challenge
+from server.assistant_flag import assistant_enabled
 from server.assistant_harness import run_turn
 from server.assistant_inference import InferenceBudgetDenied, open_model, provider_secrets
 from server.assistant_security import (
@@ -58,11 +60,21 @@ async def public_reply(text, destination, secrets, refusal):
     })
 
 
+def is_hosted() -> bool:
+    return os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV") is not None
+
+
+@app.get("/api/chat")
+async def chat_availability():
+    enabled = await assistant_enabled(is_hosted())
+    return JSONResponse({"enabled": enabled}, headers={"Cache-Control": "no-store"})
+
+
 @app.post("/api/chat")
 async def chat(request: Request):
     mode = os.environ.get("PORTFOLIO_ASSISTANT_MODE")
     environment = os.environ.get("VERCEL_ENV")
-    hosted = os.environ.get("VERCEL") == "1" or environment is not None
+    hosted = is_hosted()
     live = mode == "live"
     public_live = (
         environment == "production"
@@ -81,6 +93,8 @@ async def chat(request: Request):
     validate_request_source(request, hosted, expected_host)
     if live:
         limiter.check(request_client(request, hosted))
+    if not await assistant_enabled(hosted):
+        raise HTTPException(status_code=404)
     body = bytearray()
     async for chunk in request.stream():
         if len(body) + len(chunk) > MAX_REQUEST_BYTES:
