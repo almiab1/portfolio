@@ -37,6 +37,7 @@ const isCover = variant === 'cover';
 <span
   class:list={['project-visual', { 'project-visual-category': !art, 'project-visual-source': art }]}
   data-visual-kind={art ? 'image' : 'category'}
+  data-fit={project.data.cover.fit ?? 'contain'}
   data-project-type={type}
   data-visual-source={art ? translationKey : undefined}
   aria-hidden="true"
