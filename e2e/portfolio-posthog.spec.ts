@@ -54,6 +54,7 @@ for (const locale of ['es', 'en'] as const) {
     const casePath = `${work}/glio-ia`;
     const events: AnalyticsEvent[] = [];
     const logs: string[] = [];
+    let assistantFlagChecks = 0;
     const requests: Array<{ path: string; headers: Record<string, string>; data: string }> = [];
     const cors = {
       'access-control-allow-origin': siteOrigin,
@@ -125,6 +126,11 @@ for (const locale of ['es', 'en'] as const) {
       }
       if (url.origin !== siteOrigin) return route.abort();
       if (url.pathname === '/api/chat') {
+        if (request.method() === 'GET') {
+          assistantFlagChecks += 1;
+          return route.fulfill({ status: 200, json: { enabled: true } });
+        }
+        if (request.method() !== 'POST') return route.fulfill({ status: 405 });
         const chunks = [
           { type: 'start', messageId: 'portfolio-playwright-reply' },
           { type: 'text-start', id: 'text' },
@@ -191,8 +197,9 @@ for (const locale of ['es', 'en'] as const) {
       name: locale === 'en' ? 'Assistant' : 'Asistente',
     });
     await expect(assistant.locator('#assistant-question')).toBeVisible();
+    expect(assistantFlagChecks).toBeGreaterThan(0);
     const chatRequest = page.waitForRequest(
-      (request) => new URL(request.url()).pathname === '/api/chat',
+      (request) => new URL(request.url()).pathname === '/api/chat' && request.method() === 'POST',
     );
     const question = assistant.getByRole('textbox');
     await question.fill(PRIVATE.question);
