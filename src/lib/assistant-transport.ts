@@ -39,7 +39,13 @@ const TOPICS: { pattern: RegExp; destination: Destination; reply: TranslationKey
     reply: 'desktop.replyCareer',
   },
   {
-    pattern: /\b(habilidad\w*|skill\w*|tecnolog\w*|formacion|education)\b/,
+    pattern:
+      /\b(formacion|education|degree\w*|estudio\w*|estudi\w*|(?:what|where) did (?:he|alex|alejandro) study)\b/,
+    destination: 'experience',
+    reply: 'desktop.replyEducation',
+  },
+  {
+    pattern: /\b(habilidad\w*|skill\w*|capacidad\w*|capabilit\w*|tecnolog\w*|technolog\w*)\b/,
     destination: 'skills',
     reply: 'desktop.replySkills',
   },

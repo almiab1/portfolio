@@ -57,6 +57,8 @@ def message(text, lang="es"):
     [
         ("es", "¿Qué ha hecho en IA médica?", "glio", "En AIJU"),
         ("en", "What are Alex's technical skills?", "skills", "PyTorch"),
+        ("en", "Where did he study?", "experience", "Interactive Technologies Engineering"),
+        ("es", "¿Qué estudió Alex?", "experience", "Ingeniería de Tecnologías Interactivas"),
         ("en", "Can I see the CV?", "cv", "preview and download"),
         ("es", "¿Cómo puedo contactar con Alex?", "contact", "correo"),
         ("en", "How can I email Alex?", "contact", "email Alex"),

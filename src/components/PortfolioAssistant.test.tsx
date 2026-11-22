@@ -24,7 +24,26 @@ const getSend = () => screen.getByRole('button', { name: 'Send message' });
 
 afterEach(() => {
   cleanup();
+  localStorage.removeItem('portfolio-assistant-avatar');
   vi.unstubAllGlobals();
+});
+
+test('shows Mota with the stored skin and lets visitors change it', () => {
+  localStorage.setItem('portfolio-assistant-avatar', 'pulse');
+  const { container } = render(<PortfolioAssistant lang="es" />);
+  const portrait = container.querySelector('.assistant-badge svg');
+
+  expect(screen.getByRole('heading', { name: 'Mota' })).toBeInTheDocument();
+  expect(portrait).toHaveAttribute('data-avatar', 'pulse');
+  expect(portrait).toHaveAttribute('aria-hidden', 'true');
+
+  fireEvent.click(screen.getAllByLabelText('Personalizar avatar')[0]);
+  const pixel = screen.getByRole('button', { name: 'Píxel' });
+  fireEvent.click(pixel);
+
+  expect(pixel).toHaveAttribute('aria-pressed', 'true');
+  expect(portrait).toHaveAttribute('data-avatar', 'pixel');
+  expect(localStorage.getItem('portfolio-assistant-avatar')).toBe('pixel');
 });
 
 test('keeps verification tokens out of the chat body and obtains a new token per submission', async () => {
@@ -40,12 +59,15 @@ test('keeps verification tokens out of the chat body and obtains a new token per
   expect(container).toHaveTextContent('Demo mode');
   render(assistant, { container, hydrate: true });
   expect(screen.getByText('Assistant preview')).toBeInTheDocument();
+  const portrait = container.querySelector('.assistant-badge svg');
+  expect(portrait).toHaveAttribute('data-expression', 'idle');
 
   for (const [attempt, token] of ['first-token', 'second-token'].entries()) {
     fireEvent.change(getQuestion(), { target: { value: `Question ${attempt + 1}` } });
     fireEvent.click(getSend());
     await waitFor(() => expect(widget.render).toHaveBeenCalledTimes(attempt + 1));
     expect(fetch).toHaveBeenCalledTimes(attempt);
+    expect(portrait).toHaveAttribute('data-expression', 'busy');
     const [, options] = widget.render.mock.calls[attempt];
     expect(options).toMatchObject({ action: 'portfolio_chat', 'response-field': false });
     await act(async () => options.callback(token));
@@ -57,6 +79,7 @@ test('keeps verification tokens out of the chat body and obtains a new token per
     expect(request?.body).not.toContain(token);
     await waitFor(() => expect(getQuestion()).toHaveValue(''));
     await waitFor(() => expect(screen.queryByRole('status')).toBeNull());
+    expect(portrait).toHaveAttribute('data-expression', 'idle');
     expect(widget.remove).toHaveBeenCalledTimes(attempt + 1);
   }
 });

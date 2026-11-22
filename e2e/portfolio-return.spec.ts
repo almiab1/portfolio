@@ -74,6 +74,9 @@ for (const locale of [
     const health = catalogue.getByRole('link', { name: /HealthDashboard/ });
     await search.fill('HealthDashboard');
     await expect(catalogue.locator('[data-project-id]:visible')).toHaveCount(1);
+    await expect(
+      catalogue.locator('.catalogue-list').getByRole('link', { name: /HealthDashboard/ }),
+    ).toBeVisible();
     await expect(health).toHaveAttribute('href', 'https://github.com/almiab1/HealthDashboard');
     await type.selectOption('ai');
     await expect(catalogue.locator('[data-project-id]:visible')).toHaveCount(0);

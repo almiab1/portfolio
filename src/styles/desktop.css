@@ -9,9 +9,22 @@
   grid-template-rows: auto minmax(0, 1fr);
   height: 100dvh;
   min-height: 20rem;
-  background:
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--background);
+}
+
+.desktop::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -2rem;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 1px 1px, #a67d5780 1px, transparent 1.6px),
     linear-gradient(#d8c8b659 1px, transparent 1px),
-    linear-gradient(90deg, #d8c8b659 1px, transparent 1px), var(--background);
+    linear-gradient(90deg, #d8c8b659 1px, transparent 1px);
   background-size: 2rem 2rem;
 }
 
@@ -61,7 +74,7 @@
 }
 
 .desktop-brand .portfolio-monogram {
-  display: grid;
+  display: block;
   flex: none;
 }
 
@@ -143,6 +156,16 @@
   color: var(--muted-foreground);
   font-size: 0.83rem;
   font-weight: 650;
+}
+
+.desktop-tabs a {
+  gap: 0.4rem;
+}
+
+.desktop-tabs a svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
 }
 
 .desktop-tabs a span {
@@ -327,11 +350,11 @@
 
 @container (max-width: 44rem) {
   .desktop-content .catalogue-row {
-    grid-template-columns: minmax(5rem, 23%) minmax(0, 1fr) auto;
+    grid-template-columns: minmax(5rem, 23%) minmax(0, 1fr);
   }
 
-  .desktop-content .catalogue-role {
-    display: none;
+  .desktop-content .catalogue-action {
+    grid-column: 2;
   }
 
   .desktop-content .case-reading-indexed {
@@ -415,6 +438,16 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .desktop::before {
+    animation: desktop-paper-drift 36s linear infinite;
+  }
+
+  @keyframes desktop-paper-drift {
+    to {
+      transform: translate(2rem, 2rem);
+    }
+  }
+
   .desktop-content:has(.case-study) {
     scroll-behavior: smooth;
   }

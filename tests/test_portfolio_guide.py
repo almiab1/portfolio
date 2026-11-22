@@ -174,3 +174,28 @@ def test_public_catalog_excludes_private_and_infrastructure_content():
     assert "https://" not in public_catalog and "http://" not in public_catalog
     assert catalog()["es"]["entries"]["glio-ia"]["url"] == "/work/glio-ia"
     assert catalog()["en"]["entries"]["glio-ia"]["url"] == "/en/work/glio-ia"
+
+
+@pytest.mark.parametrize(("lang", "question", "destination", "source"), [
+    ("es", "¿Cuál es su formación?", "experience", "education/overview"),
+    ("en", "What is his education?", "experience", "education/overview"),
+    ("en", "What did he study?", "experience", "education/overview"),
+    ("en", "Where did he study?", "experience", "education/overview"),
+    ("es", "¿Dónde estudió Alex?", "experience", "education/overview"),
+    ("es", "¿Cuáles son sus capacidades?", "skills", "skills/agents"),
+    ("en", "What are his capabilities?", "skills", "skills/agents"),
+])
+def test_profile_topics_use_their_published_evidence(lang, question, destination, source):
+    turn = prepare_turn(question, lang, ())
+    assert turn.destination == destination
+    assert source in {item.source for skill in turn.skills for item in skill.evidence}
+    entry = source.split("/")[0]
+    assert catalog()[lang]["entries"][entry]["url"].endswith(
+        "/experience" if entry == "education" else "/skills"
+    )
+
+
+def test_case_study_does_not_route_to_education():
+    turn = prepare_turn("Tell me about the GLIO-IA case study", "en", ())
+    assert turn.destination == "glio"
+    assert all(not item.source.startswith("education/") for skill in turn.skills for item in skill.evidence)

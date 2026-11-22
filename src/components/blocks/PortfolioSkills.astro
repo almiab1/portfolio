@@ -1,73 +1,97 @@
 ---
-// ABOUTME: Presents professional skills, evidence, and education.
-// ABOUTME: Provides a separate bilingual app inside the workspace.
-import { ArrowUpRight, BrainCircuit, CodeXml, GraduationCap, Sparkles } from 'lucide-react';
+// ABOUTME: Presents Alex’s capabilities through original editorial illustrations and examples from his work.
+// ABOUTME: Shares the capabilities page between the Spanish and English routes.
+import { Image } from 'astro:assets';
+import agents from '@/assets/capabilities/agents.webp';
+import ml from '@/assets/capabilities/ml.webp';
+import software from '@/assets/capabilities/software.webp';
+import { ArrowUpRight } from 'lucide-react';
 import Base from '@/layouts/BaseLayout.astro';
 import { getLocalizedUrl, useTranslations, type Language } from '@/i18n/utils';
 
 interface Props {
   lang: Language;
 }
+
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const skills = [
-  { key: 'agents', icon: Sparkles, path: '/experience', example: 'desktop.skillAgentsExample' },
-  { key: 'ml', icon: BrainCircuit, path: '/work/glio-ia', example: 'desktop.skillMlExample' },
-  {
-    key: 'software',
-    icon: CodeXml,
-    path: '/work#personal-projects-title',
-    example: 'desktop.skillSoftwareExample',
-  },
-] as const;
-const degrees = [
-  { key: 'master', school: 'Universidad Internacional Menéndez Pelayo', period: '2022–2024' },
-  { key: 'bachelor', school: 'Universitat Politècnica de València', period: '2017–2021' },
+const capabilities = [
+  { key: 'agents', art: agents, route: '/experience', anchor: '#gurusup' },
+  { key: 'ml', art: ml, route: '/work/glio-ia', anchor: '' },
+  { key: 'software', art: software, route: '/work', anchor: '#health-dashboard' },
 ] as const;
 ---
 
-<Base app={t('desktop.skills')} title={t('profile.skills')} description={t('desktop.skillsIntro')}>
+<Base app={t('desktop.skills')} title={t('desktop.skills')} description={t('desktop.skillsIntro')}>
   <main id="main-content" tabindex="-1">
     <div class="portfolio-wrap desktop-sheet">
       <header class="desktop-sheet-heading">
-        <h1>{t('profile.skills')}</h1>
+        <h1>{t('desktop.skills')}</h1>
         <p class="profile-lead">{t('desktop.skillsIntro')}</p>
       </header>
-      <ul class="skill-app-grid" role="list">
-        {skills.map(({ key, icon: Icon, path, example }) => {
-          const [route, anchor] = path.split('#');
-          const href = getLocalizedUrl(route, lang) + (anchor ? '#' + anchor : '');
-          return (
-            <li>
-              <span class="portfolio-icon">
-                <Icon size={22} aria-hidden="true" />
-              </span>
+      <ul class="capabilities" role="list">
+        {capabilities.map(({ key, art, route, anchor }) => (
+          <li class="capability">
+            <div class="capability-copy">
               <h2>{t(`profile.skill.${key}.title`)}</h2>
-              <p class="portfolio-muted">{t(`profile.skill.${key}.tools`)}</p>
-              <a class="portfolio-link" href={href}>
-                {t(example)} <ArrowUpRight size={16} aria-hidden="true" />
+              <p>{t(`capabilities.${key}.summary`)}</p>
+              <a class="portfolio-link" href={getLocalizedUrl(route, lang) + anchor}>
+                {t(`capabilities.${key}.example`)} <ArrowUpRight size={16} aria-hidden="true" />
               </a>
-            </li>
-          );
-        })}
+            </div>
+            <Image
+              class="capability-art"
+              src={art}
+              alt=""
+              widths={[384, 640, 960]}
+              sizes="(max-width: 784px) 90vw, (max-width: 1200px) 38vw, 560px"
+              loading={key === 'agents' ? 'eager' : 'lazy'}
+            />
+          </li>
+        ))}
       </ul>
-      <section class="skill-app-education" aria-labelledby="education-title">
-        <div class="portfolio-heading">
-          <span class="portfolio-icon">
-            <GraduationCap size={24} aria-hidden="true" />
-          </span>
-          <h2 id="education-title">{t('profile.education')}</h2>
-        </div>
-        <ul class="credentials-list" role="list">
-          {degrees.map(({ key, school, period }) => (
-            <li>
-              <p class="portfolio-kicker">{period}</p>
-              <h3>{t(`profile.degree.${key}`)}</h3>
-              <p class="portfolio-muted">{school}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
     </div>
   </main>
 </Base>
+
+<style>
+  .capabilities {
+    border-block-end: 1px solid var(--border);
+  }
+
+  .capability {
+    display: grid;
+    align-items: center;
+    gap: clamp(1rem, 4cqw, 3rem);
+    padding-block: clamp(1.25rem, 3.5cqw, 2.5rem);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .capability-copy h2 {
+    font-size: clamp(1.45rem, 3.5cqw, 2.35rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    font-weight: 730;
+  }
+
+  .capability-copy p {
+    max-width: 54ch;
+    margin-block: 0.55rem 0.4rem;
+    color: var(--muted-foreground);
+    line-height: 1.6;
+  }
+
+  .capability-art {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  @container (min-width: 40rem) {
+    .capability {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+</style>

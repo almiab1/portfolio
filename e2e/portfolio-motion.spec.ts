@@ -56,7 +56,7 @@ test('hover nudges only the directional arrows and uses opacity with reduced mot
   const arrow = row.locator('.catalogue-arrow');
   await row.hover();
   await expect(row).toHaveCSS('transform', 'none');
-  await expect(arrow).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 2, -2)');
+  await expect(arrow).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 2, 0)');
 
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.mouse.move(0, 0);
@@ -65,3 +65,42 @@ test('hover nudges only the directional arrows and uses opacity with reduced mot
   await expect(arrow).toHaveCSS('opacity', '1');
   await expect(arrow).toHaveCSS('transform', 'none');
 });
+
+test('animates the desk paper and status light according to the visitor’s motion preference', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const mascot = page.locator('.assistant-badge svg');
+  await expect(mascot).toHaveCSS('animation-name', 'assistant-avatar-look');
+  const paper = page.locator('.desktop');
+  const status = page.locator('.desktop-current-role > [aria-hidden]');
+  const paperMotion = () =>
+    paper.evaluate((element) => getComputedStyle(element, '::before').animationName);
+  const statusMotion = () =>
+    status.evaluate((element) => getComputedStyle(element, '::after').animationName);
+
+  await expect.poll(paperMotion).toBe('desktop-paper-drift');
+  await expect.poll(statusMotion).toBe('role-signal');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expect(mascot).toHaveCSS('animation-name', 'none');
+  await expect.poll(paperMotion).toBe('none');
+  await expect.poll(statusMotion).toBe('none');
+});
+
+for (const [route, tagline] of [
+  ['/', 'De prototipos de IA a sistemas en producción'],
+  ['/en/', 'From AI prototypes to production systems'],
+]) {
+  test(`shows the localized tagline and career icon on ${route}`, async ({ page }) => {
+    await page.goto(route);
+    await expect(page.getByText(tagline, { exact: true })).toBeVisible();
+    const mark = page.locator('.desktop-brand img');
+    await expect(mark).toHaveAttribute(
+      'src',
+      (await page.locator('link[rel="icon"]').getAttribute('href')) ?? '',
+    );
+    const career = page.locator('.profile-card-actions a[href*="/experience"]');
+    await expect(career.locator('svg[aria-hidden="true"]')).toBeVisible();
+  });
+}

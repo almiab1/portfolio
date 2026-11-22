@@ -1,0 +1,7 @@
+<!-- ABOUTME: Illustrates a product passport and verified chain of custody. -->
+<!-- ABOUTME: Provides a conceptual cover shared by the catalogue and case study. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#ead6c2"/>
+  <path d="M0 60h640M0 300h640M60 0v360m520-360v360" fill="none" stroke="#ac7d67" opacity=".45"/>
+  <rect x="178" y="57" width="188" height="246" rx="13" fill="#f7ebd9" stroke="#713e2d" stroke-width="5"/><path d="M205 94h99M205 112h67M205 234h117M205 252h86" stroke="#b48770" stroke-width="5" stroke-linecap="round"/><path d="M252 137l37 14v31c0 25-16 41-37 50-21-9-37-25-37-50v-31z" fill="#c4d6a5" stroke="#304b40" stroke-width="4"/><path d="m236 181 11 11 22-25" fill="none" stroke="#304b40" stroke-width="5"/><g fill="#c07555" stroke="#713e2d" stroke-width="3"><circle cx="418" cy="109" r="19"/><circle cx="471" cy="180" r="19"/><circle cx="418" cy="251" r="19"/></g><path d="m429 125 30 39m0 32-30 39" stroke="#713e2d" stroke-width="4" stroke-dasharray="6 6"/>
+</svg>
