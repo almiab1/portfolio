@@ -64,11 +64,7 @@ const links = [
     </header>
 
     <div class="case-cover">
-      {data.translationKey === 'glio-ia' ? (
-        <GlioFlow lang={lang} />
-      ) : (
-        <ProjectVisual project={project} variant="cover" />
-      )}
+      <ProjectVisual project={project} variant="cover" />
     </div>
 
     <div class="case-details">
@@ -142,6 +138,8 @@ const links = [
         </div>
       )}
     </div>
+
+    {data.translationKey === 'glio-ia' && <GlioFlow lang={lang} />}
 
     {data.gallery && data.gallery.length > 0 && (
       <section class="case-gallery" aria-labelledby="case-gallery-title">
